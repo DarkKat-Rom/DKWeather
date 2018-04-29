@@ -32,8 +32,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-//import com.android.internal.util.darkkat.WeatherHelper;
-
 import net.darkkatrom.dkweather.R;
 import net.darkkatrom.dkweather.WeatherInfo;
 import net.darkkatrom.dkweather.WeatherInfo.HourForecast;
@@ -302,16 +300,15 @@ public class ForecastWeatherFragment extends WeatherFragment {
             if (getActivity() == null || mWeatherInfo == null) {
                 return;
             }
-//            final Drawable icon = mWeatherInfo.getConditionIcon(
-//                    WeatherHelper.getDetailedWeatherConditionIconType(getActivity()),
-//                    h.getConditionCode());
+            final Drawable icon = mWeatherInfo.getConditionIcon(
+                    WeatherInfo.ICON_MONOCHROME, h.getConditionCode());
             final String rain = h.getFormattedRain();
             final String snow = h.getFormattedSnow();
             final String noPrecipitationValue = getActivity().getResources().getString(
                     R.string.no_precipitation_value);
 
             timeValue.setText(h.getTime());
-//            image.setImageDrawable(icon);
+            image.setImageDrawable(icon);
             tempValue.setText(h.getFormattedTemperature());
             conditionValue.setText(h.getCondition());
             if (!snow.equals(WeatherInfo.NO_VALUE)) {
