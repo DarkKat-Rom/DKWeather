@@ -38,7 +38,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 import android.widget.TextView;
 
-import com.android.internal.util.darkkat.ThemeHelper;
+//import com.android.internal.util.darkkat.ThemeHelper;
 
 import net.darkkatrom.dkweather.R;
 import net.darkkatrom.dkweather.WeatherInfo;
@@ -128,7 +128,8 @@ public class MainActivity extends BaseActivity implements
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        updateTheme();
+//        updateTheme();
+        setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.main);
@@ -147,6 +148,7 @@ public class MainActivity extends BaseActivity implements
         }
     }
 
+/*
     private void updateTheme() {
         mUseOptionalLightStatusBar = ThemeHelper.themeSupportsOptionalĹightSB(this)
                 && ThemeHelper.useLightStatusBar(this);
@@ -194,7 +196,7 @@ public class MainActivity extends BaseActivity implements
             getWindow().getDecorView().setSystemUiVisibility(newFlags);
         }
     }
-
+ */
     private void createOrRestoreState(Bundle b) {
         if (b == null) {
             mVisibleScreen = TODAY;
@@ -264,16 +266,16 @@ public class MainActivity extends BaseActivity implements
     protected void onResume() {
         super.onResume();
 
-        boolean useOptionalLightStatusBar = ThemeHelper.themeSupportsOptionalĹightSB(this)
-                && ThemeHelper.useLightStatusBar(this);
-        boolean useOptionalLightNavigationBar = ThemeHelper.themeSupportsOptionalĹightNB(this)
-                && ThemeHelper.useLightNavigationBar(this);
-        if (mUseOptionalLightStatusBar != useOptionalLightStatusBar
-                || mUseOptionalLightNavigationBar != useOptionalLightNavigationBar) {
-            recreate();
-        } else {
+//        boolean useOptionalLightStatusBar = ThemeHelper.themeSupportsOptionalĹightSB(this)
+//                && ThemeHelper.useLightStatusBar(this);
+//        boolean useOptionalLightNavigationBar = ThemeHelper.themeSupportsOptionalĹightNB(this)
+//                && ThemeHelper.useLightNavigationBar(this);
+//        if (mUseOptionalLightStatusBar != useOptionalLightStatusBar
+//                || mUseOptionalLightNavigationBar != useOptionalLightNavigationBar) {
+//            recreate();
+//        } else {
             mWeatherObserver.observe();
-        }
+//        }
     }
 
     @Override
