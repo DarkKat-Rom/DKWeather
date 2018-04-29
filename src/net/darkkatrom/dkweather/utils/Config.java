@@ -46,6 +46,11 @@ public class Config {
     public static final String PREF_KEY_NOTIF_SHOW_LOCATION = "notification_show_location";
     public static final String PREF_KEY_NOTIF_SHOW_DK_ICON  = "notification_show_dk_icon";
 
+    public static final String PREF_KEY_THEME_USE_LIGHT_STATUS_BAR =
+            "theme_use_light_status_bar";
+    public static final String PREF_KEY_THEME_USE_LIGHT_NAVIGATION_BAR =
+            "theme_use_light_navigation_bar";
+
     public static final String DEFAULT_OWM_API_KEY = "6d2f4f034d60d9680a720c12df8c7ddd";
 
     public static boolean isEnabled(Context context) {
@@ -220,5 +225,19 @@ public class Config {
                 .getDefaultSharedPreferences(context);
 
         return prefs.getBoolean(PREF_KEY_NOTIF_SHOW_DK_ICON, true);
+    }
+
+    public static boolean getThemUseLightStatusBar(Context context) {
+        SharedPreferences prefs = PreferenceManager
+                .getDefaultSharedPreferences(context);
+
+        return prefs.getBoolean(PREF_KEY_THEME_USE_LIGHT_STATUS_BAR, false);
+    }
+
+    public static boolean getThemUseLightNavigationBar(Context context) {
+        SharedPreferences prefs = PreferenceManager
+                .getDefaultSharedPreferences(context);
+
+        return prefs.getBoolean(PREF_KEY_THEME_USE_LIGHT_NAVIGATION_BAR, false);
     }
 }

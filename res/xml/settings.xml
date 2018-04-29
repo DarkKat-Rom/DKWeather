@@ -59,6 +59,12 @@
         android:title="@string/weather_custom_location_title"
         android:dialogTitle="@string/weather_custom_location_dialog_title"
         android:dependency="custom_location" />
+
+    <PreferenceScreen
+        android:key="theme"
+        android:title="@string/theme_title"
+        android:fragment="net.darkkatrom.dkweather.fragments.ThemeSettings" />
+
 <!--
     <PreferenceCategory
         android:key="settings_cat_app_drawer"

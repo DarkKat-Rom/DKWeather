@@ -87,11 +87,17 @@
 	<string name="default_api_key_title">Standard Darkkat API Key</string>
 	<string name="custom_api_key_summary">Eigener API key</string>
 	<string name="owm_api_key_dlg_message">Gebe hier den API Key ein, oder lösche den API Key, um den Standard Darkkat API Key zu benutzen.</string>
+    <string name="theme_title">Theme</string>
 	<string name="show_settings_shortcut">Einstellungen-Verknüpfung anzeigen</string>
 
 	<string name="show_notification_title">Benachrichtigung anzeigen</string>
 	<string name="notification_show_location_title">Standort anzeigen</string>
 	<string name="notification_show_dk_icon_title">DarkKat Icon anzeigen</string>
+
+    <string name="theme_use_light_status_bar_title">Helle Status- &amp; Aktionsleiste</string>
+    <string name="theme_use_light_status_bar_summary">Aktivieren um eine helle Status- &amp; Aktionsleiste zu benutzen</string>
+    <string name="theme_use_light_navigation_bar_title">Helle Navigationsleiste</string>
+    <string name="theme_use_light_navigation_bar_summary">Aktivieren um eine helle Navigationsleiste zu benutzen</string>
 
     <!-- CyanogenMod additions -->
 
