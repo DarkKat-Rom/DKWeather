@@ -23,13 +23,14 @@
     <color name="notification_condition_icon_tint">@color/accent_darkkat</color>
     <!-- General colors (used for all themes) end -->
 
-    <color name="theme_background_dark">@color/darkkat_blue_grey</color>
-    <color name="theme_background_floating_dark">@color/darkkat_blue_blue_grey</color>
-
     <!-- Overlay for theme default action- and status bar colors -->
     <color name="theme_primary">@color/primary_darkkat</color>
     <color name="theme_primary_dark">@color/primary_dark_darkkat</color>
 
     <!-- Overlay for theme default accent color -->
     <color name="theme_accent">@color/accent_darkkat</color>
+
+    <!-- Overlay for theme default background colors on dark theme -->
+    <color name="theme_background_dark">@color/darkkat_blue_grey</color>
+    <color name="theme_background_floating_dark">@color/darkkat_blue_blue_grey</color>
 </resources>

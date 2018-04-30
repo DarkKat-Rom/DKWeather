@@ -25,10 +25,6 @@
     <color name="material_grey_100">#fff5f5f5</color>
     <color name="material_grey_300">#ffe0e0e0</color>
 
-    <!-- Light mode colors -->
-    <color name="background_light_action_bar">@color/material_grey_100</color>
-    <color name="background_light_system_bars">@color/material_grey_300</color>
-
     <!-- DarkKat colors -->
     <color name="darkkat_blue_grey">#ff1b1f23</color>
     <color name="darkkat_blue_blue_grey">#ff1f2429</color>
@@ -36,18 +32,10 @@
     <color name="primary_dark_darkkat">@color/material_blue_700</color>
     <color name="accent_darkkat">#ff5a8596</color>  <!-- 12% holo blue light over material blue grey 500 -->
 
-    <!-- Whiteout colors -->
-    <color name="primary_whiteout">@color/background_light_action_bar</color>
-    <color name="primary_dark_whiteout">@color/background_light_system_bars</color>
-    <color name="accent_whiteout">@color/black</color>
-
-    <!-- Blackout colors -->
-    <color name="primary_blackout">#ff101010</color>
-    <color name="primary_dark_blackout">@color/black</color>
-    <color name="accent_blackout">@color/white</color>
+    <!-- Color used for the light status and navigation bar -->
+    <color name="background_light_system_bars">@color/material_grey_300</color>
 
     <!-- Text and icon colors -->
     <color name="text_primary_dark">@color/white</color>
-    <color name="text_primary_light">#de000000</color>  <!-- 87% black -->
     <color name="text_secondary_light">#8a000000</color>  <!-- 54% black -->
 </resources>
