@@ -29,6 +29,7 @@ import net.darkkatrom.dkweather.utils.Config;
 public class ThemeSettings extends PreferenceFragment implements
         OnPreferenceChangeListener {
 
+    private SwitchPreference mUseDarkTheme;
     private SwitchPreference mUseLightStatusBar;
     private SwitchPreference mUseLightNavigationBar;
 
@@ -37,6 +38,9 @@ public class ThemeSettings extends PreferenceFragment implements
         super.onCreate(savedInstanceState);
 
         addPreferencesFromResource(R.xml.theme_settings);
+
+        mUseDarkTheme = (SwitchPreference) findPreference(Config.PREF_KEY_THEME_USE_DARK_THEME);
+        mUseDarkTheme.setOnPreferenceChangeListener(this);
 
         mUseLightStatusBar = (SwitchPreference) findPreference(Config.PREF_KEY_THEME_USE_LIGHT_STATUS_BAR);
         mUseLightStatusBar.setOnPreferenceChangeListener(this);
@@ -50,7 +54,8 @@ public class ThemeSettings extends PreferenceFragment implements
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         boolean value;
 
-        if (preference == mUseLightStatusBar
+        if (preference == mUseDarkTheme
+                    || preference == mUseLightStatusBar
                     || preference == mUseLightNavigationBar) {
             ((MainActivity) getActivity()).recreateForThemeChange();
             return true;

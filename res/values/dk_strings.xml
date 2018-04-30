@@ -94,10 +94,12 @@
     <string name="notification_show_location_title">Show location</string>
     <string name="notification_show_dk_icon_title">Show DarkKat icon</string>
 
+    <string name="theme_use_dark_theme_title">Dark theme</string>
+    <string name="theme_use_dark_theme_summary">Enable to use a dark theme</string>
     <string name="theme_use_light_status_bar_title">Light status- &amp; action bar</string>
-    <string name="theme_use_light_status_bar_summary">Enable to use a light status- &amp; action bar</string>
+    <string name="theme_use_light_status_bar_summary">Enable to use a light status- &amp; action bar on the light theme</string>
     <string name="theme_use_light_navigation_bar_title">Light navigation bar</string>
-    <string name="theme_use_light_navigation_bar_summary">Enable to use a light navigation bar</string>
+    <string name="theme_use_light_navigation_bar_summary">Enable to use a light navigation bar on the light theme</string>
 
     <!-- CyanogenMod additions -->
 

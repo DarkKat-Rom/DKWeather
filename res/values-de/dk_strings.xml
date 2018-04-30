@@ -94,10 +94,12 @@
 	<string name="notification_show_location_title">Standort anzeigen</string>
 	<string name="notification_show_dk_icon_title">DarkKat Icon anzeigen</string>
 
+    <string name="theme_use_dark_theme_title">Dunkles Theme</string>
+    <string name="theme_use_dark_theme_summary">Aktivieren um ein dunkles Theme zu benutzen</string>
     <string name="theme_use_light_status_bar_title">Helle Status- &amp; Aktionsleiste</string>
-    <string name="theme_use_light_status_bar_summary">Aktivieren um eine helle Status- &amp; Aktionsleiste zu benutzen</string>
+    <string name="theme_use_light_status_bar_summary">Aktivieren um bei dem hellen Theme eine helle Status- &amp; Aktionsleiste zu benutzen</string>
     <string name="theme_use_light_navigation_bar_title">Helle Navigationsleiste</string>
-    <string name="theme_use_light_navigation_bar_summary">Aktivieren um eine helle Navigationsleiste zu benutzen</string>
+    <string name="theme_use_light_navigation_bar_summary">Aktivieren um bei dem hellen Theme eine helle Navigationsleiste zu benutzen</string>
 
     <!-- CyanogenMod additions -->
 

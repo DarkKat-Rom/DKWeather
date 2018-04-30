@@ -18,15 +18,24 @@ limitations under the License.
     android:title="@string/theme_title">
 
     <SwitchPreference
+        android:key="theme_use_dark_theme"
+        android:title="@string/theme_use_dark_theme_title"
+        android:summary="@string/theme_use_dark_theme_summary"
+        android:defaultValue="false"
+        android:disableDependentsState="true" />
+
+    <SwitchPreference
         android:key="theme_use_light_status_bar"
         android:title="@string/theme_use_light_status_bar_title"
         android:summary="@string/theme_use_light_status_bar_summary"
-        android:defaultValue="false" />
+        android:defaultValue="false"
+        android:dependency="theme_use_dark_theme" />
 
     <SwitchPreference
         android:key="theme_use_light_navigation_bar"
         android:title="@string/theme_use_light_navigation_bar_title"
         android:summary="@string/theme_use_light_navigation_bar_summary"
-        android:defaultValue="false" />
+        android:defaultValue="false"
+        android:dependency="theme_use_dark_theme" />
 
 </PreferenceScreen>

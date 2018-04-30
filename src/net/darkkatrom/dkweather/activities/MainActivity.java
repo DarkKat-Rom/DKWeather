@@ -90,6 +90,7 @@ public class MainActivity extends BaseActivity implements
 
     private boolean mUpdateRequested = false;
 
+    private boolean mUseDarkTheme;
     private boolean mUseOptionalLightStatusBar;
     private boolean mUseOptionalLightNavigationBar;
 
@@ -146,18 +147,21 @@ public class MainActivity extends BaseActivity implements
     }
 
     private void updateTheme() {
-        mUseOptionalLightStatusBar = Config.getThemUseLightStatusBar(this);
-        mUseOptionalLightNavigationBar = Config.getThemUseLightNavigationBar(this);
+        mUseDarkTheme = Config.getThemUseDarkTheme(this);
+        mUseOptionalLightStatusBar = !mUseDarkTheme && Config.getThemUseLightStatusBar(this);
+        mUseOptionalLightNavigationBar = !mUseDarkTheme && Config.getThemUseLightNavigationBar(this);
         int themeResId = 0;
 
-        if (mUseOptionalLightStatusBar && mUseOptionalLightNavigationBar) {
+        if (mUseDarkTheme) {
+            themeResId = R.style.AppThemeDark;
+        } else if (mUseOptionalLightStatusBar && mUseOptionalLightNavigationBar) {
             themeResId = R.style.ThemeOverlay_LightStatusBar_LightNavigationBar;
         } else if (mUseOptionalLightStatusBar) {
             themeResId = R.style.ThemeOverlay_LightStatusBar;
         } else if (mUseOptionalLightNavigationBar) {
             themeResId = R.style.ThemeOverlay_LightNavigationBar;
         } else {
-            themeResId = R.style.AppTheme;
+            themeResId = R.style.AppThemeLight;
         }
         setTheme(themeResId);
 

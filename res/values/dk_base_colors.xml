@@ -30,6 +30,8 @@
     <color name="background_light_system_bars">@color/material_grey_300</color>
 
     <!-- DarkKat colors -->
+    <color name="darkkat_blue_grey">#ff1b1f23</color>
+    <color name="darkkat_blue_blue_grey">#ff1f2429</color>
     <color name="primary_darkkat">@color/material_blue_500</color>
     <color name="primary_dark_darkkat">@color/material_blue_700</color>
     <color name="accent_darkkat">#ff5a8596</color>  <!-- 12% holo blue light over material blue grey 500 -->
