@@ -1,7 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="net.darkkatrom.dkweather"
-    android:versionCode="1"
-    android:versionName="1.0">
+    package="net.darkkatrom.dkweather">
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
