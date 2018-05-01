@@ -1,6 +1,7 @@
 About
 -----
 This is a minimized service to fetch weather data from OpenWeatherMap or Yahoo.  
+(Yahoo is disabled for now).  
 This is a clone of "OmniJaws 'Just another weather service'",  
 (in some parts based of "OmniJaws 'Just another weather service'")
 
