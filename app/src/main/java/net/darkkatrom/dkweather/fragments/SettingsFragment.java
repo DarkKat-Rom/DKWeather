@@ -54,7 +54,6 @@ public class SettingsFragment extends PreferenceFragment implements
     private ListPreference mUnits;
     private SwitchPreference mCustomLocation;
     private CustomLocationPreference mLocation;
-//    private SwitchPreference mShowSettingsShortcut;
 
     private boolean mTriggerUpdate;
     private boolean mTriggerPermissionCheck;
@@ -100,10 +99,6 @@ public class SettingsFragment extends PreferenceFragment implements
             mTriggerUpdate = false;
             checkLocationEnabled();
         }
-
-//        mShowSettingsShortcut = (SwitchPreference) findPreference(Config.PREF_KEY_SHOW_SETTINGS_SHORTCUT);
-//        mShowSettingsShortcut.setChecked(Config.getShowSettingsShortcut(getActivity()));
-//        mShowSettingsShortcut.setOnPreferenceChangeListener(this);
 
         setHasOptionsMenu(true);
     }
@@ -173,10 +168,6 @@ public class SettingsFragment extends PreferenceFragment implements
                 }
             }
             return true;
-//        } else if (preference == mShowSettingsShortcut) {
-//            value = (Boolean) newValue;
-//            mShowSettingsShortcut.setChecked(value);
-//            Config.setShowSettingsShortcut(getActivity(), value);
         }
         return false;
     }

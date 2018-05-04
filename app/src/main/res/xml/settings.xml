@@ -65,15 +65,4 @@
         android:title="@string/theme_title"
         android:fragment="net.darkkatrom.dkweather.fragments.ThemeSettings" />
 
-<!--
-    <PreferenceCategory
-        android:key="settings_cat_app_drawer"
-        android:title="@string/settings_cat_app_drawer_title">
-
-        <SwitchPreference
-            android:key="show_settings_shortcut"
-            android:title="@string/show_settings_shortcut" />
-
-    </PreferenceCategory>
--->
 </PreferenceScreen>

@@ -74,7 +74,6 @@
 	<string name="precipitation_unit_3h_title">&#160;mm/3h</string>
 
     <!-- Settings -->
-	<string name="settings_cat_app_drawer_title">App-Übersicht</string>
 	<string name="weather_settings_title">Wetter Einstellungen</string>
 	<string name="notification_title">Laufende Benachrichtigung</string>
 	<string name="owm_api_key_title">Open Weather Map API Key</string>
@@ -82,7 +81,6 @@
 	<string name="custom_api_key_summary">Eigener API key</string>
 	<string name="owm_api_key_dlg_message">Gebe hier den API Key ein, oder lösche den API Key, um den Standard Darkkat API Key zu benutzen.</string>
     <string name="theme_title">Theme</string>
-	<string name="show_settings_shortcut">Einstellungen-Verknüpfung anzeigen</string>
 
 	<string name="show_notification_title">Benachrichtigung anzeigen</string>
 	<string name="notification_show_location_title">Standort anzeigen</string>

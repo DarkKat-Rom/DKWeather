@@ -20,7 +20,6 @@ package net.darkkatrom.dkweather.utils;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.preference.PreferenceManager;
 
 import net.darkkatrom.dkweather.providers.AbstractWeatherProvider;
@@ -36,7 +35,6 @@ public class Config {
     public static final String PREF_KEY_UNITS                  = "units";
     public static final String PREF_KEY_CUSTOM_LOCATION        = "custom_location";
     public static final String PREF_KEY_CUSTOM_LOCATION_CITY   = "weather_custom_location_city";
-    public static final String PREF_KEY_SHOW_SETTINGS_SHORTCUT = "show_settings_shortcut";
     public static final String PREF_KEY_LOCATION_ID            = "location_id";
     public static final String PREF_KEY_LOCATION_NAME          = "location_name";
     public static final String PREF_KEY_WEATHER_DATA           = "weather_data";
@@ -144,26 +142,6 @@ public class Config {
                 .getDefaultSharedPreferences(context);
 
         prefs.edit().putString(PREF_KEY_LOCATION_NAME, name).commit();
-    }
-
-    public static boolean getShowSettingsShortcut(Context context) {
-        PackageManager pm = context.getPackageManager();
-        ComponentName cn = new ComponentName(context, "net.darkkatrom.dkweather.LauncherActivity");
-        int componentEnabledSetting = pm.getComponentEnabledSetting(cn);
-        boolean isEnabled = componentEnabledSetting == PackageManager.COMPONENT_ENABLED_STATE_ENABLED;
-        return isEnabled;
-    }
-
-    public static void setShowSettingsShortcut(Context context, boolean enabled) {
-        if (Config.getShowSettingsShortcut(context) == enabled) {
-            return;
-        }
-        PackageManager pm = context.getPackageManager();
-        ComponentName cn = new ComponentName(context, "net.darkkatrom.dkweather.LauncherActivity");
-        int componentEnabledSetting = enabled
-                ? PackageManager.COMPONENT_ENABLED_STATE_ENABLED
-                : PackageManager.COMPONENT_ENABLED_STATE_DISABLED;
-        pm.setComponentEnabledSetting(cn, componentEnabledSetting, PackageManager.DONT_KILL_APP);
     }
 
     public static WeatherInfo getWeatherData(Context context) {
