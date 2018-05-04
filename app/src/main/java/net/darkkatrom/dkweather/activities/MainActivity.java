@@ -16,7 +16,6 @@
 package net.darkkatrom.dkweather.activities;
 
 import android.app.Fragment;
-import android.app.UiModeManager;
 import android.content.ContentResolver;
 import android.database.ContentObserver;
 import android.net.Uri;
@@ -40,13 +39,14 @@ import android.widget.TextView;
 
 import net.darkkatrom.dkweather.R;
 import net.darkkatrom.dkweather.WeatherInfo;
-import net.darkkatrom.dkweather.WeatherService;
 import net.darkkatrom.dkweather.fragments.WeatherFragment;
 import net.darkkatrom.dkweather.fragments.CurrentWeatherFragment;
 import net.darkkatrom.dkweather.fragments.ForecastWeatherFragment;
 import net.darkkatrom.dkweather.fragments.NoWeatherDataFragment;
 import net.darkkatrom.dkweather.fragments.SettingsFragment;
 import net.darkkatrom.dkweather.utils.Config;
+import net.darkkatrom.dkweather.utils.JobUtil;
+import net.darkkatrom.dkweather.utils.NotificationUtil;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -136,6 +136,9 @@ public class MainActivity extends BaseActivity implements
         mResolver = getContentResolver();
         mWeatherObserver = new WeatherObserver(mHandler);
         mWeatherInfo = getWeather();
+
+        NotificationUtil notificationUtil = new NotificationUtil(this);
+        notificationUtil.setNotificationChannels();
 
         createOrRestoreState(savedInstanceState == null ? getIntent().getExtras() : savedInstanceState);
         updateActionBar();
@@ -374,7 +377,7 @@ public class MainActivity extends BaseActivity implements
             });
             mUpdateButton.startAnimation(anim);
             mUpdateRequested = true;
-            WeatherService.startUpdate(this, true);
+            JobUtil.startUpdate(this);
         }
     }
 
