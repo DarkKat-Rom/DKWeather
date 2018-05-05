@@ -33,6 +33,9 @@
     <string name="update_weather">Update Weather</string>
     <string name="weather_updated">Weather data has been updated</string>
     <string name="action_bar_no_weather_data_part">, (no weather data)</string>
+    <string name="action_bar_subtitle_settings">@string/settings_title</string>
+    <string name="action_bar_subtitle_settings_notification">Settings -> \'Ongoing notification\'</string>
+    <string name="action_bar_subtitle_settings_theme">Settings -> \'Theme\'</string>
 
     <!-- Weather fragments -->
     <string name="current_title">Current</string>

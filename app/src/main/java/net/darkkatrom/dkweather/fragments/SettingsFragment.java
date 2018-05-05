@@ -99,13 +99,14 @@ public class SettingsFragment extends PreferenceFragment implements
             mTriggerUpdate = false;
             checkLocationEnabled();
         }
-
-        setHasOptionsMenu(true);
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        if (getActivity().getActionBar() != null) {
+            getActivity().getActionBar().setSubtitle(R.string.action_bar_subtitle_settings);
+        }
         if (mTriggerPermissionCheck) {
             checkLocationPermissions();
             mTriggerPermissionCheck = false;

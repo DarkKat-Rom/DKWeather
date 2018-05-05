@@ -48,6 +48,10 @@ public class ThemeSettings extends PreferenceFragment implements
         mUseLightNavigationBar =
                 (SwitchPreference) findPreference(Config.PREF_KEY_THEME_USE_LIGHT_NAVIGATION_BAR);
         mUseLightNavigationBar.setOnPreferenceChangeListener(this);
+
+        if (getActivity().getActionBar() != null) {
+            getActivity().getActionBar().setSubtitle(R.string.action_bar_subtitle_settings_theme);
+        }
     }
 
     @Override

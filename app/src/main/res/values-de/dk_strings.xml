@@ -33,6 +33,9 @@
     <string name="update_weather">Wetter aktuallisieren</string>
     <string name="weather_updated">Wetterdaten wurden aktuallisiert</string>
     <string name="action_bar_no_weather_data_part">, (keine Wetterdaten)</string>
+    <string name="action_bar_subtitle_settings">@string/settings_title</string>
+    <string name="action_bar_subtitle_settings_notification">Einstellungen -> \"Laufende Benachrichtigung\"</string>
+    <string name="action_bar_subtitle_settings_theme">Einstellungen -> \"Theme\"</string>
 
     <!-- Weather fragments -->
     <string name="current_title">Aktuell</string>
