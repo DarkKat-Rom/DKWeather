@@ -75,28 +75,40 @@
     <string name="precipitation_unit_3h_title">&#160;mm/3h</string>
 
     <!-- Settings -->
+
+    <!-- Main -->
     <string name="weather_settings_title">Weather settings</string>
+    <string name="enable_summary">Enable the weather</string>
     <string name="notification_title">Ongoing notification</string>
+    <string name="notification_summary">Choose how to display the ongoing notification</string>
     <string name="owm_api_key_title">Open Weather Map API key</string>
     <string name="default_api_key_title">Default Darkkat API key</string>
     <string name="custom_api_key_summary">Own API key</string>
     <string name="owm_api_key_dlg_message">Enter the API key here, or delete API key, to use the default DarkKat API key</string>
+    <string name="custom_location_summary">Enable to use a custom location, disable to use the Android location service,\n(\'Location\' has to be enabled via system settings, and location permission has to be granted).</string>
     <string name="condition_icon_title">Condition icon</string>
     <string name="condition_icon_monochrome">Monochrome</string>
     <string name="condition_icon_colored">Colored</string>
     <string name="condition_icon_vclouds">VClouds</string>
     <string name="theme_title">Theme</string>
+    <string name="theme_summary">Choose how to display the app ui</string>
 
+    <!-- Notification -->
     <string name="show_notification_title">Show ongoing notification</string>
+    <string name="show_notification_summary">Enable to add an ongoing weather notification, disable to remove the ongoing weather notification</string>
     <string name="notification_show_location_title">Show location</string>
+    <string name="notification_show_location_summary">Enable to show the weather location</string>
     <string name="notification_show_dk_icon_title">Show DarkKat icon</string>
+    <string name="notification_show_dk_icon_summary">Enable to show the DarkKat icon as notification icon, disable to show the current temperature as notification icon</string>
 
+    <!-- Theme -->
     <string name="theme_use_dark_theme_title">Dark theme</string>
     <string name="theme_use_dark_theme_summary">Enable to use a dark theme</string>
     <string name="theme_use_light_status_bar_title">Light status- &amp; action bar</string>
     <string name="theme_use_light_status_bar_summary">Enable to use a light status- &amp; action bar on the light theme</string>
     <string name="theme_use_light_navigation_bar_title">Light navigation bar</string>
     <string name="theme_use_light_navigation_bar_summary">Enable to use a light navigation bar on the light theme</string>
+    <!-- Settings end -->
 
     <!-- CyanogenMod additions -->
 

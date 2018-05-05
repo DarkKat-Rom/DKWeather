@@ -75,28 +75,40 @@
 	<string name="precipitation_unit_3h_title">&#160;mm/3h</string>
 
     <!-- Settings -->
+
+    <!-- Main -->
 	<string name="weather_settings_title">Wetter Einstellungen</string>
+    <string name="enable_summary">Wetter aktivieren</string>
 	<string name="notification_title">Laufende Benachrichtigung</string>
+    <string name="notification_summary">Wähle wie die Laufende Benachrichtigung dargestellt werden soll</string>
 	<string name="owm_api_key_title">Open Weather Map API Key</string>
 	<string name="default_api_key_title">Standard Darkkat API Key</string>
 	<string name="custom_api_key_summary">Eigener API key</string>
 	<string name="owm_api_key_dlg_message">Gebe hier den API Key ein, oder lösche den API Key, um den Standard Darkkat API Key zu benutzen.</string>
+    <string name="custom_location_summary">Aktivieren um einen Benutzerdefinierten Standort zu nutzen, deaktivieren um den Android Standort Service zu nutzen,\n(\"Standort\" muß in den Systemeinstellungen aktiviert werden, und die Standortberechtigung muß gewärt werden).</string>
     <string name="condition_icon_title">Wetterlage Symbol</string>
     <string name="condition_icon_monochrome">Einfarbig</string>
     <string name="condition_icon_colored">Farbig</string>
     <string name="condition_icon_vclouds">VClouds</string>
     <string name="theme_title">Theme</string>
+    <string name="theme_summary">Wähle wie die App-Benutzeroberfläche dargestellt werden soll</string>
 
+    <!-- Notification -->
 	<string name="show_notification_title">Benachrichtigung anzeigen</string>
+    <string name="show_notification_summary">Aktivieren um eine Laufende Wetter Benachrichtigung hinzuzufügen, deaktivieren um die Laufende Wetter Benachrichtigung zu entferenen</string>
 	<string name="notification_show_location_title">Standort anzeigen</string>
+    <string name="notification_show_location_summary">Aktivieren um den Wetter Standort anzuzeigen</string>
 	<string name="notification_show_dk_icon_title">DarkKat Icon anzeigen</string>
+    <string name="notification_show_dk_icon_summary">Aktivieren um das DarkKat Icon als Benachrichtigungs-Icon anzuzeigen, deaktivieren um die aktuelle Temperatur als Benachrichtigungs-Icon anzuzeigen</string>
 
+    <!-- Theme -->
     <string name="theme_use_dark_theme_title">Dunkles Theme</string>
     <string name="theme_use_dark_theme_summary">Aktivieren um ein dunkles Theme zu benutzen</string>
     <string name="theme_use_light_status_bar_title">Helle Status- &amp; Aktionsleiste</string>
     <string name="theme_use_light_status_bar_summary">Aktivieren um bei dem hellen Theme eine helle Status- &amp; Aktionsleiste zu benutzen</string>
     <string name="theme_use_light_navigation_bar_title">Helle Navigationsleiste</string>
     <string name="theme_use_light_navigation_bar_summary">Aktivieren um bei dem hellen Theme eine helle Navigationsleiste zu benutzen</string>
+    <!-- Settings end -->
 
     <!-- CyanogenMod additions -->
 

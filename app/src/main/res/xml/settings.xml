@@ -20,11 +20,13 @@
     <SwitchPreference
         android:key="enable"
         android:title="@string/enable_title"
+        android:summary="@string/enable_summary"
         android:defaultValue="false" />
 
     <PreferenceScreen
         android:key="notification"
         android:title="@string/notification_title"
+        android:summary="@string/notification_summary"
         android:fragment="net.darkkatrom.dkweather.fragments.NotificationSettings"
         android:dependency="enable" />
 
@@ -51,6 +53,7 @@
     <SwitchPreference
         android:key="custom_location"
         android:title="@string/custom_location_title"
+        android:summary="@string/custom_location_summary"
         android:defaultValue="false"
         android:dependency="enable" />
 
@@ -71,6 +74,7 @@
     <PreferenceScreen
         android:key="theme"
         android:title="@string/theme_title"
+        android:summary="@string/theme_summary"
         android:fragment="net.darkkatrom.dkweather.fragments.ThemeSettings" />
 
 </PreferenceScreen>
