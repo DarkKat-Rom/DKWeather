@@ -44,6 +44,8 @@ public class Config {
     public static final String PREF_KEY_NOTIF_SHOW_LOCATION = "notification_show_location";
     public static final String PREF_KEY_NOTIF_SHOW_DK_ICON  = "notification_show_dk_icon";
 
+    public static final String PREF_KEY_CONDITION_ICON = "condition_icon";
+
     public static final String PREF_KEY_THEME_USE_DARK_THEME =
             "theme_use_dark_theme";
     public static final String PREF_KEY_THEME_USE_LIGHT_STATUS_BAR =
@@ -205,6 +207,14 @@ public class Config {
                 .getDefaultSharedPreferences(context);
 
         return prefs.getBoolean(PREF_KEY_NOTIF_SHOW_DK_ICON, true);
+    }
+
+    public static int getConditionIconType(Context context) {
+        SharedPreferences prefs = PreferenceManager
+                .getDefaultSharedPreferences(context);
+
+        String valueString = prefs.getString(PREF_KEY_CONDITION_ICON, "0");
+        return Integer.valueOf(valueString);
     }
 
     public static boolean getThemUseDarkTheme(Context context) {
