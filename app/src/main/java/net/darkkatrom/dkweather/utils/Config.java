@@ -35,7 +35,7 @@ public class Config {
     public static final String PREF_KEY_OWM_API_KEY            = "owm_api_key";
     public static final String PREF_KEY_UNITS                  = "units";
     public static final String PREF_KEY_CUSTOM_LOCATION        = "custom_location";
-    public static final String PREF_KEY_CUSTOM_LOCATION_CITY   = "weather_custom_location_city";
+    public static final String PREF_KEY_CUSTOM_LOCATION_CITY   = "custom_location_city";
     public static final String PREF_KEY_LOCATION_ID            = "location_id";
     public static final String PREF_KEY_LOCATION_NAME          = "location_name";
     public static final String PREF_KEY_WEATHER_DATA           = "weather_data";

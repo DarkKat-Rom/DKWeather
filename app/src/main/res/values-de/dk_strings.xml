@@ -30,7 +30,7 @@
 
     <!-- Actionbar -->
     <string name="today_title">Heute</string>
-    <string name="update_weather">Wetter aktuallisieren</string>
+    <string name="menu_item_update_weather_title">Wetter aktuallisieren</string>
     <string name="weather_updated">Wetterdaten wurden aktuallisiert</string>
     <string name="action_bar_no_weather_data_part">, (keine Wetterdaten)</string>
     <string name="action_bar_subtitle_settings">@string/settings_title</string>
@@ -93,13 +93,16 @@
     <string name="owm_api_key_title">Open Weather Map API Key</string>
     <string name="default_api_key_title">Standard Darkkat API Key</string>
     <string name="custom_api_key_summary">Eigener API key</string>
-    <string name="owm_api_key_dlg_message">Gebe hier den API Key ein, oder lösche den API Key, um den Standard Darkkat API Key zu benutzen.</string>
     <string name="custom_location_summary">Aktivieren um einen Benutzerdefinierten Standort zu nutzen, deaktivieren um den Android Standort Service zu nutzen,\n(\"Standort\" muß in den Systemeinstellungen aktiviert werden, und die Standortberechtigung muß gewärt werden).</string>
+    <string name="custom_location_city_missing_summary">Kein Standort,\nklicken um einen Standort einzugeben</string>
     <string name="condition_icon_title">Wetterlage Symbol</string>
     <string name="condition_icon_monochrome">Einfarbig</string>
     <string name="condition_icon_colored">Farbig</string>
     <string name="condition_icon_vclouds">VClouds</string>
 
+    <!-- Dialogs -->
+    <string name="dialog_owm_api_key_message">Gebe hier den API Key ein, oder lösche den API Key, um den Standard Darkkat API Key zu benutzen.</string>
+    <!-- Weather setup end -->
 
     <!-- Notification -->
     <string name="show_notification_title">Benachrichtigung anzeigen</string>

@@ -179,10 +179,10 @@ public class WeatherSettings extends PreferenceFragment implements
         final Dialog dialog;
 
         // Build and show the dialog
-        builder.setTitle(R.string.weather_retrieve_location_dialog_title);
-        builder.setMessage(R.string.weather_retrieve_location_dialog_message);
+        builder.setTitle(R.string.dialog_retrieve_location_title);
+        builder.setMessage(R.string.dialog_retrieve_location_message);
         builder.setCancelable(false);
-        builder.setPositiveButton(R.string.weather_retrieve_location_dialog_enable_button,
+        builder.setPositiveButton(R.string.dialog_retrieve_location_enable_button_title,
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         mTriggerPermissionCheck = true;
