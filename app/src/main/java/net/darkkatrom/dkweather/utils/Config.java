@@ -28,24 +28,18 @@ import net.darkkatrom.dkweather.WeatherInfo;
 
 public class Config {
     public static final String PREF_KEY_SETTINGS_NOTIFICATION  = "settings_notification";
-    public static final String PREF_KEY_ENABLE                 = "enable";
-    public static final String PREF_KEY_AUTO_UPDATE            = "auto_update";
-    public static final String PREF_KEY_UPDATE_INTERVAL        = "update_interval";
-    public static final String PREF_KEY_PROVIDER               = "provider";
-    public static final String PREF_KEY_OWM_API_KEY            = "owm_api_key";
-    public static final String PREF_KEY_UNITS                  = "units";
-    public static final String PREF_KEY_CUSTOM_LOCATION        = "custom_location";
-    public static final String PREF_KEY_CUSTOM_LOCATION_CITY   = "custom_location_city";
-    public static final String PREF_KEY_LOCATION_ID            = "location_id";
-    public static final String PREF_KEY_LOCATION_NAME          = "location_name";
-    public static final String PREF_KEY_WEATHER_DATA           = "weather_data";
-    public static final String PREF_KEY_LAST_UPDATE            = "last_update";
+
+    public static final String PREF_KEY_ENABLE               = "enable";
+    public static final String PREF_KEY_UPDATE_INTERVAL      = "update_interval";
+    public static final String PREF_KEY_OWM_API_KEY          = "owm_api_key";
+    public static final String PREF_KEY_UNITS                = "units";
+    public static final String PREF_KEY_CUSTOM_LOCATION      = "custom_location";
+    public static final String PREF_KEY_CUSTOM_LOCATION_CITY = "custom_location_city";
+    public static final String PREF_KEY_CONDITION_ICON       = "condition_icon";
 
     public static final String PREF_KEY_SHOW_NOTIF          = "show_notification";
     public static final String PREF_KEY_NOTIF_SHOW_LOCATION = "notification_show_location";
     public static final String PREF_KEY_NOTIF_SHOW_DK_ICON  = "notification_show_dk_icon";
-
-    public static final String PREF_KEY_CONDITION_ICON = "condition_icon";
 
     public static final String PREF_KEY_THEME_USE_DARK_THEME =
             "theme_use_dark_theme";
@@ -54,24 +48,17 @@ public class Config {
     public static final String PREF_KEY_THEME_USE_LIGHT_NAVIGATION_BAR =
             "theme_use_light_navigation_bar";
 
-    public static final String DEFAULT_OWM_API_KEY = "6d2f4f034d60d9680a720c12df8c7ddd";
+    public static final String PREF_KEY_LOCATION_ID   = "location_id";
+    public static final String PREF_KEY_LOCATION_NAME = "location_name";
+    public static final String PREF_KEY_WEATHER_DATA  = "weather_data";
+
+    public static final String DARKKAT_API_KEY = "6d2f4f034d60d9680a720c12df8c7ddd";
 
     public static boolean isEnabled(Context context) {
         SharedPreferences prefs = PreferenceManager
                 .getDefaultSharedPreferences(context);
 
         return prefs.getBoolean(PREF_KEY_ENABLE, false);
-    }
-
-    public static boolean setEnabled(Context context, boolean value) {
-        SharedPreferences prefs = PreferenceManager
-                .getDefaultSharedPreferences(context);
-
-        return prefs.edit().putBoolean(PREF_KEY_ENABLE, value).commit();
-    }
-
-    public static boolean isAutoUpdate(Context context) {
-        return true;
     }
 
     public static int getUpdateInterval(Context context) {
@@ -82,21 +69,13 @@ public class Config {
         return Integer.valueOf(valueString);
     }
 
-    public static AbstractWeatherProvider getProvider(Context context) {
-        return new OpenWeatherMapProvider(context);
-    }
-
-    public static String getProviderId(Context context) {
-        return "OpenWeatherMap";
-    }
-
     public static String getAPIKey(Context context) {
         SharedPreferences prefs = PreferenceManager
                 .getDefaultSharedPreferences(context);
 
-        String apiKey = prefs.getString(PREF_KEY_OWM_API_KEY, DEFAULT_OWM_API_KEY);
+        String apiKey = prefs.getString(PREF_KEY_OWM_API_KEY, DARKKAT_API_KEY);
         if (apiKey.isEmpty()) {
-            apiKey = DEFAULT_OWM_API_KEY;
+            apiKey = DARKKAT_API_KEY;
         }
         return apiKey;
     }
@@ -164,7 +143,6 @@ public class Config {
                 .getDefaultSharedPreferences(context);
 
         prefs.edit().putString(PREF_KEY_WEATHER_DATA, data.toSerializedString()).commit();
-        prefs.edit().putLong(PREF_KEY_LAST_UPDATE, System.currentTimeMillis()).commit();
     }
 
     public static void clearWeatherData(Context context) {
@@ -172,21 +150,6 @@ public class Config {
                 .getDefaultSharedPreferences(context);
 
         prefs.edit().remove(PREF_KEY_WEATHER_DATA).commit();
-        prefs.edit().remove(PREF_KEY_LAST_UPDATE).commit();
-    }
-    
-    public static long getLastUpdateTime(Context context) {
-        SharedPreferences prefs = PreferenceManager
-                .getDefaultSharedPreferences(context);
-
-        return prefs.getLong(PREF_KEY_LAST_UPDATE, 0);
-    }
-
-    public static void clearLastUpdateTime(Context context) {
-        SharedPreferences prefs = PreferenceManager
-                .getDefaultSharedPreferences(context);
-
-        prefs.edit().putLong(PREF_KEY_LAST_UPDATE, 0).commit();
     }
 
     public static boolean getShowNotification(Context context) {
@@ -237,5 +200,13 @@ public class Config {
                 .getDefaultSharedPreferences(context);
 
         return prefs.getBoolean(PREF_KEY_THEME_USE_LIGHT_NAVIGATION_BAR, false);
+    }
+
+    public static AbstractWeatherProvider getProvider(Context context) {
+        return new OpenWeatherMapProvider(context);
+    }
+
+    public static String getProviderId(Context context) {
+        return "OpenWeatherMap";
     }
 }

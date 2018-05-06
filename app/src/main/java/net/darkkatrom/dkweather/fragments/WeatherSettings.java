@@ -79,7 +79,7 @@ public class WeatherSettings extends PreferenceFragment implements
         mOWMApiKey = (EditTextPreference) findPreference(Config.PREF_KEY_OWM_API_KEY);
         mOWMApiKey.getEditText().setHint(getResources().getString(
                 R.string.default_api_key_title));
-        final int summaryResId = Config.getAPIKey(getActivity()).equals(Config.DEFAULT_OWM_API_KEY)
+        final int summaryResId = Config.getAPIKey(getActivity()).equals(Config.DARKKAT_API_KEY)
                 ? R.string.default_api_key_title : R.string.custom_api_key_summary;
         mOWMApiKey.setSummary(getResources().getString(summaryResId));
         mOWMApiKey.setOnPreferenceChangeListener(this);
@@ -143,7 +143,7 @@ public class WeatherSettings extends PreferenceFragment implements
         } else if (preference == mOWMApiKey) {
             String stringValue = (String) newValue;
             boolean isDefaultkey = stringValue == null || stringValue.isEmpty()
-                    || stringValue.equals(Config.DEFAULT_OWM_API_KEY);
+                    || stringValue.equals(Config.DARKKAT_API_KEY);
             String summary = getResources().getString(isDefaultkey
                     ? R.string.default_api_key_title : R.string.custom_api_key_summary);
             preference.setSummary(summary);
