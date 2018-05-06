@@ -38,5 +38,4 @@
     <string name="dialog_retrieve_location_title">Standort kann nicht bestimmt werden!</string>
     <string name="dialog_retrieve_location_message">Netzgebundene Positionsermittlung ist deaktiviert.\n\nLegen Sie eine benutzerdefinierte Position fest oder aktivieren Sie die netzgebundene Positionsermittlung</string>
     <string name="dialog_retrieve_location_enable_button_title">Einschalten</string>
-
 </resources>

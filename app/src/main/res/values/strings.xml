@@ -37,5 +37,4 @@
     <string name="dialog_retrieve_location_title">Cannot retrieve location!</string>
     <string name="dialog_retrieve_location_message">Network geolocation is disabled.\n\nSet a custom location or enable network location</string>
     <string name="dialog_retrieve_location_enable_button_title">Enable</string>
-
 </resources>

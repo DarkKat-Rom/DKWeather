@@ -17,7 +17,6 @@
  */
 package net.darkkatrom.dkweather.utils;
 
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
