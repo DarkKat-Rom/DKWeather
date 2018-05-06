@@ -27,6 +27,7 @@ import net.darkkatrom.dkweather.providers.OpenWeatherMapProvider;
 import net.darkkatrom.dkweather.WeatherInfo;
 
 public class Config {
+    public static final String PREF_KEY_SETTINGS_NOTIFICATION  = "settings_notification";
     public static final String PREF_KEY_ENABLE                 = "enable";
     public static final String PREF_KEY_AUTO_UPDATE            = "auto_update";
     public static final String PREF_KEY_UPDATE_INTERVAL        = "update_interval";

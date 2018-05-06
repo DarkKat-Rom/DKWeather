@@ -14,8 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 <PreferenceScreen
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:title="@string/theme_title">
+        xmlns:android="http://schemas.android.com/apk/res/android">
 
     <SwitchPreference
         android:key="theme_use_dark_theme"

@@ -34,6 +34,7 @@
     <string name="weather_updated">Wetterdaten wurden aktuallisiert</string>
     <string name="action_bar_no_weather_data_part">, (keine Wetterdaten)</string>
     <string name="action_bar_subtitle_settings">@string/settings_title</string>
+    <string name="action_bar_subtitle_settings_weather">Einstellungen -> \'Wetter konfigurieren\'</string>
     <string name="action_bar_subtitle_settings_notification">Einstellungen -> \"Laufende Benachrichtigung\"</string>
     <string name="action_bar_subtitle_settings_theme">Einstellungen -> \"Theme\"</string>
 
@@ -80,10 +81,15 @@
     <!-- Settings -->
 
     <!-- Main -->
-    <string name="weather_settings_title">Wetter Einstellungen</string>
+    <string name="settings_weather_title">Wetter</string>
+    <string name="settings_weather_summary">Wetter konfigurieren</string>
+    <string name="settings_notification_title">Laufende Benachrichtigung</string>
+    <string name="settings_notification_summary">Wähle wie die Laufende Benachrichtigung dargestellt werden soll</string>
+    <string name="settings_theme_title">Theme</string>
+    <string name="settings_theme_summary">Wähle wie die App-Benutzeroberfläche dargestellt werden soll</string>
+
+    <!-- Weather setup -->
     <string name="enable_summary">Wetter aktivieren</string>
-    <string name="notification_title">Laufende Benachrichtigung</string>
-    <string name="notification_summary">Wähle wie die Laufende Benachrichtigung dargestellt werden soll</string>
     <string name="owm_api_key_title">Open Weather Map API Key</string>
     <string name="default_api_key_title">Standard Darkkat API Key</string>
     <string name="custom_api_key_summary">Eigener API key</string>
@@ -93,8 +99,7 @@
     <string name="condition_icon_monochrome">Einfarbig</string>
     <string name="condition_icon_colored">Farbig</string>
     <string name="condition_icon_vclouds">VClouds</string>
-    <string name="theme_title">Theme</string>
-    <string name="theme_summary">Wähle wie die App-Benutzeroberfläche dargestellt werden soll</string>
+
 
     <!-- Notification -->
     <string name="show_notification_title">Benachrichtigung anzeigen</string>

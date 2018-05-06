@@ -121,7 +121,9 @@ public class MainActivity extends BaseActivity implements
                     mUpdateRequested = false;
                 }
             }
-            updateContent();
+            if (mVisibleScreen != SETTINGS) {
+                updateContent();
+            }
         }
     }
 
