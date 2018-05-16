@@ -47,11 +47,18 @@ public class Config {
     public static final String PREF_KEY_THEME_USE_LIGHT_NAVIGATION_BAR =
             "theme_use_light_navigation_bar";
 
+    public static final String PREF_KEY_WIDGET_BACKGROUND = "widget_background";
+
     public static final String PREF_KEY_LOCATION_ID   = "location_id";
     public static final String PREF_KEY_LOCATION_NAME = "location_name";
     public static final String PREF_KEY_WEATHER_DATA  = "weather_data";
 
     public static final String DARKKAT_API_KEY = "6d2f4f034d60d9680a720c12df8c7ddd";
+
+    public static final int WIDGET_BACKGROUND_NONE                     = 0;
+    public static final int WIDGET_BACKGROUND_BACKGROUND_ONLY          = 1;
+    public static final int WIDGET_BACKGROUND_BACKGROUND_WITHOUT_FRAME = 2;
+    public static final int WIDGET_BACKGROUND_BACKGROUND_WITH_FRAME    = 3;
 
     public static boolean isEnabled(Context context) {
         SharedPreferences prefs = PreferenceManager
@@ -199,6 +206,14 @@ public class Config {
                 .getDefaultSharedPreferences(context);
 
         return prefs.getBoolean(PREF_KEY_THEME_USE_LIGHT_NAVIGATION_BAR, false);
+    }
+
+    public static int getWidgetBackground(Context context) {
+        SharedPreferences prefs = PreferenceManager
+                .getDefaultSharedPreferences(context);
+
+        String valueString = prefs.getString(PREF_KEY_WIDGET_BACKGROUND, "2");
+        return Integer.valueOf(valueString);
     }
 
     public static AbstractWeatherProvider getProvider(Context context) {

@@ -14,6 +14,7 @@
      limitations under the License.
 -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="4dp"
@@ -21,6 +22,7 @@
     android:background="@color/widget_frame_color">
 
     <LinearLayout
+        android:id="@+id/widget_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"

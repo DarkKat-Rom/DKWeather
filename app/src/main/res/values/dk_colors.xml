@@ -16,6 +16,7 @@
 <resources>
 
     <!-- General colors (used for all themes) -->
+    <color name="transparent">#00000000</color>
 
     <!-- Widget colors -->
     <color name="widget_frame_color">#66ffffff</color>

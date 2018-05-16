@@ -57,4 +57,16 @@
         <item>1</item>
         <item>2</item>
     </string-array>
+    <string-array name="widget_background_entries" translatable="false">
+        <item>@string/widget_background_none</item>
+        <item>@string/widget_background_background_only</item>
+        <item>@string/widget_background_background_without_frame</item>
+        <item>@string/widget_background_background_with_frame</item>
+        </string-array>
+    <string-array name="widget_background_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
 </resources>

@@ -90,6 +90,8 @@
     <string name="settings_notification_summary">Choose how to display the ongoing notification</string>
     <string name="settings_theme_title">Theme</string>
     <string name="settings_theme_summary">Choose how to display the app ui</string>
+    <string name="settings_widget_title">Widget</string>
+    <string name="settings_widget_summary">Choose how to display the widget</string>
 
     <!-- Weather setup -->
     <string name="enable_summary">Enable the weather</string>
@@ -122,6 +124,13 @@
     <string name="theme_use_light_status_bar_summary">Enable to use a light status- &amp; action bar on the light theme</string>
     <string name="theme_use_light_navigation_bar_title">Light navigation bar</string>
     <string name="theme_use_light_navigation_bar_summary">Enable to use a light navigation bar on the light theme</string>
+
+    <!-- Widget -->
+    <string name="widget_background_title">Background</string>
+    <string name="widget_background_none">Hide background</string>
+    <string name="widget_background_background_only">Show background</string>
+    <string name="widget_background_background_without_frame">Show background without frame</string>
+    <string name="widget_background_background_with_frame">Show background with frame</string>
     <!-- Settings end -->
 
     <!-- CyanogenMod additions -->
