@@ -19,6 +19,7 @@ import android.app.job.JobInfo;
 import android.app.job.JobScheduler;
 import android.content.ComponentName;
 import android.content.Context;
+import android.os.PersistableBundle;
 
 import net.darkkatrom.dkweather.WeatherJobService;
 import net.darkkatrom.dkweather.utils.Config;
@@ -26,11 +27,22 @@ import net.darkkatrom.dkweather.utils.Config;
 import java.util.concurrent.TimeUnit;
 
 public class JobUtil {
-    public static final int JOB_KEY_UPDATE              = 1;
-    public static final int JOB_KEY_SCHEDULE_UPDATE     = 2;
+    public static final int JOB_KEY_UPDATE                 = 1;
+    public static final int JOB_KEY_SCHEDULE_UPDATE        = 2;
+    public static final int JOB_KEY_WIDGET_UPDATE          = 3;
+
+    public static final String KEY_EXTRA_WIDGET_UPDATE = "widget_update";
 
     public static void startUpdate(Context context) {
-        JobInfo jobInfo = JobUtil.getBuilder(context, JOB_KEY_UPDATE).build();
+        JobUtil.startUpdate(context, true);
+    }
+
+    public static void startUpdate(Context context, boolean updateWidget) {
+        PersistableBundle extras = new PersistableBundle();
+        extras.putBoolean(KEY_EXTRA_WIDGET_UPDATE, updateWidget);
+        JobInfo jobInfo = JobUtil.getBuilder(context, JOB_KEY_UPDATE)
+                .setExtras(extras)
+                .build();
         JobUtil.getScheduler(context).schedule(jobInfo);
     }
 
@@ -38,6 +50,11 @@ public class JobUtil {
         JobInfo jobInfo = JobUtil.getBuilder(context, JOB_KEY_SCHEDULE_UPDATE)
                 .setPeriodic(TimeUnit.HOURS.toMillis(Config.getUpdateInterval(context)))
                 .build();
+        JobUtil.getScheduler(context).schedule(jobInfo);
+    }
+
+    public static void startWidgetUpdate(Context context) {
+        JobInfo jobInfo = JobUtil.getBuilder(context, JOB_KEY_WIDGET_UPDATE).build();
         JobUtil.getScheduler(context).schedule(jobInfo);
     }
 

@@ -379,6 +379,10 @@ public class WeatherInfo {
         return days;
     }
 
+    public long getTimestamp() {
+        return mTimestamp;
+    }
+
     public Date getDate() {
         return new Date(mTimestamp);
     }

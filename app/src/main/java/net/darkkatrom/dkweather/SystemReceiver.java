@@ -36,7 +36,7 @@ public class SystemReceiver extends BroadcastReceiver {
             if (Config.isEnabled(context)) {
                 if (DEBUG) Log.d(TAG, "boot completed");
                 // kick updates
-                JobUtil.startUpdate(context);
+                JobUtil.startUpdate(context, false);
                 JobUtil.scheduleUpdate(context);
             }
         } else if (Intent.ACTION_LOCALE_CHANGED.equals(action)) {

@@ -15,11 +15,27 @@
 -->
 <resources>
 
+    <!-- General -->
     <string name="weather_not_available_subtitle" translatable="false">--</string>
     <string name="no_value" translatable="false">-</string>
     <string name="notification_text_icon_font_family" translatable="false">sans-serif</string>
 
-    <!-- CyanogenMod additions -->
+    <!-- Widget -->
+    <string name="abbrev_wday_time_12_hours" translatable="false">Ehma</string>
+    <string name="abbrev_wday_time_24_hours" translatable="false">EHm</string>
+    <string name="abbrev_wday_month_day_no_year" translatable="false">EEEMMMd</string>
+    <string name="abbrev_wday_month_day_time_12_hours" translatable="false">EEEEMMMMdhma</string>
+    <string name="abbrev_wday_month_day_time_24_hours" translatable="false">EEEEMMMMdHm</string>
+
+    <!-- Based on CyanogenMod/LineageOS -->
+
+    <!-- Widget -->
+    <string name="abbrev_12_hours_format_hours" translatable="false">h</string>
+    <string name="abbrev_24_hours_format_hours" translatable="false">kk</string>
+    <string name="abbrev_12_hours_format_minutes" translatable="false">:mm<font size="15">aa</font></string>
+    <string name="abbrev_24_hours_format_minutes" translatable="false">:mm</string>
+
+    <!-- CyanogenMod/LineageOS additions -->
 
     <!-- Forecast unavailable -->
     <string name="weather_3200" translatable="false"></string>
