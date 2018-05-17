@@ -13,7 +13,9 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+<PreferenceScreen
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ListPreference
         android:key="widget_background"
@@ -22,5 +24,23 @@ limitations under the License.
         android:entries="@array/widget_background_entries"
         android:entryValues="@array/widget_background_values"
         android:defaultValue="3" />
+
+     <net.darkkatrom.dkweather.colorpicker.preference.ColorPickerPreference
+        android:key="widget_background_color"
+        android:title="@string/widget_background_color_title"
+        app:pickerTitle="@string/settings_widget_title"
+        app:pickerSubtitle="@string/widget_background_color_title"
+        app:resetColor1="@color/darkkat_blue_grey"
+        app:alphaSliderVisible="true"
+        app:defaultColor="@color/darkkat_blue_grey" />
+
+     <net.darkkatrom.dkweather.colorpicker.preference.ColorPickerPreference
+        android:key="widget_frame_color"
+        android:title="@string/widget_frame_color_title"
+        app:pickerTitle="@string/settings_widget_title"
+        app:pickerSubtitle="@string/widget_frame_color_title"
+        app:resetColor1="@color/widget_frame_color"
+        app:alphaSliderVisible="true"
+        app:defaultColor="@color/widget_frame_color" />
 
 </PreferenceScreen>

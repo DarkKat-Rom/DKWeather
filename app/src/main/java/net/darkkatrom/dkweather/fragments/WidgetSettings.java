@@ -23,13 +23,19 @@ import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceFragment;
 
 import net.darkkatrom.dkweather.R;
+
+import net.darkkatrom.dkweather.colorpicker.fragment.SettingsColorPickerFragment;
+import net.darkkatrom.dkweather.colorpicker.preference.ColorPickerPreference;
+
 import net.darkkatrom.dkweather.utils.Config;
 import net.darkkatrom.dkweather.utils.JobUtil;
 
-public class WidgetSettings extends PreferenceFragment implements
+public class WidgetSettings extends SettingsColorPickerFragment implements
         OnPreferenceChangeListener  {
 
     private Preference mWidgetBackground;
+    private Preference mWidgetBackgroundColor;
+    private Preference mWidgetFrameColor;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -39,11 +45,19 @@ public class WidgetSettings extends PreferenceFragment implements
 
         mWidgetBackground = findPreference(Config.PREF_KEY_WIDGET_BACKGROUND);
         mWidgetBackground.setOnPreferenceChangeListener(this);
+
+        mWidgetBackgroundColor = findPreference(Config.PREF_KEY_WIDGET_BACKGROUND_COLOR);
+        mWidgetBackgroundColor.setOnPreferenceChangeListener(this);
+
+        mWidgetFrameColor = findPreference(Config.PREF_KEY_WIDGET_FRAME_COLOR);
+        mWidgetFrameColor.setOnPreferenceChangeListener(this);
     }
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
-        if (preference == mWidgetBackground) {
+        if (preference == mWidgetBackground
+                || preference == mWidgetBackgroundColor
+                || preference == mWidgetFrameColor) {
             JobUtil.startWidgetUpdate(getActivity());
             return true;
         }

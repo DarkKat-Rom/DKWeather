@@ -131,6 +131,8 @@
     <string name="widget_background_background_only">Hintergrund anzeigen</string>
     <string name="widget_background_background_without_frame">Hintergrund ohne Rahmen anzeigen</string>
     <string name="widget_background_background_with_frame">Hintergrund mit Rahmen anzeigen</string>
+    <string name="widget_background_color_title">Hintergrundfarbe</string>
+    <string name="widget_frame_color_title">Rahmenfarbe</string>
     <!-- Settings end -->
 
     <!-- CyanogenMod additions -->

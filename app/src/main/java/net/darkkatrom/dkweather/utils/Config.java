@@ -21,6 +21,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import net.darkkatrom.dkweather.R;
 import net.darkkatrom.dkweather.providers.AbstractWeatherProvider;
 import net.darkkatrom.dkweather.providers.OpenWeatherMapProvider;
 import net.darkkatrom.dkweather.WeatherInfo;
@@ -47,7 +48,9 @@ public class Config {
     public static final String PREF_KEY_THEME_USE_LIGHT_NAVIGATION_BAR =
             "theme_use_light_navigation_bar";
 
-    public static final String PREF_KEY_WIDGET_BACKGROUND = "widget_background";
+    public static final String PREF_KEY_WIDGET_BACKGROUND       = "widget_background";
+    public static final String PREF_KEY_WIDGET_BACKGROUND_COLOR = "widget_background_color";
+    public static final String PREF_KEY_WIDGET_FRAME_COLOR      = "widget_frame_color";
 
     public static final String PREF_KEY_LOCATION_ID   = "location_id";
     public static final String PREF_KEY_LOCATION_NAME = "location_name";
@@ -214,6 +217,22 @@ public class Config {
 
         String valueString = prefs.getString(PREF_KEY_WIDGET_BACKGROUND, "2");
         return Integer.valueOf(valueString);
+    }
+
+    public static int getWidgetBackgroundColor(Context context) {
+        SharedPreferences prefs = PreferenceManager
+                .getDefaultSharedPreferences(context);
+
+        int defaultColor = context.getColor(R.color.darkkat_blue_grey);
+        return prefs.getInt(PREF_KEY_WIDGET_BACKGROUND_COLOR, defaultColor);
+    }
+
+    public static int getWidgetFrameColor(Context context) {
+        SharedPreferences prefs = PreferenceManager
+                .getDefaultSharedPreferences(context);
+
+        int defaultColor = context.getColor(R.color.widget_frame_color);
+        return prefs.getInt(PREF_KEY_WIDGET_FRAME_COLOR, defaultColor);
     }
 
     public static AbstractWeatherProvider getProvider(Context context) {
