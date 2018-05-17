@@ -56,8 +56,8 @@ public class ColorPickerPreference extends Preference {
 
     private TargetFragment mTargetFragment = null;
 
-    private String mPickerSubtitle = null;
     private String mPickerTitle = null;
+    private String mPickerSubtitle = null;
     private int mDefaultValue = Color.BLACK;
     private int mValue;
     private int mResetColor1 = Color.TRANSPARENT;
@@ -92,7 +92,7 @@ public class ColorPickerPreference extends Preference {
         if (attrs != null) {
             TypedArray a = context.obtainStyledAttributes(
                     attrs, R.styleable.ColorPickerPreference, defStyleAttr, defStyleRes);
-            mPickerSubtitle = a.getString(R.styleable.ColorPickerPreference_pickerTitle);
+            mPickerTitle = a.getString(R.styleable.ColorPickerPreference_pickerTitle);
             mPickerSubtitle = a.getString(R.styleable.ColorPickerPreference_pickerSubtitle);
             mDefaultValue = a.getColor(R.styleable.ColorPickerPreference_defaultColor,
                     Color.TRANSPARENT);
@@ -216,6 +216,14 @@ public class ColorPickerPreference extends Preference {
             getOnPreferenceChangeListener().onPreferenceChange(this, color);
         } catch (NullPointerException e) {
         }
+    }
+
+    public void setPickerTitle(int titleResId) {
+        mPickerTitle = mResources.getString(titleResId);
+    }
+
+    public void setPickerTitle(String title) {
+        mPickerTitle = title;
     }
 
     public void setPickerSubtitle(int titleResId) {
