@@ -20,6 +20,7 @@
     <string name="weather_title">Wetter</string>
     <string name="weather_not_available_title">Wetter Daten nicht verfügbar</string>
     <string name="list_preference_default_summary">%s</string>
+    <string name="reset">Zurücksetzen</string>
 
     <!-- Widget -->
     <string name="widget_loading_title">Widget wird geladen...</string>
@@ -135,6 +136,11 @@
     <string name="widget_frame_color_title">Rahmenfarbe</string>
     <string name="widget_text_color_title">Textfarbe</string>
     <string name="widget_icon_color_title">Iconfarbe</string>
+
+    <!-- Reset dialog -->
+    <string name="dlg_ok">OK</string>
+    <string name="dlg_cancel">Abbrechen</string>
+    <string name="dlg_reset_values_message">Werte auf Standard zurück setzen?</string>
     <!-- Settings end -->
 
     <!-- CyanogenMod additions -->

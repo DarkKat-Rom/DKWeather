@@ -222,7 +222,7 @@ public class Config {
         SharedPreferences prefs = PreferenceManager
                 .getDefaultSharedPreferences(context);
 
-        String valueString = prefs.getString(PREF_KEY_WIDGET_BACKGROUND, "2");
+        String valueString = prefs.getString(PREF_KEY_WIDGET_BACKGROUND, "3");
         return Integer.valueOf(valueString);
     }
 
@@ -263,6 +263,24 @@ public class Config {
         return (alpha << 24) | (baseColor & 0x00ffffff);
     }
 
+    public static void resetWidgetSettings(Context context) {
+        SharedPreferences prefs = PreferenceManager
+                .getDefaultSharedPreferences(context);
+
+        String defaultBackground =  "3";
+        int defaultBackgroundColor = context.getColor(R.color.widget_default_background_color);
+        int defaultFrameColor = context.getColor(R.color.widget_default_frame_color);
+        int defaultTextColor = context.getColor(R.color.widget_default_text_color);
+        int defaultIconColor = context.getColor(R.color.widget_default_icon_color);
+
+        prefs.edit()
+                .putString(PREF_KEY_WIDGET_BACKGROUND, defaultBackground)
+                .putInt(PREF_KEY_WIDGET_BACKGROUND_COLOR, defaultBackgroundColor)
+                .putInt(PREF_KEY_WIDGET_FRAME_COLOR, defaultFrameColor)
+                .putInt(PREF_KEY_WIDGET_TEXT_COLOR, defaultTextColor)
+                .putInt(PREF_KEY_WIDGET_ICON_COLOR, defaultIconColor)
+                .commit();
+    }
 
     public static AbstractWeatherProvider getProvider(Context context) {
         return new OpenWeatherMapProvider(context);
