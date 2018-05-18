@@ -20,24 +20,15 @@ package net.darkkatrom.dkweather.fragments;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
-import android.preference.PreferenceFragment;
 
 import net.darkkatrom.dkweather.R;
 
 import net.darkkatrom.dkweather.colorpicker.fragment.SettingsColorPickerFragment;
-import net.darkkatrom.dkweather.colorpicker.preference.ColorPickerPreference;
-
 import net.darkkatrom.dkweather.utils.Config;
 import net.darkkatrom.dkweather.utils.JobUtil;
 
 public class WidgetSettings extends SettingsColorPickerFragment implements
         OnPreferenceChangeListener  {
-
-    private Preference mWidgetBackground;
-    private Preference mWidgetBackgroundColor;
-    private Preference mWidgetFrameColor;
-    private Preference mWidgetTextColor;
-    private Preference mWidgetIconColor;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,29 +36,21 @@ public class WidgetSettings extends SettingsColorPickerFragment implements
 
         addPreferencesFromResource(R.xml.widget_settings);
 
-        mWidgetBackground = findPreference(Config.PREF_KEY_WIDGET_BACKGROUND);
-        mWidgetBackground.setOnPreferenceChangeListener(this);
-
-        mWidgetBackgroundColor = findPreference(Config.PREF_KEY_WIDGET_BACKGROUND_COLOR);
-        mWidgetBackgroundColor.setOnPreferenceChangeListener(this);
-
-        mWidgetFrameColor = findPreference(Config.PREF_KEY_WIDGET_FRAME_COLOR);
-        mWidgetFrameColor.setOnPreferenceChangeListener(this);
-
-        mWidgetTextColor = findPreference(Config.PREF_KEY_WIDGET_TEXT_COLOR);
-        mWidgetTextColor.setOnPreferenceChangeListener(this);
-
-        mWidgetIconColor = findPreference(Config.PREF_KEY_WIDGET_ICON_COLOR);
-        mWidgetIconColor.setOnPreferenceChangeListener(this);
+        findPreference(Config.PREF_KEY_WIDGET_BACKGROUND).setOnPreferenceChangeListener(this);
+        findPreference(Config.PREF_KEY_WIDGET_BACKGROUND_COLOR).setOnPreferenceChangeListener(this);
+        findPreference(Config.PREF_KEY_WIDGET_FRAME_COLOR).setOnPreferenceChangeListener(this);
+        findPreference(Config.PREF_KEY_WIDGET_TEXT_COLOR).setOnPreferenceChangeListener(this);
+        findPreference(Config.PREF_KEY_WIDGET_ICON_COLOR).setOnPreferenceChangeListener(this);
     }
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
-        if (preference == mWidgetBackground
-                || preference == mWidgetBackgroundColor
-                || preference == mWidgetFrameColor
-                || preference == mWidgetTextColor
-                || preference == mWidgetIconColor) {
+        String key = preference.getKey();
+        if (Config.PREF_KEY_WIDGET_BACKGROUND.equals(key)
+                || Config.PREF_KEY_WIDGET_BACKGROUND_COLOR.equals(key)
+                || Config.PREF_KEY_WIDGET_FRAME_COLOR.equals(key)
+                || Config.PREF_KEY_WIDGET_TEXT_COLOR.equals(key)
+                || Config.PREF_KEY_WIDGET_ICON_COLOR.equals(key)) {
             JobUtil.startWidgetUpdate(getActivity());
             return true;
         }
