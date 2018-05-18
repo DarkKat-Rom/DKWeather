@@ -16,15 +16,13 @@
 <resources>
 
     <!-- General colors (used for all themes) -->
-    <color name="transparent">#00000000</color>
 
     <!-- Widget colors -->
-    <color name="widget_frame_color">#66ffffff</color>
+    <color name="widget_default_frame_color">#66ffffff</color>
+    <color name="widget_default_background_color">@color/darkkat_blue_grey</color>
     <color name="widget_text_shadow_color">#61000000</color>
-    <color name="widget_text_primary_color">#ffffffff</color>
-    <color name="widget_text_secondary_color">#b3ffffff</color>
-    <color name="widget_icon_color">@color/widget_text_secondary_color</color>
-    <color name="widget_divider_color">#33ffffff</color>
+    <color name="widget_default_text_color">#ffffffff</color>
+    <color name="widget_default_icon_color">#b3ffffff</color>
 
     <!-- Notification colors -->
     <color name="notification_small_icon_color">@color/text_primary_dark</color>

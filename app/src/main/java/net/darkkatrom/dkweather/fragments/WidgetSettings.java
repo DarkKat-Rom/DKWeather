@@ -36,6 +36,8 @@ public class WidgetSettings extends SettingsColorPickerFragment implements
     private Preference mWidgetBackground;
     private Preference mWidgetBackgroundColor;
     private Preference mWidgetFrameColor;
+    private Preference mWidgetTextColor;
+    private Preference mWidgetIconColor;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -51,13 +53,21 @@ public class WidgetSettings extends SettingsColorPickerFragment implements
 
         mWidgetFrameColor = findPreference(Config.PREF_KEY_WIDGET_FRAME_COLOR);
         mWidgetFrameColor.setOnPreferenceChangeListener(this);
+
+        mWidgetTextColor = findPreference(Config.PREF_KEY_WIDGET_TEXT_COLOR);
+        mWidgetTextColor.setOnPreferenceChangeListener(this);
+
+        mWidgetIconColor = findPreference(Config.PREF_KEY_WIDGET_ICON_COLOR);
+        mWidgetIconColor.setOnPreferenceChangeListener(this);
     }
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         if (preference == mWidgetBackground
                 || preference == mWidgetBackgroundColor
-                || preference == mWidgetFrameColor) {
+                || preference == mWidgetFrameColor
+                || preference == mWidgetTextColor
+                || preference == mWidgetIconColor) {
             JobUtil.startWidgetUpdate(getActivity());
             return true;
         }

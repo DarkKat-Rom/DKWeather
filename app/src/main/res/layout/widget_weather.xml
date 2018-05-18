@@ -32,9 +32,6 @@
             android:id="@+id/widget_weather_condition_image"
             android:layout_width="72dp"
             android:layout_height="72dp"
-            android:src="@android:drawable/ic_dialog_alert"
-            android:tint="@color/widget_icon_color"
-            android:tintMode="multiply"
             android:scaleType="fitCenter" />
 
         <ImageView
@@ -42,8 +39,7 @@
             android:layout_width="1dp"
             android:layout_height="match_parent"
             android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:background="@drawable/widget_divider_background" />
+            android:layout_marginEnd="8dp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -55,23 +51,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/widget_label_bold"
-                android:textSize="22sp"
-                android:textColor="@color/widget_text_primary_color" />
+                android:textSize="22sp" />
 
             <ImageView
                 android:id="@+id/widget_weather_temp_divider"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:background="@drawable/widget_divider_background" />
+                android:layout_marginBottom="8dp" />
 
             <TextView
                 android:id="@+id/widget_weather_temp_low_high_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/widget_label_bold"
-                android:textColor="@color/widget_text_secondary_color" />
+                style="@style/widget_label_bold" />
 
         </LinearLayout>
 
@@ -85,15 +78,13 @@
                 android:id="@+id/widget_weather_location_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/widget_label_bold"
-                android:textColor="@color/widget_text_primary_color" />
+                style="@style/widget_label_bold" />
 
             <TextView
                 android:id="@+id/widget_weather_condition_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/widget_label_bold"
-                android:textColor="@color/widget_text_primary_color" />
+                style="@style/widget_label_bold" />
 
         </LinearLayout>
 
@@ -106,21 +97,19 @@
         android:layout_marginTop="8dp"
         android:layout_gravity="center_horizontal">
 
-        <ImageView android:id="@+id/widget_weather_precipitation_icon"
+        <ImageView
+            android:id="@+id/widget_weather_precipitation_icon"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:padding="2dp"
-            android:src="@drawable/ic_rain"
             android:scaleType="centerInside"
-            android:tint="@color/widget_icon_color"
             android:layout_marginEnd="4dp" />
 
         <TextView
             android:id="@+id/widget_weather_precipitation_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/widget_label_bold"
-            android:textColor="@color/widget_text_secondary_color" />
+            style="@style/widget_label_bold" />
 
         <ImageView
             android:layout_width="20dp"
@@ -130,17 +119,14 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:padding="2dp"
-            android:src="@drawable/ic_wind"
             android:scaleType="centerInside"
-            android:tint="@color/widget_icon_color"
             android:layout_marginEnd="4dp" />
 
         <TextView
             android:id="@+id/widget_weather_wind_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/widget_label_bold"
-            android:textColor="@color/widget_text_secondary_color" />
+            style="@style/widget_label_bold" />
 
     </LinearLayout>
 
@@ -163,15 +149,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/morning_title"
-                style="@style/widget_label_bold"
-                android:textColor="@color/widget_text_primary_color" />
+                style="@style/widget_label_bold" />
 
             <TextView
                 android:id="@+id/widget_weather_temp_morning_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/widget_label_bold"
-                android:textColor="@color/widget_text_secondary_color" />
+                style="@style/widget_label_bold" />
 
         </LinearLayout>
 
@@ -187,15 +171,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/day_title"
-                style="@style/widget_label_bold"
-                android:textColor="@color/widget_text_primary_color" />
+                style="@style/widget_label_bold" />
 
             <TextView
                 android:id="@+id/widget_weather_temp_day_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/widget_label_bold"
-                android:textColor="@color/widget_text_secondary_color" />
+                style="@style/widget_label_bold" />
 
         </LinearLayout>
 
@@ -211,15 +193,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/evening_title"
-                style="@style/widget_label_bold"
-                android:textColor="@color/widget_text_primary_color" />
+                style="@style/widget_label_bold" />
 
             <TextView
                 android:id="@+id/widget_weather_temp_evening_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/widget_label_bold"
-                android:textColor="@color/widget_text_secondary_color" />
+                style="@style/widget_label_bold" />
 
         </LinearLayout>
 
@@ -234,15 +214,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/night_title"
-                style="@style/widget_label_bold"
-                android:textColor="@color/widget_text_primary_color" />
+                style="@style/widget_label_bold" />
 
             <TextView
                 android:id="@+id/widget_weather_temp_night_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/widget_label_bold"
-                android:textColor="@color/widget_text_secondary_color" />
+                style="@style/widget_label_bold" />
 
         </LinearLayout>
     </LinearLayout>
@@ -260,9 +238,7 @@
             android:layout_width="18dp"
             android:layout_height="18dp"
             android:padding="2dp"
-            android:src="@drawable/ic_update"
             android:scaleType="centerInside"
-            android:tint="@color/widget_icon_color"
             android:layout_marginEnd="4dp"
             android:gravity="center" />
 
@@ -272,7 +248,6 @@
             android:layout_height="match_parent"
             android:layout_gravity="center_horizontal"
             style="@style/widget_label_bold"
-            android:textColor="@color/widget_text_secondary_color"
             android:textSize="10sp"
             android:gravity="center" />
 

@@ -24,7 +24,6 @@
     <TextClock android:id="@+id/widget_date_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/widget_text_secondary_color"
         style="@style/widget_label_bold"
         android:gravity="center" />
 
@@ -33,9 +32,7 @@
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:padding="2dp"
-        android:src="@drawable/ic_alarm"
         android:scaleType="centerInside"
-        android:tint="@color/widget_icon_color"
         android:layout_marginLeft="8dp"
         android:gravity="center" />
 
@@ -43,7 +40,6 @@
     <TextView android:id="@+id/widget_next_alarm_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/widget_text_secondary_color"
         style="@style/widget_alarm_label_bold"
         android:layout_marginLeft="2dp"
         android:gravity="center" />

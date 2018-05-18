@@ -30,17 +30,33 @@ limitations under the License.
         android:title="@string/widget_background_color_title"
         app:pickerTitle="@string/settings_widget_title"
         app:pickerSubtitle="@string/widget_background_color_title"
-        app:resetColor1="@color/darkkat_blue_grey"
+        app:resetColor1="@color/widget_default_background_color"
         app:alphaSliderVisible="true"
-        app:defaultColor="@color/darkkat_blue_grey" />
+        app:defaultColor="@color/widget_default_background_color" />
 
      <net.darkkatrom.dkweather.colorpicker.preference.ColorPickerPreference
         android:key="widget_frame_color"
         android:title="@string/widget_frame_color_title"
         app:pickerTitle="@string/settings_widget_title"
         app:pickerSubtitle="@string/widget_frame_color_title"
-        app:resetColor1="@color/widget_frame_color"
+        app:resetColor1="@color/widget_default_frame_color"
         app:alphaSliderVisible="true"
-        app:defaultColor="@color/widget_frame_color" />
+        app:defaultColor="@color/widget_default_frame_color" />
+
+     <net.darkkatrom.dkweather.colorpicker.preference.ColorPickerPreference
+        android:key="widget_text_color"
+        android:title="@string/widget_text_color_title"
+        app:pickerTitle="@string/settings_widget_title"
+        app:pickerSubtitle="@string/widget_text_color_title"
+        app:resetColor1="@color/widget_default_text_color"
+        app:defaultColor="@color/widget_default_text_color" />
+
+     <net.darkkatrom.dkweather.colorpicker.preference.ColorPickerPreference
+        android:key="widget_icon_color"
+        android:title="@string/widget_icon_color_title"
+        app:pickerTitle="@string/settings_widget_title"
+        app:pickerSubtitle="@string/widget_icon_color_title"
+        app:resetColor1="@color/widget_default_icon_color"
+        app:defaultColor="@color/widget_default_icon_color" />
 
 </PreferenceScreen>

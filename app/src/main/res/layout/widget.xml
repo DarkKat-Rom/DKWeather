@@ -19,14 +19,14 @@
     android:layout_height="match_parent"
     android:padding="4dp"
     android:orientation="vertical"
-    android:background="@color/widget_frame_color">
+    android:background="@color/widget_default_frame_color">
 
     <LinearLayout
         android:id="@+id/widget_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@color/darkkat_blue_grey">
+        android:background="@color/widget_default_background_color">
 
         <include layout="@layout/widget_clock" />
         <include layout="@layout/widget_loading" />

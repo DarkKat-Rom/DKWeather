@@ -28,7 +28,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/widget_clock_bold"
-        android:textColor="@color/widget_text_primary_color"
         android:layout_gravity="center_horizontal|top" />
 
     <!-- Minutes -->
@@ -39,7 +38,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/widget_clock_thin"
-        android:textColor="@color/widget_text_primary_color"
         android:layout_gravity="center_horizontal|top" />
 
 </LinearLayout>

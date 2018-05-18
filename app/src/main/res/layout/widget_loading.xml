@@ -28,7 +28,7 @@
         style="@style/widget_label_bold"
         android:text="@string/widget_loading_title"
         android:textSize="22sp"
-        android:textColor="@color/widget_text_primary_color" />
+        android:textColor="@color/widget_default_text_color" />
 
     <ProgressBar
         android:id="@+id/widget_loading_progress"

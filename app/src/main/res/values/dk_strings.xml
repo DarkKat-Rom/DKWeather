@@ -133,6 +133,8 @@
     <string name="widget_background_background_with_frame">Show background with frame</string>
     <string name="widget_background_color_title">Background color</string>
     <string name="widget_frame_color_title">Frame color</string>
+    <string name="widget_text_color_title">Text color</string>
+    <string name="widget_icon_color_title">Icon color</string>
     <!-- Settings end -->
 
     <!-- CyanogenMod additions -->

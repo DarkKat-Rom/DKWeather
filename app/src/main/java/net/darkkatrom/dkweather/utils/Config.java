@@ -51,6 +51,8 @@ public class Config {
     public static final String PREF_KEY_WIDGET_BACKGROUND       = "widget_background";
     public static final String PREF_KEY_WIDGET_BACKGROUND_COLOR = "widget_background_color";
     public static final String PREF_KEY_WIDGET_FRAME_COLOR      = "widget_frame_color";
+    public static final String PREF_KEY_WIDGET_TEXT_COLOR       = "widget_text_color";
+    public static final String PREF_KEY_WIDGET_ICON_COLOR       = "widget_icon_color";
 
     public static final String PREF_KEY_LOCATION_ID   = "location_id";
     public static final String PREF_KEY_LOCATION_NAME = "location_name";
@@ -62,6 +64,11 @@ public class Config {
     public static final int WIDGET_BACKGROUND_BACKGROUND_ONLY          = 1;
     public static final int WIDGET_BACKGROUND_BACKGROUND_WITHOUT_FRAME = 2;
     public static final int WIDGET_BACKGROUND_BACKGROUND_WITH_FRAME    = 3;
+
+    private static final int WIDGET_TEXT_PRIMARY_ALPHA   = 255;
+    private static final int WIDGET_TEXT_SECONDARY_ALPHA = 179;
+    private static final int WIDGET_ICON_ALPHA           = WIDGET_TEXT_SECONDARY_ALPHA;
+    private static final int WIDGET_DIVIDER_ALPHA        = 51;
 
     public static boolean isEnabled(Context context) {
         SharedPreferences prefs = PreferenceManager
@@ -223,7 +230,7 @@ public class Config {
         SharedPreferences prefs = PreferenceManager
                 .getDefaultSharedPreferences(context);
 
-        int defaultColor = context.getColor(R.color.darkkat_blue_grey);
+        int defaultColor = context.getColor(R.color.widget_default_background_color);
         return prefs.getInt(PREF_KEY_WIDGET_BACKGROUND_COLOR, defaultColor);
     }
 
@@ -231,9 +238,31 @@ public class Config {
         SharedPreferences prefs = PreferenceManager
                 .getDefaultSharedPreferences(context);
 
-        int defaultColor = context.getColor(R.color.widget_frame_color);
+        int defaultColor = context.getColor(R.color.widget_default_frame_color);
         return prefs.getInt(PREF_KEY_WIDGET_FRAME_COLOR, defaultColor);
     }
+
+
+    public static int getWidgetTextColor(Context context, boolean isPrimary) {
+        SharedPreferences prefs = PreferenceManager
+                .getDefaultSharedPreferences(context);
+
+        int defaultColor = context.getColor(R.color.widget_default_text_color);
+        int baseColor = prefs.getInt(PREF_KEY_WIDGET_TEXT_COLOR, defaultColor);
+        int alpha = isPrimary ? WIDGET_TEXT_PRIMARY_ALPHA : WIDGET_TEXT_SECONDARY_ALPHA;
+        return (alpha << 24) | (baseColor & 0x00ffffff);
+    }
+
+    public static int getWidgetIconColor(Context context, boolean isDivider) {
+        SharedPreferences prefs = PreferenceManager
+                .getDefaultSharedPreferences(context);
+
+        int defaultColor = context.getColor(R.color.widget_default_icon_color);
+        int baseColor = prefs.getInt(PREF_KEY_WIDGET_ICON_COLOR, defaultColor);
+        int alpha = isDivider ? WIDGET_DIVIDER_ALPHA : WIDGET_ICON_ALPHA;
+        return (alpha << 24) | (baseColor & 0x00ffffff);
+    }
+
 
     public static AbstractWeatherProvider getProvider(Context context) {
         return new OpenWeatherMapProvider(context);

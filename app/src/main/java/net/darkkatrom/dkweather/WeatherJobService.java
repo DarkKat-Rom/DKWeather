@@ -24,6 +24,7 @@ import android.appwidget.AppWidgetProviderInfo;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.Icon;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
@@ -164,78 +165,11 @@ public class WeatherJobService extends JobService {
         if (mWeatherInfo != null) {
             for (int id : widgetIds) {
                 RemoteViews remoteViews = new RemoteViews(getPackageName(), R.layout.widget);
-
-                if (Config.getWidgetBackground(this) == Config.WIDGET_BACKGROUND_NONE) {
-                    remoteViews.setInt(R.id.widget_root, "setBackgroundColor", 0);
-                    remoteViews.setInt(R.id.widget_container, "setBackgroundColor", 0);
-                } else if (Config.getWidgetBackground(this) == Config.WIDGET_BACKGROUND_BACKGROUND_ONLY) {
-                    int bgColor = Config.getWidgetBackgroundColor(this);
-                    remoteViews.setInt(R.id.widget_root, "setBackgroundColor", bgColor);
-                } else if (Config.getWidgetBackground(this) == Config.WIDGET_BACKGROUND_BACKGROUND_WITHOUT_FRAME) {
-                    int bgColor = Config.getWidgetBackgroundColor(this);
-                    remoteViews.setInt(R.id.widget_root, "setBackgroundColor", 0);
-                    remoteViews.setInt(R.id.widget_container, "setBackgroundColor", bgColor);
-                } else {
-                    int frameColor = Config.getWidgetFrameColor(this);
-                    int bgColor = Config.getWidgetBackgroundColor(this);
-                    remoteViews.setInt(R.id.widget_root, "setBackgroundColor", frameColor);
-                    remoteViews.setInt(R.id.widget_container, "setBackgroundColor", bgColor);
-                }
-
-                String nextAlarmText = getNextAlarmText();
-                int iconResid = getResources().getIdentifier(
-                        "weather_" + mWeatherInfo.getConditionCode(), "drawable", getPackageName());
-                int[] dayTempsTextResId = new int[] {
-                        R.id.widget_weather_temp_morning_value,
-                        R.id.widget_weather_temp_day_value,
-                        R.id.widget_weather_temp_evening_value,
-                        R.id.widget_weather_temp_night_value
-                };
-                final String[] tempsText = {
-                    mWeatherInfo.getForecasts().get(0).getFormattedMorning(),
-                    mWeatherInfo.getForecasts().get(0).getFormattedDay(),
-                    mWeatherInfo.getForecasts().get(0).getFormattedEvening(),
-                    mWeatherInfo.getForecasts().get(0).getFormattedNight()
-                };
-
-                remoteViews.setViewVisibility(R.id.widget_loading_container, View.GONE);
-                remoteViews.setViewVisibility(R.id.widget_clock_container, View.VISIBLE);
-                remoteViews.setViewVisibility(R.id.widget_date_alarm_container, View.VISIBLE);
-                remoteViews.setViewVisibility(R.id.widget_weather_container, View.VISIBLE);
-
-                remoteViews.setCharSequence(R.id.widget_date_text, "setFormat12Hour",
-                        getBestDatePatterns());
-                remoteViews.setCharSequence(R.id.widget_date_text, "setFormat24Hour",
-                        getBestDatePatterns());
-
-                remoteViews.setViewVisibility(R.id.widget_next_alarm_icon, nextAlarmText != null
-                        ? View.VISIBLE : View.GONE);
-                remoteViews.setTextViewText(R.id.widget_next_alarm_text, nextAlarmText);
-                remoteViews.setViewVisibility(R.id.widget_next_alarm_text, nextAlarmText != null
-                        ? View.VISIBLE : View.GONE);
-
-                remoteViews.setImageViewResource(R.id.widget_weather_condition_image, iconResid);
-
-                remoteViews.setTextViewText(R.id.widget_weather_temp_text,
-                        mWeatherInfo.getFormattedTemperature());
-                remoteViews.setTextViewText(R.id.widget_weather_temp_low_high_text,
-                        mWeatherInfo.getFormattedLow() + " | " + mWeatherInfo.getFormattedHigh());
-
-                remoteViews.setTextViewText(R.id.widget_weather_location_text, mWeatherInfo.getCity());
-                remoteViews.setTextViewText(R.id.widget_weather_condition_text,
-                        mWeatherInfo.getCondition());
-
-                remoteViews.setTextViewText(R.id.widget_weather_precipitation_text,
-                        getPrecipitationText());
-                remoteViews.setTextViewText(R.id.widget_weather_wind_text,
-                        mWeatherInfo.getFormattedWind());
-
-                for (int i = 0; i < dayTempsTextResId.length; i++) {
-                    remoteViews.setTextViewText(dayTempsTextResId[i], tempsText[i]);
-                }
-
-                remoteViews.setTextViewText(R.id.widget_weather_timestamp_text, getUpdateDateTimeText());
-
+                setWidgetVisibilities(remoteViews, getNextAlarmText());
+                setWidgetColors(remoteViews);
+                setWidgetTextFormats(remoteViews);
+                setWidgetTexts(remoteViews, getNextAlarmText());
+                setWidgetIcons(remoteViews);
                 appWidgetManager.updateAppWidget(id, remoteViews);
             }
         }
@@ -285,6 +219,110 @@ public class WeatherJobService extends JobService {
         return true;
     }
 
+    private void setWidgetVisibilities(RemoteViews remoteViews, String nextAlarmText) {
+        remoteViews.setViewVisibility(R.id.widget_loading_container, View.GONE);
+        remoteViews.setViewVisibility(R.id.widget_clock_container, View.VISIBLE);
+        remoteViews.setViewVisibility(R.id.widget_date_alarm_container, View.VISIBLE);
+        remoteViews.setViewVisibility(R.id.widget_weather_container, View.VISIBLE);
+        remoteViews.setViewVisibility(R.id.widget_next_alarm_icon, nextAlarmText != null
+                ? View.VISIBLE : View.GONE);
+        remoteViews.setViewVisibility(R.id.widget_next_alarm_text, nextAlarmText != null
+                ? View.VISIBLE : View.GONE);
+    }
+
+    private void setWidgetColors(RemoteViews remoteViews) {
+        int backgroundColor = Config.getWidgetBackgroundColor(this);
+        int frameColor = Config.getWidgetFrameColor(this);
+        int textColorPrimary = Config.getWidgetTextColor(this, true);
+        int textColorSecondary = Config.getWidgetTextColor(this, false);
+        int dividerColor = Config.getWidgetIconColor(this, true);
+
+        if (Config.getWidgetBackground(this) == Config.WIDGET_BACKGROUND_NONE) {
+            remoteViews.setInt(R.id.widget_root, "setBackgroundColor", 0);
+            remoteViews.setInt(R.id.widget_container, "setBackgroundColor", 0);
+        } else if (Config.getWidgetBackground(this) == Config.WIDGET_BACKGROUND_BACKGROUND_ONLY) {
+            remoteViews.setInt(R.id.widget_root, "setBackgroundColor", backgroundColor);
+        } else if (Config.getWidgetBackground(this) == Config.WIDGET_BACKGROUND_BACKGROUND_WITHOUT_FRAME) {
+            int bgColor = Config.getWidgetBackgroundColor(this);
+            remoteViews.setInt(R.id.widget_root, "setBackgroundColor", 0);
+            remoteViews.setInt(R.id.widget_container, "setBackgroundColor", backgroundColor);
+        } else {
+            remoteViews.setInt(R.id.widget_root, "setBackgroundColor", frameColor);
+            remoteViews.setInt(R.id.widget_container, "setBackgroundColor", backgroundColor);
+        }
+        remoteViews.setTextColor(R.id.widget_clock_hours, textColorPrimary);
+        remoteViews.setTextColor(R.id.widget_clock_minutes, textColorPrimary);
+        remoteViews.setTextColor(R.id.widget_date_text, textColorSecondary);
+        remoteViews.setTextColor(R.id.widget_next_alarm_text, textColorSecondary);
+        remoteViews.setTextColor(R.id.widget_weather_temp_text, textColorPrimary);
+        remoteViews.setTextColor(R.id.widget_weather_temp_low_high_text, textColorSecondary);
+        remoteViews.setTextColor(R.id.widget_weather_location_text, textColorPrimary);
+        remoteViews.setTextColor(R.id.widget_weather_condition_text, textColorPrimary);
+        remoteViews.setTextColor(R.id.widget_weather_precipitation_text, textColorSecondary);
+        remoteViews.setTextColor(R.id.widget_weather_wind_text, textColorSecondary);
+        remoteViews.setTextColor(R.id.widget_weather_temp_morning_title, textColorPrimary);
+        remoteViews.setTextColor(R.id.widget_weather_temp_morning_value, textColorSecondary);
+        remoteViews.setTextColor(R.id.widget_weather_temp_day_title, textColorPrimary);
+        remoteViews.setTextColor(R.id.widget_weather_temp_day_value, textColorSecondary);
+        remoteViews.setTextColor(R.id.widget_weather_temp_evening_title, textColorPrimary);
+        remoteViews.setTextColor(R.id.widget_weather_temp_evening_value, textColorSecondary);
+        remoteViews.setTextColor(R.id.widget_weather_temp_night_title, textColorPrimary);
+        remoteViews.setTextColor(R.id.widget_weather_temp_night_value, textColorSecondary);
+        remoteViews.setTextColor(R.id.widget_weather_timestamp_text, textColorSecondary);
+        remoteViews.setInt(R.id.widget_weather_image_divider, "setBackgroundColor", dividerColor);
+        remoteViews.setInt(R.id.widget_weather_temp_divider, "setBackgroundColor", dividerColor);
+    }
+
+    private void setWidgetTextFormats(RemoteViews remoteViews) {
+        remoteViews.setCharSequence(R.id.widget_date_text, "setFormat12Hour",
+                getBestDatePatterns());
+        remoteViews.setCharSequence(R.id.widget_date_text, "setFormat24Hour",
+                getBestDatePatterns());
+    }
+
+    private void setWidgetTexts(RemoteViews remoteViews, String nextAlarmText) {
+        int[] dayTempsTextResId = new int[] {
+                R.id.widget_weather_temp_morning_value,
+                R.id.widget_weather_temp_day_value,
+                R.id.widget_weather_temp_evening_value,
+                R.id.widget_weather_temp_night_value
+        };
+        final String[] tempsText = {
+            mWeatherInfo.getForecasts().get(0).getFormattedMorning(),
+            mWeatherInfo.getForecasts().get(0).getFormattedDay(),
+            mWeatherInfo.getForecasts().get(0).getFormattedEvening(),
+            mWeatherInfo.getForecasts().get(0).getFormattedNight()
+        };
+
+        remoteViews.setTextViewText(R.id.widget_next_alarm_text, nextAlarmText);
+        remoteViews.setTextViewText(R.id.widget_weather_temp_text,
+                mWeatherInfo.getFormattedTemperature());
+        remoteViews.setTextViewText(R.id.widget_weather_temp_low_high_text,
+                mWeatherInfo.getFormattedLow() + " | " + mWeatherInfo.getFormattedHigh());
+        remoteViews.setTextViewText(R.id.widget_weather_location_text, mWeatherInfo.getCity());
+        remoteViews.setTextViewText(R.id.widget_weather_condition_text,
+                mWeatherInfo.getCondition());
+        remoteViews.setTextViewText(R.id.widget_weather_precipitation_text,
+                getPrecipitationText());
+        remoteViews.setTextViewText(R.id.widget_weather_wind_text,
+                mWeatherInfo.getFormattedWind());
+        for (int i = 0; i < dayTempsTextResId.length; i++) {
+            remoteViews.setTextViewText(dayTempsTextResId[i], tempsText[i]);
+        }
+        remoteViews.setTextViewText(R.id.widget_weather_timestamp_text, getUpdateDateTimeText());
+    }
+
+    private void setWidgetIcons(RemoteViews remoteViews) {
+        int conditionIconResid = getResources().getIdentifier(
+                "weather_" + mWeatherInfo.getConditionCode(), "drawable", getPackageName());
+
+        remoteViews.setImageViewIcon(R.id.widget_next_alarm_icon, getIcon(R.drawable.ic_alarm));
+        remoteViews.setImageViewIcon(R.id.widget_weather_condition_image, getIcon(conditionIconResid));
+        remoteViews.setImageViewIcon(R.id.widget_weather_precipitation_icon, getIcon(R.drawable.ic_rain));
+        remoteViews.setImageViewIcon(R.id.widget_weather_wind_icon, getIcon(R.drawable.ic_wind));
+        remoteViews.setImageViewIcon(R.id.widget_weather_timestamp_icon, getIcon(R.drawable.ic_update));
+
+    }
     private String getBestDatePatterns() {
         String skeleton = getResources().getString(R.string.abbrev_wday_month_day_no_year);
         return DateFormat.getBestDateTimePattern(Locale.getDefault(), skeleton);
@@ -351,5 +389,11 @@ public class WeatherJobService extends JobService {
         String skeleton = DateFormat.is24HourFormat(this) ? skeleton24 : skeleton12;
         String pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(), skeleton);
         return (String) DateFormat.format(pattern, time);
+    }
+
+    private Icon getIcon(int resId) {
+        Icon icon = Icon.createWithResource(this, resId);
+        icon.setTint(Config.getWidgetIconColor(this, false));
+        return icon;
     }
 }
