@@ -31,11 +31,6 @@ import net.darkkatrom.dkweather.utils.NotificationUtil;
 public class NotificationSettings extends PreferenceFragment implements
         OnSharedPreferenceChangeListener {
 
-    private SwitchPreference mShow;
-    private SwitchPreference mShowOngoing;
-    private SwitchPreference mShowLocation;
-    private SwitchPreference mShowDKIcon;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,16 +39,6 @@ public class NotificationSettings extends PreferenceFragment implements
         PreferenceManager.getDefaultSharedPreferences(getActivity())
                 .registerOnSharedPreferenceChangeListener(this);
 
-        mShow = (SwitchPreference) findPreference(Config.PREF_KEY_SHOW_NOTIF);
-
-        mShowOngoing = (SwitchPreference) findPreference(Config.PREF_KEY_SHOW_NOTIF_ONGOING);
-
-        mShowLocation =
-                (SwitchPreference) findPreference(Config.PREF_KEY_NOTIF_SHOW_LOCATION);
-
-        mShowDKIcon =
-                (SwitchPreference) findPreference(Config.PREF_KEY_NOTIF_SHOW_DK_ICON);
-
         if (getActivity().getActionBar() != null) {
             getActivity().getActionBar().setSubtitle(R.string.action_bar_subtitle_settings_notification);
         }
@@ -61,15 +46,15 @@ public class NotificationSettings extends PreferenceFragment implements
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        if (key == mShow.getKey()) {
-            if (mShow.isChecked()) {
+        if (Config.PREF_KEY_SHOW_NOTIF.equals(key)) {
+            if (((SwitchPreference) findPreference(Config.PREF_KEY_SHOW_NOTIF)).isChecked()) {
                 sendNotification();
             } else {
                 NotificationUtil.removeNotification(getActivity());
             }
-        } else if (key == mShowOngoing.getKey()
-                    || key == mShowLocation.getKey()
-                    || key == mShowDKIcon.getKey()) {
+        } else if (Config.PREF_KEY_SHOW_NOTIF_ONGOING.equals(key)
+                    || Config.PREF_KEY_NOTIF_SHOW_LOCATION.equals(key)
+                    || Config.PREF_KEY_NOTIF_SHOW_DK_ICON.equals(key)) {
             sendNotification();
         }
     }

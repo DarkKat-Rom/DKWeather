@@ -30,7 +30,7 @@
 
     <!-- Notification channels -->
     <string name="weather_notification_chanel_title">Wetter</string>
-    <string name="weather_notification_chanel_description">Kategorie für die laufende Wetter Benachrichtigung</string>
+    <string name="weather_notification_chanel_description">Kategorie für die Wetter Benachrichtigung</string>
 
     <!-- Actionbar -->
     <string name="today_title">Heute</string>
@@ -39,8 +39,9 @@
     <string name="action_bar_no_weather_data_part">, (keine Wetterdaten)</string>
     <string name="action_bar_subtitle_settings">@string/settings_title</string>
     <string name="action_bar_subtitle_settings_weather">Einstellungen -> \'Wetter konfigurieren\'</string>
-    <string name="action_bar_subtitle_settings_notification">Einstellungen -> \"Laufende Benachrichtigung\"</string>
+    <string name="action_bar_subtitle_settings_notification">Einstellungen -> \"Benachrichtigung\"</string>
     <string name="action_bar_subtitle_settings_theme">Einstellungen -> \"Theme\"</string>
+    <string name="action_bar_subtitle_settings_widget">Einstellungen -> \'Widget\'</string>
 
     <!-- Weather fragments -->
     <string name="current_title">Aktuell</string>

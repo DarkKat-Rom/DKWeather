@@ -45,6 +45,9 @@ public class WidgetSettings extends SettingsColorPickerFragment implements
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        if (getActivity().getActionBar() != null) {
+            getActivity().getActionBar().setSubtitle(R.string.action_bar_subtitle_settings_widget);
+        }
         updatePreferenceScreen();
     }
 
