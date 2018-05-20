@@ -242,8 +242,8 @@ public class WeatherJobService extends JobService {
             remoteViews.setInt(R.id.widget_container, "setBackgroundColor", 0);
         } else if (Config.getWidgetBackground(this) == Config.WIDGET_BACKGROUND_BACKGROUND_ONLY) {
             remoteViews.setInt(R.id.widget_root, "setBackgroundColor", backgroundColor);
+            remoteViews.setInt(R.id.widget_container, "setBackgroundColor", 0);
         } else if (Config.getWidgetBackground(this) == Config.WIDGET_BACKGROUND_BACKGROUND_WITHOUT_FRAME) {
-            int bgColor = Config.getWidgetBackgroundColor(this);
             remoteViews.setInt(R.id.widget_root, "setBackgroundColor", 0);
             remoteViews.setInt(R.id.widget_container, "setBackgroundColor", backgroundColor);
         } else {
