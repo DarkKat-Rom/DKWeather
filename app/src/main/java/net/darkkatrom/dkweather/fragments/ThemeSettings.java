@@ -47,7 +47,7 @@ public class ThemeSettings extends SettingsBaseFragment implements
 
 
     @Override
-        public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         if (Config.PREF_KEY_THEME_USE_DARK_THEME.equals(key)
                     || Config.PREF_KEY_THEME_USE_LIGHT_STATUS_BAR.equals(key)
                     || Config.PREF_KEY_THEME_USE_LIGHT_NAVIGATION_BAR.equals(key)) {
