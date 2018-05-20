@@ -19,44 +19,69 @@ package net.darkkatrom.dkweather.fragments;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
-import android.preference.Preference;
-import android.preference.PreferenceFragment;
-import android.preference.PreferenceManager;
-import android.preference.SwitchPreference;
+import android.preference.PreferenceScreen;
 
 import net.darkkatrom.dkweather.R;
 import net.darkkatrom.dkweather.utils.Config;
 import net.darkkatrom.dkweather.utils.NotificationUtil;
 
-public class NotificationSettings extends PreferenceFragment implements
+public class NotificationSettings extends SettingsBaseFragment implements
         OnSharedPreferenceChangeListener {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        updatePreferenceScreen();
+    }
+
+    @Override
+    protected int getSubtitleResId() {
+        return R.string.action_bar_subtitle_settings_notification;
+    }
+
+    public void updatePreferenceScreen() {
+        PreferenceScreen prefs = getPreferenceScreen();
+        if (prefs != null) {
+            prefs.removeAll();
+        }
 
         addPreferencesFromResource(R.xml.notification_settings);
-        PreferenceManager.getDefaultSharedPreferences(getActivity())
-                .registerOnSharedPreferenceChangeListener(this);
 
-        if (getActivity().getActionBar() != null) {
-            getActivity().getActionBar().setSubtitle(R.string.action_bar_subtitle_settings_notification);
+        if (!Config.getShowNotification(getActivity())) {
+            removePreference(Config.PREF_KEY_SHOW_NOTIF_ONGOING);
+            removePreference(Config.PREF_KEY_NOTIF_SHOW_LOCATION);
+            removePreference(Config.PREF_KEY_NOTIF_SHOW_DK_ICON);
         }
     }
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         if (Config.PREF_KEY_SHOW_NOTIF.equals(key)) {
-            if (((SwitchPreference) findPreference(Config.PREF_KEY_SHOW_NOTIF)).isChecked()) {
+            if (Config.getShowNotification(getActivity())) {
                 sendNotification();
             } else {
                 NotificationUtil.removeNotification(getActivity());
             }
+            updatePreferenceScreen();
         } else if (Config.PREF_KEY_SHOW_NOTIF_ONGOING.equals(key)
                     || Config.PREF_KEY_NOTIF_SHOW_LOCATION.equals(key)
                     || Config.PREF_KEY_NOTIF_SHOW_DK_ICON.equals(key)) {
             sendNotification();
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getPreferenceScreen().getSharedPreferences()
+                .registerOnSharedPreferenceChangeListener(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        getPreferenceScreen().getSharedPreferences()
+                .unregisterOnSharedPreferenceChangeListener(this);
     }
 
     private void sendNotification() {

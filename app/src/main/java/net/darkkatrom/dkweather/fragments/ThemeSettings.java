@@ -16,22 +16,17 @@
 
 package net.darkkatrom.dkweather.fragments;
 
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
 import android.preference.Preference;
-import android.preference.Preference.OnPreferenceChangeListener;
-import android.preference.PreferenceFragment;
-import android.preference.SwitchPreference;
 
 import net.darkkatrom.dkweather.R;
 import net.darkkatrom.dkweather.activities.MainActivity;
 import net.darkkatrom.dkweather.utils.Config;
 
-public class ThemeSettings extends PreferenceFragment implements
-        OnPreferenceChangeListener {
-
-    private SwitchPreference mUseDarkTheme;
-    private SwitchPreference mUseLightStatusBar;
-    private SwitchPreference mUseLightNavigationBar;
+public class ThemeSettings extends SettingsBaseFragment implements
+        OnSharedPreferenceChangeListener {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -39,31 +34,38 @@ public class ThemeSettings extends PreferenceFragment implements
 
         addPreferencesFromResource(R.xml.theme_settings);
 
-        mUseDarkTheme = (SwitchPreference) findPreference(Config.PREF_KEY_THEME_USE_DARK_THEME);
-        mUseDarkTheme.setOnPreferenceChangeListener(this);
-
-        mUseLightStatusBar = (SwitchPreference) findPreference(Config.PREF_KEY_THEME_USE_LIGHT_STATUS_BAR);
-        mUseLightStatusBar.setOnPreferenceChangeListener(this);
-
-        mUseLightNavigationBar =
-                (SwitchPreference) findPreference(Config.PREF_KEY_THEME_USE_LIGHT_NAVIGATION_BAR);
-        mUseLightNavigationBar.setOnPreferenceChangeListener(this);
-
-        if (getActivity().getActionBar() != null) {
-            getActivity().getActionBar().setSubtitle(R.string.action_bar_subtitle_settings_theme);
+        if (Config.getThemUseDarkTheme(getActivity())) {
+            removePreference(Config.PREF_KEY_THEME_USE_LIGHT_STATUS_BAR);
+            removePreference(Config.PREF_KEY_THEME_USE_LIGHT_NAVIGATION_BAR);
         }
     }
 
     @Override
-    public boolean onPreferenceChange(Preference preference, Object newValue) {
-        boolean value;
+    protected int getSubtitleResId() {
+        return R.string.action_bar_subtitle_settings_theme;
+    }
 
-        if (preference == mUseDarkTheme
-                    || preference == mUseLightStatusBar
-                    || preference == mUseLightNavigationBar) {
+
+    @Override
+        public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        if (Config.PREF_KEY_THEME_USE_DARK_THEME.equals(key)
+                    || Config.PREF_KEY_THEME_USE_LIGHT_STATUS_BAR.equals(key)
+                    || Config.PREF_KEY_THEME_USE_LIGHT_NAVIGATION_BAR.equals(key)) {
             ((MainActivity) getActivity()).recreateForThemeChange();
-            return true;
         }
-        return false;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getPreferenceScreen().getSharedPreferences()
+                .registerOnSharedPreferenceChangeListener(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        getPreferenceScreen().getSharedPreferences()
+                .unregisterOnSharedPreferenceChangeListener(this);
     }
 }

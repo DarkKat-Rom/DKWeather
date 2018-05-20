@@ -18,17 +18,15 @@ package net.darkkatrom.dkweather.colorpicker.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.ContentResolver;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.Preference;
-import android.preference.PreferenceFragment;
 import android.preference.PreferenceCategory;
 
 import net.darkkatrom.dkweather.colorpicker.ColorPickerActivity;
 import net.darkkatrom.dkweather.colorpicker.preference.ColorPickerPreference;
+import net.darkkatrom.dkweather.fragments.SettingsBaseFragment;
 
-public class SettingsColorPickerFragment extends PreferenceFragment implements
+public class SettingsColorPickerFragment extends SettingsBaseFragment implements
         ColorPickerPreference.TargetFragment {
 
     @Override
@@ -36,7 +34,7 @@ public class SettingsColorPickerFragment extends PreferenceFragment implements
         super.addPreferencesFromResource(preferencesResId);
 
         int prefsCount = getPreferenceScreen().getPreferenceCount();
-        for(int i = 0; i < prefsCount; i++) {
+        for (int i = 0; i < prefsCount; i++) {
             Preference p = getPreferenceScreen().getPreference(i);
             if (p instanceof PreferenceCategory) {
                 int prefsGroupCount = ((PreferenceCategory) p).getPreferenceCount();
@@ -73,24 +71,5 @@ public class SettingsColorPickerFragment extends PreferenceFragment implements
                         .setNewColor(extras.getInt(extraNewColor));
             }
         }
-    }
-
-    protected void removePreference(String key) {
-        Preference pref = findPreference(key);
-        if (pref != null) {
-            getPreferenceScreen().removePreference(pref);
-        }
-    }
-
-    protected ContentResolver getContentResolver() {
-        return getActivity().getContentResolver();
-    }
-
-    protected Object getSystemService(final String name) {
-        return getActivity().getSystemService(name);
-    }
-
-    protected PackageManager getPackageManager() {
-        return getActivity().getPackageManager();
     }
 }

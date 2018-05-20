@@ -25,21 +25,18 @@ limitations under the License.
         android:key="show_notification_ongoing"
         android:title="@string/show_notification_ongoing_title"
         android:summary="@string/show_notification_ongoing_summary"
-        android:defaultValue="false"
-        android:dependency="show_notification" />
+        android:defaultValue="false" />
 
     <SwitchPreference
         android:key="notification_show_location"
         android:title="@string/notification_show_location_title"
         android:summary="@string/notification_show_location_summary"
-        android:defaultValue="true"
-        android:dependency="show_notification" />
+        android:defaultValue="true" />
 
     <SwitchPreference
         android:key="notification_show_dk_icon"
         android:title="@string/notification_show_dk_icon_title"
         android:summary="@string/notification_show_dk_icon_summary"
-        android:defaultValue="true"
-        android:dependency="show_notification" />
+        android:defaultValue="true" />
 
 </PreferenceScreen>

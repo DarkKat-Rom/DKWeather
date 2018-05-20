@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 DarkKat
+ * Copyright (C) 2018 DarkKat
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,29 +16,28 @@
 
 package net.darkkatrom.dkweather.fragments;
 
-
 import android.os.Bundle;
+import android.preference.Preference;
+import android.preference.PreferenceFragment;
 
-import net.darkkatrom.dkweather.R;
-import net.darkkatrom.dkweather.utils.Config;
-
-public class SettingsFragment extends SettingsBaseFragment  {
+public class SettingsBaseFragment extends PreferenceFragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        addPreferencesFromResource(R.xml.settings);
+        if (getActivity().getActionBar() != null && getSubtitleResId() > 0) {
+            getActivity().getActionBar().setSubtitle(getSubtitleResId());
+        }
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        findPreference(Config.PREF_KEY_SETTINGS_NOTIFICATION).setEnabled(Config.isEnabled(getActivity()));
-        findPreference(Config.PREF_KEY_SETTINGS_WIDGET).setEnabled(Config.isEnabled(getActivity()));
-    }
-
-    @Override
     protected int getSubtitleResId() {
-        return R.string.action_bar_subtitle_settings;
+        return 0;
+    }
+
+    protected void removePreference(String key) {
+        Preference pref = findPreference(key);
+        if (pref != null) {
+            getPreferenceScreen().removePreference(pref);
+        }
     }
 }

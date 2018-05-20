@@ -224,7 +224,9 @@ public class MainActivity extends BaseActivity implements
         String noWeatherDataPart = mWeatherInfo == null
                 ? getResources().getString(R.string.action_bar_no_weather_data_part) : "";
 
-        getActionBar().setSubtitle(mActionBarSubTitles[mVisibleScreen] + noWeatherDataPart);
+        if (mVisibleScreen != SETTINGS) {
+            getActionBar().setSubtitle(mActionBarSubTitles[mVisibleScreen] + noWeatherDataPart);
+        }
     }
 
     private void setupBottomNavigation() {
