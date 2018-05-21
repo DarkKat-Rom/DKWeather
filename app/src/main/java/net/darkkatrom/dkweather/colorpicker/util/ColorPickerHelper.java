@@ -46,10 +46,11 @@ public class ColorPickerHelper {
         Canvas canvas = new Canvas(bitmap);
         drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
         drawable.draw(canvas);
+
         return bitmap;
     }
 
-    /**
+    /*
      * Converts a color int to a aarrggbb color string
      * 
      * @param color
@@ -64,15 +65,12 @@ public class ColorPickerHelper {
         if (alpha.length() == 1) {
             alpha = "0" + alpha;
         }
-
         if (red.length() == 1) {
             red = "0" + red;
         }
-
         if (green.length() == 1) {
             green = "0" + green;
         }
-
         if (blue.length() == 1) {
             blue = "0" + blue;
         }
@@ -80,7 +78,7 @@ public class ColorPickerHelper {
         return "#" + alpha + red + green + blue;
     }
 
-    /**
+    /*
      * Converts a aarrggbb- or rrggbb color string to a color int
      * 
      * @param argb
@@ -88,7 +86,6 @@ public class ColorPickerHelper {
      * @author Unknown
      */
     public static int convertToColorInt(String argb) throws NumberFormatException {
-
         if (argb.startsWith("#")) {
             argb = argb.replace("#", "");
         }
@@ -100,8 +97,7 @@ public class ColorPickerHelper {
             red = Integer.parseInt(argb.substring(2, 4), 16);
             green = Integer.parseInt(argb.substring(4, 6), 16);
             blue = Integer.parseInt(argb.substring(6, 8), 16);
-        }
-        else if (argb.length() == 6) {
+        } else if (argb.length() == 6) {
             alpha = 255;
             red = Integer.parseInt(argb.substring(0, 2), 16);
             green = Integer.parseInt(argb.substring(2, 4), 16);

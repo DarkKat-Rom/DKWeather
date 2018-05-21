@@ -29,24 +29,24 @@ import net.darkkatrom.dkweather.colorpicker.drawable.ColorViewCircleDrawable;
 
 public class ApplyColorView extends FrameLayout {
 
-	private ImageView mColorView;
-	private ImageView mColorSet;
+    private ImageView mColorView;
+    private ImageView mColorSet;
 
-	private ColorViewCircleDrawable mColorPreview;
+    private ColorViewCircleDrawable mColorPreview;
 
-	private int mBorderColor;
+    private int mBorderColor;
 
-	public ApplyColorView(Context context) {
-		this(context, null);
-	}
+    public ApplyColorView(Context context) {
+        this(context, null);
+    }
 
-	public ApplyColorView(Context context, AttributeSet attrs) {
-		this(context, attrs, 0);
-	}
+    public ApplyColorView(Context context, AttributeSet attrs) {
+        this(context, attrs, 0);
+    }
 
-	public ApplyColorView(Context context, AttributeSet attrs, int defStyle) {
-		super(context, attrs, defStyle);
-	}
+    public ApplyColorView(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+    }
 
     @Override
     protected void onFinishInflate() {
@@ -55,40 +55,40 @@ public class ApplyColorView extends FrameLayout {
         final int drawableSize = (int) res.getDimension(R.dimen.color_picker_button_drawable_size);
         mBorderColor = getContext().getColor(R.color.color_picker_color_view_drawable_border);
 
-	    mColorView = (ImageView) findViewById(R.id.apply_color_action_color);
-	    mColorSet = (ImageView) findViewById(R.id.apply_color_action_set);
+        mColorView = (ImageView) findViewById(R.id.apply_color_action_color);
+        mColorSet = (ImageView) findViewById(R.id.apply_color_action_set);
         mColorPreview = new ColorViewCircleDrawable(getContext(), drawableSize);
 
         mColorPreview.setBorderColor(mBorderColor);
         mColorView.setImageDrawable(mColorPreview);
     }
 
-	public void setColor(int color) {
+    public void setColor(int color) {
         if (mColorPreview == null) {
             return;
         }
         mColorPreview.setColor(color);
-	}
+    }
 
-	public int getColor() {
+    public int getColor() {
         if (mColorPreview == null) {
             return Color.BLACK;
         } else {
-		    return mColorPreview.getColor();
+            return mColorPreview.getColor();
         }
-	}
+    }
 
-	public void setBorderColor(int color) {
+    public void setBorderColor(int color) {
         if (mColorPreview == null) {
             return;
         }
-		mBorderColor = color;
+        mBorderColor = color;
         mColorPreview.setBorderColor(mBorderColor);
-	}
+    }
 
-	public int getBorderColor() {
-		return mBorderColor;
-	}
+    public int getBorderColor() {
+        return mBorderColor;
+    }
 
     public void showSetIcon(boolean show) {
         if (mColorSet == null) {

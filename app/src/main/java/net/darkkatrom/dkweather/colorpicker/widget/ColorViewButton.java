@@ -32,66 +32,67 @@ import net.darkkatrom.dkweather.colorpicker.util.ColorPickerHelper;
 
 public class ColorViewButton extends LinearLayout {
 
-	private ImageView mColorView;
-	private TextView mHexView;
+    private ImageView mColorView;
+    private TextView mHexView;
 
-	private ColorViewCircleDrawable mColorPreview;
+    private ColorViewCircleDrawable mColorPreview;
 
-	public ColorViewButton(Context context) {
-		this(context, null);
-	}
+    public ColorViewButton(Context context) {
+        this(context, null);
+    }
 
-	public ColorViewButton(Context context, AttributeSet attrs) {
-		this(context, attrs, 0);
-	}
+    public ColorViewButton(Context context, AttributeSet attrs) {
+        this(context, attrs, 0);
+    }
 
-	public ColorViewButton(Context context, AttributeSet attrs, int defStyle) {
-		super(context, attrs, defStyle);
-	}
+    public ColorViewButton(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+    }
 
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
+
         final Resources res = getContext().getResources();
         final int drawableSize = (int) res.getDimension(R.dimen.color_picker_button_drawable_size);
 
-	    mColorView = (ImageView) findViewById(R.id.color_button_color);
-	    mHexView = (TextView) findViewById(R.id.color_button_hex);
+        mColorView = (ImageView) findViewById(R.id.color_button_color);
+        mHexView = (TextView) findViewById(R.id.color_button_hex);
         mColorPreview = new ColorViewCircleDrawable(getContext(), drawableSize);
 
         mColorView.setImageDrawable(mColorPreview);
     }
 
-	public void setColor(int color) {
+    public void setColor(int color) {
         if (mColorView == null || mHexView == null || mColorPreview == null) {
             return;
         }
         mColorPreview.setColor(color);
         mHexView.setText(ColorPickerHelper.convertToARGB(color));
-	}
+    }
 
-	public int getColor() {
+    public int getColor() {
         if (mColorPreview == null) {
             return Color.BLACK;
         } else {
-		    return mColorPreview.getColor();
+            return mColorPreview.getColor();
         }
-	}
+    }
 
-	public void setBorderColor(int color) {
+    public void setBorderColor(int color) {
         if (mColorPreview == null) {
             return;
         }
         mColorPreview.setBorderColor(color);
-	}
+    }
 
-	public int getBorderColor() {
+    public int getBorderColor() {
         if (mColorPreview == null) {
             return 0xff6E6E6E;
         } else {
-		    return mColorPreview.getBorderColor();
+            return mColorPreview.getBorderColor();
         }
-	}
+    }
 
     public void setShowFavoriteIcon(boolean show) {
         if (mColorView == null || mHexView == null || mColorPreview == null) {

@@ -40,7 +40,7 @@ import net.darkkatrom.dkweather.R;
 import net.darkkatrom.dkweather.colorpicker.util.ColorPickerHelper;
 
 public class ColorViewCircleDrawable extends Drawable {
-	private static final int sNumRectangles = 6;
+    private static final int sNumRectangles = 6;
 
     private final int mSize;
     private final float mBorderWidth;
@@ -49,9 +49,9 @@ public class ColorViewCircleDrawable extends Drawable {
     private int mBorderColor = 0xff6E6E6E;
 
     private Paint mPaint;
-	private Paint mPaintWhite;
-	private Paint mPaintGray;
-	private Paint mBorderPaint;
+    private Paint mPaintWhite;
+    private Paint mPaintGray;
+    private Paint mBorderPaint;
 
     private Bitmap mPatternBitmap;
     private Bitmap mBitmap;
@@ -65,30 +65,30 @@ public class ColorViewCircleDrawable extends Drawable {
         Resources res = context.getResources();
 
         mSize = size;
-		mBorderWidth = res.getDimension(R.dimen.color_picker_color_view_drawable_border_width);
+        mBorderWidth = res.getDimension(R.dimen.color_picker_color_view_drawable_border_width);
 
         mColor = Color.BLACK;
 
-		mPaintWhite = new Paint();
-		mPaintWhite.setAntiAlias(true);
-		mPaintWhite.setColor(Color.WHITE);
+        mPaintWhite = new Paint();
+        mPaintWhite.setAntiAlias(true);
+        mPaintWhite.setColor(Color.WHITE);
 
-		mPaintGray = new Paint();
-		mPaintGray.setAntiAlias(true);
-		mPaintGray.setColor(Color.LTGRAY);
+        mPaintGray = new Paint();
+        mPaintGray.setAntiAlias(true);
+        mPaintGray.setColor(Color.LTGRAY);
 
-		mPaint = new Paint();
+        mPaint = new Paint();
         mPaint.setAntiAlias(true);
         mPaint.setColor(Color.BLACK);
         mPaint.setStyle(Paint.Style.FILL);
 
-		mBorderPaint = new Paint();
-		mBorderPaint.setAntiAlias(true);
-		mBorderPaint.setColor(mBorderColor);
-		mBorderPaint.setStrokeCap(Paint.Cap.BUTT);
-		mBorderPaint.setDither(true);
-		mBorderPaint.setStrokeWidth(mBorderWidth);
-		mBorderPaint.setStyle(Paint.Style.STROKE);
+        mBorderPaint = new Paint();
+        mBorderPaint.setAntiAlias(true);
+        mBorderPaint.setColor(mBorderColor);
+        mBorderPaint.setStrokeCap(Paint.Cap.BUTT);
+        mBorderPaint.setDither(true);
+        mBorderPaint.setStrokeWidth(mBorderWidth);
+        mBorderPaint.setStyle(Paint.Style.STROKE);
 
         mFavoriteBitmap = ColorPickerHelper.drawableToBitmap(
                 context.getDrawable(R.drawable.ic_favorite_emty));
@@ -138,7 +138,7 @@ public class ColorViewCircleDrawable extends Drawable {
 
     public void setBorderColor(int color) {
         mBorderColor = color;
-		mBorderPaint.setColor(mBorderColor);
+        mBorderPaint.setColor(mBorderColor);
         invalidateSelf();
     }
 
@@ -151,8 +151,8 @@ public class ColorViewCircleDrawable extends Drawable {
         invalidateSelf();
     }
 
-	private void generateCirclePatternBitmap() {
-		generatePatternBitmap();
+    private void generateCirclePatternBitmap() {
+        generatePatternBitmap();
 
         mBitmap = Bitmap.createBitmap(mSize, mSize, Config.ARGB_8888);
         final Canvas canvas = new Canvas(mBitmap);
@@ -179,12 +179,11 @@ public class ColorViewCircleDrawable extends Drawable {
         canvas.drawCircle(mSize / 2, mSize / 2, (mSize - mBorderWidth) / 2, mBorderPaint);
     }
 
-    /**
+    /*
      * @author Daniel Nilsson
      * (AlphaPatternDrawable.generatePatternBitmap())
      */
-
-	private void generatePatternBitmap() {
+    private void generatePatternBitmap() {
         if (mShowFavoriteIcon) {
             mPaintWhite.setColorFilter(null);
             mPaintGray.setColorFilter(null);
@@ -194,25 +193,26 @@ public class ColorViewCircleDrawable extends Drawable {
             mPaintGray.setColorFilter(Filter);
         }
 
-		mPatternBitmap = Bitmap.createBitmap(mSize, mSize, Config.ARGB_8888);
-		Canvas canvas = new Canvas(mPatternBitmap);
+        mPatternBitmap = Bitmap.createBitmap(mSize, mSize, Config.ARGB_8888);
+        Canvas canvas = new Canvas(mPatternBitmap);
 
         final float rectangleSize = mSize / sNumRectangles;
 
-		RectF r = new RectF();
-		boolean verticalStartWhite = true;
-		for (int i = 0; i <= sNumRectangles; i++) {
-			boolean isWhite = verticalStartWhite;
-			for (int j = 0; j <= sNumRectangles; j++) {
-				r.top = i * rectangleSize;
-				r.left = j * rectangleSize;
-				r.bottom = r.top + rectangleSize;
-				r.right = r.left + rectangleSize;
+        RectF r = new RectF();
+        boolean verticalStartWhite = true;
 
-				canvas.drawRect(r, isWhite ? mPaintWhite : mPaintGray);
-				isWhite = !isWhite;
-			}
-			verticalStartWhite = !verticalStartWhite;
-		}
-	}
+        for (int i = 0; i <= sNumRectangles; i++) {
+            boolean isWhite = verticalStartWhite;
+            for (int j = 0; j <= sNumRectangles; j++) {
+                r.top = i * rectangleSize;
+                r.left = j * rectangleSize;
+                r.bottom = r.top + rectangleSize;
+                r.right = r.left + rectangleSize;
+
+                canvas.drawRect(r, isWhite ? mPaintWhite : mPaintGray);
+                isWhite = !isWhite;
+            }
+            verticalStartWhite = !verticalStartWhite;
+        }
+    }
 }

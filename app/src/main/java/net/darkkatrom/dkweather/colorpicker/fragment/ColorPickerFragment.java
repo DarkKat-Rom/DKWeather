@@ -131,7 +131,7 @@ public class ColorPickerFragment extends Fragment implements
     private boolean mHideResetColor2 = true;
     private boolean mShowSubMenu = false;
 
-	private float mFullTranslationX;
+    private float mFullTranslationX;
     private int mFavoritesLayoutHeight = 0;
     private int mHelpScreenHeight = 0;
 
@@ -216,7 +216,7 @@ public class ColorPickerFragment extends Fragment implements
             mBorderColor = getActivity().getColor(tv.resourceId);
         }
 
-		mFullTranslationX = mResources.getDimension(
+        mFullTranslationX = mResources.getDimension(
                 R.dimen.color_picker_action_apply_color_translation_x);
 
         mColorPicker.setOnColorChangedListener(this);
@@ -569,8 +569,8 @@ public class ColorPickerFragment extends Fragment implements
             getActivity().setResult(Activity.RESULT_OK, data);
             getActivity().finish();
         } else if (v.getId() == R.id.ab_edit_hex_enter) {
-			String text = mEditHexValue.getText().toString();
-			mShowEditHexAction.collapseActionView();
+            String text = mEditHexValue.getText().toString();
+            mShowEditHexAction.collapseActionView();
             try {
                 int newColor = ColorPickerHelper.convertToColorInt(text);
                 if (newColor != mOldColorValue) {

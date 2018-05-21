@@ -38,7 +38,7 @@ public class SettingsColorPickerFragment extends SettingsBaseFragment implements
             Preference p = getPreferenceScreen().getPreference(i);
             if (p instanceof PreferenceCategory) {
                 int prefsGroupCount = ((PreferenceCategory) p).getPreferenceCount();
-                for(int j = 0; j < prefsGroupCount; j++) {
+                for (int j = 0; j < prefsGroupCount; j++) {
                     Preference gp = ((PreferenceCategory) p).getPreference(j);
                     if (gp instanceof ColorPickerPreference) {
                         ((ColorPickerPreference) gp).setTargetFragment(this);

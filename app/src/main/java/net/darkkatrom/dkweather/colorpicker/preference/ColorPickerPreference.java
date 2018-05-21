@@ -38,7 +38,7 @@ import net.darkkatrom.dkweather.colorpicker.fragment.ColorPickerFragment;
 import net.darkkatrom.dkweather.colorpicker.util.ColorPickerHelper;
 import net.darkkatrom.dkweather.colorpicker.widget.ColorViewButton;
 
-/**
+/*
  * A preference type that allows a user to choose a color
  * 
  * @author Sergey Margaritov
@@ -207,7 +207,6 @@ public class ColorPickerPreference extends Preference {
         }
         mValue = color;
         notifyChanged();
-
     }
 
     public void setNewColor(int color) {
@@ -261,7 +260,7 @@ public class ColorPickerPreference extends Preference {
         mResetColor1Title = title;
     }
 
-    /**
+    /*
      * Toggle Alpha Slider visibility (by default it's disabled)
      * 
      * @param enable
@@ -270,7 +269,7 @@ public class ColorPickerPreference extends Preference {
         mAlphaSliderVisible = visible;
     }
 
-    /**
+    /*
      * For custom purposes. Not used by ColorPickerPreferrence
      * 
      * @param color
@@ -280,7 +279,7 @@ public class ColorPickerPreference extends Preference {
         return ColorPickerHelper.convertToARGB(color);
     }
 
-    /**
+    /*
      * Converts a aarrggbb- or rrggbb color string to a color int
      * 
      * @param argb
