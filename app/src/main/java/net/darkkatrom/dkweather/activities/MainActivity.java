@@ -18,6 +18,7 @@ package net.darkkatrom.dkweather.activities;
 import android.app.Fragment;
 import android.content.ContentResolver;
 import android.database.ContentObserver;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -47,6 +48,7 @@ import net.darkkatrom.dkweather.fragments.SettingsFragment;
 import net.darkkatrom.dkweather.utils.Config;
 import net.darkkatrom.dkweather.utils.JobUtil;
 import net.darkkatrom.dkweather.utils.NotificationUtil;
+import net.darkkatrom.dkweather.utils.ThemeUtil;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -89,10 +91,6 @@ public class MainActivity extends BaseActivity implements
     private int mDayIndex = mVisibleScreen;
 
     private boolean mUpdateRequested = false;
-
-    private boolean mUseDarkTheme;
-    private boolean mUseOptionalLightStatusBar;
-    private boolean mUseOptionalLightNavigationBar;
 
     class WeatherObserver extends ContentObserver {
         WeatherObserver(Handler handler) {
@@ -152,27 +150,11 @@ public class MainActivity extends BaseActivity implements
     }
 
     private void updateTheme() {
-        mUseDarkTheme = Config.getThemUseDarkTheme(this);
-        mUseOptionalLightStatusBar = !mUseDarkTheme && Config.getThemUseLightStatusBar(this);
-        mUseOptionalLightNavigationBar = !mUseDarkTheme && Config.getThemUseLightNavigationBar(this);
-        int themeResId = 0;
-
-        if (mUseDarkTheme) {
-            themeResId = R.style.AppThemeDark;
-        } else if (mUseOptionalLightStatusBar && mUseOptionalLightNavigationBar) {
-            themeResId = R.style.ThemeOverlay_LightStatusBar_LightNavigationBar;
-        } else if (mUseOptionalLightStatusBar) {
-            themeResId = R.style.ThemeOverlay_LightStatusBar;
-        } else if (mUseOptionalLightNavigationBar) {
-            themeResId = R.style.ThemeOverlay_LightNavigationBar;
-        } else {
-            themeResId = R.style.AppThemeLight;
-        }
-        setTheme(themeResId);
+        setTheme(ThemeUtil.getThemeResId(this));
 
         int oldFlags = getWindow().getDecorView().getSystemUiVisibility();
         int newFlags = oldFlags;
-        if (!mUseOptionalLightStatusBar) {
+        if (!ThemeUtil.needsLightStatusBar(this)) {
             // Check if light status bar flag was set
             boolean isLightStatusBar = (newFlags & View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR)
                     == View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
@@ -181,7 +163,7 @@ public class MainActivity extends BaseActivity implements
                 newFlags &= ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
             }
         }
-        if (!mUseOptionalLightNavigationBar) {
+        if (!ThemeUtil.needsLightNavigationBar(this)) {
             // Check if light navigation bar flag was set
             boolean isLightNavigationBar = (newFlags & View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR)
                     == View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
@@ -192,6 +174,16 @@ public class MainActivity extends BaseActivity implements
         }
         if (oldFlags != newFlags) {
             getWindow().getDecorView().setSystemUiVisibility(newFlags);
+        }
+
+        if (Config.getThemeCustomizeColors(this)) {
+            getWindow().setStatusBarColor(ThemeUtil.getStatusBarBackgroundColor(this));
+            getActionBar().setBackgroundDrawable(new ColorDrawable(
+                    ThemeUtil.getActionBarBackgroundColor(this)));
+        }
+        int customNavigationBarColor = ThemeUtil.getNavigationBarBackgroundColor(this);
+        if (customNavigationBarColor != 0) {
+            getWindow().setNavigationBarColor(customNavigationBarColor);
         }
     }
 

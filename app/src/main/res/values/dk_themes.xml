@@ -37,17 +37,53 @@
         <item name="android:colorAccent">@color/theme_accent</item>
     </style>
 
-    <style name="ThemeOverlay.LightStatusBar" parent="@android:style/Theme.Material.Light.LightStatusBar">
-        <item name="android:colorAccent">@color/theme_accent</item>
+    <style name="AppThemeLight.LightActionBar">
+        <item name="android:colorPrimary">@color/theme_light_primary</item>
+        <item name="android:actionBarTheme">@android:style/ThemeOverlay.Material.ActionBar</item>
     </style>
 
-    <style name="ThemeOverlay.LightNavigationBar" parent="@style/AppThemeLight">
-        <item name="android:windowLightNavigationBar">true</item>
-        <item name="android:navigationBarColor">@color/background_light_system_bars</item>
+    <style name="AppThemeLight.LightStatusBar" parent="@style/AppThemeLight.LightActionBar">
+        <item name="android:colorPrimaryDark">@color/theme_light_primary_dark</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 
-    <style name="ThemeOverlay.LightStatusBar.LightNavigationBar">
+    <style name="AppThemeLight.LightNavigationBar">
+        <item name="android:navigationBarColor">@color/theme_light_primary_dark</item>
         <item name="android:windowLightNavigationBar">true</item>
-        <item name="android:navigationBarColor">@color/background_light_system_bars</item>
     </style>
+
+    <style name="AppThemeLight.LightActionBar.LightNavigationBar">
+        <item name="android:windowLightNavigationBar">true</item>
+        <item name="android:navigationBarColor">@color/theme_light_primary_dark</item>
+    </style>
+
+    <style name="AppThemeLight.LightStatusBar.LightNavigationBar">
+        <item name="android:windowLightNavigationBar">true</item>
+        <item name="android:navigationBarColor">@color/theme_light_primary_dark</item>
+    </style>
+
+    <style name="AppThemeDark.LightActionBar">
+        <item name="android:actionBarTheme">@style/ThemeOverlay.Internal.LightActionBar</item>
+    </style>
+
+    <style name="AppThemeDark.LightStatusBar" parent="@style/AppThemeDark.LightActionBar">
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+
+    <style name="AppThemeDark.LightNavigationBar">
+        <item name="android:windowLightNavigationBar">true</item>
+    </style>
+
+    <style name="AppThemeDark.LightActionBar.LightNavigationBar">
+        <item name="android:windowLightNavigationBar">true</item>
+    </style>
+
+    <style name="AppThemeDark.LightStatusBar.LightNavigationBar">
+        <item name="android:windowLightNavigationBar">true</item>
+    </style>
+
+    <style name="ThemeOverlay.Internal.LightActionBar" parent="@android:style/ThemeOverlay.Material.Light">
+        <item name="android:colorControlNormal">?android:attr/textColorPrimary</item>
+    </style>
+ -->
 </resources>

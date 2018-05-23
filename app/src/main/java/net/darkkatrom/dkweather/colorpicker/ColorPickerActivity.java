@@ -19,12 +19,14 @@ package net.darkkatrom.dkweather.colorpicker;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 
 import net.darkkatrom.dkweather.R;
 import net.darkkatrom.dkweather.colorpicker.fragment.ColorPickerFragment;
 import net.darkkatrom.dkweather.utils.Config;
+import net.darkkatrom.dkweather.utils.ThemeUtil;
 
 public class ColorPickerActivity extends Activity {
 
@@ -46,27 +48,11 @@ public class ColorPickerActivity extends Activity {
     }
 
     private void updateTheme() {
-        boolean useDarkTheme = Config.getThemUseDarkTheme(this);
-        boolean useOptionalLightStatusBar = !useDarkTheme && Config.getThemUseLightStatusBar(this);
-        boolean useOptionalLightNavigationBar = !useDarkTheme && Config.getThemUseLightNavigationBar(this);
-        int themeResId = 0;
-
-        if (useDarkTheme) {
-            themeResId = R.style.AppThemeDark;
-        } else if (useOptionalLightStatusBar && useOptionalLightNavigationBar) {
-            themeResId = R.style.ThemeOverlay_LightStatusBar_LightNavigationBar;
-        } else if (useOptionalLightStatusBar) {
-            themeResId = R.style.ThemeOverlay_LightStatusBar;
-        } else if (useOptionalLightNavigationBar) {
-            themeResId = R.style.ThemeOverlay_LightNavigationBar;
-        } else {
-            themeResId = R.style.AppThemeLight;
-        }
-        setTheme(themeResId);
+        setTheme(ThemeUtil.getThemeResId(this));
 
         int oldFlags = getWindow().getDecorView().getSystemUiVisibility();
         int newFlags = oldFlags;
-        if (!useOptionalLightStatusBar) {
+        if (!ThemeUtil.needsLightStatusBar(this)) {
             // Check if light status bar flag was set
             boolean isLightStatusBar = (newFlags & View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR)
                     == View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
@@ -75,7 +61,7 @@ public class ColorPickerActivity extends Activity {
                 newFlags &= ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
             }
         }
-        if (!useOptionalLightNavigationBar) {
+        if (!ThemeUtil.needsLightNavigationBar(this)) {
             // Check if light navigation bar flag was set
             boolean isLightNavigationBar = (newFlags & View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR)
                     == View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
@@ -86,6 +72,16 @@ public class ColorPickerActivity extends Activity {
         }
         if (oldFlags != newFlags) {
             getWindow().getDecorView().setSystemUiVisibility(newFlags);
+        }
+
+        if (Config.getThemeCustomizeColors(this)) {
+            getWindow().setStatusBarColor(ThemeUtil.getStatusBarBackgroundColor(this));
+            getActionBar().setBackgroundDrawable(new ColorDrawable(
+                    ThemeUtil.getActionBarBackgroundColor(this)));
+        }
+        int customNavigationBarColor = ThemeUtil.getNavigationBarBackgroundColor(this);
+        if (customNavigationBarColor != 0) {
+            getWindow().setNavigationBarColor(customNavigationBarColor);
         }
     }
 

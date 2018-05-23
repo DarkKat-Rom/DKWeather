@@ -23,10 +23,13 @@ import android.preference.Preference;
 
 import net.darkkatrom.dkweather.R;
 import net.darkkatrom.dkweather.activities.MainActivity;
+import net.darkkatrom.dkweather.colorpicker.fragment.SettingsColorPickerFragment;
 import net.darkkatrom.dkweather.utils.Config;
 
-public class ThemeSettings extends SettingsBaseFragment implements
+public class ThemeSettings extends SettingsColorPickerFragment implements
         OnSharedPreferenceChangeListener {
+
+    private int mPrimaryColor;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -34,9 +37,21 @@ public class ThemeSettings extends SettingsBaseFragment implements
 
         addPreferencesFromResource(R.xml.theme_settings);
 
-        if (Config.getThemUseDarkTheme(getActivity())) {
+        mPrimaryColor = Config.getThemePrimaryColor(getActivity());
+
+        if (Config.getThemeUseDarkTheme(getActivity())
+                || Config.getThemeCustomizeColors(getActivity())) {
             removePreference(Config.PREF_KEY_THEME_USE_LIGHT_STATUS_BAR);
+        }
+
+        if (Config.getThemeUseDarkTheme(getActivity())
+                || Config.getThemeColorizeNavigationBar(getActivity())) {
             removePreference(Config.PREF_KEY_THEME_USE_LIGHT_NAVIGATION_BAR);
+        }
+
+
+        if (!Config.getThemeCustomizeColors(getActivity())) {
+            removePreference(Config.PREF_KEY_THEME_PRIMARY_COLOR);
         }
     }
 
@@ -50,7 +65,9 @@ public class ThemeSettings extends SettingsBaseFragment implements
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         if (Config.PREF_KEY_THEME_USE_DARK_THEME.equals(key)
                     || Config.PREF_KEY_THEME_USE_LIGHT_STATUS_BAR.equals(key)
-                    || Config.PREF_KEY_THEME_USE_LIGHT_NAVIGATION_BAR.equals(key)) {
+                    || Config.PREF_KEY_THEME_USE_LIGHT_NAVIGATION_BAR.equals(key)
+                    || Config.PREF_KEY_THEME_CUSTOMIZE_COLORS.equals(key)
+                    || Config.PREF_KEY_THEME_COLORIZE_NAVIGATION_BAR.equals(key)) {
             ((MainActivity) getActivity()).recreateForThemeChange();
         }
     }
@@ -58,8 +75,13 @@ public class ThemeSettings extends SettingsBaseFragment implements
     @Override
     public void onResume() {
         super.onResume();
-        getPreferenceScreen().getSharedPreferences()
-                .registerOnSharedPreferenceChangeListener(this);
+
+        if (Config.getThemePrimaryColor(getActivity()) != mPrimaryColor) {
+            ((MainActivity) getActivity()).recreateForThemeChange();
+        } else {
+            getPreferenceScreen().getSharedPreferences()
+                    .registerOnSharedPreferenceChangeListener(this);
+        }
     }
 
     @Override

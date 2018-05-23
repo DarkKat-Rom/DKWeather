@@ -128,6 +128,12 @@
     <string name="theme_use_light_status_bar_summary">Aktivieren um bei dem hellen Theme eine helle Status- &amp; Aktionsleiste zu benutzen</string>
     <string name="theme_use_light_navigation_bar_title">Helle Navigationsleiste</string>
     <string name="theme_use_light_navigation_bar_summary">Aktivieren um bei dem hellen Theme eine helle Navigationsleiste zu benutzen</string>
+    <string name="theme_customize_colors_title">Farben anpassen</string>
+    <string name="theme_customize_colors_summary">Aktivieren um die Farben der Aktions-, Status- und Navigationsleiste anzupassen.</string>
+    <string name="theme_primary_color_title">Primäre Farbe</string>
+    <string name="theme_primary_color_summary">Mit dieser Farbe werden die Aktions- und (optional) Navigationsleiste eingefärbt. Die Statusleiste wird mit einer dunkleren Variante dieser Farbe eingefäbt.</string>
+    <string name="theme_colorize_navigation_bar_title">Navigationsleiste einfärben</string>
+    <string name="theme_colorize_navigation_bar_summary">Aktivieren um die Navigationsleiste mit der Primären Farbe einzufärben.\nWenn \"Farben anpassen\" nicht aktiviert ist, ist die Primäre Farbe immer \"Material Blue 500\".</string>
 
     <!-- Widget -->
     <string name="widget_background_title">Hintergrund</string>

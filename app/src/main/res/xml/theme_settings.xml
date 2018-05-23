@@ -13,7 +13,9 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <SwitchPreference
         android:key="theme_use_dark_theme"
@@ -35,5 +37,26 @@ limitations under the License.
         android:summary="@string/theme_use_light_navigation_bar_summary"
         android:defaultValue="false"
         android:dependency="theme_use_dark_theme" />
+
+    <SwitchPreference
+        android:key="theme_customize_colors"
+        android:title="@string/theme_customize_colors_title"
+        android:summary="@string/theme_customize_colors_summary"
+        android:defaultValue="false" />
+
+     <net.darkkatrom.dkweather.colorpicker.preference.ColorPickerPreference
+        android:key="theme_primary_color"
+        android:title="@string/theme_primary_color_title"
+        android:summary="@string/theme_primary_color_summary"
+        app:pickerTitle="@string/settings_theme_title"
+        app:pickerSubtitle="@string/theme_primary_color_title"
+        app:resetColor1="@color/primary_darkkat"
+        app:defaultColor="@color/primary_darkkat" />
+
+    <SwitchPreference
+        android:key="theme_colorize_navigation_bar"
+        android:title="@string/theme_colorize_navigation_bar_title"
+        android:summary="@string/theme_colorize_navigation_bar_summary"
+        android:defaultValue="false" />
 
 </PreferenceScreen>

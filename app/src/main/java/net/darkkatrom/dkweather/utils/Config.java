@@ -50,6 +50,13 @@ public class Config {
     public static final String PREF_KEY_THEME_USE_LIGHT_NAVIGATION_BAR =
             "theme_use_light_navigation_bar";
 
+    public static final String PREF_KEY_THEME_CUSTOMIZE_COLORS =
+            "theme_customize_colors";
+    public static final String PREF_KEY_THEME_PRIMARY_COLOR =
+            "theme_primary_color";
+    public static final String PREF_KEY_THEME_COLORIZE_NAVIGATION_BAR =
+            "theme_colorize_navigation_bar";
+
     public static final String PREF_KEY_WIDGET_BACKGROUND       = "widget_background";
     public static final String PREF_KEY_WIDGET_BACKGROUND_COLOR = "widget_background_color";
     public static final String PREF_KEY_WIDGET_FRAME_COLOR      = "widget_frame_color";
@@ -206,25 +213,47 @@ public class Config {
         return Integer.valueOf(valueString);
     }
 
-    public static boolean getThemUseDarkTheme(Context context) {
+    public static boolean getThemeUseDarkTheme(Context context) {
         SharedPreferences prefs = PreferenceManager
                 .getDefaultSharedPreferences(context);
 
         return prefs.getBoolean(PREF_KEY_THEME_USE_DARK_THEME, false);
     }
 
-    public static boolean getThemUseLightStatusBar(Context context) {
+    public static boolean getThemeUseLightStatusBar(Context context) {
         SharedPreferences prefs = PreferenceManager
                 .getDefaultSharedPreferences(context);
 
         return prefs.getBoolean(PREF_KEY_THEME_USE_LIGHT_STATUS_BAR, false);
     }
 
-    public static boolean getThemUseLightNavigationBar(Context context) {
+    public static boolean getThemeUseLightNavigationBar(Context context) {
         SharedPreferences prefs = PreferenceManager
                 .getDefaultSharedPreferences(context);
 
         return prefs.getBoolean(PREF_KEY_THEME_USE_LIGHT_NAVIGATION_BAR, false);
+    }
+
+    public static boolean getThemeCustomizeColors(Context context) {
+        SharedPreferences prefs = PreferenceManager
+                .getDefaultSharedPreferences(context);
+
+        return prefs.getBoolean(PREF_KEY_THEME_CUSTOMIZE_COLORS, false);
+    }
+
+    public static int getThemePrimaryColor(Context context) {
+        SharedPreferences prefs = PreferenceManager
+                .getDefaultSharedPreferences(context);
+
+        int defaultColor = context.getColor(R.color.primary_darkkat);
+        return prefs.getInt(PREF_KEY_THEME_PRIMARY_COLOR, defaultColor);
+    }
+
+    public static boolean getThemeColorizeNavigationBar(Context context) {
+        SharedPreferences prefs = PreferenceManager
+                .getDefaultSharedPreferences(context);
+
+        return prefs.getBoolean(PREF_KEY_THEME_COLORIZE_NAVIGATION_BAR, false);
     }
 
     public static int getWidgetBackground(Context context) {

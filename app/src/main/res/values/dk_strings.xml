@@ -128,6 +128,12 @@
     <string name="theme_use_light_status_bar_summary">Enable to use a light status- &amp; action bar on the light theme</string>
     <string name="theme_use_light_navigation_bar_title">Light navigation bar</string>
     <string name="theme_use_light_navigation_bar_summary">Enable to use a light navigation bar on the light theme</string>
+    <string name="theme_customize_colors_title">Customize colors</string>
+    <string name="theme_customize_colors_summary">Enable to customize the action-, status- and navigation bar</string>
+    <string name="theme_primary_color_title">Primary color</string>
+    <string name="theme_primary_color_summary">This color is used to colorize the action- and (optional) navigation bar. A darker variant of this color is used to colorize the status bar.</string>
+    <string name="theme_colorize_navigation_bar_title">Colorize navigation bar</string>
+    <string name="theme_colorize_navigation_bar_summary">Enable to colorize the navigation bar using the primary color.\nIf \'Customize colors\' isn\'t enabled the primary color is always \'Material Blue 500\'.</string>
 
     <!-- Widget -->
     <string name="widget_background_title">Background</string>
