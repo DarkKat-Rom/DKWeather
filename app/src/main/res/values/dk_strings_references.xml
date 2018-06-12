@@ -15,16 +15,6 @@
 -->
 <resources>
 
-    <!-- Color picker preference -->
-    <declare-styleable name="ColorPickerPreference">
-        <attr name="pickerTitle" format="string" />
-        <attr name="pickerSubtitle" format="string" />
-        <attr name="pickerAdditionalSubtitle" format="string" />
-        <attr name="defaultColor" format="color" />
-        <attr name="resetColor1" format="color" />
-        <attr name="resetColor2" format="color" />
-        <attr name="resetColor1Title" format="string" />
-        <attr name="resetColor2Title" format="string" />
-        <attr name="alphaSliderVisible" format="boolean" />
-    </declare-styleable>
+    <!-- Color picker subtitles -->
+    <string name="action_bar_picker_subtitle_settings_theme">@string/action_bar_subtitle_settings_theme</string>
 </resources>

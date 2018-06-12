@@ -43,6 +43,9 @@
     <string name="action_bar_subtitle_settings_theme">Einstellungen -> \"Theme\"</string>
     <string name="action_bar_subtitle_settings_widget">Einstellungen -> \'Widget\'</string>
 
+    <!-- Color picker subtitles -->
+    <string name="picker_fragment_additional_subtitle_primary">\'Primär\'</string>
+
     <!-- Weather fragments -->
     <string name="current_title">Aktuell</string>
     <string name="forecast_title">Vorhersage</string>
