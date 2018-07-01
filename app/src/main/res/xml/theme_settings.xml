@@ -53,6 +53,15 @@ limitations under the License.
         app:resetColor1="@color/primary_darkkat"
         app:defaultColor="@color/primary_darkkat" />
 
+    <net.darkkatrom.dkweather.colorpicker.preference.ColorPickerListPreference
+        android:key="theme_accent_color"
+        android:title="@string/theme_accent_color_title"
+        android:summary="@string/list_preference_default_summary"
+        android:entries="@array/theme_accent_color_entries"
+        android:entryValues="@array/theme_accent_color_values"
+        app:entryColors="@array/theme_accent_color_entry_colors"
+        android:defaultValue="0" />
+
     <SwitchPreference
         android:key="theme_colorize_navigation_bar"
         android:title="@string/theme_colorize_navigation_bar_title"

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2018 DarkKat
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<resources>
+    <style name="Theme" />
+    <style name="Theme.Overlay" />
+    <style name="Theme.Overlay.Accent" />
+
+    <style name="Theme.Overlay.Accent.HoloBlueLight">
+        <item name="android:colorAccent">@color/holo_blue_light</item>
+    </style>
+
+    <style name="Theme.Overlay.Accent.MaterialBlueGray500">
+        <item name="android:colorAccent">@color/material_blue_grey_500</item>
+    </style>
+
+    <style name="Theme.Overlay.Accent.MaterialBlue500">
+        <item name="android:colorAccent">@color/material_blue_500</item>
+    </style>
+
+    <style name="Theme.Overlay.Accent.MaterialLightBlue500">
+        <item name="android:colorAccent">@color/material_light_blue_500</item>
+    </style>
+
+    <style name="Theme.Overlay.Accent.MaterialCyan500">
+        <item name="android:colorAccent">@color/material_cyan_500</item>
+    </style>
+
+    <style name="Theme.Overlay.Accent.MaterialDeepTeal500">
+        <item name="android:colorAccent">@color/material_deep_teal_500</item>
+    </style>
+
+    <style name="Theme.Overlay.Accent.MaterialIndigo500">
+        <item name="android:colorAccent">@color/material_indigo_500</item>
+    </style>
+
+    <style name="Theme.Overlay.Accent.MaterialPurple500">
+        <item name="android:colorAccent">@color/material_purple_500</item>
+    </style>
+
+    <style name="Theme.Overlay.Accent.MaterialDeepPurple500">
+        <item name="android:colorAccent">@color/material_deep_purple_500</item>
+    </style>
+
+    <style name="Theme.Overlay.Accent.MaterialPink500">
+        <item name="android:colorAccent">@color/material_pink_500</item>
+    </style>
+
+    <style name="Theme.Overlay.Accent.MaterialOrange500">
+        <item name="android:colorAccent">@color/material_orange_500</item>
+    </style>
+
+    <style name="Theme.Overlay.Accent.MaterialDeepOrange500">
+        <item name="android:colorAccent">@color/material_deep_orange_500</item>
+    </style>
+
+    <style name="Theme.Overlay.Accent.MaterialRed500">
+        <item name="android:colorAccent">@color/material_red_500</item>
+    </style>
+
+    <style name="Theme.Overlay.Accent.MaterialYellow500">
+        <item name="android:colorAccent">@color/material_yellow_500</item>
+    </style>
+
+    <style name="Theme.Overlay.Accent.MaterialAmber500">
+        <item name="android:colorAccent">@color/material_amber_500</item>
+    </style>
+
+    <style name="Theme.Overlay.Accent.MaterialGreen500">
+        <item name="android:colorAccent">@color/material_green_500</item>
+    </style>
+
+    <style name="Theme.Overlay.Accent.MaterialLightGreen500">
+        <item name="android:colorAccent">@color/material_light_green_500</item>
+    </style>
+
+    <style name="Theme.Overlay.Accent.MaterialLime500">
+        <item name="android:colorAccent">@color/material_lime_500</item>
+    </style>
+
+    <style name="Theme.Overlay.Accent.Black">
+        <item name="android:colorAccent">@color/black</item>
+    </style>
+
+    <style name="Theme.Overlay.Accent.White">
+        <item name="android:colorAccent">@color/white</item>
+    </style>
+
+    <style name="Theme.Overlay.Accent.Blue">
+        <item name="android:colorAccent">@color/blue</item>
+    </style>
+
+    <style name="Theme.Overlay.Accent.Purple">
+        <item name="android:colorAccent">@color/purple</item>
+    </style>
+
+    <style name="Theme.Overlay.Accent.Orange">
+        <item name="android:colorAccent">@color/orange</item>
+    </style>
+
+    <style name="Theme.Overlay.Accent.Red">
+        <item name="android:colorAccent">@color/red</item>
+    </style>
+
+    <style name="Theme.Overlay.Accent.Yellow">
+        <item name="android:colorAccent">@color/yellow</item>
+    </style>
+
+    <style name="Theme.Overlay.Accent.Green">
+        <item name="android:colorAccent">@color/green</item>
+    </style>
+
+</resources>

@@ -24,6 +24,15 @@
     <color name="material_blue_700">#ff1976d2</color>
     <color name="material_grey_100">#fff5f5f5</color>
     <color name="material_grey_300">#ffe0e0e0</color>
+    <color name="material_blue_grey_500">#ff607d8b</color>
+    <color name="material_light_blue_500">#ff03a9f4</color>
+    <color name="material_cyan_500">#ff00bcd4</color>
+    <color name="material_deep_purple_500">#ff673ab7</color>
+    <color name="material_pink_500">#ffe91e63</color>
+    <color name="material_deep_orange_500">#ffff5722</color>
+    <color name="material_amber_500">#ffffc107</color>
+    <color name="material_light_green_500">#ff8bc34a</color>
+    <color name="material_lime_500">#ffcddc39</color>
 
     <!-- DarkKat colors -->
     <color name="darkkat_blue_grey">#ff1b1f23</color>

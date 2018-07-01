@@ -47,6 +47,93 @@
         <item>6</item>
         <item>12</item>
     </string-array>
+    <string-array name="theme_accent_color_entries">
+        <item>@string/accent_darkkat</item>
+        <item>@string/holo_blue_light</item>
+        <item>@string/material_blue_grey_500</item>
+        <item>@string/material_blue_500</item>
+        <item>@string/material_light_blue_500</item>
+        <item>@string/material_cyan_500</item>
+        <item>@string/material_deep_teal_500</item>
+        <item>@string/material_indigo_500</item>
+        <item>@string/material_purple_500</item>
+        <item>@string/material_deep_purple_500</item>
+        <item>@string/material_pink_500</item>
+        <item>@string/material_orange_500</item>
+        <item>@string/material_deep_orange_500</item>
+        <item>@string/material_red_500</item>
+        <item>@string/material_yellow_500</item>>
+        <item>@string/material_amber_500</item>>
+        <item>@string/material_green_500</item>
+        <item>@string/material_light_green_500</item>
+        <item>@string/material_lime_500</item>
+        <item>@string/black</item>
+        <item>@string/white</item>
+        <item>@string/blue</item>
+        <item>@string/purple</item>
+        <item>@string/orange</item>
+        <item>@string/red</item>
+        <item>@string/yellow</item>>
+        <item>@string/green</item>
+    </string-array>
+    <string-array name="theme_accent_color_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+        <item>21</item>
+        <item>22</item>
+        <item>23</item>
+        <item>24</item>
+        <item>25</item>
+        <item>26</item>
+    </string-array>
+    <string-array name="theme_accent_color_entry_colors" translatable="false">
+        <item>#ff5a8596</item>
+        <item>#ff33b5e5</item>
+        <item>#ff607d8b</item>
+        <item>#ff2196f3</item>
+        <item>#ff03a9f4</item>
+        <item>#ff00bcd4</item>
+        <item>#ff009688</item>
+        <item>#ff3f51b5</item>
+        <item>#ff9c27b0</item>
+        <item>#ff673ab7</item>>
+        <item>#ffe91e63</item>
+        <item>#ffff9800</item>
+        <item>#ffff5722</item>
+        <item>#fff44336</item>
+        <item>#ffffeb3b</item>
+        <item>#ffffc107</item>
+        <item>#ff4caf50</item>
+        <item>#ff8bc34a</item>>
+        <item>#ffcddc39</item>
+        <item>#ff000000</item>
+        <item>#ffffffff</item>
+        <item>#ff0000ff</item>
+        <item>#ff800080</item>
+        <item>#ffffa500</item>
+        <item>#ffff0000</item>
+        <item>#ffffff00</item>
+        <item>#ff00ff00</item>
+    </string-array>
     <string-array name="condition_icon_entries" translatable="false">
         <item>@string/condition_icon_monochrome</item>
         <item>@string/condition_icon_colored</item>

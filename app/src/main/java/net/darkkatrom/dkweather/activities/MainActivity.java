@@ -152,6 +152,10 @@ public class MainActivity extends BaseActivity implements
     private void updateTheme() {
         setTheme(ThemeUtil.getThemeResId(this));
 
+        if (Config.getIndexForAccentColor(this) > 0) {
+            getTheme().applyStyle(ThemeUtil.getThemeOverlayAccentResId(this), true);
+        }
+
         int oldFlags = getWindow().getDecorView().getSystemUiVisibility();
         int newFlags = oldFlags;
         if (!ThemeUtil.needsLightStatusBar(this)) {

@@ -116,4 +116,64 @@ public class ThemeUtil {
         }
         return themeResId;
     }
+
+    public static int getThemeOverlayAccentResId(Context context) {
+        int index = Config.getIndexForAccentColor(context);
+
+        int resId = 0;
+        if (index == 1) {
+            resId = R.style.Theme_Overlay_Accent_HoloBlueLight;
+        } else if (index == 2) {
+            resId = R.style.Theme_Overlay_Accent_MaterialBlueGray500;
+        } else if (index == 3) {
+            resId = R.style.Theme_Overlay_Accent_MaterialBlue500;
+        } else if (index == 4) {
+            resId = R.style.Theme_Overlay_Accent_MaterialLightBlue500;
+        } else if (index == 5) {
+            resId = R.style.Theme_Overlay_Accent_MaterialCyan500;
+        } else if (index == 6) {
+            resId = R.style.Theme_Overlay_Accent_MaterialDeepTeal500;
+        } else if (index == 7) {
+            resId = R.style.Theme_Overlay_Accent_MaterialIndigo500;
+        } else if (index == 8) {
+            resId = R.style.Theme_Overlay_Accent_MaterialPurple500;
+        } else if (index == 9) {
+            resId = R.style.Theme_Overlay_Accent_MaterialDeepPurple500;
+        } else if (index == 10) {
+            resId = R.style.Theme_Overlay_Accent_MaterialPink500;
+        } else if (index == 11) {
+            resId = R.style.Theme_Overlay_Accent_MaterialOrange500;
+        } else if (index == 12) {
+            resId = R.style.Theme_Overlay_Accent_MaterialDeepOrange500;
+        } else if (index == 13) {
+            resId = R.style.Theme_Overlay_Accent_MaterialRed500;
+        } else if (index == 14) {
+            resId = R.style.Theme_Overlay_Accent_MaterialYellow500;
+        } else if (index == 15) {
+            resId = R.style.Theme_Overlay_Accent_MaterialAmber500;
+        } else if (index == 16) {
+            resId = R.style.Theme_Overlay_Accent_MaterialGreen500;
+        } else if (index == 17) {
+            resId = R.style.Theme_Overlay_Accent_MaterialLightGreen500;
+        } else if (index == 18) {
+            resId = R.style.Theme_Overlay_Accent_MaterialLime500;
+        } else if (index == 19) {
+            resId = R.style.Theme_Overlay_Accent_Black;
+        } else if (index == 20) {
+            resId = R.style.Theme_Overlay_Accent_White;
+        } else if (index == 21) {
+            resId = R.style.Theme_Overlay_Accent_Blue;
+        } else if (index == 22) {
+            resId = R.style.Theme_Overlay_Accent_Purple;
+        } else if (index == 23) {
+            resId = R.style.Theme_Overlay_Accent_Orange;
+        } else if (index == 24) {
+            resId = R.style.Theme_Overlay_Accent_Red;
+        } else if (index == 25) {
+            resId = R.style.Theme_Overlay_Accent_Yellow;
+        } else if (index == 26) {
+            resId = R.style.Theme_Overlay_Accent_Green;
+        }
+        return resId;
+    }
 }

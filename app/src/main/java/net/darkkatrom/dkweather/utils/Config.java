@@ -54,6 +54,8 @@ public class Config {
             "theme_customize_colors";
     public static final String PREF_KEY_THEME_PRIMARY_COLOR =
             "theme_primary_color";
+    public static final String PREF_KEY_THEME_ACCENT_COLOR =
+            "theme_accent_color";
     public static final String PREF_KEY_THEME_COLORIZE_NAVIGATION_BAR =
             "theme_colorize_navigation_bar";
 
@@ -247,6 +249,17 @@ public class Config {
 
         int defaultColor = context.getColor(R.color.primary_darkkat);
         return prefs.getInt(PREF_KEY_THEME_PRIMARY_COLOR, defaultColor);
+    }
+
+    public static int getIndexForAccentColor(Context context) {
+        if (!getThemeCustomizeColors(context)) {
+            return 0;
+        } else {
+            SharedPreferences prefs = PreferenceManager
+                    .getDefaultSharedPreferences(context);
+            String valueString = prefs.getString(PREF_KEY_THEME_ACCENT_COLOR, "0");
+            return Integer.valueOf(valueString);
+        }
     }
 
     public static boolean getThemeColorizeNavigationBar(Context context) {
