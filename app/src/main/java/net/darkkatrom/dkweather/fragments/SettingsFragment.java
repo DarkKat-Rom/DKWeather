@@ -16,7 +16,6 @@
 
 package net.darkkatrom.dkweather.fragments;
 
-
 import android.os.Bundle;
 
 import net.darkkatrom.dkweather.R;
@@ -34,7 +33,6 @@ public class SettingsFragment extends SettingsBaseFragment  {
     public void onResume() {
         super.onResume();
         findPreference(Config.PREF_KEY_SETTINGS_NOTIFICATION).setEnabled(Config.isEnabled(getActivity()));
-        findPreference(Config.PREF_KEY_SETTINGS_WIDGET).setEnabled(Config.isEnabled(getActivity()));
     }
 
     @Override

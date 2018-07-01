@@ -37,14 +37,19 @@
     <string name="menu_item_update_weather_title">Update Weather</string>
     <string name="weather_updated">Weather data has been updated</string>
     <string name="action_bar_no_weather_data_part">, (no weather data)</string>
-    <string name="action_bar_subtitle_settings">@string/settings_title</string>
     <string name="action_bar_subtitle_settings_weather">Settings -> \'Setup the weather\'</string>
     <string name="action_bar_subtitle_settings_notification">Settings -> \'Notification\'</string>
-    <string name="action_bar_subtitle_settings_theme">Settings -> \'Theme\'</string>
-    <string name="action_bar_subtitle_settings_widget">Settings -> \'Widget\'</string>
+    <string name="action_bar_subtitle_settings_theme_colors">Settings -> \'Theme &amp; colors\'</string>
+    <string name="action_bar_subtitle_settings_theme_colors_app">Settings -> \'Theme &amp; colors\' -> \'App ui\'</string>
+    <string name="action_bar_subtitle_settings_theme_colors_widget">Settings -> \'Theme &amp; colors\' -> \'Widget\'</string>
 
     <!-- Color picker subtitles -->
-    <string name="picker_fragment_additional_subtitle_primary">\'Primary\'</string>
+    <string name="action_bar_picker_subtitle_settings_theme_colors">Settings -> \'Theme &amp; colors\' -> ...</string> -->
+    <string name="picker_fragment_additional_subtitle_app_primary">\'App ui\' -> \'Primary\'</string>
+    <string name="picker_fragment_additional_subtitle_widget_background">\'Widget\' -> \'Background\'</string>
+    <string name="picker_fragment_additional_subtitle_widget_frame">\'Widget\' -> \'Frame\'</string>
+    <string name="picker_fragment_additional_subtitle_widget_text">\'Widget\' -> \'Text\'</string>
+    <string name="picker_fragment_additional_subtitle_widget_icon">\'Widget\' -> \'Icon\'</string>
 
     <!-- Weather fragments -->
     <string name="current_title">Current</string>
@@ -93,10 +98,8 @@
     <string name="settings_weather_summary">Setup the weather</string>
     <string name="settings_notification_title">Notification</string>
     <string name="settings_notification_summary">Choose how to display the notification</string>
-    <string name="settings_theme_title">Theme</string>
-    <string name="settings_theme_summary">Choose how to display the app ui</string>
-    <string name="settings_widget_title">Widget</string>
-    <string name="settings_widget_summary">Choose how to display the widget</string>
+    <string name="settings_theme_colors_title">Theme &amp; colors</string>
+    <string name="settings_theme_colors_summary">Choose how to display the app ui and widget</string>
 
     <!-- Weather setup -->
     <string name="enable_summary">Enable the weather</string>
@@ -124,7 +127,13 @@
     <string name="notification_show_dk_icon_title">Show DarkKat icon</string>
     <string name="notification_show_dk_icon_summary">Enable to show the DarkKat icon as notification icon, disable to show the current temperature as notification icon</string>
 
-    <!-- Theme -->
+    <!-- Theme & colors-->
+    <string name="theme_colors_app_title">App ui</string>
+    <string name="theme_colors_app_summary">Choose how to theme &amp; colorize the app ui</string>
+    <string name="theme_colors_widget_title">Widget</string>
+    <string name="theme_colors_widget_summary">Choose how to colorize the widget</string>
+
+    <!-- App ui-->
     <string name="theme_use_dark_theme_title">Dark theme</string>
     <string name="theme_use_dark_theme_summary">Enable to use a dark theme</string>
     <string name="theme_use_light_status_bar_title">Light status- &amp; action bar</string>
@@ -176,6 +185,7 @@
     <string name="widget_frame_color_title">Frame color</string>
     <string name="widget_text_color_title">Text color</string>
     <string name="widget_icon_color_title">Icon color</string>
+    <!-- Theme & colors end-->
 
     <!-- Reset dialog -->
     <string name="dlg_ok">OK</string>

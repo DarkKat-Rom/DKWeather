@@ -15,6 +15,6 @@
 -->
 <resources>
 
-    <!-- Color picker subtitles -->
-    <string name="action_bar_picker_subtitle_settings_theme">@string/action_bar_subtitle_settings_theme</string>
+    <!-- Actionbar subtitles -->
+    <string name="action_bar_subtitle_settings">@string/settings_title</string>
 </resources>

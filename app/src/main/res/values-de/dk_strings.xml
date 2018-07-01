@@ -37,14 +37,19 @@
     <string name="menu_item_update_weather_title">Wetter aktuallisieren</string>
     <string name="weather_updated">Wetterdaten wurden aktuallisiert</string>
     <string name="action_bar_no_weather_data_part">, (keine Wetterdaten)</string>
-    <string name="action_bar_subtitle_settings">@string/settings_title</string>
-    <string name="action_bar_subtitle_settings_weather">Einstellungen -> \'Wetter konfigurieren\'</string>
+    <string name="action_bar_subtitle_settings_weather">Einstellungen -> \"Wetter konfigurieren\"</string>
     <string name="action_bar_subtitle_settings_notification">Einstellungen -> \"Benachrichtigung\"</string>
-    <string name="action_bar_subtitle_settings_theme">Einstellungen -> \"Theme\"</string>
-    <string name="action_bar_subtitle_settings_widget">Einstellungen -> \'Widget\'</string>
+    <string name="action_bar_subtitle_settings_theme_colors">Einstellungen -> \"Theme &amp; Farben\"</string>
+    <string name="action_bar_subtitle_settings_theme_colors_app">Einst. -> \"Theme &amp; Farben\" -> \"App-Benutzeroberfl.\"</string>
+    <string name="action_bar_subtitle_settings_theme_colors_widget">Einstellungen -> \"Theme &amp; Farben\" -> \"Widget\"</string>
 
     <!-- Color picker subtitles -->
-    <string name="picker_fragment_additional_subtitle_primary">\'Primär\'</string>
+    <string name="action_bar_picker_subtitle_settings_theme_colors">Einst. -> \"Theme &amp; Farben\"  -> ...</string>
+    <string name="picker_fragment_additional_subtitle_app_primary">\"App-Benutzeroberfläche\" -> \"Primär\"</string>
+    <string name="picker_fragment_additional_subtitle_widget_background">\"Widget\" -> \"Hintergrund\"</string>
+    <string name="picker_fragment_additional_subtitle_widget_frame">\"Widget\" -> \"Rahmen\"</string>
+    <string name="picker_fragment_additional_subtitle_widget_text">\"Widget\" -> \"Text\"</string>
+    <string name="picker_fragment_additional_subtitle_widget_icon">\"Widget\" -> \"Icon\"</string>
 
     <!-- Weather fragments -->
     <string name="current_title">Aktuell</string>
@@ -93,10 +98,8 @@
     <string name="settings_weather_summary">Wetter konfigurieren</string>
     <string name="settings_notification_title">Benachrichtigung</string>
     <string name="settings_notification_summary">Wähle wie die Benachrichtigung dargestellt werden soll</string>
-    <string name="settings_theme_title">Theme</string>
-    <string name="settings_theme_summary">Wähle wie die App-Benutzeroberfläche dargestellt werden soll</string>
-    <string name="settings_widget_title">Widget</string>
-    <string name="settings_widget_summary">Wähle wie Widget dargestellt werden soll</string>
+    <string name="settings_theme_colors_title">Theme &amp; Farben</string>
+    <string name="settings_theme_colors_summary">Wähle wie die App-Benutzeroberfläche und das Widget dargestellt werden sollen</string>
 
     <!-- Weather setup -->
     <string name="enable_summary">Wetter aktivieren</string>
@@ -124,7 +127,13 @@
     <string name="notification_show_dk_icon_title">DarkKat Icon anzeigen</string>
     <string name="notification_show_dk_icon_summary">Aktivieren um das DarkKat Icon als Benachrichtigungs-Icon anzuzeigen, deaktivieren um die aktuelle Temperatur als Benachrichtigungs-Icon anzuzeigen</string>
 
-    <!-- Theme -->
+    <!-- Theme & colors -->
+    <string name="theme_colors_app_title">App-Benutzeroberfläche</string>
+    <string name="theme_colors_app_summary">Wähle wie die App-Benutzeroberfläche eingefärbt und das Theme dargestellt werden soll</string>
+    <string name="theme_colors_widget_title">Widget</string>
+    <string name="theme_colors_widget_summary">Wähle wie Widget eingefärbt werden soll</string>
+
+    <!-- App ui-->
     <string name="theme_use_dark_theme_title">Dunkles Theme</string>
     <string name="theme_use_dark_theme_summary">Aktivieren um ein dunkles Theme zu benutzen</string>
     <string name="theme_use_light_status_bar_title">Helle Status- &amp; Aktionsleiste</string>
@@ -176,6 +185,7 @@
     <string name="widget_frame_color_title">Rahmenfarbe</string>
     <string name="widget_text_color_title">Textfarbe</string>
     <string name="widget_icon_color_title">Iconfarbe</string>
+    <!-- Theme & colors end-->
 
     <!-- Reset dialog -->
     <string name="dlg_ok">OK</string>

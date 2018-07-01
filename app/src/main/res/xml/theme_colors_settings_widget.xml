@@ -28,8 +28,8 @@ limitations under the License.
      <net.darkkatrom.dkweather.colorpicker.preference.ColorPickerPreference
         android:key="widget_background_color"
         android:title="@string/widget_background_color_title"
-        app:pickerTitle="@string/settings_widget_title"
-        app:pickerSubtitle="@string/widget_background_color_title"
+        app:pickerSubtitle="@string/action_bar_picker_subtitle_settings_theme_colors"
+        app:pickerAdditionalSubtitle="@string/picker_fragment_additional_subtitle_widget_background"
         app:resetColor1="@color/widget_default_background_color"
         app:alphaSliderVisible="true"
         app:defaultColor="@color/widget_default_background_color" />
@@ -37,8 +37,8 @@ limitations under the License.
      <net.darkkatrom.dkweather.colorpicker.preference.ColorPickerPreference
         android:key="widget_frame_color"
         android:title="@string/widget_frame_color_title"
-        app:pickerTitle="@string/settings_widget_title"
-        app:pickerSubtitle="@string/widget_frame_color_title"
+        app:pickerSubtitle="@string/action_bar_picker_subtitle_settings_theme_colors"
+        app:pickerAdditionalSubtitle="@string/picker_fragment_additional_subtitle_widget_frame"
         app:resetColor1="@color/widget_default_frame_color"
         app:alphaSliderVisible="true"
         app:defaultColor="@color/widget_default_frame_color" />
@@ -46,16 +46,16 @@ limitations under the License.
      <net.darkkatrom.dkweather.colorpicker.preference.ColorPickerPreference
         android:key="widget_text_color"
         android:title="@string/widget_text_color_title"
-        app:pickerTitle="@string/settings_widget_title"
-        app:pickerSubtitle="@string/widget_text_color_title"
+        app:pickerSubtitle="@string/action_bar_picker_subtitle_settings_theme_colors"
+        app:pickerAdditionalSubtitle="@string/picker_fragment_additional_subtitle_widget_text"
         app:resetColor1="@color/widget_default_text_color"
         app:defaultColor="@color/widget_default_text_color" />
 
      <net.darkkatrom.dkweather.colorpicker.preference.ColorPickerPreference
         android:key="widget_icon_color"
         android:title="@string/widget_icon_color_title"
-        app:pickerTitle="@string/settings_widget_title"
-        app:pickerSubtitle="@string/widget_icon_color_title"
+        app:pickerSubtitle="@string/action_bar_picker_subtitle_settings_theme_colors"
+        app:pickerAdditionalSubtitle="@string/picker_fragment_additional_subtitle_widget_icon"
         app:resetColor1="@color/widget_default_icon_color"
         app:defaultColor="@color/widget_default_icon_color" />
 

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.darkkatrom.dkweather.fragments;
+package net.darkkatrom.dkweather.fragments.themecolors;
 
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
@@ -26,7 +26,7 @@ import net.darkkatrom.dkweather.activities.MainActivity;
 import net.darkkatrom.dkweather.colorpicker.fragment.SettingsColorPickerFragment;
 import net.darkkatrom.dkweather.utils.Config;
 
-public class ThemeSettings extends SettingsColorPickerFragment implements
+public class ThemeColorsApp extends SettingsColorPickerFragment implements
         OnSharedPreferenceChangeListener {
 
     private int mPrimaryColor;
@@ -35,7 +35,7 @@ public class ThemeSettings extends SettingsColorPickerFragment implements
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        addPreferencesFromResource(R.xml.theme_settings);
+        addPreferencesFromResource(R.xml.theme_colors_settings_app);
 
         mPrimaryColor = Config.getThemePrimaryColor(getActivity());
 
@@ -58,7 +58,7 @@ public class ThemeSettings extends SettingsColorPickerFragment implements
 
     @Override
     protected int getSubtitleResId() {
-        return R.string.action_bar_subtitle_settings_theme;
+        return R.string.action_bar_subtitle_settings_theme_colors_app;
     }
 
 

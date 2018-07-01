@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.darkkatrom.dkweather.fragments;
+package net.darkkatrom.dkweather.fragments.themecolors;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -35,7 +35,7 @@ import net.darkkatrom.dkweather.colorpicker.fragment.SettingsColorPickerFragment
 import net.darkkatrom.dkweather.utils.Config;
 import net.darkkatrom.dkweather.utils.JobUtil;
 
-public class WidgetSettings extends SettingsColorPickerFragment implements
+public class ThemeColorsWidget extends SettingsColorPickerFragment implements
         OnSharedPreferenceChangeListener {
 
     private static final int MENU_RESET = Menu.FIRST;
@@ -50,7 +50,7 @@ public class WidgetSettings extends SettingsColorPickerFragment implements
 
     @Override
     protected int getSubtitleResId() {
-        return R.string.action_bar_subtitle_settings_widget;
+        return R.string.action_bar_subtitle_settings_theme_colors_widget;
     }
 
     public void updatePreferenceScreen() {
@@ -59,7 +59,7 @@ public class WidgetSettings extends SettingsColorPickerFragment implements
             prefs.removeAll();
         }
 
-        addPreferencesFromResource(R.xml.widget_settings);
+        addPreferencesFromResource(R.xml.theme_colors_settings_widget);
 
         int background = Config.getWidgetBackground(getActivity());
         if (background == Config.WIDGET_BACKGROUND_NONE) {
@@ -132,8 +132,8 @@ public class WidgetSettings extends SettingsColorPickerFragment implements
             return frag;
         }
 
-        WidgetSettings getOwner() {
-            return (WidgetSettings) getTargetFragment();
+        ThemeColorsWidget getOwner() {
+            return (ThemeColorsWidget) getTargetFragment();
         }
 
         @Override

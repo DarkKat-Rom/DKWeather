@@ -48,8 +48,8 @@ limitations under the License.
         android:key="theme_primary_color"
         android:title="@string/theme_primary_color_title"
         android:summary="@string/theme_primary_color_summary"
-        app:pickerSubtitle="@string/action_bar_subtitle_settings_theme"
-        app:pickerAdditionalSubtitle="@string/picker_fragment_additional_subtitle_primary"
+        app:pickerSubtitle="@string/action_bar_picker_subtitle_settings_theme_colors"
+        app:pickerAdditionalSubtitle="@string/picker_fragment_additional_subtitle_app_primary"
         app:resetColor1="@color/primary_darkkat"
         app:defaultColor="@color/primary_darkkat" />
 

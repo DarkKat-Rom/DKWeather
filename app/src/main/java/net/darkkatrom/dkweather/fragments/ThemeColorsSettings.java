@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 DarkKat
+ * Copyright (C) 2016 DarkKat
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,27 +16,27 @@
 
 package net.darkkatrom.dkweather.fragments;
 
-import android.preference.Preference;
-import android.preference.PreferenceFragment;
+import android.os.Bundle;
 
-public class SettingsBaseFragment extends PreferenceFragment {
+import net.darkkatrom.dkweather.R;
+import net.darkkatrom.dkweather.utils.Config;
+
+public class ThemeColorsSettings extends SettingsBaseFragment {
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        addPreferencesFromResource(R.xml.theme_colors_settings);
+    }
+
+    @Override
+    protected int getSubtitleResId() {
+        return R.string.action_bar_subtitle_settings_theme_colors;
+    }
 
     @Override
     public void onResume() {
         super.onResume();
-        if (getActivity().getActionBar() != null && getSubtitleResId() > 0) {
-            getActivity().getActionBar().setSubtitle(getSubtitleResId());
-        }
-    }
-
-    protected int getSubtitleResId() {
-        return 0;
-    }
-
-    protected void removePreference(String key) {
-        Preference pref = findPreference(key);
-        if (pref != null) {
-            getPreferenceScreen().removePreference(pref);
-        }
+        findPreference(Config.PREF_KEY_THEME_COLORS_WIDGET).setEnabled(Config.isEnabled(getActivity()));
     }
 }
