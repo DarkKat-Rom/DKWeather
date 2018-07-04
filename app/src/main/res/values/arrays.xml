@@ -47,7 +47,7 @@
         <item>6</item>
         <item>12</item>
     </string-array>
-    <string-array name="theme_accent_color_entries">
+    <string-array name="theme_color_list_entries">
         <item>@string/accent_darkkat</item>
         <item>@string/holo_blue_light</item>
         <item>@string/material_blue_grey_500</item>
@@ -76,7 +76,7 @@
         <item>@string/yellow</item>>
         <item>@string/green</item>
     </string-array>
-    <string-array name="theme_accent_color_values" translatable="false">
+    <string-array name="theme_color_list_values" translatable="false">
         <item>0</item>
         <item>1</item>
         <item>2</item>
@@ -105,7 +105,7 @@
         <item>25</item>
         <item>26</item>
     </string-array>
-    <string-array name="theme_accent_color_entry_colors" translatable="false">
+    <string-array name="theme_color_list_entry_colors" translatable="false">
         <item>#ff5a8596</item>
         <item>#ff33b5e5</item>
         <item>#ff607d8b</item>

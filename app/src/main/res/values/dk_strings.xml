@@ -145,6 +145,8 @@
     <string name="theme_primary_color_title">Primary color</string>
     <string name="theme_primary_color_summary">This color is used to colorize the action- and (optional) navigation bar. A darker variant of this color is used to colorize the status bar.</string>
     <string name="theme_accent_color_title">Accent color</string>
+    <string name="theme_light_text_color_title">Text &amp; icon color (light theme)</string>
+    <string name="theme_dark_text_color_title">Text &amp; icon color (dark theme)</string>
     <string name="accent_darkkat">Accent Darkkat</string>
     <string name="holo_blue_light">Holo Blue Light</string>
     <string name="material_blue_grey_500">Material Blue Grey 500</string>

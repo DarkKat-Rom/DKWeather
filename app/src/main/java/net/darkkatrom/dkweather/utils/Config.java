@@ -56,6 +56,10 @@ public class Config {
             "theme_primary_color";
     public static final String PREF_KEY_THEME_ACCENT_COLOR =
             "theme_accent_color";
+    public static final String PREF_KEY_THEME_LIGHT_TEXT_COLOR =
+            "theme_light_text_color";
+    public static final String PREF_KEY_THEME_DARK_TEXT_COLOR =
+            "theme_dark_text_color";
     public static final String PREF_KEY_THEME_COLORIZE_NAVIGATION_BAR =
             "theme_colorize_navigation_bar";
 
@@ -258,6 +262,28 @@ public class Config {
             SharedPreferences prefs = PreferenceManager
                     .getDefaultSharedPreferences(context);
             String valueString = prefs.getString(PREF_KEY_THEME_ACCENT_COLOR, "0");
+            return Integer.valueOf(valueString);
+        }
+    }
+
+    public static int getIndexForLightTextColor(Context context) {
+        if (!getThemeCustomizeColors(context)) {
+            return 19;
+        } else {
+            SharedPreferences prefs = PreferenceManager
+                    .getDefaultSharedPreferences(context);
+            String valueString = prefs.getString(PREF_KEY_THEME_LIGHT_TEXT_COLOR, "19");
+            return Integer.valueOf(valueString);
+        }
+    }
+
+    public static int getIndexForDarkTextColor(Context context) {
+        if (!getThemeCustomizeColors(context)) {
+            return 20;
+        } else {
+            SharedPreferences prefs = PreferenceManager
+                    .getDefaultSharedPreferences(context);
+            String valueString = prefs.getString(PREF_KEY_THEME_DARK_TEXT_COLOR, "20");
             return Integer.valueOf(valueString);
         }
     }

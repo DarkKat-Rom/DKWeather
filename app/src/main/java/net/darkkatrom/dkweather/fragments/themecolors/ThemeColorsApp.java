@@ -53,6 +53,15 @@ public class ThemeColorsApp extends SettingsColorPickerFragment implements
         if (!Config.getThemeCustomizeColors(getActivity())) {
             removePreference(Config.PREF_KEY_THEME_PRIMARY_COLOR);
             removePreference(Config.PREF_KEY_THEME_ACCENT_COLOR);
+            removePreference(Config.PREF_KEY_THEME_LIGHT_TEXT_COLOR);
+            removePreference(Config.PREF_KEY_THEME_DARK_TEXT_COLOR);
+
+        } else {
+           if (Config.getThemeUseDarkTheme(getActivity())) {
+                removePreference(Config.PREF_KEY_THEME_LIGHT_TEXT_COLOR);
+            } else {
+                removePreference(Config.PREF_KEY_THEME_DARK_TEXT_COLOR);
+            }
         }
     }
 
@@ -66,6 +75,8 @@ public class ThemeColorsApp extends SettingsColorPickerFragment implements
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         if (Config.PREF_KEY_THEME_USE_DARK_THEME.equals(key)
                     || Config.PREF_KEY_THEME_ACCENT_COLOR.equals(key)
+                    || Config.PREF_KEY_THEME_LIGHT_TEXT_COLOR.equals(key)
+                    || Config.PREF_KEY_THEME_DARK_TEXT_COLOR.equals(key)
                     || Config.PREF_KEY_THEME_USE_LIGHT_STATUS_BAR.equals(key)
                     || Config.PREF_KEY_THEME_USE_LIGHT_NAVIGATION_BAR.equals(key)
                     || Config.PREF_KEY_THEME_CUSTOMIZE_COLORS.equals(key)

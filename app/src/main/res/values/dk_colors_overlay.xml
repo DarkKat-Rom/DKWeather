@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2017 DarkKat
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources>
+
+    <item name="disabled_alpha_material_light" format="float" type="dimen">0.26</item>
+    <item name="disabled_alpha_material_dark" format="float" type="dimen">0.30</item>
+
+    <!-- Accent DarkKat -->
+    <!-- 87% Accent DarkKat -->
+    <color name="primary_text_default_light_accent_darkkat">#de5a8596</color>
+    <!-- 54% Accent DarkKat -->
+    <color name="secondary_text_default_light_accent_darkkat">#8a5a8596</color>
+    <!-- 100% Accent DarkKat -->
+    <color name="primary_text_default_dark_accent_darkkat">#ff5a8596</color>
+    <!-- 70% Accent DarkKat -->
+    <color name="secondary_text_default_dark_accent_darkkat">#b35a8596</color>
+
+    <!-- Holo blue light -->
+    <!-- 87% Holo blue light -->
+    <color name="primary_text_default_light_holo_blue_light">#de33b5e5</color>
+    <!-- 54% Holo blue light -->
+    <color name="secondary_text_default_light_holo_blue_light">#8a33b5e5</color>
+    <!-- 100% Holo blue light -->
+    <color name="primary_text_default_dark_holo_blue_light">#ff33b5e5</color>
+    <!-- 70% Holo blue light -->
+    <color name="secondary_text_default_dark_holo_blue_light">#b333b5e5</color>
+
+    <!-- Material blue grey 500 -->
+    <!-- 87% Material blue grey 500 -->
+    <color name="primary_text_default_light_material_blue_grey">#de607d8b</color>
+    <!-- 54% Material blue grey 500 -->
+    <color name="secondary_text_default_light_material_blue_grey">#8a607d8b</color>
+    <!-- 100% Material blue grey 500 -->
+    <color name="primary_text_default_dark_material_blue_grey">#ff607d8b</color>
+    <!-- 70% Material blue grey 500 -->
+    <color name="secondary_text_default_dark_material_blue_grey">#b3607d8b</color>
+
+    <!-- Material blue 500 -->
+    <!-- 87% Material blue 500 -->
+    <color name="primary_text_default_light_material_blue">#de2196f3</color>
+    <!-- 54% Material blue 500 -->
+    <color name="secondary_text_default_light_material_blue">#8a2196f3</color>
+    <!-- 100% Material blue 500 -->
+    <color name="primary_text_default_dark_material_blue">#ff2196f3</color>
+    <!-- 70% Material blue 500 -->
+    <color name="secondary_text_default_dark_material_blue">#b32196f3</color>
+
+    <!-- Material light blue 500 -->
+    <!-- 87% Material light blue 500 -->
+    <color name="primary_text_default_light_material_light_blue">#de607d8b</color>
+    <!-- 54% Material light blue 500 -->
+    <color name="secondary_text_default_light_material_light_blue">#8a607d8b</color>
+    <!-- 100% Material light blue 500 -->
+    <color name="primary_text_default_dark_material_light_blue">#ff607d8b</color>
+    <!-- 70% Material light blue 500 -->
+    <color name="secondary_text_default_dark_material_light_blue">#b3607d8b</color>
+
+    <!-- Material cyan 500 -->
+    <!-- 87% Material cyan 500 -->
+    <color name="primary_text_default_light_material_cyan">#de00bcd4</color>
+    <!-- 54% Material cyan 500 -->
+    <color name="secondary_text_default_light_material_cyan">#8a00bcd4</color>
+    <!-- 100% Material cyan 500 -->
+    <color name="primary_text_default_dark_material_cyan">#ff00bcd4</color>
+    <!-- 70% Material cyan 500 -->
+    <color name="secondary_text_default_dark_material_cyan">#b300bcd4</color>
+
+    <!-- Material deep teal 500 -->
+    <!-- 87% Material deep teal 500 -->
+    <color name="primary_text_default_light_material_deep_teal">#de009688</color>
+    <!-- 54% Material deep teal 500 -->
+    <color name="secondary_text_default_light_material_deep_teal">#8a009688</color>
+    <!-- 100% Material deep teal 500 -->
+    <color name="primary_text_default_dark_material_deep_teal">#ff009688</color>
+    <!-- 70% Material deep teal 500 -->
+    <color name="secondary_text_default_dark_material_deep_teal">#b3009688</color>
+
+    <!-- Material indigo 500 -->
+    <!-- 87% Material indigo 500 -->
+    <color name="primary_text_default_light_material_indigo">#de3f51b5</color>
+    <!-- 54% Material indigo 500 -->
+    <color name="secondary_text_default_light_material_indigo">#8a3f51b5</color>
+    <!-- 100% Material indigo 500 -->
+    <color name="primary_text_default_dark_material_indigo">#ff3f51b5</color>
+    <!-- 70% Material indigo 500 -->
+    <color name="secondary_text_default_dark_material_indigo">#b33f51b5</color>
+
+    <!-- Material purple 500 -->
+    <!-- 87% Material purple 500 -->
+    <color name="primary_text_default_light_material_purple">#de9c27b0</color>
+    <!-- 54% Material purple 500 -->
+    <color name="secondary_text_default_light_material_purple">#8a9c27b0</color>
+    <!-- 100% Material purple 500 -->
+    <color name="primary_text_default_dark_material_purple">#ff9c27b0</color>
+    <!-- 70% Material purple 500 -->
+    <color name="secondary_text_default_dark_material_purple">#b39c27b0</color>
+
+    <!-- Material deep purple 500 -->
+    <!-- 87% Material deep purple 500 -->
+    <color name="primary_text_default_light_material_deep_purple">#de673ab7</color>
+    <!-- 54% Material deep purple 500 -->
+    <color name="secondary_text_default_light_material_deep_purple">#8a673ab7</color>
+    <!-- 100% Material deep purple 500 -->
+    <color name="primary_text_default_dark_material_deep_purple">#ff673ab7</color>
+    <!-- 70% Material deep purple 500 -->
+    <color name="secondary_text_default_dark_material_deep_purple">#b3673ab7</color>
+
+    <!-- Material pink 500 -->
+    <!-- 87% Material pink 500 -->
+    <color name="primary_text_default_light_material_pink">#dee91e63</color>
+    <!-- 54% Material pink 500 -->
+    <color name="secondary_text_default_light_material_pink">#8ae91e63</color>
+    <!-- 100% Material pink 500 -->
+    <color name="primary_text_default_dark_material_pink">#ffe91e63</color>
+    <!-- 70% Material pink 500 -->
+    <color name="secondary_text_default_dark_material_pink">#b3e91e63</color>
+
+    <!-- Material orange 500 -->
+    <!-- 87% Material orange 500 -->
+    <color name="primary_text_default_light_material_orange">#deff9800</color>
+    <!-- 54% Material orange 500 -->
+    <color name="secondary_text_default_light_material_orange">#8aff9800</color>
+    <!-- 100% Material orange 500 -->
+    <color name="primary_text_default_dark_material_orange">#ffff9800</color>
+    <!-- 70% Material orange 500 -->
+    <color name="secondary_text_default_dark_material_orange">#b3ff9800</color>
+
+    <!-- Material deep orange 500 -->
+    <!-- 87% Material deep orange 500 -->
+    <color name="primary_text_default_light_material_deep_orange">#deff5722</color>
+    <!-- 54% Material deep orange 500 -->
+    <color name="secondary_text_default_light_material_deep_orange">#8aff5722</color>
+    <!-- 100% Material deep orange 500 -->
+    <color name="primary_text_default_dark_material_deep_orange">#ffff5722</color>
+    <!-- 70% Material deep orange 500 -->
+    <color name="secondary_text_default_dark_material_deep_orange">#b3ff5722</color>
+
+    <!-- Material red 500 -->
+    <!-- 87% Material red 500 -->
+    <color name="primary_text_default_light_material_red">#def44336</color>
+    <!-- 54% Material red 500 -->
+    <color name="secondary_text_default_light_material_red">#8af44336</color>
+    <!-- 100% Material red 500 -->
+    <color name="primary_text_default_dark_material_red">#fff44336</color>
+    <!-- 70% Material red 500 -->
+    <color name="secondary_text_default_dark_material_red">#b3f44336</color>
+
+    <!-- Material yellow 500 -->
+    <!-- 87% Material yellow 500 -->
+    <color name="primary_text_default_light_material_yellow">#deffeb3b</color>
+    <!-- 54% Material yellow 500 -->
+    <color name="secondary_text_default_light_material_yellow">#8affeb3b</color>
+    <!-- 100% Material yellow 500 -->
+    <color name="primary_text_default_dark_material_yellow">#ffffeb3b</color>
+    <!-- 70% Material yellow 500 -->
+    <color name="secondary_text_default_dark_material_yellow">#b3ffeb3b</color>
+
+    <!-- Material amber 500 -->
+    <!-- 87% Material amber 500 -->
+    <color name="primary_text_default_light_material_amber">#deffc107</color>
+    <!-- 54% Material amber 500 -->
+    <color name="secondary_text_default_light_material_amber">#8affc107</color>
+    <!-- 100% Material amber 500 -->
+    <color name="primary_text_default_dark_material_amber">#ffffc107</color>
+    <!-- 70% Material amber 500 -->
+    <color name="secondary_text_default_dark_material_amber">#b3ffc107</color>
+
+    <!-- Material green 500 -->
+    <!-- 87% Material green 500 -->
+    <color name="primary_text_default_light_material_green">#de4caf50</color>
+    <!-- 54% Material green 500 -->
+    <color name="secondary_text_default_light_material_green">#8a4caf50</color>
+    <!-- 100% Material green 500 -->
+    <color name="primary_text_default_dark_material_green">#ff4caf50</color>
+    <!-- 70% Material green 500 -->
+    <color name="secondary_text_default_dark_material_green">#b34caf50</color>
+
+    <!-- Material light green 500 -->
+    <!-- 87% Material light green 500 -->
+    <color name="primary_text_default_light_material_light_green">#de8bc34a</color>
+    <!-- 54% Material light green 500 -->
+    <color name="secondary_text_default_light_material_light_green">#8a8bc34a</color>
+    <!-- 100% Material light green 500 -->
+    <color name="primary_text_default_dark_material_light_green">#ff8bc34a</color>
+    <!-- 70% Material light green 500 -->
+    <color name="secondary_text_default_dark_material_light_green">#b38bc34a</color>
+
+    <!-- Material lime 500 -->
+    <!-- 87% Material lime 500 -->
+    <color name="primary_text_default_light_material_lime">#decddc39</color>
+    <!-- 54% Material lime 500 -->
+    <color name="secondary_text_default_light_material_lime">#8acddc39</color>
+    <!-- 100% Material lime 500 -->
+    <color name="primary_text_default_dark_material_lime">#ffcddc39</color>
+    <!-- 70% Material lime 500 -->
+    <color name="secondary_text_default_dark_material_lime">#b3cddc39</color>
+
+    <!-- Black -->
+    <!-- 87% Black -->
+    <color name="primary_text_default_light_black">#de000000</color>
+    <!-- 54% Black -->
+    <color name="secondary_text_default_light_black">#8a000000</color>
+    <!-- 100% Black -->
+    <color name="primary_text_default_dark_black">#ff000000</color>
+    <!-- 70% Black -->
+    <color name="secondary_text_default_dark_black">#b3000000</color>
+
+    <!-- White -->
+    <!-- 87% White -->
+    <color name="primary_text_default_light_white">#deffffff</color>
+    <!-- 54% White -->
+    <color name="secondary_text_default_light_white">#8affffff</color>
+    <!-- 100% White -->
+    <color name="primary_text_default_dark_white">#ffffffff</color>
+    <!-- 70% White -->
+    <color name="secondary_text_default_dark_white">#b3ffffff</color>
+
+    <!-- Blue -->
+    <!-- 87% Blue -->
+    <color name="primary_text_default_light_blue">#de0000ff</color>
+    <!-- 54% Blue -->
+    <color name="secondary_text_default_light_blue">#8a0000ff</color>
+    <!-- 100% Blue -->
+    <color name="primary_text_default_dark_blue">#ff0000ff</color>
+    <!-- 70% Blue -->
+    <color name="secondary_text_default_dark_blue">#b30000ff</color>
+
+    <!-- Purple -->
+    <!-- 87% Purple -->
+    <color name="primary_text_default_light_purple">#de800080</color>
+    <!-- 54% Purple -->
+    <color name="secondary_text_default_light_purple">#8a800080</color>
+    <!-- 100% Purple -->
+    <color name="primary_text_default_dark_purple">#ff800080</color>
+    <!-- 70% Purple -->
+    <color name="secondary_text_default_dark_purple">#b3800080</color>
+
+    <!-- Orange -->
+    <!-- 87% Orange -->
+    <color name="primary_text_default_light_orange">#deffa500</color>
+    <!-- 54% Orange -->
+    <color name="secondary_text_default_light_orange">#8affa500</color>
+    <!-- 100% Orange -->
+    <color name="primary_text_default_dark_orange">#ffffa500</color>
+    <!-- 70% Orange -->
+    <color name="secondary_text_default_dark_orange">#b3ffa500</color>
+
+    <!-- Red -->
+    <!-- 87% Red -->
+    <color name="primary_text_default_light_red">#deff0000</color>
+    <!-- 54% Red -->
+    <color name="secondary_text_default_light_red">#8aff0000</color>
+    <!-- 100% Red -->
+    <color name="primary_text_default_dark_red">#ffff0000</color>
+    <!-- 70% Red -->
+    <color name="secondary_text_default_dark_red">#b3ff0000</color>
+
+    <!-- Yellow -->
+    <!-- 87% Yellow -->
+    <color name="primary_text_default_light_yellow">#deffff00</color>
+    <!-- 54% Yellow -->
+    <color name="secondary_text_default_light_yellow">#8affff00</color>
+    <!-- 100% Yellow -->
+    <color name="primary_text_default_dark_yellow">#ffffff00</color>
+    <!-- 70% Yellow -->
+    <color name="secondary_text_default_dark_yellow">#b3ffff00</color>
+
+    <!-- Green -->
+    <!-- 87% Green -->
+    <color name="primary_text_default_light_green">#de00ff00</color>
+    <!-- 54% Green -->
+    <color name="secondary_text_default_light_green">#8a00ff00</color>
+    <!-- 100% Green -->
+    <color name="primary_text_default_dark_green">#ff00ff00</color>
+    <!-- 70% Green -->
+    <color name="secondary_text_default_dark_green">#b300ff00</color>
+</resources>

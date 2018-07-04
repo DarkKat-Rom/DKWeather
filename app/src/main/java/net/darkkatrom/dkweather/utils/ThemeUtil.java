@@ -124,7 +124,7 @@ public class ThemeUtil {
         if (index == 1) {
             resId = R.style.Theme_Overlay_Accent_HoloBlueLight;
         } else if (index == 2) {
-            resId = R.style.Theme_Overlay_Accent_MaterialBlueGray500;
+            resId = R.style.Theme_Overlay_Accent_MaterialBlueGrey500;
         } else if (index == 3) {
             resId = R.style.Theme_Overlay_Accent_MaterialBlue500;
         } else if (index == 4) {
@@ -173,6 +173,126 @@ public class ThemeUtil {
             resId = R.style.Theme_Overlay_Accent_Yellow;
         } else if (index == 26) {
             resId = R.style.Theme_Overlay_Accent_Green;
+        }
+        return resId;
+    }
+
+    public static int getThemeOverlayLightTextResId(Context context) {
+        int index = Config.getIndexForLightTextColor(context);
+
+        int resId = 0;
+        if (index == 0) {
+            resId = R.style.Theme_Overlay_TextLight_AccentDarkKat;
+        } else if (index == 1) {
+            resId = R.style.Theme_Overlay_TextLight_HoloBlueLight;
+        } else if (index == 2) {
+            resId = R.style.Theme_Overlay_TextLight_MaterialBlueGrey500;
+        } else if (index == 3) {
+            resId = R.style.Theme_Overlay_TextLight_MaterialBlue500;
+        } else if (index == 4) {
+            resId = R.style.Theme_Overlay_TextLight_MaterialLightBlue500;
+        } else if (index == 5) {
+            resId = R.style.Theme_Overlay_TextLight_MaterialCyan500;
+        } else if (index == 6) {
+            resId = R.style.Theme_Overlay_TextLight_MaterialDeepTeal500;
+        } else if (index == 7) {
+            resId = R.style.Theme_Overlay_TextLight_MaterialIndigo500;
+        } else if (index == 8) {
+            resId = R.style.Theme_Overlay_TextLight_MaterialPurple500;
+        } else if (index == 9) {
+            resId = R.style.Theme_Overlay_TextLight_MaterialDeepPurple500;
+        } else if (index == 10) {
+            resId = R.style.Theme_Overlay_TextLight_MaterialPink500;
+        } else if (index == 11) {
+            resId = R.style.Theme_Overlay_TextLight_MaterialOrange500;
+        } else if (index == 12) {
+            resId = R.style.Theme_Overlay_TextLight_MaterialDeepOrange500;
+        } else if (index == 13) {
+            resId = R.style.Theme_Overlay_TextLight_MaterialRed500;
+        } else if (index == 14) {
+            resId = R.style.Theme_Overlay_TextLight_MaterialYellow500;
+        } else if (index == 15) {
+            resId = R.style.Theme_Overlay_TextLight_MaterialAmber500;
+        } else if (index == 16) {
+            resId = R.style.Theme_Overlay_TextLight_MaterialGreen500;
+        } else if (index == 17) {
+            resId = R.style.Theme_Overlay_TextLight_MaterialLightGreen500;
+        } else if (index == 18) {
+            resId = R.style.Theme_Overlay_TextLight_MaterialLime500;
+        } else if (index == 20) {
+            resId = R.style.Theme_Overlay_TextLight_White;
+        } else if (index == 21) {
+            resId = R.style.Theme_Overlay_TextLight_Blue;
+        } else if (index == 22) {
+            resId = R.style.Theme_Overlay_TextLight_Purple;
+        } else if (index == 23) {
+            resId = R.style.Theme_Overlay_TextLight_Orange;
+        } else if (index == 24) {
+            resId = R.style.Theme_Overlay_TextLight_Red;
+        } else if (index == 25) {
+            resId = R.style.Theme_Overlay_TextLight_Yellow;
+        } else if (index == 26) {
+            resId = R.style.Theme_Overlay_TextLight_Green;
+        }
+        return resId;
+    }
+
+    public static int getThemeOverlayDarkTextResId(Context context) {
+        int index = Config.getIndexForDarkTextColor(context);
+
+        int resId = 0;
+        if (index == 0) {
+            resId = R.style.Theme_Overlay_TextDark_AccentDarkKat;
+        } else if (index == 1) {
+            resId = R.style.Theme_Overlay_TextDark_HoloBlueLight;
+        } else if (index == 2) {
+            resId = R.style.Theme_Overlay_TextDark_MaterialBlueGrey500;
+        } else if (index == 3) {
+            resId = R.style.Theme_Overlay_TextDark_MaterialBlue500;
+        } else if (index == 4) {
+            resId = R.style.Theme_Overlay_TextDark_MaterialLightBlue500;
+        } else if (index == 5) {
+            resId = R.style.Theme_Overlay_TextDark_MaterialCyan500;
+        } else if (index == 6) {
+            resId = R.style.Theme_Overlay_TextDark_MaterialDeepTeal500;
+        } else if (index == 7) {
+            resId = R.style.Theme_Overlay_TextDark_MaterialIndigo500;
+        } else if (index == 8) {
+            resId = R.style.Theme_Overlay_TextDark_MaterialPurple500;
+        } else if (index == 9) {
+            resId = R.style.Theme_Overlay_TextDark_MaterialDeepPurple500;
+        } else if (index == 10) {
+            resId = R.style.Theme_Overlay_TextDark_MaterialPink500;
+        } else if (index == 11) {
+            resId = R.style.Theme_Overlay_TextDark_MaterialOrange500;
+        } else if (index == 12) {
+            resId = R.style.Theme_Overlay_TextDark_MaterialDeepOrange500;
+        } else if (index == 13) {
+            resId = R.style.Theme_Overlay_TextDark_MaterialRed500;
+        } else if (index == 14) {
+            resId = R.style.Theme_Overlay_TextDark_MaterialYellow500;
+        } else if (index == 15) {
+            resId = R.style.Theme_Overlay_TextDark_MaterialAmber500;
+        } else if (index == 16) {
+            resId = R.style.Theme_Overlay_TextDark_MaterialGreen500;
+        } else if (index == 17) {
+            resId = R.style.Theme_Overlay_TextDark_MaterialLightGreen500;
+        } else if (index == 18) {
+            resId = R.style.Theme_Overlay_TextDark_MaterialLime500;
+        } else if (index == 19) {
+            resId = R.style.Theme_Overlay_TextDark_Black;
+        } else if (index == 21) {
+            resId = R.style.Theme_Overlay_TextDark_Blue;
+        } else if (index == 22) {
+            resId = R.style.Theme_Overlay_TextDark_Purple;
+        } else if (index == 23) {
+            resId = R.style.Theme_Overlay_TextDark_Orange;
+        } else if (index == 24) {
+            resId = R.style.Theme_Overlay_TextDark_Red;
+        } else if (index == 25) {
+            resId = R.style.Theme_Overlay_TextDark_Yellow;
+        } else if (index == 26) {
+            resId = R.style.Theme_Overlay_TextDark_Green;
         }
         return resId;
     }

@@ -57,10 +57,28 @@ limitations under the License.
         android:key="theme_accent_color"
         android:title="@string/theme_accent_color_title"
         android:summary="@string/list_preference_default_summary"
-        android:entries="@array/theme_accent_color_entries"
-        android:entryValues="@array/theme_accent_color_values"
-        app:entryColors="@array/theme_accent_color_entry_colors"
+        android:entries="@array/theme_color_list_entries"
+        android:entryValues="@array/theme_color_list_values"
+        app:entryColors="@array/theme_color_list_entry_colors"
         android:defaultValue="0" />
+
+    <net.darkkatrom.dkweather.colorpicker.preference.ColorPickerListPreference
+        android:key="theme_light_text_color"
+        android:title="@string/theme_light_text_color_title"
+        android:summary="@string/list_preference_default_summary"
+        android:entries="@array/theme_color_list_entries"
+        android:entryValues="@array/theme_color_list_values"
+        app:entryColors="@array/theme_color_list_entry_colors"
+        android:defaultValue="19" />
+
+    <net.darkkatrom.dkweather.colorpicker.preference.ColorPickerListPreference
+        android:key="theme_dark_text_color"
+        android:title="@string/theme_dark_text_color_title"
+        android:summary="@string/list_preference_default_summary"
+        android:entries="@array/theme_color_list_entries"
+        android:entryValues="@array/theme_color_list_values"
+        app:entryColors="@array/theme_color_list_entry_colors"
+        android:defaultValue="20" />
 
     <SwitchPreference
         android:key="theme_colorize_navigation_bar"
