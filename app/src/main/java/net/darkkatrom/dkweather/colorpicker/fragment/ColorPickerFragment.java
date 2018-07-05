@@ -479,9 +479,10 @@ public class ColorPickerFragment extends Fragment implements
         TypedArray layouts = mResources.obtainTypedArray(
                 R.array.color_picker_palette_color_buttons_layouts);
         TypedArray buttons = mResources.obtainTypedArray(R.array.color_picker_palette_color_buttons);
+        TypedArray materialButtons = mResources.obtainTypedArray(R.array.color_picker_material_palette_color_buttons);
         TypedArray colors = mResources.obtainTypedArray(R.array.color_picker_darkkat_palette);
 
-        for (int i=0; i<3; i++) {
+        for (int i = 0; i < 3; i++) {
             int layoutResId = layouts.getResourceId(i, 0);
             LinearLayout layout = (LinearLayout) mColorPickerView.findViewById(layoutResId);
             TextView paletteTitle = (TextView) layout.findViewById(R.id.palette_color_buttons_title);
@@ -495,8 +496,11 @@ public class ColorPickerFragment extends Fragment implements
             }
             paletteTitle.setText(titleResId);
 
-            for (int j=0; j<8; j++) {
-                int buttonResId = buttons.getResourceId(j, 0);
+            int paletteButtonsIndex = i == PALETTE_MATERIAL ? 17 : 8;
+            for (int j = 0; j < paletteButtonsIndex; j++) {
+                int buttonResId = i == PALETTE_MATERIAL
+                        ? materialButtons.getResourceId(j, 0)
+                        : buttons.getResourceId(j, 0);
                 ColorViewButton button = (ColorViewButton) layout.findViewById(buttonResId);
                 button.setColor(getActivity().getColor(colors.getResourceId(j, 0)));
                 button.setBorderColor(mBorderColor);
@@ -506,6 +510,7 @@ public class ColorPickerFragment extends Fragment implements
 
         layouts.recycle();
         buttons.recycle();
+        materialButtons.recycle();
         colors.recycle();
     }
 
