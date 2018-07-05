@@ -15,6 +15,10 @@
 -->
 <resources>
 
+    <style name="PreferenceFragmentStyle" parent="@*android:style/PreferenceFragment.Material">
+        <item name="android:divider">@drawable/list_divider_material</item>
+    </style>
+
     <style name="widget_label_shadow">
         <item name="android:shadowColor">@color/widget_text_shadow_color</item>
         <item name="android:shadowRadius">2.0</item>
