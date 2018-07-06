@@ -33,4 +33,15 @@
         <include layout="@layout/widget_date_alarm" />
         <include layout="@layout/widget_weather" />
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/widget_settings_button"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="4dp"
+        android:layout_gravity="top|end"
+        android:padding="12dp"
+        android:scaleType="centerInside"
+        android:visibility="gone" />
 </FrameLayout>

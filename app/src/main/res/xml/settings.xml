@@ -28,6 +28,12 @@ limitations under the License.
         android:fragment="net.darkkatrom.dkweather.fragments.NotificationSettings" />
 
     <PreferenceScreen
+        android:key="settings_widget"
+        android:title="@string/settings_widget_title"
+        android:summary="@string/settings_widget_summary"
+        android:fragment="net.darkkatrom.dkweather.fragments.WidgetSettings" />
+
+    <PreferenceScreen
         android:key="settings_theme_colors"
         android:title="@string/settings_theme_colors_title"
         android:summary="@string/settings_theme_colors_summary"

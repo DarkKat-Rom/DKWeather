@@ -39,6 +39,7 @@
     <string name="action_bar_no_weather_data_part">, (keine Wetterdaten)</string>
     <string name="action_bar_subtitle_settings_weather">Einstellungen -> \"Wetter konfigurieren\"</string>
     <string name="action_bar_subtitle_settings_notification">Einstellungen -> \"Benachrichtigung\"</string>
+    <string name="action_bar_subtitle_settings_widget">Einstellungen -> \"Widget\"</string>
     <string name="action_bar_subtitle_settings_theme_colors">Einstellungen -> \"Theme &amp; Farben\"</string>
     <string name="action_bar_subtitle_settings_theme_colors_app">Einst. -> \"Theme &amp; Farben\" -> \"App-Benutzeroberfl.\"</string>
     <string name="action_bar_subtitle_settings_theme_colors_widget">Einstellungen -> \"Theme &amp; Farben\" -> \"Widget\"</string>
@@ -98,6 +99,8 @@
     <string name="settings_weather_summary">Wetter konfigurieren</string>
     <string name="settings_notification_title">Benachrichtigung</string>
     <string name="settings_notification_summary">Wähle wie die Benachrichtigung dargestellt werden soll</string>
+    <string name="settings_widget_title">Widget</string>
+    <string name="settings_widget_summary">Wähle wie das Widget dargestellt werden soll</string>
     <string name="settings_theme_colors_title">Theme &amp; Farben</string>
     <string name="settings_theme_colors_summary">Wähle wie die App-Benutzeroberfläche und das Widget dargestellt werden sollen</string>
 
@@ -126,6 +129,10 @@
     <string name="notification_show_location_summary">Aktivieren um den Wetter Standort anzuzeigen</string>
     <string name="notification_show_dk_icon_title">DarkKat Icon anzeigen</string>
     <string name="notification_show_dk_icon_summary">Aktivieren um das DarkKat Icon als Benachrichtigungs-Icon anzuzeigen, deaktivieren um die aktuelle Temperatur als Benachrichtigungs-Icon anzuzeigen</string>
+
+    <!-- Widget -->
+    <string name="widget_show_settings_button_title">Einstellungen Schaltfläche anzeigen</string>
+    <string name="widget_show_settings_button_summary">Aktivieren um die Einstellungen Schaltfläche auf dem Widget anzuzeigen</string>
 
     <!-- Theme & colors -->
     <string name="theme_colors_app_title">App-Benutzeroberfläche</string>
