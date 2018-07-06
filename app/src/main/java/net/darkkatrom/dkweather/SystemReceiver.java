@@ -31,19 +31,27 @@ public class SystemReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(final Context context, Intent intent) {
-        final String action = intent.getAction();
-        if (Intent.ACTION_BOOT_COMPLETED.equals(action)) {
-            if (Config.isEnabled(context)) {
-                if (DEBUG) Log.d(TAG, "boot completed");
+        if (Config.isEnabled(context)) {
+            final String action = intent.getAction();
+            String logMessage = null;
+            if (Intent.ACTION_BOOT_COMPLETED.equals(action)) {
                 // kick updates
                 JobUtil.startUpdate(context, false);
                 JobUtil.scheduleUpdate(context);
-            }
-        } else if (Intent.ACTION_LOCALE_CHANGED.equals(action)) {
-            if (Config.isEnabled(context)) {
-                if (DEBUG) Log.d(TAG, "locale changed");
+                logMessage = "boot completed";
+            } else if (Intent.ACTION_MY_PACKAGE_REPLACED.equals(action)) {
                 // kick updates
                 JobUtil.startUpdate(context);
+                JobUtil.scheduleUpdate(context);
+                logMessage = "package replaced";
+            } else if (Intent.ACTION_LOCALE_CHANGED.equals(action)) {
+                // kick updates
+                JobUtil.startUpdate(context);
+                logMessage = "locale changed";
+            }
+
+            if (logMessage != null && DEBUG) {
+                Log.d(TAG, logMessage);
             }
         }
     }
