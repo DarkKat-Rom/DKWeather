@@ -41,10 +41,19 @@ public class ThemeColorsWidget extends SettingsColorPickerFragment implements
     private static final int MENU_RESET = Menu.FIRST;
     private static final int DLG_RESET  = 0;
 
+    private int mBackgroundColor;
+    private int mFrameColor;
+    private int mTextColor;
+    private int mIconColor;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        mBackgroundColor = Config.getWidgetBackgroundColor(getActivity());
+        mFrameColor = Config.getWidgetFrameColor(getActivity());
+        mTextColor = Config.getWidgetTextColor(getActivity(), true);
+        mIconColor = Config.getWidgetIconColor(getActivity(), true);
         updatePreferenceScreen();
     }
 
@@ -92,8 +101,27 @@ public class ThemeColorsWidget extends SettingsColorPickerFragment implements
     @Override
     public void onResume() {
         super.onResume();
+        boolean updateWidget = false;
+        if (Config.getWidgetBackgroundColor(getActivity()) != mBackgroundColor) {
+            mBackgroundColor = Config.getWidgetBackgroundColor(getActivity());
+            updateWidget = true;
+        } else if (Config.getWidgetFrameColor(getActivity()) != mFrameColor) {
+            mFrameColor = Config.getWidgetFrameColor(getActivity());
+            updateWidget = true;
+        } else if (Config.getWidgetTextColor(getActivity(), true) != mTextColor) {
+            mTextColor = Config.getWidgetTextColor(getActivity(), true);
+            updateWidget = true;
+        } else if (Config.getWidgetIconColor(getActivity(), true) != mIconColor) {
+            mIconColor = Config.getWidgetIconColor(getActivity(), true);
+            updateWidget = true;
+        }
+
         getPreferenceScreen().getSharedPreferences()
-                .registerOnSharedPreferenceChangeListener(this);
+            .registerOnSharedPreferenceChangeListener(this);
+
+        if (updateWidget) {
+            JobUtil.startWidgetUpdate(getActivity());
+        }
     }
 
     @Override
@@ -107,11 +135,6 @@ public class ThemeColorsWidget extends SettingsColorPickerFragment implements
             String key) {
         if (Config.PREF_KEY_WIDGET_BACKGROUND.equals(key)) {
             updatePreferenceScreen();
-            JobUtil.startWidgetUpdate(getActivity());
-        } else if (Config.PREF_KEY_WIDGET_BACKGROUND_COLOR.equals(key)
-                || Config.PREF_KEY_WIDGET_FRAME_COLOR.equals(key)
-                || Config.PREF_KEY_WIDGET_TEXT_COLOR.equals(key)
-                || Config.PREF_KEY_WIDGET_ICON_COLOR.equals(key)) {
             JobUtil.startWidgetUpdate(getActivity());
         }
     }

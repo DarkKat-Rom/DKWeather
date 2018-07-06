@@ -17,17 +17,20 @@ package net.darkkatrom.dkweather;
 
 import android.Manifest;
 import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.app.job.JobParameters;
 import android.app.job.JobService;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProviderInfo;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Icon;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.PersistableBundle;
@@ -37,6 +40,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
 
+import net.darkkatrom.dkweather.activities.MainActivity;
 import net.darkkatrom.dkweather.providers.AbstractWeatherProvider;
 import net.darkkatrom.dkweather.providers.WeatherContentProvider;
 import net.darkkatrom.dkweather.providers.WidgetProvider;
@@ -165,6 +169,7 @@ public class WeatherJobService extends JobService {
         if (mWeatherInfo != null) {
             for (int id : widgetIds) {
                 RemoteViews remoteViews = new RemoteViews(getPackageName(), R.layout.widget);
+                remoteViews.setOnClickPendingIntent(R.id.widget_root, getContentIntent(5, 0));
                 setWidgetVisibilities(remoteViews, getNextAlarmText());
                 setWidgetColors(remoteViews);
                 setWidgetTextFormats(remoteViews);
@@ -174,6 +179,18 @@ public class WeatherJobService extends JobService {
             }
         }
         jobFinished(jobParameters, false);
+    }
+
+    private PendingIntent getContentIntent(int requestCode, int day) {
+        Bundle b = new Bundle();
+        b.putInt(MainActivity.KEY_VISIBLE_SCREEN, day);
+        b.putInt(MainActivity.KEY_DAY_INDEX, day);
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtras(b);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, requestCode, intent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+        return pendingIntent;
     }
 
     private Location getCurrentLocation() {
