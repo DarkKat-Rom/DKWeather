@@ -131,8 +131,11 @@
     <string name="notification_show_dk_icon_summary">Aktivieren um das DarkKat Icon als Benachrichtigungs-Icon anzuzeigen, deaktivieren um die aktuelle Temperatur als Benachrichtigungs-Icon anzuzeigen</string>
 
     <!-- Widget -->
-    <string name="widget_show_settings_button_title">Einstellungen Schaltfläche anzeigen</string>
-    <string name="widget_show_settings_button_summary">Aktivieren um die Einstellungen Schaltfläche auf dem Widget anzuzeigen</string>
+    <string name="widget_settings_buttons_title">Einstellungen Schaltflächen anzeigen</string>
+    <string name="widget_show_app_settings_button_title">App Einstellungen</string>
+    <string name="widget_show_app_settings_button_summary">Aktivieren um die App Einstellungen Schaltfläche auf dem Widget anzuzeigen</string>
+    <string name="widget_show_theme_colors_settings_button_title">Widget Theme &amp; Farben</string>
+    <string name="widget_show_theme_colors_settings_button_summary">Aktivieren um die Widget Theme &amp; Farben Schaltfläche auf dem Widget anzuzeigen</string>
 
     <!-- Theme & colors -->
     <string name="theme_colors_app_title">App-Benutzeroberfläche</string>

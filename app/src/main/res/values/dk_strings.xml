@@ -131,8 +131,11 @@
     <string name="notification_show_dk_icon_summary">Enable to show the DarkKat icon as notification icon, disable to show the current temperature as notification icon</string>
 
     <!-- Widget -->
-    <string name="widget_show_settings_button_title">Show settings button</string>
-    <string name="widget_show_settings_button_summary">Enable to show the settings button on the widget</string>
+    <string name="widget_settings_buttons_title">Show settings buttons</string>
+    <string name="widget_show_app_settings_button_title">App settings</string>
+    <string name="widget_show_app_settings_button_summary">Enable to show the app settings button on the widget</string>
+    <string name="widget_show_theme_colors_settings_button_title">Widget theme &amp; colors</string>
+    <string name="widget_show_theme_colors_settings_button_summary">Enable to show the widget theme &amp; colors button on the widget</string>
 
     <!-- Theme & colors-->
     <string name="theme_colors_app_title">App ui</string>

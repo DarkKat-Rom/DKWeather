@@ -41,7 +41,8 @@ public class WidgetSettings extends SettingsBaseFragment implements
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        if (Config.PREF_KEY_WIDGET_SHOW_SETTINGS_BUTTON.equals(key)) {
+        if (Config.PREF_KEY_WIDGET_SHOW_APP_SETTINGS_BUTTON.equals(key)
+                || Config.PREF_KEY_WIDGET_SHOW_THEME_COLOR_BUTTON.equals(key)) {
             JobUtil.startWidgetUpdate(getActivity());
         }
     }

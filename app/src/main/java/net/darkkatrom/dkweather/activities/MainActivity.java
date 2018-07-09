@@ -63,13 +63,17 @@ public class MainActivity extends BaseActivity implements
     private static final Uri WEATHER_URI =
             Uri.parse("content://net.darkkatrom.dkweather.provider/weather");
 
-    public static final String KEY_VISIBLE_SCREEN = "visible_screen";
-    public static final String KEY_DAY_INDEX      = "day_index";
+    public static final String KEY_VISIBLE_SCREEN  = "visible_screen";
+    public static final String KEY_DAY_INDEX       = "day_index";
+    public static final String KEY_SETTINGS_SCREEN = "settings_screen";
 
     public static final int TODAY     = 0;
     public static final int TOMORROW  = 1;
     public static final int LAST_DAY  = 4;
     public static final int SETTINGS  = 5;
+
+    public static final int SETTINGS_MAIN                 = 0;
+    public static final int SETTINGS_THEME_COLORS_WIDGET  = 1;
 
     private static final int TOAST_SPACE_TOP = 24;
 
@@ -89,6 +93,7 @@ public class MainActivity extends BaseActivity implements
 
     private int mVisibleScreen = TODAY;
     private int mDayIndex = mVisibleScreen;
+    private int mSettingsScreen = SETTINGS_MAIN;
 
     private boolean mUpdateRequested = false;
 
@@ -140,7 +145,12 @@ public class MainActivity extends BaseActivity implements
         NotificationUtil notificationUtil = new NotificationUtil(this);
         notificationUtil.setNotificationChannels();
 
-        createOrRestoreState(savedInstanceState == null ? getIntent().getExtras() : savedInstanceState);
+        if (savedInstanceState == null) {
+            createOrRestoreState(getIntent().getExtras(), false);
+        } else {
+            createOrRestoreState(savedInstanceState, true);
+        }
+
         updateActionBar();
         setupBottomNavigation();
 
@@ -197,13 +207,19 @@ public class MainActivity extends BaseActivity implements
         }
     }
 
-    private void createOrRestoreState(Bundle b) {
+    private void createOrRestoreState(Bundle b, boolean isSavedInstanceState) {
         if (b == null) {
             mVisibleScreen = TODAY;
             mDayIndex = TODAY;
+            mSettingsScreen = SETTINGS_MAIN;
         } else {
             mVisibleScreen = b.getInt(KEY_VISIBLE_SCREEN);
             mDayIndex = b.getInt(KEY_DAY_INDEX);
+            if (isSavedInstanceState) {
+                mSettingsScreen = SETTINGS_MAIN;
+            } else {
+                mSettingsScreen = b.getInt(KEY_SETTINGS_SCREEN, SETTINGS_MAIN);
+            }
         }
     }
 
@@ -309,6 +325,14 @@ public class MainActivity extends BaseActivity implements
         getFragmentManager().beginTransaction()
                 .replace(R.id.fragment_content, getFragmentForVisibleScreen())
                 .commit();
+
+        if (mVisibleScreen == SETTINGS && mSettingsScreen != SETTINGS_MAIN) {
+            startPreferencePanel("net.darkkatrom.dkweather.fragments.ThemeColorsSettings", null, 0, null,
+                    null, 0);
+            startPreferencePanel("net.darkkatrom.dkweather.fragments.themecolors.ThemeColorsWidget",
+                    null, 0, null, null, 0);
+        }
+
     }
 
     private Fragment getCurrentWeatherFragment() {

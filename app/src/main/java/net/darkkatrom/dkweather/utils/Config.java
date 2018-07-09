@@ -43,7 +43,10 @@ public class Config {
     public static final String PREF_KEY_NOTIF_SHOW_LOCATION = "notification_show_location";
     public static final String PREF_KEY_NOTIF_SHOW_DK_ICON  = "notification_show_dk_icon";
 
-    public static final String PREF_KEY_WIDGET_SHOW_SETTINGS_BUTTON  = "widget_show_settings_button";
+    public static final String PREF_KEY_WIDGET_SHOW_APP_SETTINGS_BUTTON
+            = "widget_show_settings_button";
+    public static final String PREF_KEY_WIDGET_SHOW_THEME_COLOR_BUTTON 
+            = "widget_show_theme_colors_settings_button";
 
     public static final String PREF_KEY_THEME_USE_DARK_THEME =
             "theme_use_dark_theme";
@@ -213,11 +216,18 @@ public class Config {
         return prefs.getBoolean(PREF_KEY_NOTIF_SHOW_DK_ICON, true);
     }
 
-    public static boolean getWidgetShowSettingsButton(Context context) {
+    public static boolean getWidgetShowAppSettingsButton(Context context) {
         SharedPreferences prefs = PreferenceManager
                 .getDefaultSharedPreferences(context);
 
-        return prefs.getBoolean(PREF_KEY_WIDGET_SHOW_SETTINGS_BUTTON, false);
+        return prefs.getBoolean(PREF_KEY_WIDGET_SHOW_APP_SETTINGS_BUTTON, false);
+    }
+
+    public static boolean getWidgetShowThemeColorsButton(Context context) {
+        SharedPreferences prefs = PreferenceManager
+                .getDefaultSharedPreferences(context);
+
+        return prefs.getBoolean(PREF_KEY_WIDGET_SHOW_THEME_COLOR_BUTTON, false);
     }
 
     public static int getConditionIconType(Context context) {

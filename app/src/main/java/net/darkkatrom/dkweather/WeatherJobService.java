@@ -165,13 +165,19 @@ public class WeatherJobService extends JobService {
         ComponentName cn = new ComponentName(this, WidgetProvider.class);
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
         int[] widgetIds = appWidgetManager.getAppWidgetIds(cn);
-        boolean showSettingsButton = Config.getWidgetShowSettingsButton(this);
+        boolean showAppSettingsButton = Config.getWidgetShowAppSettingsButton(this);
+        boolean showThemeColorsButton = Config.getWidgetShowThemeColorsButton(this);
         if (mWeatherInfo != null) {
             for (int id : widgetIds) {
                 RemoteViews remoteViews = new RemoteViews(getPackageName(), R.layout.widget);
                 remoteViews.setOnClickPendingIntent(R.id.widget_root, getContentIntent(5, 0));
-                if (showSettingsButton) {
-                    remoteViews.setOnClickPendingIntent(R.id.widget_settings_button, getSettingsIntent());
+                if (showAppSettingsButton) {
+                    remoteViews.setOnClickPendingIntent(R.id.widget_app_settings_button,
+                            getAppSettingsIntent());
+                }
+                if (showThemeColorsButton) {
+                    remoteViews.setOnClickPendingIntent(R.id.widget_theme_colors_settings_button,
+                            getWidgetThemeColorsSettingsIntent());
                 }
                 setWidgetVisibilities(remoteViews, getNextAlarmText());
                 setWidgetColors(remoteViews);
@@ -196,7 +202,7 @@ public class WeatherJobService extends JobService {
         return pendingIntent;
     }
 
-    private PendingIntent getSettingsIntent() {
+    private PendingIntent getAppSettingsIntent() {
         Bundle b = new Bundle();
         b.putInt(MainActivity.KEY_VISIBLE_SCREEN, MainActivity.SETTINGS);
         b.putInt(MainActivity.KEY_DAY_INDEX, MainActivity.TODAY);
@@ -204,6 +210,19 @@ public class WeatherJobService extends JobService {
         intent.putExtras(b);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 6, intent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+        return pendingIntent;
+    }
+
+    private PendingIntent getWidgetThemeColorsSettingsIntent() {
+        Bundle b = new Bundle();
+        b.putInt(MainActivity.KEY_VISIBLE_SCREEN, MainActivity.SETTINGS);
+        b.putInt(MainActivity.KEY_DAY_INDEX, MainActivity.TODAY);
+        b.putInt(MainActivity.KEY_SETTINGS_SCREEN, MainActivity.SETTINGS_THEME_COLORS_WIDGET);
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtras(b);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 7, intent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
         return pendingIntent;
     }
@@ -252,10 +271,15 @@ public class WeatherJobService extends JobService {
     }
 
     private void setWidgetVisibilities(RemoteViews remoteViews, String nextAlarmText) {
-        boolean showSettingsButton = Config.getWidgetShowSettingsButton(this);
+        boolean showAppSettingsButton = Config.getWidgetShowAppSettingsButton(this);
+        boolean showThemeColorsButton = Config.getWidgetShowThemeColorsButton(this);
         remoteViews.setViewVisibility(R.id.widget_loading_container, View.GONE);
-        remoteViews.setViewVisibility(R.id.widget_settings_button,
-                showSettingsButton ? View.VISIBLE : View.GONE);
+        remoteViews.setViewVisibility(R.id.widget_button_container,
+                showAppSettingsButton || showThemeColorsButton ? View.VISIBLE : View.GONE);
+        remoteViews.setViewVisibility(R.id.widget_app_settings_button,
+                showAppSettingsButton ? View.VISIBLE : View.GONE);
+        remoteViews.setViewVisibility(R.id.widget_theme_colors_settings_button,
+                showThemeColorsButton ? View.VISIBLE : View.GONE);
         remoteViews.setViewVisibility(R.id.widget_clock_container, View.VISIBLE);
         remoteViews.setViewVisibility(R.id.widget_date_alarm_container, View.VISIBLE);
         remoteViews.setViewVisibility(R.id.widget_weather_container, View.VISIBLE);
@@ -351,7 +375,10 @@ public class WeatherJobService extends JobService {
         int conditionIconResid = getResources().getIdentifier(
                 "weather_" + mWeatherInfo.getConditionCode(), "drawable", getPackageName());
 
-        remoteViews.setImageViewIcon(R.id.widget_settings_button, getIcon(R.drawable.ic_action_settings));
+        remoteViews.setImageViewIcon(R.id.widget_app_settings_button, getIcon(R.drawable.ic_action_settings));
+        remoteViews.setImageViewIcon(R.id.widget_theme_colors_settings_button, getIcon(R.drawable.ic_action_colorize));
+
+
         remoteViews.setImageViewIcon(R.id.widget_next_alarm_icon, getIcon(R.drawable.ic_alarm));
         remoteViews.setImageViewIcon(R.id.widget_weather_condition_image, getIcon(conditionIconResid));
         remoteViews.setImageViewIcon(R.id.widget_weather_precipitation_icon, getIcon(R.drawable.ic_rain));
