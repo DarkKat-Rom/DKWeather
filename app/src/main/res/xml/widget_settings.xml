@@ -32,5 +32,11 @@ limitations under the License.
             android:summary="@string/widget_show_theme_colors_settings_button_summary"
             android:defaultValue="false" />
 
+        <SwitchPreference
+            android:key="widget_show_settings_buttons_left"
+            android:title="@string/widget_show_settings_buttons_left_title"
+            android:summary="@string/widget_show_settings_buttons_left_summary"
+            android:defaultValue="false" />
+
 	</PreferenceCategory>
 </PreferenceScreen>

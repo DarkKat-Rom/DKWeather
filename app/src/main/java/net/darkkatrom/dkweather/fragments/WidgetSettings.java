@@ -19,6 +19,8 @@ package net.darkkatrom.dkweather.fragments;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
+import android.preference.PreferenceCategory;
+import android.preference.PreferenceScreen;
 
 import net.darkkatrom.dkweather.R;
 import net.darkkatrom.dkweather.utils.Config;
@@ -31,7 +33,7 @@ public class WidgetSettings extends SettingsBaseFragment implements
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        addPreferencesFromResource(R.xml.widget_settings);
+        updatePreferenceScreen();
     }
 
     @Override
@@ -39,10 +41,29 @@ public class WidgetSettings extends SettingsBaseFragment implements
         return R.string.action_bar_subtitle_settings_widget;
     }
 
+    public void updatePreferenceScreen() {
+        PreferenceScreen prefs = getPreferenceScreen();
+        if (prefs != null) {
+            prefs.removeAll();
+        }
+
+        addPreferencesFromResource(R.xml.widget_settings);
+
+        if (!Config.getWidgetShowAnyButton(getActivity())) {
+            PreferenceCategory category =
+                    (PreferenceCategory) findPreference("widget_settings_buttons");
+            category.removePreference(findPreference(Config.PREF_KEY_WIDGET_SHOW_SETTINGS_BUTTONS_LEFT));
+        }
+    }
+
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         if (Config.PREF_KEY_WIDGET_SHOW_APP_SETTINGS_BUTTON.equals(key)
-                || Config.PREF_KEY_WIDGET_SHOW_THEME_COLOR_BUTTON.equals(key)) {
+                || Config.PREF_KEY_WIDGET_SHOW_THEME_COLOR_BUTTON.equals(key)
+                || Config.PREF_KEY_WIDGET_SHOW_SETTINGS_BUTTONS_LEFT.equals(key)) {
+            if (!Config.PREF_KEY_WIDGET_SHOW_SETTINGS_BUTTONS_LEFT.equals(key)) {
+                updatePreferenceScreen();
+            }
             JobUtil.startWidgetUpdate(getActivity());
         }
     }

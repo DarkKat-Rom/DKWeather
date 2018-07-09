@@ -37,6 +37,7 @@ import android.os.PersistableBundle;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.RemoteViews;
 
@@ -273,9 +274,14 @@ public class WeatherJobService extends JobService {
     private void setWidgetVisibilities(RemoteViews remoteViews, String nextAlarmText) {
         boolean showAppSettingsButton = Config.getWidgetShowAppSettingsButton(this);
         boolean showThemeColorsButton = Config.getWidgetShowThemeColorsButton(this);
+        boolean showAnyButton = Config.getWidgetShowAnyButton(this);
+        boolean showButtonsLeft = Config.getWidgetShowSettingsButtonsLeft(this);
+
         remoteViews.setViewVisibility(R.id.widget_loading_container, View.GONE);
-        remoteViews.setViewVisibility(R.id.widget_button_container,
-                showAppSettingsButton || showThemeColorsButton ? View.VISIBLE : View.GONE);
+        remoteViews.setInt(R.id.widget_button_container, "setGravity", showButtonsLeft ?
+                Gravity.LEFT|Gravity.TOP : Gravity.RIGHT|Gravity.TOP);
+        remoteViews.setViewVisibility(R.id.widget_button_container, showAnyButton
+                ? View.VISIBLE : View.GONE);
         remoteViews.setViewVisibility(R.id.widget_app_settings_button,
                 showAppSettingsButton ? View.VISIBLE : View.GONE);
         remoteViews.setViewVisibility(R.id.widget_theme_colors_settings_button,

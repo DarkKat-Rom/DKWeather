@@ -47,6 +47,8 @@ public class Config {
             = "widget_show_settings_button";
     public static final String PREF_KEY_WIDGET_SHOW_THEME_COLOR_BUTTON 
             = "widget_show_theme_colors_settings_button";
+    public static final String PREF_KEY_WIDGET_SHOW_SETTINGS_BUTTONS_LEFT
+            = "widget_show_settings_buttons_left";
 
     public static final String PREF_KEY_THEME_USE_DARK_THEME =
             "theme_use_dark_theme";
@@ -228,6 +230,17 @@ public class Config {
                 .getDefaultSharedPreferences(context);
 
         return prefs.getBoolean(PREF_KEY_WIDGET_SHOW_THEME_COLOR_BUTTON, false);
+    }
+
+    public static boolean getWidgetShowAnyButton(Context context) {
+        return getWidgetShowAppSettingsButton(context) || getWidgetShowThemeColorsButton(context);
+    }
+
+    public static boolean getWidgetShowSettingsButtonsLeft(Context context) {
+        SharedPreferences prefs = PreferenceManager
+                .getDefaultSharedPreferences(context);
+
+        return prefs.getBoolean(PREF_KEY_WIDGET_SHOW_SETTINGS_BUTTONS_LEFT, false);
     }
 
     public static int getConditionIconType(Context context) {

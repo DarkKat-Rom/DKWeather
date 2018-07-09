@@ -136,6 +136,8 @@
     <string name="widget_show_app_settings_button_summary">Enable to show the app settings button on the widget</string>
     <string name="widget_show_theme_colors_settings_button_title">Widget theme &amp; colors</string>
     <string name="widget_show_theme_colors_settings_button_summary">Enable to show the widget theme &amp; colors button on the widget</string>
+    <string name="widget_show_settings_buttons_left_title">Show on the left side</string>
+    <string name="widget_show_settings_buttons_left_summary">Enable to show the settings buttons on the left side of the widget, disable to show the settings buttons on the right side of the widget</string>
 
     <!-- Theme & colors-->
     <string name="theme_colors_app_title">App ui</string>

@@ -136,6 +136,8 @@
     <string name="widget_show_app_settings_button_summary">Aktivieren um die App Einstellungen Schaltfläche auf dem Widget anzuzeigen</string>
     <string name="widget_show_theme_colors_settings_button_title">Widget Theme &amp; Farben</string>
     <string name="widget_show_theme_colors_settings_button_summary">Aktivieren um die Widget Theme &amp; Farben Schaltfläche auf dem Widget anzuzeigen</string>
+    <string name="widget_show_settings_buttons_left_title">Auf der Linken Seite anzeigen</string>
+    <string name="widget_show_settings_buttons_left_summary">Aktivieren um die Einstellungen Schaltflächen auf der linken Seite des Widgets anzuzeigen, deaktivieren um die Einstellungen Schaltflächen auf der rechten Seite des Widgets anzuzeigen</string>
 
     <!-- Theme & colors -->
     <string name="theme_colors_app_title">App-Benutzeroberfläche</string>
