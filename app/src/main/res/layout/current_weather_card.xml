@@ -27,7 +27,7 @@
         android:layout_marginEnd="@dimen/current_card_margin_start_end"
         android:layout_marginBottom="@dimen/current_card_margin_top_bottom"
         android:background="@drawable/card_background"
-        android:backgroundTint="?android:attr/colorBackgroundFloating"
+        android:backgroundTint="?attr/colorBackgroundFloating"
         android:elevation="@dimen/current_card_elevation"
         android:orientation="vertical">
 
@@ -386,7 +386,7 @@
                 android:paddingEnd="@dimen/current_card_expanded_content_bottom_bar_provider_link_padding_start_end"
                 android:text="@string/provider_openweathermap"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="?android:attr/colorAccent"
+                android:textColor="?attr/colorAccent"
                 android:clickable="true"
                 android:background="@drawable/ripple_drawable_rectangle" />
 
@@ -422,7 +422,7 @@
                     android:layout_height="@dimen/current_card_expanded_content_bottom_bar_expand_collapse_button_icon_height"
                     android:paddingEnd="@dimen/current_card_expanded_content_bottom_bar_expand_collapse_button_icon_padding_end"
                     android:src="@drawable/ic_expand_more"
-                    android:tint="?android:attr/colorControlNormal"
+                    android:tint="?attr/colorControlNormal"
                     android:tintMode="multiply"
                     android:scaleType="centerInside" />
 

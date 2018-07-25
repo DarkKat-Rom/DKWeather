@@ -27,7 +27,7 @@
         android:layout_marginEnd="@dimen/forecast_daytemps_card_margin_start_end"
         android:layout_marginBottom="@dimen/forecast_daytemps_card_margin_top_bottom"
         android:background="@drawable/card_background"
-        android:backgroundTint="?android:attr/colorBackgroundFloating"
+        android:backgroundTint="?attr/colorBackgroundFloating"
         android:elevation="@dimen/forecast_daytemps_card_elevation"
         android:orientation="vertical">
 
@@ -212,7 +212,7 @@
             android:paddingEnd="@dimen/forecast_daytemps_card_provider_link_padding_start_end"
             android:text="@string/provider_openweathermap"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="?android:attr/colorAccent"
+            android:textColor="?attr/colorAccent"
             android:clickable="true"
             android:background="@drawable/ripple_drawable_rectangle" />
 

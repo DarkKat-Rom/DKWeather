@@ -214,7 +214,7 @@ public class ColorPickerFragment extends Fragment implements
             }
         }
 
-        getActivity().getTheme().resolveAttribute(android.R.attr.colorControlHighlight, tv, true);
+        getActivity().getTheme().resolveAttribute(R.attr.colorControlHighlight, tv, true);
         if (tv.type >= TypedValue.TYPE_FIRST_COLOR_INT && tv.type <= TypedValue.TYPE_LAST_COLOR_INT) {
             mBorderColor = tv.data;
         } else {

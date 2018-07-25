@@ -14,7 +14,8 @@
      limitations under the License.
 -->
 
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
     <item android:id="@+id/reset_colors"
             android:title="@string/reset_color_title">
         <menu>
@@ -30,13 +31,13 @@
     <item android:id="@+id/apply_color"
         android:title="@string/apply_color_title"
         android:icon="@drawable/ic_action_set"
-        android:actionLayout="@layout/color_picker_action_apply_color"
-        android:showAsAction="ifRoom" />
+        app:actionLayout="@layout/color_picker_action_apply_color"
+        app:showAsAction="ifRoom" />
     <item android:id="@+id/edit_hex"
         android:title="@string/edit_hex_title"
         android:icon="@drawable/ic_action_edit"
-        android:actionLayout="@layout/color_picker_action_edit_hex"
-        android:showAsAction="ifRoom|collapseActionView" />
+        app:actionLayout="@layout/color_picker_action_edit_hex"
+        app:showAsAction="ifRoom|collapseActionView" />
     <item android:id="@+id/show_hide_favorites"
         android:title="@string/hide_favorites_title" />
     <item android:id="@+id/show_hide_help"

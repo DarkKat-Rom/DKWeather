@@ -153,7 +153,7 @@ public class ColorPickerPreference extends Preference {
         if (preview != null) {
             TypedValue tv = new TypedValue();
             int borderColor;
-            getContext().getTheme().resolveAttribute(android.R.attr.colorControlHighlight, tv, true);
+            getContext().getTheme().resolveAttribute(R.attr.colorControlHighlight, tv, true);
             if (tv.type >= TypedValue.TYPE_FIRST_COLOR_INT && tv.type <= TypedValue.TYPE_LAST_COLOR_INT) {
                 borderColor = tv.data;
             } else {

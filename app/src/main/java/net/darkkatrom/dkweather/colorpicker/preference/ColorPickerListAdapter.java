@@ -59,7 +59,7 @@ public class ColorPickerListAdapter extends RecyclerView.Adapter<ColorPickerList
         mDividerTop = dividerTop;
         mDividerBottom = dividerBottom;
         TypedValue tv = new TypedValue();
-        mContext.getTheme().resolveAttribute(android.R.attr.colorControlHighlight, tv, true);
+        mContext.getTheme().resolveAttribute(R.attr.colorControlHighlight, tv, true);
         if (tv.type >= TypedValue.TYPE_FIRST_COLOR_INT && tv.type <= TypedValue.TYPE_LAST_COLOR_INT) {
             mBorderColor = tv.data;
         } else {

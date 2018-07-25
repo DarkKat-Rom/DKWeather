@@ -198,7 +198,7 @@ public class MainActivity extends BaseActivity implements
 
         if (Config.getThemeCustomizeColors(this)) {
             getWindow().setStatusBarColor(ThemeUtil.getStatusBarBackgroundColor(this));
-            getActionBar().setBackgroundDrawable(new ColorDrawable(
+            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(
                     ThemeUtil.getActionBarBackgroundColor(this)));
         }
         int customNavigationBarColor = ThemeUtil.getNavigationBarBackgroundColor(this);
@@ -243,7 +243,7 @@ public class MainActivity extends BaseActivity implements
                 ? getResources().getString(R.string.action_bar_no_weather_data_part) : "";
 
         if (mVisibleScreen != SETTINGS) {
-            getActionBar().setSubtitle(mActionBarSubTitles[mVisibleScreen] + noWeatherDataPart);
+            getSupportActionBar().setSubtitle(mActionBarSubTitles[mVisibleScreen] + noWeatherDataPart);
         }
     }
 
@@ -429,7 +429,7 @@ public class MainActivity extends BaseActivity implements
 
     private void showToast(int resId) {
 		float density = getResources().getDisplayMetrics().density;
-        int actionBarHeight = getActionBar().getHeight();
+        int actionBarHeight = getSupportActionBar().getHeight();
         int spaceTopDP = TOAST_SPACE_TOP * Math.round(density);
 
         Toast toast = Toast.makeText(this, resId, Toast.LENGTH_SHORT);

@@ -29,7 +29,7 @@
         android:layout_centerHorizontal="true"
         android:paddingTop="@dimen/color_picker_additional_subtitle_padding_top"
         android:textSize="@dimen/color_picker_additional_subtitle_text_size"
-        android:textColor="?android:attr/colorAccent"
+        android:textColor="?attr/colorAccent"
         android:visibility="gone" />
 
     <LinearLayout

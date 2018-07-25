@@ -30,7 +30,7 @@ public class ThemeUtil {
         int conditionIconColor = 0;
         if (conditionIconType == WeatherInfo.ICON_MONOCHROME) {
             TypedValue tv = new TypedValue();
-            context.getTheme().resolveAttribute(android.R.attr.colorControlNormal, tv, true);
+            context.getTheme().resolveAttribute(R.attr.colorControlNormal, tv, true);
             if (tv.type >= TypedValue.TYPE_FIRST_COLOR_INT && tv.type <= TypedValue.TYPE_LAST_COLOR_INT) {
                 conditionIconColor = tv.data;
             } else {
