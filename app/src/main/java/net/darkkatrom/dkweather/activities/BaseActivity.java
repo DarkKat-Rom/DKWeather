@@ -16,12 +16,9 @@
 package net.darkkatrom.dkweather.activities;
 
 import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.content.res.Configuration;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.preference.Preference;
-import android.preference.PreferenceFragment;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
@@ -33,15 +30,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import net.darkkatrom.dkweather.R;
+import net.darkkatrom.dkweather.utils.Config;
+import net.darkkatrom.dkweather.utils.ThemeUtil;
 
-public class BaseActivity extends Activity implements
-        PreferenceFragment.OnPreferenceStartFragmentCallback {
-
-    public static final String EXTRA_SHOW_FRAGMENT             = ":android:show_fragment";
-    public static final String EXTRA_SHOW_FRAGMENT_ARGUMENTS   = ":android:show_fragment_args";
-    public static final String EXTRA_SHOW_FRAGMENT_TITLE       = ":android:show_fragment_title";
-    public static final String EXTRA_SHOW_FRAGMENT_SHORT_TITLE = ":android:show_fragment_short_title";
-    public static final String EXTRA_NO_HEADERS                = ":android:no_headers";
+public class BaseActivity extends Activity {
 
     private AppCompatDelegate mDelegate;
 
@@ -49,10 +41,72 @@ public class BaseActivity extends Activity implements
     protected void onCreate(Bundle savedInstanceState) {
         getDelegate().installViewFactory();
         getDelegate().onCreate(savedInstanceState);
+        updateTheme();
 
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.main);
+        int layoutResid = getLayoutResId();
+        if (layoutResid > 0) {
+            setContentView(R.layout.main);
+            setContentView(layoutResid);
+
+            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+            setSupportActionBar(toolbar);
+            if (Config.getThemeCustomizeColors(this)) {
+                getSupportActionBar().setBackgroundDrawable(new ColorDrawable(
+                        ThemeUtil.getActionBarBackgroundColor(this)));
+            }
+        }
+    }
+
+    protected int getLayoutResId() {
+        return 0;
+    }
+
+    private void updateTheme() {
+        setTheme(ThemeUtil.getThemeResId(this));
+
+        if (Config.getIndexForAccentColor(this) > 0) {
+            getTheme().applyStyle(ThemeUtil.getThemeOverlayAccentResId(this), true);
+        }
+        int themeOverlayTextResId = Config.getThemeUseDarkTheme(this)
+                ? ThemeUtil.getThemeOverlayDarkTextResId(this)
+                : ThemeUtil.getThemeOverlayLightTextResId(this);
+        if (themeOverlayTextResId > 0) {
+            getTheme().applyStyle(themeOverlayTextResId, true);
+        }
+
+        int oldFlags = getWindow().getDecorView().getSystemUiVisibility();
+        int newFlags = oldFlags;
+        if (!ThemeUtil.needsLightStatusBar(this)) {
+            // Check if light status bar flag was set
+            boolean isLightStatusBar = (newFlags & View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR)
+                    == View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+            if (isLightStatusBar) {
+                // Remove flag
+                newFlags &= ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+            }
+        }
+        if (!ThemeUtil.needsLightNavigationBar(this)) {
+            // Check if light navigation bar flag was set
+            boolean isLightNavigationBar = (newFlags & View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR)
+                    == View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
+            if (isLightNavigationBar) {
+                // Remove flag
+                newFlags &= ~View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
+            }
+        }
+        if (oldFlags != newFlags) {
+            getWindow().getDecorView().setSystemUiVisibility(newFlags);
+        }
+
+        if (Config.getThemeCustomizeColors(this)) {
+            getWindow().setStatusBarColor(ThemeUtil.getStatusBarBackgroundColor(this));
+        }
+        int customNavigationBarColor = ThemeUtil.getNavigationBarBackgroundColor(this);
+        if (customNavigationBarColor != 0) {
+            getWindow().setNavigationBarColor(customNavigationBarColor);
+        }
     }
 
     private AppCompatDelegate getDelegate() {
@@ -133,30 +187,5 @@ public class BaseActivity extends Activity implements
 
     public void invalidateOptionsMenu() {
         getDelegate().invalidateOptionsMenu();
-    }
-
-    @Override
-    public boolean onPreferenceStartFragment(PreferenceFragment caller, Preference pref) {
-        startPreferencePanel(pref.getFragment(), pref.getExtras(), pref.getTitleRes(),
-                pref.getTitle(), null, 0);
-        return true;
-    }
-
-    public void startPreferencePanel(String fragmentClass, Bundle args, int titleRes,
-        CharSequence titleText, Fragment resultTo, int resultRequestCode) {
-        Fragment f = Fragment.instantiate(this, fragmentClass, args);
-        if (resultTo != null) {
-            f.setTargetFragment(resultTo, resultRequestCode);
-        }
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment_content, f);
-        if (titleRes != 0) {
-            transaction.setBreadCrumbTitle(titleRes);
-        } else if (titleText != null) {
-            transaction.setBreadCrumbTitle(titleText);
-        }
-        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-        transaction.addToBackStack(null);
-        transaction.commitAllowingStateLoss();
     }
 }

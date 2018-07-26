@@ -16,12 +16,14 @@
 package net.darkkatrom.dkweather.activities;
 
 import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.ContentResolver;
 import android.database.ContentObserver;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.Preference;
+import android.preference.PreferenceFragment;
 import android.util.Log;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
@@ -48,7 +50,6 @@ import net.darkkatrom.dkweather.fragments.SettingsFragment;
 import net.darkkatrom.dkweather.utils.Config;
 import net.darkkatrom.dkweather.utils.JobUtil;
 import net.darkkatrom.dkweather.utils.NotificationUtil;
-import net.darkkatrom.dkweather.utils.ThemeUtil;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -56,7 +57,7 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 public class MainActivity extends BaseActivity implements
-        OnClickListener, OnLongClickListener {
+        OnClickListener, OnLongClickListener, PreferenceFragment.OnPreferenceStartFragmentCallback {
 
     private static final String TAG = "DKWeather:MainActivity";
 
@@ -132,10 +133,7 @@ public class MainActivity extends BaseActivity implements
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        updateTheme();
         super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.main);
 
         mHandler = new Handler();
         mResolver = getContentResolver();
@@ -159,52 +157,9 @@ public class MainActivity extends BaseActivity implements
         }
     }
 
-    private void updateTheme() {
-        setTheme(ThemeUtil.getThemeResId(this));
-
-        if (Config.getIndexForAccentColor(this) > 0) {
-            getTheme().applyStyle(ThemeUtil.getThemeOverlayAccentResId(this), true);
-        }
-        int themeOverlayTextResId = Config.getThemeUseDarkTheme(this)
-                ? ThemeUtil.getThemeOverlayDarkTextResId(this)
-                : ThemeUtil.getThemeOverlayLightTextResId(this);
-        if (themeOverlayTextResId > 0) {
-            getTheme().applyStyle(themeOverlayTextResId, true);
-        }
-
-        int oldFlags = getWindow().getDecorView().getSystemUiVisibility();
-        int newFlags = oldFlags;
-        if (!ThemeUtil.needsLightStatusBar(this)) {
-            // Check if light status bar flag was set
-            boolean isLightStatusBar = (newFlags & View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR)
-                    == View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
-            if (isLightStatusBar) {
-                // Remove flag
-                newFlags &= ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
-            }
-        }
-        if (!ThemeUtil.needsLightNavigationBar(this)) {
-            // Check if light navigation bar flag was set
-            boolean isLightNavigationBar = (newFlags & View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR)
-                    == View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
-            if (isLightNavigationBar) {
-                // Remove flag
-                newFlags &= ~View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
-            }
-        }
-        if (oldFlags != newFlags) {
-            getWindow().getDecorView().setSystemUiVisibility(newFlags);
-        }
-
-        if (Config.getThemeCustomizeColors(this)) {
-            getWindow().setStatusBarColor(ThemeUtil.getStatusBarBackgroundColor(this));
-            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(
-                    ThemeUtil.getActionBarBackgroundColor(this)));
-        }
-        int customNavigationBarColor = ThemeUtil.getNavigationBarBackgroundColor(this);
-        if (customNavigationBarColor != 0) {
-            getWindow().setNavigationBarColor(customNavigationBarColor);
-        }
+    @Override
+    protected int getLayoutResId() {
+        return R.layout.main;
     }
 
     private void createOrRestoreState(Bundle b, boolean isSavedInstanceState) {
@@ -468,5 +423,30 @@ public class MainActivity extends BaseActivity implements
 
     public void recreateForThemeChange() {
         recreate();
+    }
+
+    @Override
+    public boolean onPreferenceStartFragment(PreferenceFragment caller, Preference pref) {
+        startPreferencePanel(pref.getFragment(), pref.getExtras(), pref.getTitleRes(),
+                pref.getTitle(), null, 0);
+        return true;
+    }
+
+    public void startPreferencePanel(String fragmentClass, Bundle args, int titleRes,
+        CharSequence titleText, Fragment resultTo, int resultRequestCode) {
+        Fragment f = Fragment.instantiate(this, fragmentClass, args);
+        if (resultTo != null) {
+            f.setTargetFragment(resultTo, resultRequestCode);
+        }
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_content, f);
+        if (titleRes != 0) {
+            transaction.setBreadCrumbTitle(titleRes);
+        } else if (titleText != null) {
+            transaction.setBreadCrumbTitle(titleText);
+        }
+        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        transaction.addToBackStack(null);
+        transaction.commitAllowingStateLoss();
     }
 }
