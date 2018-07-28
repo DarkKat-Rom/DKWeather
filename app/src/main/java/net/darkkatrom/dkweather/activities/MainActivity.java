@@ -154,6 +154,14 @@ public class MainActivity extends BaseActivity implements
 
         if (savedInstanceState == null) {
             replaceFragment();
+        } else {
+            if (mVisibleScreen == SETTINGS) {
+                findViewById(R.id.fragment_settings_frame).setVisibility(View.VISIBLE);
+                findViewById(R.id.fragment_frame).setVisibility(View.GONE);
+            } else {
+                findViewById(R.id.fragment_settings_frame).setVisibility(View.GONE);
+                findViewById(R.id.fragment_frame).setVisibility(View.VISIBLE);
+            }
         }
     }
 
@@ -277,10 +285,19 @@ public class MainActivity extends BaseActivity implements
     }
 
     private void replaceFragment() {
-        getFragmentManager().beginTransaction()
-                .replace(R.id.fragment_content, getFragmentForVisibleScreen())
-                .commit();
-
+        if (mVisibleScreen == SETTINGS) {
+            findViewById(R.id.fragment_settings_frame).setVisibility(View.VISIBLE);
+            findViewById(R.id.fragment_frame).setVisibility(View.GONE);
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_settings_content, getFragmentForVisibleScreen())
+                    .commit();
+        } else {
+            findViewById(R.id.fragment_settings_frame).setVisibility(View.GONE);
+            findViewById(R.id.fragment_frame).setVisibility(View.VISIBLE);
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_content, getFragmentForVisibleScreen())
+                    .commit();
+        }
         if (mVisibleScreen == SETTINGS && mSettingsScreen != SETTINGS_MAIN) {
             startPreferencePanel("net.darkkatrom.dkweather.fragments.ThemeColorsSettings", null, 0, null,
                     null, 0);
@@ -439,7 +456,7 @@ public class MainActivity extends BaseActivity implements
             f.setTargetFragment(resultTo, resultRequestCode);
         }
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment_content, f);
+        transaction.replace(R.id.fragment_settings_content, f);
         if (titleRes != 0) {
             transaction.setBreadCrumbTitle(titleRes);
         } else if (titleText != null) {

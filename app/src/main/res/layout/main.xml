@@ -13,30 +13,55 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@id/root_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:elevation="4dp"
-        android:theme="?attr/actionBarTheme"
-        app:popupTheme="?attr/popupTheme" />
+    <android.support.design.widget.AppBarLayout
+       android:id="@+id/appBarLayout"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:theme="?attr/actionBarTheme">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:elevation="4dp"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:popupTheme="?attr/popupTheme" />
+
+    </android.support.design.widget.AppBarLayout>
 
     <FrameLayout
         android:id="@id/fragment_frame"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/bottom_navigation_bar_height"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:visibility="gone">
 
         <FrameLayout
             android:id="@id/fragment_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/fragment_settings_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/bottom_navigation_bar_height"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:visibility="gone">
+
+        <FrameLayout
+            android:id="@+id/fragment_settings_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -46,6 +71,7 @@
         android:id="@+id/bottom_navigation_layout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/bottom_navigation_bar_height"
+        android:layout_gravity="bottom"
         android:background="?android:attr/colorBackground"
         android:elevation="@dimen/bottom_navigation_bar_elevation">
 
@@ -59,4 +85,4 @@
             android:id="@+id/bottom_navigation_item_next_day" />
 
     </LinearLayout>
-</LinearLayout>
+</android.support.design.widget.CoordinatorLayout>
