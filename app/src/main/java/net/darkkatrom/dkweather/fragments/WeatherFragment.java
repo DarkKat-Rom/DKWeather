@@ -29,7 +29,7 @@ public class WeatherFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (savedInstanceState != null) {
-            mForecastDay = savedInstanceState.getString(MainActivity.KEY_DAY_INDEX);
+            mForecastDay = savedInstanceState.getString(MainActivity.KEY_VISIBLE_SCREEN);
         }
     }
 
@@ -45,7 +45,7 @@ public class WeatherFragment extends Fragment {
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        outState.putString(MainActivity.KEY_DAY_INDEX, mForecastDay);
+        outState.putString(MainActivity.KEY_VISIBLE_SCREEN, mForecastDay);
         super.onSaveInstanceState(outState);
     }
 }

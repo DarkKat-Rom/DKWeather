@@ -38,6 +38,7 @@ import android.provider.Settings;
 import net.darkkatrom.dkweather.R;
 import net.darkkatrom.dkweather.WeatherLocationTask;
 import net.darkkatrom.dkweather.WeatherInfo;
+import net.darkkatrom.dkweather.activities.SettingsActivity;
 import net.darkkatrom.dkweather.preferences.CustomLocationPreference;
 import net.darkkatrom.dkweather.utils.Config;
 import net.darkkatrom.dkweather.utils.JobUtil;
@@ -100,8 +101,9 @@ public class WeatherSettings extends PreferenceFragment implements
             checkLocationEnabled();
         }
 
-        if (getActivity().getActionBar() != null) {
-            getActivity().getActionBar().setSubtitle(R.string.action_bar_subtitle_settings_weather);
+        SettingsActivity activity = (SettingsActivity) getActivity();
+        if (activity.getSupportActionBar() != null) {
+            activity.getSupportActionBar().setSubtitle(R.string.action_bar_subtitle_settings_weather);
         }
     }
 

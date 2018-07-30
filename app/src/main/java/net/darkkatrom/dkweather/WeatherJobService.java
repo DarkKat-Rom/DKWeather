@@ -42,6 +42,7 @@ import android.view.View;
 import android.widget.RemoteViews;
 
 import net.darkkatrom.dkweather.activities.MainActivity;
+import net.darkkatrom.dkweather.activities.SettingsActivity;
 import net.darkkatrom.dkweather.providers.AbstractWeatherProvider;
 import net.darkkatrom.dkweather.providers.WeatherContentProvider;
 import net.darkkatrom.dkweather.providers.WidgetProvider;
@@ -194,7 +195,6 @@ public class WeatherJobService extends JobService {
     private PendingIntent getContentIntent(int requestCode, int day) {
         Bundle b = new Bundle();
         b.putInt(MainActivity.KEY_VISIBLE_SCREEN, day);
-        b.putInt(MainActivity.KEY_DAY_INDEX, day);
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtras(b);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -204,11 +204,7 @@ public class WeatherJobService extends JobService {
     }
 
     private PendingIntent getAppSettingsIntent() {
-        Bundle b = new Bundle();
-        b.putInt(MainActivity.KEY_VISIBLE_SCREEN, MainActivity.SETTINGS);
-        b.putInt(MainActivity.KEY_DAY_INDEX, MainActivity.TODAY);
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtras(b);
+        Intent intent = new Intent(this, SettingsActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 6, intent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
@@ -217,10 +213,8 @@ public class WeatherJobService extends JobService {
 
     private PendingIntent getWidgetThemeColorsSettingsIntent() {
         Bundle b = new Bundle();
-        b.putInt(MainActivity.KEY_VISIBLE_SCREEN, MainActivity.SETTINGS);
-        b.putInt(MainActivity.KEY_DAY_INDEX, MainActivity.TODAY);
-        b.putInt(MainActivity.KEY_SETTINGS_SCREEN, MainActivity.SETTINGS_THEME_COLORS_WIDGET);
-        Intent intent = new Intent(this, MainActivity.class);
+        b.putInt(SettingsActivity.KEY_SETTINGS_SCREEN, SettingsActivity.SETTINGS_THEME_COLORS_WIDGET);
+        Intent intent = new Intent(this, SettingsActivity.class);
         intent.putExtras(b);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 7, intent,

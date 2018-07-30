@@ -37,6 +37,7 @@ import net.darkkatrom.dkweather.R;
 import net.darkkatrom.dkweather.WeatherInfo;
 import net.darkkatrom.dkweather.WeatherInfo.DayForecast;
 import net.darkkatrom.dkweather.activities.MainActivity;
+import net.darkkatrom.dkweather.activities.SettingsActivity;
 import net.darkkatrom.dkweather.utils.Config;
 
 import java.util.ArrayList;
@@ -51,6 +52,8 @@ public class NotificationUtil {
 
     public static final String WEATHER_NOTIFICATION_CHANNEL_ID =
             "weather_notification_chanel";
+
+    public static final int NUM_FORECAST_DAYS = 5;
 
     private final Context mContext;
     private final Resources mResources;
@@ -166,7 +169,7 @@ public class NotificationUtil {
         RemoteViews expandedContent = new RemoteViews(mContext.getPackageName(),
                 R.layout.notification_expanded_content);
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < NUM_FORECAST_DAYS; i++) {
             RemoteViews dayContent = new RemoteViews(mContext.getPackageName(),
                     R.layout.notification_expanded_content_item);
             dayContent.setOnClickPendingIntent(R.id.expanded_content_item, getContentIntent(i, i));
@@ -198,7 +201,6 @@ public class NotificationUtil {
     private PendingIntent getContentIntent(int requestCode, int day) {
         Bundle b = new Bundle();
         b.putInt(MainActivity.KEY_VISIBLE_SCREEN, day);
-        b.putInt(MainActivity.KEY_DAY_INDEX, day);
         Intent intent = new Intent(mContext, MainActivity.class);
         intent.putExtras(b);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -208,12 +210,8 @@ public class NotificationUtil {
     }
 
     private Action getSettingsAction() {
-        Bundle b = new Bundle();
-        b.putInt(MainActivity.KEY_VISIBLE_SCREEN, MainActivity.SETTINGS);
-        b.putInt(MainActivity.KEY_DAY_INDEX, MainActivity.TODAY);
         String title = mResources.getString(R.string.settings_title);
-        Intent intent = new Intent(mContext, MainActivity.class);
-        intent.putExtras(b);
+        Intent intent = new Intent(mContext, SettingsActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(mContext, 6, intent,
                 PendingIntent.FLAG_UPDATE_CURRENT);

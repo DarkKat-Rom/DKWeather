@@ -42,26 +42,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="@dimen/bottom_navigation_bar_height"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:visibility="gone">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <FrameLayout
             android:id="@id/fragment_content"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-    </FrameLayout>
-
-    <FrameLayout
-        android:id="@+id/fragment_settings_frame"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/bottom_navigation_bar_height"
-        android:layout_marginTop="?attr/actionBarSize"
-        android:visibility="gone">
-
-        <FrameLayout
-            android:id="@+id/fragment_settings_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

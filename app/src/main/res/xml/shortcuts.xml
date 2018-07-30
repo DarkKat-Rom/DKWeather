@@ -24,14 +24,7 @@
         <intent
             android:action="android.intent.action.MAIN"
             android:targetPackage="net.darkkatrom.dkweather"
-            android:targetClass="net.darkkatrom.dkweather.activities.MainActivity">
-            <extra
-                android:name="visible_screen"
-                android:value="5" />
-            <extra
-                android:name="day_index"
-                android:value="0" />
-        </intent>
+            android:targetClass="net.darkkatrom.dkweather.activities.SettingsActivity" />
         <categories android:name="android.shortcut.conversation" />
     </shortcut>
 </shortcuts>

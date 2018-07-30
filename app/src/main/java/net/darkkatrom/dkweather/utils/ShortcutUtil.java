@@ -25,6 +25,7 @@ import android.os.Bundle;
 
 import net.darkkatrom.dkweather.R;
 import net.darkkatrom.dkweather.activities.MainActivity;
+import net.darkkatrom.dkweather.activities.SettingsActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -71,7 +72,6 @@ public class ShortcutUtil {
 
             Bundle b = new Bundle();
             b.putInt(MainActivity.KEY_VISIBLE_SCREEN, i + 1);
-            b.putInt(MainActivity.KEY_DAY_INDEX, i + 1);
             Intent intent = new Intent(mContext, MainActivity.class);
             intent.setAction(Intent.ACTION_MAIN);
             intent.putExtras(b);

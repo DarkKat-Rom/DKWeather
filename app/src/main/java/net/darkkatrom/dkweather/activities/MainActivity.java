@@ -16,14 +16,12 @@
 package net.darkkatrom.dkweather.activities;
 
 import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.content.ContentResolver;
+import android.content.Intent;
 import android.database.ContentObserver;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.preference.Preference;
-import android.preference.PreferenceFragment;
 import android.util.Log;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
@@ -46,7 +44,6 @@ import net.darkkatrom.dkweather.fragments.WeatherFragment;
 import net.darkkatrom.dkweather.fragments.CurrentWeatherFragment;
 import net.darkkatrom.dkweather.fragments.ForecastWeatherFragment;
 import net.darkkatrom.dkweather.fragments.NoWeatherDataFragment;
-import net.darkkatrom.dkweather.fragments.SettingsFragment;
 import net.darkkatrom.dkweather.utils.Config;
 import net.darkkatrom.dkweather.utils.JobUtil;
 import net.darkkatrom.dkweather.utils.NotificationUtil;
@@ -56,8 +53,7 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.TimeZone;
 
-public class MainActivity extends BaseActivity implements
-        OnClickListener, OnLongClickListener, PreferenceFragment.OnPreferenceStartFragmentCallback {
+public class MainActivity extends BaseActivity implements OnClickListener, OnLongClickListener {
 
     private static final String TAG = "DKWeather:MainActivity";
 
@@ -65,16 +61,8 @@ public class MainActivity extends BaseActivity implements
             Uri.parse("content://net.darkkatrom.dkweather.provider/weather");
 
     public static final String KEY_VISIBLE_SCREEN  = "visible_screen";
-    public static final String KEY_DAY_INDEX       = "day_index";
-    public static final String KEY_SETTINGS_SCREEN = "settings_screen";
 
     public static final int TODAY     = 0;
-    public static final int TOMORROW  = 1;
-    public static final int LAST_DAY  = 4;
-    public static final int SETTINGS  = 5;
-
-    public static final int SETTINGS_MAIN                 = 0;
-    public static final int SETTINGS_THEME_COLORS_WIDGET  = 1;
 
     private static final int TOAST_SPACE_TOP = 24;
 
@@ -93,8 +81,7 @@ public class MainActivity extends BaseActivity implements
     private View mNavigationButtonNextDay;
 
     private int mVisibleScreen = TODAY;
-    private int mDayIndex = mVisibleScreen;
-    private int mSettingsScreen = SETTINGS_MAIN;
+    private int mNumForecastDays = 0;
 
     private boolean mUpdateRequested = false;
 
@@ -118,16 +105,16 @@ public class MainActivity extends BaseActivity implements
                 Log.e(TAG, "Error retrieving weather data");
                 if (mUpdateRequested) {
                     mUpdateRequested = false;
+                    mNumForecastDays = mWeatherInfo.getHourForecastDays().size();
                 }
             } else {
                 if (mUpdateRequested) {
                     showToast(R.string.weather_updated);
                     mUpdateRequested = false;
+                    mNumForecastDays = 0;
                 }
             }
-            if (mVisibleScreen != SETTINGS) {
-                updateContent();
-            }
+            updateContent();
         }
     }
 
@@ -140,13 +127,15 @@ public class MainActivity extends BaseActivity implements
         mWeatherObserver = new WeatherObserver(mHandler);
         mWeatherInfo = getWeather();
 
+        mNumForecastDays = mWeatherInfo == null ? 0 : mWeatherInfo.getHourForecastDays().size();
+
         NotificationUtil notificationUtil = new NotificationUtil(this);
         notificationUtil.setNotificationChannels();
 
         if (savedInstanceState == null) {
-            createOrRestoreState(getIntent().getExtras(), false);
+            createOrRestoreState(getIntent().getExtras());
         } else {
-            createOrRestoreState(savedInstanceState, true);
+            createOrRestoreState(savedInstanceState);
         }
 
         updateActionBar();
@@ -154,14 +143,6 @@ public class MainActivity extends BaseActivity implements
 
         if (savedInstanceState == null) {
             replaceFragment();
-        } else {
-            if (mVisibleScreen == SETTINGS) {
-                findViewById(R.id.fragment_settings_frame).setVisibility(View.VISIBLE);
-                findViewById(R.id.fragment_frame).setVisibility(View.GONE);
-            } else {
-                findViewById(R.id.fragment_settings_frame).setVisibility(View.GONE);
-                findViewById(R.id.fragment_frame).setVisibility(View.VISIBLE);
-            }
         }
     }
 
@@ -170,33 +151,22 @@ public class MainActivity extends BaseActivity implements
         return R.layout.main;
     }
 
-    private void createOrRestoreState(Bundle b, boolean isSavedInstanceState) {
+    private void createOrRestoreState(Bundle b) {
         if (b == null) {
             mVisibleScreen = TODAY;
-            mDayIndex = TODAY;
-            mSettingsScreen = SETTINGS_MAIN;
         } else {
             mVisibleScreen = b.getInt(KEY_VISIBLE_SCREEN);
-            mDayIndex = b.getInt(KEY_DAY_INDEX);
-            if (isSavedInstanceState) {
-                mSettingsScreen = SETTINGS_MAIN;
-            } else {
-                mSettingsScreen = b.getInt(KEY_SETTINGS_SCREEN, SETTINGS_MAIN);
-            }
         }
     }
 
     private void updateActionBar() {
         TimeZone myTimezone = TimeZone.getDefault();
         Calendar calendar = new GregorianCalendar(myTimezone);
-        if (mActionBarSubTitles == null) {
-            mActionBarSubTitles = new String[6];
-        }
+        mActionBarSubTitles = new String[mNumForecastDays];
+
         for (int i = 0; i <mActionBarSubTitles.length; i++) {
             if (i == 0) {
                 mActionBarSubTitles[i] = getResources().getString(R.string.today_title);
-            } else if (i == 5) {
-                mActionBarSubTitles[i] = getResources().getString(R.string.settings_title);
             } else {
                 calendar.add(Calendar.DAY_OF_YEAR, 1);
                 mActionBarSubTitles[i] = WeatherInfo.getFormattedDate(calendar.getTime(), false);
@@ -204,10 +174,7 @@ public class MainActivity extends BaseActivity implements
         }
         String noWeatherDataPart = mWeatherInfo == null
                 ? getResources().getString(R.string.action_bar_no_weather_data_part) : "";
-
-        if (mVisibleScreen != SETTINGS) {
-            getSupportActionBar().setSubtitle(mActionBarSubTitles[mVisibleScreen] + noWeatherDataPart);
-        }
+        getSupportActionBar().setSubtitle(mActionBarSubTitles[mVisibleScreen] + noWeatherDataPart);
     }
 
     private void setupBottomNavigation() {
@@ -236,11 +203,9 @@ public class MainActivity extends BaseActivity implements
     }
 
     private void updateBottomNavigationItemState() {
-        mNavigationButtonPreviousDay.setEnabled(mVisibleScreen > TODAY
-                && mVisibleScreen != SETTINGS && mWeatherInfo != null);
-        mNavigationButtonSettings.setSelected(mVisibleScreen == SETTINGS);
-        mNavigationButtonSettings.setEnabled(mVisibleScreen != SETTINGS);
-        mNavigationButtonNextDay.setEnabled(mVisibleScreen < LAST_DAY && mWeatherInfo != null);
+        mNavigationButtonPreviousDay.setEnabled(mVisibleScreen > TODAY && mWeatherInfo != null);
+        mNavigationButtonNextDay.setEnabled(
+                mVisibleScreen < (mNumForecastDays - 1) && mWeatherInfo != null);
     }
 
     @Override
@@ -269,42 +234,21 @@ public class MainActivity extends BaseActivity implements
     }
 
     private Fragment getFragmentForVisibleScreen() {
-        if (mVisibleScreen == SETTINGS) {
-            return getSettingsFragment();
+        if (mWeatherInfo == null) { 
+            return new NoWeatherDataFragment();
         } else {
-            if (mWeatherInfo == null) { 
-                return new NoWeatherDataFragment();
+            if (mVisibleScreen == TODAY) {
+                return getCurrentWeatherFragment();
             } else {
-                if (mVisibleScreen == TODAY) {
-                    return getCurrentWeatherFragment();
-                } else {
-                    return getForecastWeatherFragment();
-                }
+                return getForecastWeatherFragment();
             }
         }
     }
 
     private void replaceFragment() {
-        if (mVisibleScreen == SETTINGS) {
-            findViewById(R.id.fragment_settings_frame).setVisibility(View.VISIBLE);
-            findViewById(R.id.fragment_frame).setVisibility(View.GONE);
-            getFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_settings_content, getFragmentForVisibleScreen())
-                    .commit();
-        } else {
-            findViewById(R.id.fragment_settings_frame).setVisibility(View.GONE);
-            findViewById(R.id.fragment_frame).setVisibility(View.VISIBLE);
-            getFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_content, getFragmentForVisibleScreen())
-                    .commit();
-        }
-        if (mVisibleScreen == SETTINGS && mSettingsScreen != SETTINGS_MAIN) {
-            startPreferencePanel("net.darkkatrom.dkweather.fragments.ThemeColorsSettings", null, 0, null,
-                    null, 0);
-            startPreferencePanel("net.darkkatrom.dkweather.fragments.themecolors.ThemeColorsWidget",
-                    null, 0, null, null, 0);
-        }
-
+        getFragmentManager().beginTransaction()
+                .replace(R.id.fragment_content, getFragmentForVisibleScreen())
+                .commit();
     }
 
     private Fragment getCurrentWeatherFragment() {
@@ -317,10 +261,6 @@ public class MainActivity extends BaseActivity implements
         WeatherFragment wf = new ForecastWeatherFragment();
         wf.setForecastDay(getForecastDay());
         return wf;
-    }
-
-    private Fragment getSettingsFragment() {
-        return new SettingsFragment();
     }
 
     private void updateContent() {
@@ -342,23 +282,17 @@ public class MainActivity extends BaseActivity implements
         return true;
     }
 
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        menu.findItem(R.id.item_update).setVisible(mVisibleScreen != SETTINGS);
-        return super.onPrepareOptionsMenu(menu);
-    }
-
     public void onBottomNavigationItemClick(View v) {
         if (v == mNavigationButtonPreviousDay) {
-            mDayIndex--;
             mVisibleScreen--;
+            updateContent();
         } else if (v == mNavigationButtonSettings) {
-            mVisibleScreen = SETTINGS;
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
         } else {
             mVisibleScreen++;
-            mDayIndex++;
+            updateContent();
         }
-        updateContent();
     }
 
     @Override
@@ -412,20 +346,8 @@ public class MainActivity extends BaseActivity implements
     @Override
     public void onBackPressed() {
         if (mVisibleScreen > TODAY) {
-            if (mVisibleScreen == SETTINGS) {
-                if (getFragmentManager().getBackStackEntryCount() > 0) {
-                    super.onBackPressed();
-                } else {
-                    mVisibleScreen = mDayIndex;
-                }
-            } else {
-                mVisibleScreen = TODAY;
-                mDayIndex = mVisibleScreen;
-            }
-            if (mVisibleScreen != SETTINGS) {
-                mWeatherInfo = getWeather();
-                updateContent();
-            }
+            mVisibleScreen = TODAY;
+            updateContent();
         } else {
             finish();
         }
@@ -434,36 +356,10 @@ public class MainActivity extends BaseActivity implements
     @Override
     public void onSaveInstanceState(Bundle outState) {
         outState.putInt(KEY_VISIBLE_SCREEN, mVisibleScreen);
-        outState.putInt(KEY_DAY_INDEX, mDayIndex);
         super.onSaveInstanceState(outState);
     }
 
     public void recreateForThemeChange() {
         recreate();
-    }
-
-    @Override
-    public boolean onPreferenceStartFragment(PreferenceFragment caller, Preference pref) {
-        startPreferencePanel(pref.getFragment(), pref.getExtras(), pref.getTitleRes(),
-                pref.getTitle(), null, 0);
-        return true;
-    }
-
-    public void startPreferencePanel(String fragmentClass, Bundle args, int titleRes,
-        CharSequence titleText, Fragment resultTo, int resultRequestCode) {
-        Fragment f = Fragment.instantiate(this, fragmentClass, args);
-        if (resultTo != null) {
-            f.setTargetFragment(resultTo, resultRequestCode);
-        }
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment_settings_content, f);
-        if (titleRes != 0) {
-            transaction.setBreadCrumbTitle(titleRes);
-        } else if (titleText != null) {
-            transaction.setBreadCrumbTitle(titleText);
-        }
-        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-        transaction.addToBackStack(null);
-        transaction.commitAllowingStateLoss();
     }
 }

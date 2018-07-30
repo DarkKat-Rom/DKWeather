@@ -54,6 +54,7 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import net.darkkatrom.dkweather.R;
+import net.darkkatrom.dkweather.colorpicker.ColorPickerActivity;
 import net.darkkatrom.dkweather.colorpicker.preference.ColorPickerPreference;
 import net.darkkatrom.dkweather.colorpicker.widget.ApplyColorView;
 import net.darkkatrom.dkweather.colorpicker.widget.ColorPickerView;
@@ -205,12 +206,13 @@ public class ColorPickerFragment extends Fragment implements
 
         }
 
-        if (getActivity().getActionBar() != null) {
+        ColorPickerActivity activity = (ColorPickerActivity) getActivity();
+        if (activity.getSupportActionBar() != null) {
             if (mTitle != null) {
-                getActivity().getActionBar().setTitle(mTitle);
+                activity.getSupportActionBar().setTitle(mTitle);
             }
             if (mSubtitle != null) {
-                getActivity().getActionBar().setSubtitle(mSubtitle);
+                activity.getSupportActionBar().setSubtitle(mSubtitle);
             }
         }
 
