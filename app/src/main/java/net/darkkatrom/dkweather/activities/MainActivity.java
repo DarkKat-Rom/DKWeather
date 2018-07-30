@@ -105,13 +105,13 @@ public class MainActivity extends BaseActivity implements OnClickListener, OnLon
                 Log.e(TAG, "Error retrieving weather data");
                 if (mUpdateRequested) {
                     mUpdateRequested = false;
-                    mNumForecastDays = mWeatherInfo.getHourForecastDays().size();
+                    mNumForecastDays = 0;
                 }
             } else {
                 if (mUpdateRequested) {
                     showToast(R.string.weather_updated);
                     mUpdateRequested = false;
-                    mNumForecastDays = 0;
+                    mNumForecastDays = mWeatherInfo.getHourForecastDays().size();
                 }
             }
             updateContent();
@@ -267,7 +267,6 @@ public class MainActivity extends BaseActivity implements OnClickListener, OnLon
         updateActionBar();
         replaceFragment();
         updateBottomNavigationItemState();
-        invalidateOptionsMenu();
     }
 
     @Override
