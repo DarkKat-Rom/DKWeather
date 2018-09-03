@@ -73,7 +73,7 @@ public class ThemeColorsApp extends SettingsColorPickerFragment implements
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        if (Config.PREF_KEY_THEME_USE_DARK_THEME.equals(key)
+        if (Config.PREF_KEY_THEME.equals(key)
                     || Config.PREF_KEY_THEME_ACCENT_COLOR.equals(key)
                     || Config.PREF_KEY_THEME_LIGHT_TEXT_COLOR.equals(key)
                     || Config.PREF_KEY_THEME_DARK_TEXT_COLOR.equals(key)

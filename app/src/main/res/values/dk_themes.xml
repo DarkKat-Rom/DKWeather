@@ -33,14 +33,18 @@
 
     <!-- App theme dark -->
     <style name="AppThemeDark" parent="@style/Theme.AppCompat.NoActionBar">
-        <item name="android:colorBackground">@color/theme_background_dark</item>
-        <item name="colorBackgroundFloating">@color/theme_background_floating_dark</item>
         <item name="colorPrimary">@color/theme_primary</item>
         <item name="colorPrimaryDark">@color/theme_primary_dark</item>
         <item name="colorAccent">@color/theme_accent</item>
         <item name="actionBarTheme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
-        <item name="dividerColor">@color/divider_dark_white</item>
         <item name="android:preferenceFragmentStyle">@style/PreferenceFragmentStyle</item>
+        <item name="dividerColor">@color/divider_dark_white</item>
+    </style>
+
+    <!-- App theme DarkKat -->
+    <style name="AppThemeDarkKat" parent="@style/AppThemeDark">
+        <item name="android:colorBackground">@color/theme_background_dark</item>
+        <item name="colorBackgroundFloating">@color/theme_background_floating_dark</item>
         <!-- Copy the colorBackgroundFloating theme attributes to the framework -->
         <item name="android:colorBackgroundFloating">?attr/colorBackgroundFloating</item>
     </style>
@@ -90,8 +94,27 @@
         <item name="android:windowLightNavigationBar">true</item>
     </style>
 
+    <style name="AppThemeDarkKat.LightActionBar">
+        <item name="actionBarTheme">@style/ThemeOverlay.Internal.LightActionBar</item>
+    </style>
+
+    <style name="AppThemeDarkKat.LightStatusBar" parent="@style/AppThemeDarkKat.LightActionBar">
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+
+    <style name="AppThemeDarkKat.LightNavigationBar">
+        <item name="android:windowLightNavigationBar">true</item>
+    </style>
+
+    <style name="AppThemeDarkKat.LightActionBar.LightNavigationBar">
+        <item name="android:windowLightNavigationBar">true</item>
+    </style>
+
+    <style name="AppThemeDarkKat.LightStatusBar.LightNavigationBar">
+        <item name="android:windowLightNavigationBar">true</item>
+    </style>
+
     <style name="ThemeOverlay.Internal.LightActionBar" parent="@style/ThemeOverlay.AppCompat.Light">
         <item name="colorControlNormal">?android:attr/textColorPrimary</item>
     </style>
- -->
 </resources>

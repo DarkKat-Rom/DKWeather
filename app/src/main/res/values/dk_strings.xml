@@ -146,8 +146,10 @@
     <string name="theme_colors_widget_summary">Choose how to colorize the widget</string>
 
     <!-- App ui-->
-    <string name="theme_use_dark_theme_title">Dark theme</string>
-    <string name="theme_use_dark_theme_summary">Enable to use a dark theme</string>
+    <string name="theme_title">Theme</string>
+    <string name="theme_material_light">Material (light version)</string>
+    <string name="theme_material_darkkat">Material (DarkKat version)</string>
+    <string name="theme_material_dark">Material (dark version)</string>
     <string name="theme_use_light_status_bar_title">Light status- &amp; action bar</string>
     <string name="theme_use_light_status_bar_summary">Enable to use a light status- &amp; action bar on the light theme</string>
     <string name="theme_use_light_navigation_bar_title">Light navigation bar</string>

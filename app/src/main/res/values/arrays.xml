@@ -47,6 +47,16 @@
         <item>6</item>
         <item>12</item>
     </string-array>
+    <string-array name="theme_entries" translatable="false">
+        <item>@string/theme_material_light</item>
+        <item>@string/theme_material_darkkat</item>
+        <item>@string/theme_material_dark</item>
+        </string-array>
+    <string-array name="theme_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
     <string-array name="theme_color_list_entries">
         <item>@string/accent_darkkat</item>
         <item>@string/holo_blue_light</item>

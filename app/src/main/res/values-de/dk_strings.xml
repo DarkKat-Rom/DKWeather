@@ -146,8 +146,10 @@
     <string name="theme_colors_widget_summary">Wähle wie Widget eingefärbt werden soll</string>
 
     <!-- App ui-->
-    <string name="theme_use_dark_theme_title">Dunkles Theme</string>
-    <string name="theme_use_dark_theme_summary">Aktivieren um ein dunkles Theme zu benutzen</string>
+    <string name="theme_title">Theme</string>
+    <string name="theme_material_light">Material (Helle-Version)</string>
+    <string name="theme_material_darkkat">Material (DarkKat-Version)</string>
+    <string name="theme_material_dark">Material (Dunkle-Version)</string>
     <string name="theme_use_light_status_bar_title">Helle Status- &amp; Aktionsleiste</string>
     <string name="theme_use_light_status_bar_summary">Aktivieren um bei dem hellen Theme eine helle Status- &amp; Aktionsleiste zu benutzen</string>
     <string name="theme_use_light_navigation_bar_title">Helle Navigationsleiste</string>

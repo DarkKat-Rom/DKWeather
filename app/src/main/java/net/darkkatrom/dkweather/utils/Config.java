@@ -50,8 +50,8 @@ public class Config {
     public static final String PREF_KEY_WIDGET_SHOW_SETTINGS_BUTTONS_LEFT
             = "widget_show_settings_buttons_left";
 
-    public static final String PREF_KEY_THEME_USE_DARK_THEME =
-            "theme_use_dark_theme";
+    public static final String PREF_KEY_THEME =
+            "theme";
     public static final String PREF_KEY_THEME_USE_LIGHT_STATUS_BAR =
             "theme_use_light_status_bar";
     public static final String PREF_KEY_THEME_USE_LIGHT_NAVIGATION_BAR =
@@ -81,6 +81,9 @@ public class Config {
     public static final String PREF_KEY_WEATHER_DATA  = "weather_data";
 
     public static final String DARKKAT_API_KEY = "6d2f4f034d60d9680a720c12df8c7ddd";
+
+    public static final int THEME_MATERIAL_LIGHT   = 0;
+    public static final int THEME_MATERIAL_DARKKAT = 1;
 
     public static final int WIDGET_BACKGROUND_NONE                     = 0;
     public static final int WIDGET_BACKGROUND_BACKGROUND_ONLY          = 1;
@@ -251,11 +254,16 @@ public class Config {
         return Integer.valueOf(valueString);
     }
 
-    public static boolean getThemeUseDarkTheme(Context context) {
+    public static int getTheme(Context context) {
         SharedPreferences prefs = PreferenceManager
                 .getDefaultSharedPreferences(context);
 
-        return prefs.getBoolean(PREF_KEY_THEME_USE_DARK_THEME, false);
+        String valueString = prefs.getString(PREF_KEY_THEME, "0");
+        return Integer.valueOf(valueString);
+    }
+
+    public static boolean getThemeUseDarkTheme(Context context) {
+        return getTheme(context) > 0;
     }
 
     public static boolean getThemeUseLightStatusBar(Context context) {

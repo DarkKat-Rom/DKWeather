@@ -85,21 +85,7 @@ public class ThemeUtil {
 
     public static int getThemeResId(Context context) {
         int themeResId = 0;
-        if (Config.getThemeUseDarkTheme(context)) {
-            if (needsLightActionBar(context) && needsLightNavigationBar(context)) {
-                themeResId = needsLightStatusBar(context)
-                        ? R.style.AppThemeDark_LightStatusBar_LightNavigationBar
-                        : R.style.AppThemeDark_LightActionBar_LightNavigationBar;
-            } else if (needsLightActionBar(context)) {
-                themeResId = needsLightStatusBar(context)
-                        ? R.style.AppThemeDark_LightStatusBar
-                        : R.style.AppThemeDark_LightActionBar;
-            } else if (needsLightNavigationBar(context)) {
-                themeResId = R.style.AppThemeDark_LightNavigationBar;
-            } else {
-                themeResId = R.style.AppThemeDark;
-            }
-        } else {
+        if (Config.getTheme(context) == Config.THEME_MATERIAL_LIGHT) {
             if (needsLightActionBar(context) && needsLightNavigationBar(context)) {
                 themeResId = needsLightStatusBar(context)
                         ? R.style.AppThemeLight_LightStatusBar_LightNavigationBar
@@ -112,6 +98,34 @@ public class ThemeUtil {
                 themeResId = R.style.AppThemeLight_LightNavigationBar;
             } else {
                 themeResId = R.style.AppThemeLight;
+            }
+        } else if (Config.getTheme(context) == Config.THEME_MATERIAL_DARKKAT) {
+            if (needsLightActionBar(context) && needsLightNavigationBar(context)) {
+                themeResId = needsLightStatusBar(context)
+                        ? R.style.AppThemeDarkKat_LightStatusBar_LightNavigationBar
+                        : R.style.AppThemeDarkKat_LightActionBar_LightNavigationBar;
+            } else if (needsLightActionBar(context)) {
+                themeResId = needsLightStatusBar(context)
+                        ? R.style.AppThemeDarkKat_LightStatusBar
+                        : R.style.AppThemeDarkKat_LightActionBar;
+            } else if (needsLightNavigationBar(context)) {
+                themeResId = R.style.AppThemeDarkKat_LightNavigationBar;
+            } else {
+                themeResId = R.style.AppThemeDarkKat;
+            }
+        } else {
+            if (needsLightActionBar(context) && needsLightNavigationBar(context)) {
+                themeResId = needsLightStatusBar(context)
+                        ? R.style.AppThemeDark_LightStatusBar_LightNavigationBar
+                        : R.style.AppThemeDark_LightActionBar_LightNavigationBar;
+            } else if (needsLightActionBar(context)) {
+                themeResId = needsLightStatusBar(context)
+                        ? R.style.AppThemeDark_LightStatusBar
+                        : R.style.AppThemeDark_LightActionBar;
+            } else if (needsLightNavigationBar(context)) {
+                themeResId = R.style.AppThemeDark_LightNavigationBar;
+            } else {
+                themeResId = R.style.AppThemeDark;
             }
         }
         return themeResId;
