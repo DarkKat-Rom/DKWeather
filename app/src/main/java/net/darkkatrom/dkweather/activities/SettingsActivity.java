@@ -87,4 +87,8 @@ public class SettingsActivity extends BaseActivity implements
         transaction.addToBackStack(null);
         transaction.commitAllowingStateLoss();
     }
+
+    public void recreateForThemeChange() {
+        recreate();
+    }
 }

@@ -22,7 +22,7 @@ import android.os.Bundle;
 import android.preference.Preference;
 
 import net.darkkatrom.dkweather.R;
-import net.darkkatrom.dkweather.activities.MainActivity;
+import net.darkkatrom.dkweather.activities.SettingsActivity;
 import net.darkkatrom.dkweather.colorpicker.fragment.SettingsColorPickerFragment;
 import net.darkkatrom.dkweather.utils.Config;
 
@@ -81,7 +81,7 @@ public class ThemeColorsApp extends SettingsColorPickerFragment implements
                     || Config.PREF_KEY_THEME_USE_LIGHT_NAVIGATION_BAR.equals(key)
                     || Config.PREF_KEY_THEME_CUSTOMIZE_COLORS.equals(key)
                     || Config.PREF_KEY_THEME_COLORIZE_NAVIGATION_BAR.equals(key)) {
-            ((MainActivity) getActivity()).recreateForThemeChange();
+            ((SettingsActivity) getActivity()).recreateForThemeChange();
         }
     }
 
@@ -90,7 +90,7 @@ public class ThemeColorsApp extends SettingsColorPickerFragment implements
         super.onResume();
 
         if (Config.getThemePrimaryColor(getActivity()) != mPrimaryColor) {
-            ((MainActivity) getActivity()).recreateForThemeChange();
+            ((SettingsActivity) getActivity()).recreateForThemeChange();
         } else {
             getPreferenceScreen().getSharedPreferences()
                     .registerOnSharedPreferenceChangeListener(this);

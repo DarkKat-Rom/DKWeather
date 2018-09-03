@@ -151,6 +151,11 @@ public class MainActivity extends BaseActivity implements OnClickListener, OnLon
         return R.layout.main;
     }
 
+    @Override
+    protected boolean checkForThemeUpdate() {
+        return true;
+    }
+
     private void createOrRestoreState(Bundle b) {
         if (b == null) {
             mVisibleScreen = TODAY;

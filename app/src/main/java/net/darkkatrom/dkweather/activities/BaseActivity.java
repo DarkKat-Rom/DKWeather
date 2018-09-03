@@ -37,6 +37,15 @@ public class BaseActivity extends Activity {
 
     private AppCompatDelegate mDelegate;
 
+    private int mThemeResId = 0;
+    private int mThemeOverlayAccentResId = 0;
+    private int mThemeOverlayTextResId = 0;
+    private boolean mLightStatusBar = false;
+    private boolean mLightNavigationBar = false;
+    private boolean mCustomizeColors = false;
+    private int mStatusBarColor = 0;
+    private int mNavigationColor = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         getDelegate().installViewFactory();
@@ -63,22 +72,35 @@ public class BaseActivity extends Activity {
         return 0;
     }
 
-    private void updateTheme() {
-        setTheme(ThemeUtil.getThemeResId(this));
+    protected boolean checkForThemeUpdate() {
+        return false;
+    }
 
+    private void updateTheme() {
+        mThemeResId = ThemeUtil.getThemeResId(this);
         if (Config.getIndexForAccentColor(this) > 0) {
-            getTheme().applyStyle(ThemeUtil.getThemeOverlayAccentResId(this), true);
+            mThemeOverlayAccentResId = ThemeUtil.getThemeOverlayAccentResId(this);
         }
-        int themeOverlayTextResId = Config.getThemeUseDarkTheme(this)
+        mThemeOverlayTextResId = Config.getThemeUseDarkTheme(this)
                 ? ThemeUtil.getThemeOverlayDarkTextResId(this)
                 : ThemeUtil.getThemeOverlayLightTextResId(this);
-        if (themeOverlayTextResId > 0) {
-            getTheme().applyStyle(themeOverlayTextResId, true);
+        mLightStatusBar = ThemeUtil.needsLightStatusBar(this);
+        mLightNavigationBar = ThemeUtil.needsLightNavigationBar(this);
+        mCustomizeColors = Config.getThemeCustomizeColors(this);
+        mStatusBarColor = ThemeUtil.getStatusBarBackgroundColor(this);
+        mNavigationColor = ThemeUtil.getNavigationBarBackgroundColor(this);
+
+        setTheme(mThemeResId);
+        if (mThemeOverlayAccentResId > 0) {
+            getTheme().applyStyle(mThemeOverlayAccentResId, true);
+        }
+        if (mThemeOverlayTextResId > 0) {
+            getTheme().applyStyle(mThemeOverlayTextResId, true);
         }
 
         int oldFlags = getWindow().getDecorView().getSystemUiVisibility();
         int newFlags = oldFlags;
-        if (!ThemeUtil.needsLightStatusBar(this)) {
+        if (!mLightStatusBar) {
             // Check if light status bar flag was set
             boolean isLightStatusBar = (newFlags & View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR)
                     == View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
@@ -87,7 +109,7 @@ public class BaseActivity extends Activity {
                 newFlags &= ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
             }
         }
-        if (!ThemeUtil.needsLightNavigationBar(this)) {
+        if (!mLightNavigationBar) {
             // Check if light navigation bar flag was set
             boolean isLightNavigationBar = (newFlags & View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR)
                     == View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
@@ -100,12 +122,11 @@ public class BaseActivity extends Activity {
             getWindow().getDecorView().setSystemUiVisibility(newFlags);
         }
 
-        if (Config.getThemeCustomizeColors(this)) {
-            getWindow().setStatusBarColor(ThemeUtil.getStatusBarBackgroundColor(this));
+        if (mCustomizeColors) {
+            getWindow().setStatusBarColor(mStatusBarColor);
         }
-        int customNavigationBarColor = ThemeUtil.getNavigationBarBackgroundColor(this);
-        if (customNavigationBarColor != 0) {
-            getWindow().setNavigationBarColor(customNavigationBarColor);
+        if (mNavigationColor != 0) {
+            getWindow().setNavigationBarColor(mNavigationColor);
         }
     }
 
@@ -153,6 +174,35 @@ public class BaseActivity extends Activity {
     @Override
     public void addContentView(View view, ViewGroup.LayoutParams params) {
         getDelegate().addContentView(view, params);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (checkForThemeUpdate()) {
+            int themeResId = ThemeUtil.getThemeResId(this);
+            int themeOverlayAccentResId = Config.getIndexForAccentColor(this) > 0
+                    ? ThemeUtil.getThemeOverlayAccentResId(this) : 0;
+            int themeOverlayTextResId = Config.getThemeUseDarkTheme(this)
+                    ? ThemeUtil.getThemeOverlayDarkTextResId(this)
+                    : ThemeUtil.getThemeOverlayLightTextResId(this);
+            boolean lightStatusBar = ThemeUtil.needsLightStatusBar(this);
+            boolean lightNavigationBar = ThemeUtil.needsLightNavigationBar(this);
+            boolean customizeColors = Config.getThemeCustomizeColors(this);
+            int statusBarColor = ThemeUtil.getStatusBarBackgroundColor(this);
+            int navigationColor = ThemeUtil.getNavigationBarBackgroundColor(this);
+
+            if (mThemeResId != themeResId
+                    || mThemeOverlayAccentResId != themeOverlayAccentResId
+                    || mThemeOverlayTextResId != themeOverlayTextResId
+                    || mLightStatusBar != lightStatusBar
+                    || mLightNavigationBar != lightNavigationBar
+                    || mCustomizeColors != customizeColors
+                    || mStatusBarColor != statusBarColor
+                    || mNavigationColor != navigationColor) {
+                recreate();
+            }
+        }
     }
 
     @Override
