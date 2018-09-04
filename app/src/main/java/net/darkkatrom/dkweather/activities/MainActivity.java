@@ -81,7 +81,7 @@ public class MainActivity extends BaseActivity implements OnClickListener, OnLon
     private View mNavigationButtonNextDay;
 
     private int mVisibleScreen = TODAY;
-    private int mNumForecastDays = 0;
+    private int mNumForecastDays = 1;
 
     private boolean mUpdateRequested = false;
 
@@ -100,21 +100,18 @@ public class MainActivity extends BaseActivity implements OnClickListener, OnLon
 
         @Override
         public void onChange(boolean selfChange) {
-            mWeatherInfo = getWeather();
+            updateWeather();
             if (mWeatherInfo == null) {
                 Log.e(TAG, "Error retrieving weather data");
                 if (mUpdateRequested) {
                     mUpdateRequested = false;
-                    mNumForecastDays = 0;
                 }
             } else {
                 if (mUpdateRequested) {
                     showToast(R.string.weather_updated);
                     mUpdateRequested = false;
-                    mNumForecastDays = mWeatherInfo.getHourForecastDays().size();
                 }
             }
-            updateContent();
         }
     }
 
@@ -125,9 +122,6 @@ public class MainActivity extends BaseActivity implements OnClickListener, OnLon
         mHandler = new Handler();
         mResolver = getContentResolver();
         mWeatherObserver = new WeatherObserver(mHandler);
-        mWeatherInfo = getWeather();
-
-        mNumForecastDays = mWeatherInfo == null ? 0 : mWeatherInfo.getHourForecastDays().size();
 
         NotificationUtil notificationUtil = new NotificationUtil(this);
         notificationUtil.setNotificationChannels();
@@ -137,13 +131,7 @@ public class MainActivity extends BaseActivity implements OnClickListener, OnLon
         } else {
             createOrRestoreState(savedInstanceState);
         }
-
-        updateActionBar();
         setupBottomNavigation();
-
-        if (savedInstanceState == null) {
-            replaceFragment();
-        }
     }
 
     @Override
@@ -203,7 +191,6 @@ public class MainActivity extends BaseActivity implements OnClickListener, OnLon
         tv = (TextView) mNavigationButtonNextDay.findViewById(R.id.bottom_navigation_item_text);
         iv.setImageResource(R.drawable.ic_action_next_day);
         tv.setText(R.string.action_next_day_title);
-        updateBottomNavigationItemState();
 
     }
 
@@ -218,6 +205,7 @@ public class MainActivity extends BaseActivity implements OnClickListener, OnLon
         super.onResume();
 
         mWeatherObserver.observe();
+        updateWeather();
     }
 
     @Override
@@ -230,8 +218,18 @@ public class MainActivity extends BaseActivity implements OnClickListener, OnLon
         f.updateContent(mWeatherInfo);
     }
 
-    public WeatherInfo getWeather() {
-        return Config.getWeatherData(this);
+    public void updateWeather() {
+        mWeatherInfo = Config.getWeatherData(this);
+        if (mWeatherInfo == null) {
+            mNumForecastDays = 1;
+        } else {
+            if (mWeatherInfo.getHourForecastDays().size() > 0) {
+                mNumForecastDays = mWeatherInfo.getHourForecastDays().size();
+            } else {
+                mNumForecastDays = 1;
+            }
+        }
+        updateContent();
     }
 
     private String getForecastDay() {
