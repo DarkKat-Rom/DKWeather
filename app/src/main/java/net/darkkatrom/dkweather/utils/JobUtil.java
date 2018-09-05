@@ -61,6 +61,7 @@ public class JobUtil {
     public static void disableService(Context context) {
         JobUtil.getScheduler(context).cancelAll();
         NotificationUtil.removeNotification(context);
+        ShortcutUtil.removeShortcuts(context);
     }
 
     private static JobInfo.Builder getBuilder(Context context, int jobKey) {

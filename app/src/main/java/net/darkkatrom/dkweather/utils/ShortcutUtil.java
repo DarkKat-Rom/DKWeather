@@ -61,6 +61,11 @@ public class ShortcutUtil {
         }
     }
 
+    public static void removeShortcuts(Context context) {
+        ShortcutManager shortcutManager = context.getSystemService(ShortcutManager.class);
+        shortcutManager.removeAllDynamicShortcuts();
+    }
+
     private List<ShortcutInfo> createShortcuts() {
         ArrayList<ShortcutInfo> shortcuts = new ArrayList<ShortcutInfo>();
         TimeZone myTimezone = TimeZone.getDefault();

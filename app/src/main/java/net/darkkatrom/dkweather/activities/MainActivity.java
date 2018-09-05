@@ -71,6 +71,7 @@ public class MainActivity extends BaseActivity implements OnClickListener, OnLon
     private WeatherObserver mWeatherObserver;
 
     private WeatherInfo mWeatherInfo;
+    private long mTimestamp = -1;
 
     private CharSequence[] mActionBarSubTitles;
 
@@ -205,7 +206,14 @@ public class MainActivity extends BaseActivity implements OnClickListener, OnLon
         super.onResume();
 
         mWeatherObserver.observe();
-        updateWeather();
+        long newTimestamp = 0;
+        WeatherInfo newWeatherInfo = Config.getWeatherData(this);
+        if (newWeatherInfo != null) {
+            newTimestamp = newWeatherInfo.getTimestamp();
+        }
+        if (mTimestamp != newTimestamp) {
+            updateWeather();
+        }
     }
 
     @Override
@@ -221,13 +229,16 @@ public class MainActivity extends BaseActivity implements OnClickListener, OnLon
     public void updateWeather() {
         mWeatherInfo = Config.getWeatherData(this);
         if (mWeatherInfo == null) {
+            mVisibleScreen = TODAY;
             mNumForecastDays = 1;
+            mTimestamp = 0;
         } else {
             if (mWeatherInfo.getHourForecastDays().size() > 0) {
                 mNumForecastDays = mWeatherInfo.getHourForecastDays().size();
             } else {
                 mNumForecastDays = 1;
             }
+            mTimestamp = mWeatherInfo.getTimestamp();
         }
         updateContent();
     }

@@ -152,6 +152,7 @@ public class WeatherJobService extends JobService {
                 Config.clearWeatherData(this);
                 WeatherContentProvider.updateCachedWeatherInfo(this);
                 notificationUtil.removeNotification(this);
+                ShortcutUtil.removeShortcuts(this);
                 if (!mUpdateWidget) {
                     jobFinished(jobParameters, false);
                 }
@@ -390,7 +391,6 @@ public class WeatherJobService extends JobService {
         String skeleton = getResources().getString(R.string.abbrev_wday_month_day_no_year);
         return DateFormat.getBestDateTimePattern(Locale.getDefault(), skeleton);
     }
-
 
 
     private String getNextAlarmText() {
