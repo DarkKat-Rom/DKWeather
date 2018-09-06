@@ -32,6 +32,7 @@
         <include layout="@layout/widget_loading" />
         <include layout="@layout/widget_date_alarm" />
         <include layout="@layout/widget_weather" />
+        <include layout="@layout/widget_weather_no_data" />
     </LinearLayout>
 
     <LinearLayout
