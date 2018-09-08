@@ -46,14 +46,14 @@ public class OpenWeatherMapProvider extends AbstractWeatherProvider {
     private static final String API_KEY = "6d2f4f034d60d9680a720c12df8c7ddd";
 
     private static final String URL_LOCATION =
-            "http://api.openweathermap.org/data/2.5/find?q=%s&mode=json&lang=%s&appid=%s";
+            "https://api.openweathermap.org/data/2.5/find?q=%s&mode=json&lang=%s&appid=%s";
     private static final String URL_WEATHER =
-            "http://api.openweathermap.org/data/2.5/weather?%s&mode=json&units=%s&lang=%s&appid=%s";
+            "https://api.openweathermap.org/data/2.5/weather?%s&mode=json&units=%s&lang=%s&appid=%s";
     private static final String URL_FORECAST =
-            "http://api.openweathermap.org/data/2.5/forecast/daily?" +
+            "https://api.openweathermap.org/data/2.5/forecast/daily?" +
             "%s&mode=json&units=%s&lang=%s&cnt=" + FORECAST_DAYS + "&appid=%s";
     private static final String URL_HOUR_FORECAST =
-            "http://api.openweathermap.org/data/2.5/forecast?%s&mode=json&units=%s&lang=%s&appid=%s";
+            "https://api.openweathermap.org/data/2.5/forecast?%s&mode=json&units=%s&lang=%s&appid=%s";
 
     public OpenWeatherMapProvider(Context context) {
         super(context);
