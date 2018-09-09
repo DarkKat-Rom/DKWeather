@@ -161,6 +161,8 @@
     <string name="theme_accent_color_title">Akzent Farbe</string>
     <string name="theme_light_text_color_title">Text &amp; Icon Farbe (helles Theme)</string>
     <string name="theme_dark_text_color_title">Text &amp; Icon Farbe (dunkles Theme)</string>
+    <string name="theme_light_ripple_color_title">Ripple Effekt Farbe (helles Theme)</string>
+    <string name="theme_dark_ripple_color_title">Ripple Effekt Farbe (dunkles Theme)</string>
     <string name="accent_darkkat">Akzent Darkkat</string>
     <string name="holo_blue_light">Holo Blue Light</string>
     <string name="material_blue_grey_500">Material Blue Grey 500</string>

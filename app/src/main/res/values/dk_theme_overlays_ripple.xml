@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2018 DarkKat
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<resources>
+    <style name="Theme.Overlay.Ripple" />
+
+    <style name="Theme.Overlay.Ripple.AccentDarkKat">
+        <item name="colorControlHighlight">@color/ripple_accent_darkkat</item>
+    </style>
+
+    <style name="Theme.Overlay.Ripple.HoloBlueLight">
+        <item name="colorControlHighlight">@color/ripple_holo_blue_light</item>
+    </style>
+
+    <style name="Theme.Overlay.Ripple.MaterialBlueGrey">
+        <item name="colorControlHighlight">@color/ripple_material_blue_grey</item>
+    </style>
+
+    <style name="Theme.Overlay.Ripple.MaterialBlue">
+        <item name="colorControlHighlight">@color/ripple_material_blue</item>
+    </style>
+
+    <style name="Theme.Overlay.Ripple.MaterialLightBlue">
+        <item name="colorControlHighlight">@color/ripple_material_light_blue</item>
+    </style>
+
+    <style name="Theme.Overlay.Ripple.MaterialCyan">
+        <item name="colorControlHighlight">@color/ripple_material_cyan</item>
+    </style>
+
+    <style name="Theme.Overlay.Ripple.MaterialDeepTeal">
+        <item name="colorControlHighlight">@color/ripple_material_deep_teal</item>
+    </style>
+
+    <style name="Theme.Overlay.Ripple.MaterialIndigo">
+        <item name="colorControlHighlight">@color/ripple_material_indigo</item>
+    </style>
+
+    <style name="Theme.Overlay.Ripple.MaterialPurple">
+        <item name="colorControlHighlight">@color/ripple_material_purple</item>
+    </style>
+
+    <style name="Theme.Overlay.Ripple.MaterialDeepPurple">
+        <item name="colorControlHighlight">@color/ripple_material_deep_purple</item>
+    </style>
+
+    <style name="Theme.Overlay.Ripple.MaterialPink">
+        <item name="colorControlHighlight">@color/ripple_material_pink</item>
+    </style>
+
+    <style name="Theme.Overlay.Ripple.MaterialOrange">
+        <item name="colorControlHighlight">@color/ripple_material_orange</item>
+    </style>
+
+    <style name="Theme.Overlay.Ripple.MaterialDeepOrange">
+        <item name="colorControlHighlight">@color/ripple_material_deep_orange</item>
+    </style>
+
+    <style name="Theme.Overlay.Ripple.MaterialRed">
+        <item name="colorControlHighlight">@color/ripple_material_red</item>
+    </style>
+
+    <style name="Theme.Overlay.Ripple.MaterialYellow">
+        <item name="colorControlHighlight">@color/ripple_material_yellow</item>
+    </style>
+
+    <style name="Theme.Overlay.Ripple.MaterialAmber">
+        <item name="colorControlHighlight">@color/ripple_material_amber</item>
+    </style>
+
+    <style name="Theme.Overlay.Ripple.MaterialGreen">
+        <item name="colorControlHighlight">@color/ripple_material_green</item>
+    </style>
+
+    <style name="Theme.Overlay.Ripple.MaterialLightGreen">
+        <item name="colorControlHighlight">@color/ripple_material_light_green</item>
+    </style>
+
+    <style name="Theme.Overlay.Ripple.MaterialLime">
+        <item name="colorControlHighlight">@color/ripple_material_lime</item>
+    </style>
+
+    <style name="Theme.Overlay.Ripple.Black">
+        <item name="colorControlHighlight">@color/ripple_black</item>
+    </style>
+
+    <style name="Theme.Overlay.Ripple.White">
+        <item name="colorControlHighlight">@color/ripple_white</item>
+    </style>
+
+    <style name="Theme.Overlay.Ripple.Blue">
+        <item name="colorControlHighlight">@color/ripple_blue</item>
+    </style>
+
+    <style name="Theme.Overlay.Ripple.Purple">
+        <item name="colorControlHighlight">@color/ripple_purple</item>
+    </style>
+
+    <style name="Theme.Overlay.Ripple.Orange">
+        <item name="colorControlHighlight">@color/ripple_orange</item>
+    </style>
+
+    <style name="Theme.Overlay.Ripple.Red">
+        <item name="colorControlHighlight">@color/ripple_red</item>
+    </style>
+
+    <style name="Theme.Overlay.Ripple.Yellow">
+        <item name="colorControlHighlight">@color/ripple_yellow</item>
+    </style>
+
+    <style name="Theme.Overlay.Ripple.Green">
+        <item name="colorControlHighlight">@color/ripple_green</item>
+    </style>
+
+</resources>

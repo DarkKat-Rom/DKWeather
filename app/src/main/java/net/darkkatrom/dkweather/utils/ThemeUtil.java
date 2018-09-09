@@ -310,4 +310,68 @@ public class ThemeUtil {
         }
         return resId;
     }
+
+    public static int getThemeOverlayRippleResId(Context context) {
+        int index = Config.getIndexForRippleColor(context);
+
+        int resId = 0;
+        if (index != -1) {
+            if (index == 0) {
+                resId = R.style.Theme_Overlay_TextDark_AccentDarkKat;
+            } else if (index == 1) {
+                resId = R.style.Theme_Overlay_Ripple_HoloBlueLight;
+            } else if (index == 2) {
+                resId = R.style.Theme_Overlay_Ripple_MaterialBlueGrey;
+            } else if (index == 3) {
+                resId = R.style.Theme_Overlay_Ripple_MaterialBlue;
+            } else if (index == 4) {
+                resId = R.style.Theme_Overlay_Ripple_MaterialLightBlue;
+            } else if (index == 5) {
+                resId = R.style.Theme_Overlay_Ripple_MaterialCyan;
+            } else if (index == 6) {
+                resId = R.style.Theme_Overlay_Ripple_MaterialDeepTeal;
+            } else if (index == 7) {
+                resId = R.style.Theme_Overlay_Ripple_MaterialIndigo;
+            } else if (index == 8) {
+                resId = R.style.Theme_Overlay_Ripple_MaterialPurple;
+            } else if (index == 9) {
+                resId = R.style.Theme_Overlay_Ripple_MaterialDeepPurple;
+            } else if (index == 10) {
+                resId = R.style.Theme_Overlay_Ripple_MaterialPink;
+            } else if (index == 11) {
+                resId = R.style.Theme_Overlay_Ripple_MaterialOrange;
+            } else if (index == 12) {
+                resId = R.style.Theme_Overlay_Ripple_MaterialDeepOrange;
+            } else if (index == 13) {
+                resId = R.style.Theme_Overlay_Ripple_MaterialRed;
+            } else if (index == 14) {
+                resId = R.style.Theme_Overlay_Ripple_MaterialYellow;
+            } else if (index == 15) {
+                resId = R.style.Theme_Overlay_Ripple_MaterialAmber;
+            } else if (index == 16) {
+                resId = R.style.Theme_Overlay_Ripple_MaterialGreen;
+            } else if (index == 17) {
+                resId = R.style.Theme_Overlay_Ripple_MaterialLightGreen;
+            } else if (index == 18) {
+                resId = R.style.Theme_Overlay_Ripple_MaterialLime;
+            } else if (index == 19) {
+                resId = R.style.Theme_Overlay_Ripple_Black;
+            } else if (index == 20) {
+                resId = R.style.Theme_Overlay_Ripple_White;
+            } else if (index == 21) {
+                resId = R.style.Theme_Overlay_Ripple_Blue;
+            } else if (index == 22) {
+                resId = R.style.Theme_Overlay_Ripple_Purple;
+            } else if (index == 23) {
+                resId = R.style.Theme_Overlay_Ripple_Orange;
+            } else if (index == 24) {
+                resId = R.style.Theme_Overlay_Ripple_Red;
+            } else if (index == 25) {
+                resId = R.style.Theme_Overlay_Ripple_Yellow;
+            } else if (index == 26) {
+                resId = R.style.Theme_Overlay_Ripple_Green;
+            }
+        }
+        return resId;
+    }
 }

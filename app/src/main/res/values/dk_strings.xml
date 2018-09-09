@@ -161,6 +161,8 @@
     <string name="theme_accent_color_title">Accent color</string>
     <string name="theme_light_text_color_title">Text &amp; icon color (light theme)</string>
     <string name="theme_dark_text_color_title">Text &amp; icon color (dark theme)</string>
+    <string name="theme_light_ripple_color_title">Ripple effect color (light theme)</string>
+    <string name="theme_dark_ripple_color_title">Ripple effect color (dark theme)</string>
     <string name="accent_darkkat">Accent Darkkat</string>
     <string name="holo_blue_light">Holo Blue Light</string>
     <string name="material_blue_grey_500">Material Blue Grey 500</string>
