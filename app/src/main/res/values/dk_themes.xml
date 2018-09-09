@@ -29,6 +29,7 @@
         <item name="actionBarTheme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
         <item name="android:preferenceFragmentStyle">@style/PreferenceFragmentStyle</item>
         <item name="dividerColor">@color/divider_light_black</item>
+        <item name="checkableTextColor">@color/checkable_text_color_light</item>
     </style>
 
     <!-- App theme dark -->
@@ -39,6 +40,7 @@
         <item name="actionBarTheme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
         <item name="android:preferenceFragmentStyle">@style/PreferenceFragmentStyle</item>
         <item name="dividerColor">@color/divider_dark_white</item>
+        <item name="checkableTextColor">@color/checkable_text_color_dark</item>
     </style>
 
     <!-- App theme DarkKat -->

@@ -57,7 +57,7 @@
                 android:layout_weight="1"
                 android:layout_marginEnd="4dp"
                 android:text="@string/main_button_pick_title"
-                android:textColor="@color/checkable_text_color"
+                android:textColor="?attr/checkableTextColor"
                 android:textOn="@null"
                 android:textOff="@null"
                 style="?android:attr/borderlessButtonStyle" />
@@ -70,7 +70,7 @@
                 android:layout_marginStart="4dp"
                 android:layout_marginEnd="4dp"
                 android:text="@string/main_button_favorites_title"
-                android:textColor="@color/checkable_text_color"
+                android:textColor="?attr/checkableTextColor"
                 android:textOn="@null"
                 android:textOff="@null"
                 style="?android:attr/borderlessButtonStyle" />
@@ -81,7 +81,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginStart="4dp"
-                android:textColor="@color/checkable_text_color"
+                android:textColor="?attr/checkableTextColor"
                 android:text="@string/main_button_darkkat_title"
                 android:textOn="@null"
                 android:textOff="@null"
@@ -104,7 +104,7 @@
                 android:layout_weight="1"
                 android:layout_marginEnd="4dp"
                 android:text="@string/main_button_material_title"
-                android:textColor="@color/checkable_text_color"
+                android:textColor="?attr/checkableTextColor"
                 android:textOn="@null"
                 android:textOff="@null"
                 style="?android:attr/borderlessButtonStyle" />
@@ -117,7 +117,7 @@
                 android:layout_marginStart="4dp"
                 android:layout_marginEnd="4dp"
                 android:text="@string/main_button_rgb_title"
-                android:textColor="@color/checkable_text_color"
+                android:textColor="?attr/checkableTextColor"
                 android:textOn="@null"
                 android:textOff="@null"
                 style="?android:attr/borderlessButtonStyle" />
@@ -129,7 +129,7 @@
                 android:layout_weight="1"
                 android:layout_marginStart="4dp"
                 android:text="@string/main_button_help_title"
-                android:textColor="@color/checkable_text_color"
+                android:textColor="?attr/checkableTextColor"
                 android:textOn="@null"
                 android:textOff="@null"
                 style="?android:attr/borderlessButtonStyle" />

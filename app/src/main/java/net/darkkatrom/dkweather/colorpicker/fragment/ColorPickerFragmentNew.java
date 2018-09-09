@@ -444,9 +444,13 @@ public class ColorPickerFragmentNew extends Fragment implements
     private void setUpMainButtons() {
         mMainButtons[0] = (CompoundButton) mColorPickerView.findViewById(R.id.main_button_pick);
         mMainButtons[1] = (CompoundButton) mColorPickerView.findViewById(R.id.main_button_favorites);
+        mMainButtons[1].setEnabled(false);
         mMainButtons[2] = (CompoundButton) mColorPickerView.findViewById(R.id.main_button_darkkat);
+        mMainButtons[2].setEnabled(false);
         mMainButtons[3] = (CompoundButton) mColorPickerView.findViewById(R.id.main_button_material);
+        mMainButtons[3].setEnabled(false);
         mMainButtons[4] = (CompoundButton) mColorPickerView.findViewById(R.id.main_button_rgb);
+        mMainButtons[4].setEnabled(false);
         mMainButtons[5] = (CompoundButton) mColorPickerView.findViewById(R.id.main_button_help);
 
         for (int i = 0; i < mMainButtons.length; i++) {

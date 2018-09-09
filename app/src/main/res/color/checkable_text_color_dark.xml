@@ -15,6 +15,9 @@
 -->
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_checked="true"
-          android:color="?attr/colorAccent"/>
-    <item android:color="?android:attr/textColorPrimary"/>
+          android:color="?attr/colorAccent" />
+    <item android:state_enabled="false"
+          android:alpha="@dimen/disabled_alpha_material_dark"
+          android:color="?android:attr/textColorPrimary" />
+    <item android:color="?android:attr/textColorPrimary" />
 </selector>
