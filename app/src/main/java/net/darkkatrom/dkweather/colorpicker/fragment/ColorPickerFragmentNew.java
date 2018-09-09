@@ -248,7 +248,7 @@ public class ColorPickerFragmentNew extends Fragment implements
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.color_picker_ab_more, menu);
+        inflater.inflate(R.menu.color_picker_ab_more_new, menu);
     }
 
     @Override
@@ -282,10 +282,8 @@ public class ColorPickerFragmentNew extends Fragment implements
         mEditHexValue = (EditText) editHexActionView.findViewById(R.id.ab_edit_hex);
         ImageButton setHexValueButton = (ImageButton) editHexActionView.findViewById(R.id.ab_edit_hex_enter);
         MenuItem showHideFavorites = menu.findItem(R.id.show_hide_favorites);
-        MenuItem showHideHelp = menu.findItem(R.id.show_hide_help);
 
         boolean newColor = mNewColorValue != mInitialColor;
-        int helpTitleResId = mHelpScreenVisible ? R.string.hide_help_title : R.string.show_help_title;
 
         mApplyColorAction.setColor(mNewColorValue);
         mApplyColorAction.setColorPreviewTranslationX(newColor ? 0f : mFullTranslationX);
@@ -296,8 +294,6 @@ public class ColorPickerFragmentNew extends Fragment implements
         mEditHexValue.setText(ColorPickerHelper.convertToARGB(mNewColorValue));
         mEditHexValue.setOnFocusChangeListener(this);
         setHexValueButton.setOnClickListener(this);
-
-        showHideHelp.setTitle(mResources.getString(helpTitleResId));
     }
 
     @Override
@@ -317,10 +313,22 @@ public class ColorPickerFragmentNew extends Fragment implements
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        int checkedId = buttonView.getId();
         if (isChecked) {
-            int checkedId = buttonView.getId();
             mMainButtonsGroup.check(checkedId);
-            ConfigColorPicker.setMainButtonChededId(getActivity(), checkedId);
+            if (checkedId != R.id.main_button_help) {
+                ConfigColorPicker.setMainButtonChededId(getActivity(), checkedId);
+            }
+        }
+
+        if (checkedId == R.id.main_button_help) {
+            if (mHelpScreenVisible && !isChecked
+                    || !mHelpScreenVisible && isChecked) {
+                mAnimationType = ANIMATE_HELP_SCREEN_VISIBILITY;
+                mAnimator.setInterpolator(new FastOutSlowInInterpolator());
+                mAnimator.setDuration(mHelpScreenVisible ? 195 : 225);
+                mAnimator.start();
+            }
         }
     }
 
@@ -370,6 +378,8 @@ public class ColorPickerFragmentNew extends Fragment implements
                 if (mAnimationType != ANIMATE_COLOR_TRANSITION) {
                     if (!mHelpScreenVisible) {
                         mHelpScreen.setVisibility(View.VISIBLE);
+                    } else {
+                        onCheckedChanged(mMainButtonsGroup, ConfigColorPicker.getMainButtonChededId(getActivity()));
                     }
                 }
             }
@@ -395,7 +405,6 @@ public class ColorPickerFragmentNew extends Fragment implements
                     mHelpScreenVisible = !mHelpScreenVisible;
                     getArguments().putInt(KEY_HELP_SCREEN_VISIBILITY, mHelpScreenVisible
                             ? HELP_SCREEN_VISIBILITY_VISIBLE : HELP_SCREEN_VISIBILITY_GONE);
-                    getActivity().invalidateOptionsMenu();
                 }
             }
         });
