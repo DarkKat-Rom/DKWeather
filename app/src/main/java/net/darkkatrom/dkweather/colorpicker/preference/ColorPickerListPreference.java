@@ -30,7 +30,6 @@ import android.preference.ListPreference;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -38,7 +37,6 @@ import android.widget.TextView;
 
 import net.darkkatrom.dkweather.R;
 import net.darkkatrom.dkweather.colorpicker.util.ColorPickerHelper;
-import net.darkkatrom.dkweather.colorpicker.widget.ColorViewButton;
 
 public class ColorPickerListPreference extends ListPreference implements
         ColorPickerListAdapter.OnItemClickedListener {
@@ -76,8 +74,8 @@ public class ColorPickerListPreference extends ListPreference implements
             }
             a.recycle();
         }
-        setPositiveButtonText(R.string.dialog_ok);
-        setNegativeButtonText(R.string.dialog_cancel);
+        setPositiveButtonText(R.string.dlg_ok);
+        setNegativeButtonText(R.string.dlg_cancel);
         setLayoutResource(R.layout.preference_color_picker);
         setWidgetLayoutResource(R.layout.preference_widget_color_picker_list);
     }

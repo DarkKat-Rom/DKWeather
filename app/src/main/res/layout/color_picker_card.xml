@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+     Copyright (C) 2018 DarkKat
+
+     Licensed under the Apache License, Version 2.0 (the "License"); 
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/color_picker_card_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/color_picker_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/color_picker_card_margin"
+        app:cardElevation="@dimen/color_picker_card_elevation">
+
+        <LinearLayout
+            android:id="@+id/color_picker_card_content_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/ripple_drawable_rectangle_rounded_corners"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/color_picker_card_header_layout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/color_picker_card_header_layout_height"
+                android:paddingStart="@dimen/color_picker_card_header_layout_padding_start_end"
+                android:paddingEnd="@dimen/color_picker_card_header_layout_padding_start_end"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/color_picker_card_header_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="?android:attr/textColorPrimary" />
+
+                <TextView
+                    android:id="@+id/color_picker_card_header_subtitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/color_picker_card_header_subtitle_margin_top"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="?android:attr/textColorSecondary" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/color_picker_card_footer_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/color_picker_card_footer_layout_margin_top"
+                android:gravity="center_vertical">
+
+                <Button
+                    android:id="@+id/color_picker_card_footer_action_apply_color"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/color_picker_card_footer_apply_action_margin_start"
+                    android:paddingStart="@dimen/color_picker_card_footer_apply_action_padding_start_end"
+                    android:paddingEnd="@dimen/color_picker_card_footer_apply_action_padding_start_end"
+                    android:text="@string/color_picker_card_apply_color_title"
+                    style="@style/Widget.AppCompat.Button.Borderless" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
+
+                <FrameLayout
+                    android:id="@+id/color_picker_card_footer_action_favorite"
+                    android:layout_width="@dimen/color_picker_card_footer_favorite_action_width_height"
+                    android:layout_height="@dimen/color_picker_card_footer_favorite_action_width_height"
+                    android:layout_marginEnd="@dimen/color_picker_card_footer_favorite_action_margin_end"
+                    android:padding="@dimen/color_picker_card_footer_favorite_action_padding"
+                    android:background="@drawable/control_background_40dp_material">
+
+                    <ImageView
+                        android:id="@+id/color_picker_card_footer_action_icon_add_favorite"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_action_add_favorite"
+                        android:visibility="gone" />
+
+                    <ImageView
+                        android:id="@+id/color_picker_card_footer_action_icon_remove_favorite"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_action_remove_favorite"
+                        android:visibility="gone" />
+                </FrameLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+</FrameLayout>

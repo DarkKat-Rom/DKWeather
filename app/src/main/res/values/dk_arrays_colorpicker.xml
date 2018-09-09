@@ -15,48 +15,15 @@
 -->
 <resources>
 
-    <array name="color_picker_favorite_color_buttons">
-        <item>@id/favorite_color_button_1</item>
-        <item>@id/favorite_color_button_2</item>
-        <item>@id/favorite_color_button_3</item>
-        <item>@id/favorite_color_button_4</item>
-    </array>
-
-    <array name="color_picker_palette_color_buttons_layouts">
-        <item>@id/color_buttons_dk</item>
-        <item>@id/color_buttons_material</item>
-        <item>@id/color_buttons_rgb</item>
-    </array>
-
-    <array name="color_picker_palette_color_buttons">
-        <item>@id/palette_color_button_1</item>
-        <item>@id/palette_color_button_2</item>
-        <item>@id/palette_color_button_3</item>
-        <item>@id/palette_color_button_4</item>
-        <item>@id/palette_color_button_5</item>
-        <item>@id/palette_color_button_6</item>
-        <item>@id/palette_color_button_7</item>>
-        <item>@id/palette_color_button_8</item>
-    </array>
-
-    <array name="color_picker_material_palette_color_buttons">
-        <item>@id/palette_color_button_1</item>
-        <item>@id/palette_color_button_2</item>
-        <item>@id/palette_color_button_3</item>
-        <item>@id/palette_color_button_4</item>
-        <item>@id/palette_color_button_5</item>
-        <item>@id/palette_color_button_6</item>
-        <item>@id/palette_color_button_7</item>>
-        <item>@id/palette_color_button_8</item>
-        <item>@id/palette_color_button_9</item>
-        <item>@id/palette_color_button_10</item>
-        <item>@id/palette_color_button_11</item>
-        <item>@id/palette_color_button_12</item>
-        <item>@id/palette_color_button_13</item>
-        <item>@id/palette_color_button_14</item>
-        <item>@id/palette_color_button_15</item>>
-        <item>@id/palette_color_button_16</item>
-        <item>@id/palette_color_button_17</item>
+    <array name="color_picker_darkkat_palette_titles">
+        <item>@string/card_darkkat_blue_grey</item>
+        <item>@string/card_darkkat_blue_blue_grey</item>
+        <item>@string/card_accent_darkkat</item>
+        <item>@string/card_holo_blue_light</item>
+        <item>@string/black</item>
+        <item>@string/white</item>
+        <item>@string/card_material_deep_teal_500</item>
+        <item>@string/card_material_indigo_500</item>
     </array>
 
     <array name="color_picker_darkkat_palette">
@@ -68,6 +35,26 @@
         <item>@color/white</item>
         <item>@color/material_deep_teal_500</item>
         <item>@color/material_indigo_500</item>
+    </array>
+
+    <array name="color_picker_material_palette_titles">
+        <item>@string/card_material_blue_grey_500</item>
+        <item>@string/card_material_blue_500</item>
+        <item>@string/card_material_light_blue_500</item>
+        <item>@string/card_material_cyan_500</item>
+        <item>@string/card_material_deep_teal_500</item>
+        <item>@string/card_material_indigo_500</item>
+        <item>@string/card_material_purple_500</item>
+        <item>@string/card_material_deep_purple_500</item>
+        <item>@string/card_material_pink_500</item>
+        <item>@string/card_material_orange_500</item>
+        <item>@string/card_material_deep_orange_500</item>
+        <item>@string/card_material_red_500</item>
+        <item>@string/card_material_yellow_500</item>
+        <item>@string/card_material_amber_500</item>
+        <item>@string/card_material_green_500</item>
+        <item>@string/card_material_light_green_500</item>
+        <item>@string/card_material_lime_500</item>
     </array>
 
     <array name="color_picker_material_palette">
@@ -90,6 +77,43 @@
         <item>@color/material_lime_500</item>
     </array>
 
+    <array name="color_picker_holo_palette_titles">
+        <item>@string/card_holo_blue_light</item>
+        <item>@string/card_holo_blue_dark</item>
+        <item>@string/card_holo_blue_bright</item>
+        <item>@string/card_holo_purple</item>
+        <item>@string/card_holo_orange_light</item>
+        <item>@string/card_holo_orange_dark</item>
+        <item>@string/card_holo_red_light</item>
+        <item>@string/card_holo_red_dark</item>
+        <item>@string/card_holo_green_light</item>
+        <item>@string/card_holo_green_dark</item>
+    </array>
+
+    <array name="color_picker_holo_palette">
+        <item>@color/holo_blue_light</item>
+        <item>@color/holo_blue_dark</item>
+        <item>@color/holo_blue_bright</item>
+        <item>@color/holo_purple</item>
+        <item>@color/holo_orange_light</item>
+        <item>@color/holo_orange_dark</item>
+        <item>@color/holo_red_light</item>
+        <item>@color/holo_red_dark</item>
+        <item>@color/holo_green_light</item>
+        <item>@color/holo_green_dark</item>
+    </array>
+
+    <array name="color_picker_rgb_palette_titles">
+        <item>@string/black</item>
+        <item>@string/red</item>
+        <item>@string/green</item>
+        <item>@string/blue</item>
+        <item>@string/white</item>
+        <item>@string/purple</item>
+        <item>@string/yellow</item>>
+        <item>@string/orange</item>
+    </array>
+
     <array name="color_picker_rgb_palette">
         <item>@color/black</item>
         <item>@color/red</item>
@@ -100,4 +124,119 @@
         <item>@color/yellow</item>>
         <item>@color/orange</item>
     </array>
+
+
+    <array name="color_picker_all_palette_titles">
+        <item>@string/card_darkkat_blue_grey</item>
+        <item>@string/card_darkkat_blue_blue_grey</item>
+        <item>@string/card_accent_darkkat</item>
+        <item>@string/card_material_blue_grey_500</item>
+        <item>@string/card_material_blue_500</item>
+        <item>@string/card_material_light_blue_500</item>
+        <item>@string/card_material_cyan_500</item>
+        <item>@string/card_material_deep_teal_500</item>
+        <item>@string/card_material_indigo_500</item>
+        <item>@string/card_material_purple_500</item>
+        <item>@string/card_material_deep_purple_500</item>
+        <item>@string/card_material_pink_500</item>
+        <item>@string/card_material_orange_500</item>
+        <item>@string/card_material_deep_orange_500</item>
+        <item>@string/card_material_red_500</item>
+        <item>@string/card_material_yellow_500</item>
+        <item>@string/card_material_amber_500</item>
+        <item>@string/card_material_green_500</item>
+        <item>@string/card_material_light_green_500</item>
+        <item>@string/card_material_lime_500</item>
+        <item>@string/card_holo_blue_light</item>
+        <item>@string/card_holo_blue_dark</item>
+        <item>@string/card_holo_blue_bright</item>
+        <item>@string/card_holo_purple</item>
+        <item>@string/card_holo_orange_light</item>
+        <item>@string/card_holo_orange_dark</item>
+        <item>@string/card_holo_red_light</item>
+        <item>@string/card_holo_red_dark</item>
+        <item>@string/card_holo_green_light</item>
+        <item>@string/card_holo_green_dark</item>
+        <item>@string/black</item>
+        <item>@string/red</item>
+        <item>@string/green</item>
+        <item>@string/blue</item>
+        <item>@string/white</item>
+        <item>@string/purple</item>
+        <item>@string/yellow</item>>
+        <item>@string/orange</item>
+    </array>
+
+    <array name="color_picker_all_palette">
+        <item>@color/darkkat_blue_grey</item>
+        <item>@color/darkkat_blue_blue_grey</item>
+        <item>@color/accent_darkkat</item>
+        <item>@color/material_blue_grey_500</item>
+        <item>@color/material_blue_500</item>
+        <item>@color/material_light_blue_500</item>
+        <item>@color/material_cyan_500</item>
+        <item>@color/material_deep_teal_500</item>
+        <item>@color/material_indigo_500</item>
+        <item>@color/material_purple_500</item>
+        <item>@color/material_deep_purple_500</item>
+        <item>@color/material_pink_500</item>
+        <item>@color/material_orange_500</item>
+        <item>@color/material_deep_orange_500</item>
+        <item>@color/material_red_500</item>
+        <item>@color/material_yellow_500</item>
+        <item>@color/material_amber_500</item>
+        <item>@color/material_green_500</item>
+        <item>@color/material_light_green_500</item>
+        <item>@color/material_lime_500</item>
+        <item>@color/holo_blue_light</item>
+        <item>@color/holo_blue_dark</item>
+        <item>@color/holo_blue_bright</item>
+        <item>@color/holo_purple</item>
+        <item>@color/holo_orange_light</item>
+        <item>@color/holo_orange_dark</item>
+        <item>@color/holo_red_light</item>
+        <item>@color/holo_red_dark</item>
+        <item>@color/holo_green_light</item>
+        <item>@color/holo_green_dark</item>
+        <item>@color/black</item>
+        <item>@color/red</item>
+        <item>@color/green</item>
+        <item>@color/blue</item>
+        <item>@color/white</item>
+        <item>@color/purple</item>
+        <item>@color/yellow</item>>
+        <item>@color/orange</item>
+    </array>
+
+    <string-array name="color_picker_settings_default_view_entries">
+        <item>@string/color_picker_settings_default_view_current_view_title</item>
+        <item>@string/chip_pick_title</item>
+        <item>@string/chip_favorites_title</item>
+        <item>@string/chip_darkkat_title</item>
+        <item>@string/chip_material_title</item>
+        <item>@string/chip_holo_title</item>
+        <item>@string/chip_rgb_title</item>
+        </string-array>
+
+    <string-array name="color_picker_settings_default_view_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+    </string-array>
+
+    <string-array name="color_picker_settings_favorite_card_allow_delete_type_entries">
+        <item>@string/color_picker_settings_favorite_card_allow_delete_type_all_title</item>
+        <item>@string/color_picker_settings_favorite_card_allow_delete_type_palette_title</item>
+        <item>@string/color_picker_settings_favorite_card_allow_delete_type_never_title</item>
+        </string-array>
+
+    <string-array name="color_picker_settings_favorite_card_allow_delete_type_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
 </resources>

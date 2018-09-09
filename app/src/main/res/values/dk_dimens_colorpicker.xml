@@ -126,43 +126,40 @@
     <!-- Marging of the color picker view -->
     <dimen name="color_picker_view_margin">8.5dp</dimen>
 
-    <!-- Color buttons -->
+    <!-- Color picker card -->
 
-    <!-- Top margin of the color picker color buttons scroll view -->
-    <dimen name="color_picker_color_buttons_scroll_view_margin_top">8dp</dimen>
+    <!-- Marging of the color picker card -->
+    <dimen name="color_picker_card_margin">4dp</dimen>
 
-    <!-- Bottom padding of the color picker color buttons scroll view -->
-    <dimen name="color_picker_color_buttons_scroll_padding_bottom">16dp</dimen>
+    <!-- Elevation of the color picker card -->
+    <dimen name="color_picker_card_elevation">4dp</dimen>
 
-    <!-- Fading edge lenght of the color picker color buttons scroll view -->
-    <dimen name="color_picker_color_buttons_scroll_view_fading_edge_lenght">12dp</dimen>
+    <!-- Height of the color picker card header layout -->
+    <dimen name="color_picker_card_header_layout_height">72dp</dimen>
 
-    <!-- Bottom margin of the color picker color buttons layout  -->
-    <dimen name="color_picker_color_buttons_container_margin_bottom">8dp</dimen>
+    <!-- Start and end padding of the color picker card header layout -->
+    <dimen name="color_picker_card_header_layout_padding_start_end">16dp</dimen>
 
-    <!-- Top margin of the color picker color buttons second layout  -->
-    <dimen name="color_picker_color_buttons_second_layout_margin_top">8dp</dimen>
+    <!-- Top Marging of the color picker card header subtitle -->
+    <dimen name="color_picker_card_header_subtitle_margin_top">4dp</dimen>
 
-    <!-- Start margin of the color picker buttons title -->
-    <dimen name="color_picker_color_buttons_title_margin_start">16dp</dimen>
+    <!-- Top Marging of the color picker card footer layout -->
+    <dimen name="color_picker_card_footer_layout_margin_top">8dp</dimen>
 
-    <!-- Top margin of the color picker color buttons  -->
-    <dimen name="color_picker_color_buttons_layout_margin_top">4dp</dimen>
+    <!-- Start Marging of the color picker card footer apply action -->
+    <dimen name="color_picker_card_footer_apply_action_margin_start">4dp</dimen>
 
-    <!-- Start margin of the color picker color buttons layout  -->
-    <dimen name="color_picker_color_buttons_layout_margin_start">12dp</dimen>
+    <!-- Start and end padding of the color picker card footer apply action -->
+    <dimen name="color_picker_card_footer_apply_action_padding_start_end">12dp</dimen>
 
-    <!-- End margin of the color picker color buttons layout  -->
-    <dimen name="color_picker_color_buttons_layout_margin_end">12dp</dimen>
+    <!-- Width and height of the color picker card footer favorite action -->
+    <dimen name="color_picker_card_footer_favorite_action_width_height">48dp</dimen>
 
-    <!-- Start and end margin of the color picker color buttons  -->
-    <dimen name="color_picker_color_button_margin_start_end">4dp</dimen>
+    <!-- End margin of the color picker card footer favorite action -->
+    <dimen name="color_picker_card_footer_favorite_action_margin_end">4dp</dimen>
 
-    <!-- Text size of the color picker color buttons title name  -->
-    <dimen name="color_picker_color_button_title_name_text_size">14sp</dimen>
-
-    <!-- Text size of the color picker color buttons value  -->
-    <dimen name="color_picker_color_button_value_text_size">10sp</dimen>
+    <!-- Padding of the color picker card footer favorite action -->
+    <dimen name="color_picker_card_footer_favorite_action_padding">12dp</dimen>
 
     <!-- Help screen -->
 
@@ -172,17 +169,8 @@
     <!-- Start and end padding of the color picker help screen -->
     <dimen name="color_picker_help_screen_padding_start_end">16dp</dimen>
 
-    <!-- Top margin of the color picker help screen main title text -->
-    <dimen name="color_picker_help_screen_main_title_text_margin_top">16dp</dimen>
-
     <!-- Top margin of the color picker help screen title text -->
     <dimen name="color_picker_help_screen_title_margin_top">8dp</dimen>
-
-    <!-- Top margin of the color picker help screen secondary title text -->
-    <dimen name="color_picker_help_screen_secondary_title_margin_top">4dp</dimen>
-
-    <!-- Top margin of the color picker help screen summary text -->
-    <dimen name="color_picker_help_screen_summary_margin_top">4dp</dimen>
 
     <!-- Top and bottom margin of the color picker help screen button bar -->
     <dimen name="color_picker_help_screen_button_bar_margin_top_bottom">8dp</dimen>
@@ -193,9 +181,4 @@
     <!-- Text size of the color picker help screen title text -->
     <dimen name="color_picker_help_screen_title_text_size">16sp</dimen>
 
-    <!-- Text size of the color picker help screen secondary title text -->
-    <dimen name="color_picker_help_screen_secondary_title_text_size">12sp</dimen>
-
-    <!-- Text size of the color picker help screen summary text -->
-    <dimen name="color_picker_help_screen_summary_text_size">12sp</dimen>
 </resources>

@@ -20,13 +20,13 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.util.AttributeSet;
-import android.util.TypedValue;
 import android.widget.ImageView;
 import android.widget.FrameLayout;
 import android.view.View;
 
 import net.darkkatrom.dkweather.R;
 import net.darkkatrom.dkweather.colorpicker.drawable.ColorViewCircleDrawable;
+import net.darkkatrom.dkweather.utils.ThemeUtil;
 
 public class ApplyColorView extends FrameLayout {
 
@@ -54,14 +54,8 @@ public class ApplyColorView extends FrameLayout {
         super.onFinishInflate();
         final Resources res = getContext().getResources();
         final int drawableSize = (int) res.getDimension(R.dimen.color_picker_button_drawable_size);
-        TypedValue tv = new TypedValue();
 
-        getContext().getTheme().resolveAttribute(R.attr.colorControlHighlight, tv, true);
-        if (tv.type >= TypedValue.TYPE_FIRST_COLOR_INT && tv.type <= TypedValue.TYPE_LAST_COLOR_INT) {
-            mBorderColor = tv.data;
-        } else {
-            mBorderColor = getContext().getColor(tv.resourceId);
-        }
+        mBorderColor = ThemeUtil.getColorFromThemeAttribute(getContext(), R.attr.colorControlHighlight);
 
         mColorView = (ImageView) findViewById(R.id.apply_color_action_color);
         mColorSet = (ImageView) findViewById(R.id.apply_color_action_set);

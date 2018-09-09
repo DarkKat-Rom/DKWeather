@@ -19,7 +19,6 @@ package net.darkkatrom.dkweather.colorpicker.preference;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,8 +27,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import net.darkkatrom.dkweather.R;
+import net.darkkatrom.dkweather.utils.ThemeUtil;
 import net.darkkatrom.dkweather.colorpicker.util.ColorPickerHelper;
-import net.darkkatrom.dkweather.colorpicker.widget.ColorViewButton;
+import net.darkkatrom.dkweather.colorpicker.widget.ColorPreview;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,13 +58,7 @@ public class ColorPickerListAdapter extends RecyclerView.Adapter<ColorPickerList
         mContext = context;
         mDividerTop = dividerTop;
         mDividerBottom = dividerBottom;
-        TypedValue tv = new TypedValue();
-        mContext.getTheme().resolveAttribute(R.attr.colorControlHighlight, tv, true);
-        if (tv.type >= TypedValue.TYPE_FIRST_COLOR_INT && tv.type <= TypedValue.TYPE_LAST_COLOR_INT) {
-            mBorderColor = tv.data;
-        } else {
-            mBorderColor = mContext.getColor(tv.resourceId);
-        }
+        mBorderColor = ThemeUtil.getDefaultHighlightColor(mContext);
         mColorPickerListItems = new ArrayList<ColorPickerListItem>();
         mSelectedItem = selectedItem;
         for (int i = 0; i < entries.length; i++) {
@@ -203,14 +197,14 @@ public class ColorPickerListAdapter extends RecyclerView.Adapter<ColorPickerList
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public View mView;
         public CheckedTextView mTitle;
-        public ColorViewButton mPreview;
+        public ColorPreview mPreview;
 
         public ViewHolder(View v) {
             super(v);
 
             mView = v;
             mTitle = (CheckedTextView) v.findViewById(R.id.color_picker_dialog_list_item_title);
-            mPreview = (ColorViewButton) v.findViewById(R.id.color_picker_dialog_list_item_preview);
+            mPreview = (ColorPreview) v.findViewById(R.id.color_picker_dialog_list_item_preview);
         }
     }
 

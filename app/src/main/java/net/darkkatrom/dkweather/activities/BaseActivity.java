@@ -82,9 +82,7 @@ public class BaseActivity extends Activity {
         if (Config.getIndexForAccentColor(this) > 0) {
             mThemeOverlayAccentResId = ThemeUtil.getThemeOverlayAccentResId(this);
         }
-        mThemeOverlayTextResId = Config.getThemeUseDarkTheme(this)
-                ? ThemeUtil.getThemeOverlayDarkTextResId(this)
-                : ThemeUtil.getThemeOverlayLightTextResId(this);
+        mThemeOverlayTextResId = ThemeUtil.getThemeOverlayTextResId(this);
         mThemeOverlayRippleResId = ThemeUtil.getThemeOverlayRippleResId(this);
         mLightStatusBar = ThemeUtil.needsLightStatusBar(this);
         mLightNavigationBar = ThemeUtil.needsLightNavigationBar(this);

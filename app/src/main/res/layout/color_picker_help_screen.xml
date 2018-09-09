@@ -20,9 +20,8 @@
     android:layout_height="match_parent"
     android:paddingStart="@dimen/color_picker_help_screen_padding_start_end"
     android:paddingEnd="@dimen/color_picker_help_screen_padding_start_end"
-    android:background="@color/color_picker_help_screen_background"
-    android:orientation="vertical"
-    android:theme="@style/ThemeOverlay.HelpScreen">
+    android:background="?android:attr/colorBackground"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -47,225 +46,12 @@
 
     </LinearLayout>
 
-    <ScrollView
+    <WebView
+        android:id="@+id/help_screen_html_content"
         android:layout_width="match_parent"
         android:layout_height="0px"
-        android:layout_weight="1"
-        android:scrollbars="vertical"
-        android:scrollbarStyle="outsideOverlay"
-        android:scrollbarDefaultDelayBeforeFade="1500"
-        android:scrollbarAlwaysDrawVerticalTrack="true">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/color_picker_help_screen_main_title_text_size"
-                android:textColor="?attr/colorAccent"
-                android:text="@string/color_picker_help_ab_title"
-                android:singleLine="true" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/color_picker_help_screen_title_margin_top"
-                android:textSize="@dimen/color_picker_help_screen_title_text_size"
-                android:textColor="?android:attr/textColorPrimary"
-                android:text="@string/color_picker_help_ab_back_title"
-                android:singleLine="true" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/color_picker_help_screen_summary_margin_top"
-                android:textSize="@dimen/color_picker_help_screen_summary_text_size"
-                android:textColor="?android:attr/textColorSecondary"
-                android:text="@string/color_picker_help_ab_back_summary" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/color_picker_help_screen_title_margin_top"
-                android:textSize="@dimen/color_picker_help_screen_title_text_size"
-                android:textColor="?android:attr/textColorPrimary"
-                android:text="@string/color_picker_help_ab_name_title"
-                android:singleLine="true" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/color_picker_help_screen_summary_margin_top"
-                android:textSize="@dimen/color_picker_help_screen_summary_text_size"
-                android:textColor="?android:attr/textColorSecondary"
-                android:text="@string/color_picker_help_ab_name_summary" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/color_picker_help_screen_title_margin_top"
-                android:textSize="@dimen/color_picker_help_screen_title_text_size"
-                android:textColor="?android:attr/textColorPrimary"
-                android:text="@string/color_picker_help_ab_color_apply_title"
-                android:singleLine="true" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/color_picker_help_screen_summary_margin_top"
-                android:textSize="@dimen/color_picker_help_screen_summary_text_size"
-                android:textColor="?android:attr/textColorSecondary"
-                android:text="@string/color_picker_help_ab_color_apply_summary" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/color_picker_help_screen_secondary_title_margin_top"
-                android:textSize="@dimen/color_picker_help_screen_title_text_size"
-                android:textColor="?android:attr/textColorPrimary"
-                android:text="@string/color_picker_help_ab_hex_title"
-                android:singleLine="true" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/color_picker_help_screen_summary_margin_top"
-                android:textSize="@dimen/color_picker_help_screen_summary_text_size"
-                android:textColor="?android:attr/textColorSecondary"
-                android:text="@string/color_picker_help_ab_hex_summary" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/color_picker_help_screen_title_margin_top"
-                android:textSize="@dimen/color_picker_help_screen_title_text_size"
-                android:textColor="?android:attr/textColorPrimary"
-                android:text="@string/color_picker_help_ab_menu_title"
-                android:singleLine="true" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/color_picker_help_screen_secondary_title_margin_top"
-                android:textSize="@dimen/color_picker_help_screen_secondary_title_text_size"
-                android:textColor="?android:attr/textColorPrimary"
-                android:text="@string/color_picker_help_ab_menu_reset_title"
-                android:singleLine="true" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/color_picker_help_screen_summary_margin_top"
-                android:textSize="@dimen/color_picker_help_screen_summary_text_size"
-                android:textColor="?android:attr/textColorSecondary"
-                android:text="@string/color_picker_help_ab_menu_reset_summary" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/color_picker_help_screen_secondary_title_margin_top"
-                android:textSize="@dimen/color_picker_help_screen_secondary_title_text_size"
-                android:textColor="?android:attr/textColorPrimary"
-                android:text="@string/color_picker_help_ab_menu_favorites_title"
-                android:singleLine="true" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/color_picker_help_screen_summary_margin_top"
-                android:textSize="@dimen/color_picker_help_screen_summary_text_size"
-                android:textColor="?android:attr/textColorSecondary"
-                android:text="@string/color_picker_help_ab_menu_favorites_summary" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/color_picker_help_screen_secondary_title_margin_top"
-                android:textSize="@dimen/color_picker_help_screen_secondary_title_text_size"
-                android:textColor="?android:attr/textColorPrimary"
-                android:text="@string/color_picker_help_ab_menu_help_title"
-                android:singleLine="true" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/color_picker_help_screen_summary_margin_top"
-                android:textSize="@dimen/color_picker_help_screen_summary_text_size"
-                android:textColor="?android:attr/textColorSecondary"
-                android:text="@string/color_picker_help_ab_menu_help_summary" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/color_picker_help_screen_main_title_text_margin_top"
-                android:textSize="@dimen/color_picker_help_screen_main_title_text_size"
-                android:textColor="?attr/colorAccent"
-                android:text="@string/color_picker_help_colors_title"
-                android:singleLine="true" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/color_picker_help_screen_title_margin_top"
-                android:textSize="@dimen/color_picker_help_screen_title_text_size"
-                android:textColor="?android:attr/textColorPrimary"
-                android:text="@string/color_picker_help_picker_view_title"
-                android:singleLine="true" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/color_picker_help_screen_summary_margin_top"
-                android:textSize="@dimen/color_picker_help_screen_summary_text_size"
-                android:textColor="?android:attr/textColorSecondary"
-                android:text="@string/color_picker_help_picker_view_summary" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/color_picker_help_screen_title_margin_top"
-                android:textSize="@dimen/color_picker_help_screen_title_text_size"
-                android:textColor="?android:attr/textColorPrimary"
-                android:text="@string/color_picker_help_color_buttons_title"
-                android:singleLine="true" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/color_picker_help_screen_secondary_title_margin_top"
-                android:textSize="@dimen/color_picker_help_screen_secondary_title_text_size"
-                android:textColor="?android:attr/textColorPrimary"
-                android:text="@string/color_picker_help_favorites_title" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/color_picker_help_screen_summary_margin_top"
-                android:textSize="@dimen/color_picker_help_screen_summary_text_size"
-                android:textColor="?android:attr/textColorSecondary"
-                android:text="@string/color_picker_help_favorites_summary" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/color_picker_help_screen_secondary_title_margin_top"
-                android:textSize="@dimen/color_picker_help_screen_secondary_title_text_size"
-                android:textColor="?android:attr/textColorPrimary"
-                android:text="@string/color_picker_help_palette_title" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/color_picker_help_screen_summary_margin_top"
-                android:textSize="@dimen/color_picker_help_screen_summary_text_size"
-                android:textColor="?android:attr/textColorSecondary"
-                android:text="@string/color_picker_help_palette_summary" />
-
-        </LinearLayout>
-    </ScrollView>
+        android:layout_weight="1">
+    </WebView>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -283,7 +69,8 @@
             android:textColor="?android:attr/textColorPrimary"
             android:text="@string/color_picker_help_do_not_show_title"
             android:drawablePadding="6dp"
-            android:drawableEnd="@drawable/indicator_check_box" />
+            android:drawableEnd="@drawable/indicator_check_box"
+            android:background="@drawable/ripple_drawable_rectangle" />
 
         <Space
             android:layout_width="0px"
@@ -296,7 +83,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_gravity="end"
-            android:textColor="@color/color_button_text_color"
+            android:textColor="?attr/coloredBackgroundTextIconColor"
             android:text="@string/color_picker_help_button_ok_title"
             android:background="@drawable/button_colored" />
 

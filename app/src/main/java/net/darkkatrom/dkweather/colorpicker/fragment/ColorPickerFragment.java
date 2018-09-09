@@ -16,27 +16,20 @@
 
 package net.darkkatrom.dkweather.colorpicker.fragment;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.app.Fragment;
-import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.support.v4.view.animation.FastOutLinearInInterpolator;
-import android.support.v4.view.animation.FastOutSlowInInterpolator;
-import android.support.v4.view.animation.LinearOutSlowInInterpolator;
+import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.inputmethod.InputMethodManager;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -44,27 +37,43 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver.OnGlobalLayoutListener;
+import android.webkit.WebView;
 import android.widget.EditText;
 import android.widget.Button;
 import android.widget.CheckedTextView;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.PopupMenu;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import net.darkkatrom.dkweather.R;
+import net.darkkatrom.dkweather.utils.ColorUtil;
+import net.darkkatrom.dkweather.utils.Config;
+import net.darkkatrom.dkweather.utils.ThemeUtil;
 import net.darkkatrom.dkweather.colorpicker.ColorPickerActivity;
+import net.darkkatrom.dkweather.colorpicker.ColorPickerSettingsActivity;
+import net.darkkatrom.dkweather.colorpicker.adapter.ColorPickerCardAdapter;
+import net.darkkatrom.dkweather.colorpicker.animator.BaseItemAnimator;
+import net.darkkatrom.dkweather.colorpicker.animator.ColorPickerCardAnimator;
+import net.darkkatrom.dkweather.colorpicker.animator.ColorPickerFragmentAnimator;
+import net.darkkatrom.dkweather.colorpicker.model.ColorPickerCard;
+import net.darkkatrom.dkweather.colorpicker.model.ColorPickerColorCard;
+import net.darkkatrom.dkweather.colorpicker.model.ColorPickerFavoriteCard;
 import net.darkkatrom.dkweather.colorpicker.preference.ColorPickerPreference;
 import net.darkkatrom.dkweather.colorpicker.widget.ApplyColorView;
 import net.darkkatrom.dkweather.colorpicker.widget.ColorPickerView;
-import net.darkkatrom.dkweather.colorpicker.widget.ColorViewButton;
+import net.darkkatrom.dkweather.colorpicker.widget.RadioGroupsGroup;
 import net.darkkatrom.dkweather.colorpicker.util.ColorPickerHelper;
 import net.darkkatrom.dkweather.colorpicker.util.ConfigColorPicker;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ColorPickerFragment extends Fragment implements
         ColorPickerView.OnColorChangedListener, TextWatcher, View.OnClickListener,
-                View.OnLongClickListener, View.OnFocusChangeListener {
+        View.OnFocusChangeListener, RadioGroup.OnCheckedChangeListener,
+        RadioGroupsGroup.OnCheckedChangeListener, ColorPickerCardAdapter.OnCardClickedListener {
 
     public static final String TAG = "ColorPickerFragment";
 
@@ -79,37 +88,32 @@ public class ColorPickerFragment extends Fragment implements
     public static final String KEY_RESET_COLOR_1_TITLE      = "reset_color_1_Title";
     public static final String KEY_RESET_COLOR_2_TITLE      = "reset_color_2_Title";
     public static final String KEY_ALPHA_SLIDER_VISIBLE     = "alpha_slider_visible";
-
-    public static final String COLOR_PICKER_FAVORITES        = "color_picker_favorite_";
+    public static final String KEY_FAVORITE_BASE            = "color_picker_favorite_";
+    public static final String KEY_ADDITION_SUBTITLE        = "_subtitle";
     public static final String KEY_HELP_SCREEN_VISIBILITY   = "help_screen_Visibility";
 
     private static final int HELP_SCREEN_VISIBILITY_DEFAULT = 0;
-    private static final int HELP_SCREEN_VISIBILITY_VISIBLE = 1;
-    private static final int HELP_SCREEN_VISIBILITY_GONE    = 2;
+    public static final int HELP_SCREEN_VISIBILITY_VISIBLE = 1;
+    public static final int HELP_SCREEN_VISIBILITY_GONE    = 2;
 
-    private static final int PALETTE_MATERIAL = 1;
-    private static final int PALETTE_RGB      = 2;
+    public static final int NUM_MAX_FAVORITES = 10;
 
-    private static final int ANIMATE_TO_SHOW = 0;
-    private static final int ANIMATE_TO_HIDE = 1;
-    private static final int NO_ANIMATION    = 2;
-
-    private static final int ANIMATE_COLOR_TRANSITION       = 0;
-    private static final int ANIMATE_FAVORITES_VISIBILITY   = 1;
-    private static final int ANIMATE_HELP_SCREEN_VISIBILITY = 2;
-
-    private SharedPreferences mPrefs;
     private Resources mResources;
 
     private ApplyColorView mApplyColorAction;
     private MenuItem mShowEditHexAction;
     private EditText mEditHexValue;
 
-    private View mColorPickerView;
+    private ViewGroup mColorPickerView;
     private TextView mAdditionalSubtitleView;
     private ColorPickerView mColorPicker;
-    private LinearLayout mColorButtonsLayout;
-    private LinearLayout mFavoritesLayout;
+
+    private RadioGroup mChipsGroup;
+    private RadioGroupsGroup mChipsGroupsGroup;
+    private int mOldMainButtonsCheckedId = -1;
+    private int mMainButtonsCheckedId = -1;
+
+    private RecyclerView mContentList;
 
     private View mHelpScreen;
     private CheckedTextView mCheckShowHelpScreen;
@@ -126,8 +130,6 @@ public class ColorPickerFragment extends Fragment implements
     private int mResetColor2;
     private CharSequence mResetColor1Title;
     private CharSequence mResetColor2Title;
-    private int mBorderColor;
-    private boolean mShowFavorites;
     private boolean mShowHelpScreen;
     private boolean mHelpScreenVisible;
 
@@ -135,13 +137,14 @@ public class ColorPickerFragment extends Fragment implements
     private boolean mHideResetColor2 = true;
     private boolean mShowSubMenu = false;
 
-    private float mFullTranslationX;
-    private int mFavoritesLayoutHeight = 0;
-    private int mHelpScreenHeight = 0;
+    private ColorPickerFragmentAnimator mFragmentAnimator;
 
-    private Animator mAnimator;
-    private int mApplyColorIconAnimationType;
-    private int mAnimationType;
+    private ColorPickerCardAdapter mCardAdapter = null;
+    private List<ColorPickerCard> mColorPickerCards;
+    private int[] mFavoriteColors;
+    private int mItemCount = 0;
+    private int mDisabledCardClickedItem = -1;
+    private int mAllowDeleteType;
 
     private OnColorChangedListener mListener;
 
@@ -166,17 +169,15 @@ public class ColorPickerFragment extends Fragment implements
     private View inflateAndSetupView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
 
-        mPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         mResources = getActivity().getResources();
-        TypedValue tv = new TypedValue();
 
-        mColorPickerView = inflater.inflate(R.layout.color_picker_fragment, container, false);
+        mColorPickerView = (ViewGroup) inflater.inflate(R.layout.color_picker_fragment, container, false);
         mAdditionalSubtitleView = (TextView) mColorPickerView.findViewById(R.id.color_picker_additional_subtitle);
         mColorPicker = (ColorPickerView) mColorPickerView.findViewById(R.id.color_picker_view);
-        mColorButtonsLayout = (LinearLayout) mColorPickerView.findViewById(
-                R.id.color_picker_color_buttons_layout);
-        mFavoritesLayout = (LinearLayout) mColorPickerView.findViewById(R.id.favorite_buttons);
-        mHelpScreen = mColorPickerView.findViewById(R.id.color_picker_help_screen);
+        mChipsGroup = (RadioGroup) mColorPickerView.findViewById(R.id.color_picker_chips_group);
+        mChipsGroupsGroup = (RadioGroupsGroup) mColorPickerView.findViewById(R.id.color_picker_chips_groups_group);
+        mContentList = (RecyclerView) mColorPickerView.findViewById(R.id.color_picker_content_list);
+        inflateHelpScreen();
 
         if (getArguments() != null) {
             mPreferenceKey = getArguments().getString(ColorPickerPreference.PREFERENCE_KEY);
@@ -216,16 +217,6 @@ public class ColorPickerFragment extends Fragment implements
             }
         }
 
-        getActivity().getTheme().resolveAttribute(R.attr.colorControlHighlight, tv, true);
-        if (tv.type >= TypedValue.TYPE_FIRST_COLOR_INT && tv.type <= TypedValue.TYPE_LAST_COLOR_INT) {
-            mBorderColor = tv.data;
-        } else {
-            mBorderColor = getActivity().getColor(tv.resourceId);
-        }
-
-        mFullTranslationX = mResources.getDimension(
-                R.dimen.color_picker_action_apply_color_translation_x);
-
         if (mAdditionalSubtitle != null) {
             mAdditionalSubtitleView.setVisibility(View.VISIBLE);
             mAdditionalSubtitleView.setText(mAdditionalSubtitle);
@@ -233,22 +224,203 @@ public class ColorPickerFragment extends Fragment implements
 
         mColorPicker.setOnColorChangedListener(this);
         mColorPicker.setColor(mNewColorValue);
-        mColorPicker.setBorderColor(mBorderColor);
+        mColorPicker.setBorderColor(ThemeUtil.getDefaultHighlightColor(getActivity()));
 
+        if (mChipsGroup != null) {
+            mChipsGroup.setOnCheckedChangeListener(this);
+        }
+        if (mChipsGroupsGroup != null) {
+            mChipsGroupsGroup.setOnCheckedChangeListener(this);
+        }
         if (getArguments() != null && getArguments().getBoolean(KEY_ALPHA_SLIDER_VISIBLE)) {
             mColorPicker.setAlphaSliderVisible(true);
         }
 
-        if (mAnimator == null) {
-            mAnimator = createAnimator();
-        }
+        mFragmentAnimator = new ColorPickerFragmentAnimator(getActivity(),
+                ColorPickerFragment.this, mHelpScreenVisible);
 
+        setAllFavoriteColors();
         setUpResetMenuAppearience();
-        setUpFavoriteColorButtons();
-        setUpPaletteColorButtons();
-        setUpHelpScreen();
+
+        mAllowDeleteType = ConfigColorPicker.getAllowDeleteType(getActivity());
 
         return mColorPickerView;
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        final boolean isSavedState = savedInstanceState != null;
+        view.post(new Runnable() {
+            @Override
+            public void run() {
+                if (!mHelpScreenVisible) {
+                    float translationX = mHelpScreen.getWidth();
+                    mHelpScreen.setTranslationX(translationX);
+                    mHelpScreen.setVisibility(View.GONE);
+                }
+                mColorPicker.setTranslationX(mColorPickerView.findViewById(R.id.color_picker_content).getWidth());
+                mContentList.setTranslationX(mColorPickerView.findViewById(R.id.color_picker_content).getWidth());
+
+                setUpHelpScreen();
+                setUpMainContent(isSavedState);
+            }
+        });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mAllowDeleteType != ConfigColorPicker.getAllowDeleteType(getActivity())) {
+            mAllowDeleteType = ConfigColorPicker.getAllowDeleteType(getActivity());
+            if (mMainButtonsCheckedId == R.id.color_picker_chip_favorites) {
+                if (!(mContentList.getItemAnimator() instanceof ColorPickerCardAnimator)) {
+                    mContentList.setItemAnimator(new ColorPickerCardAnimator());
+                }
+                mCardAdapter.notifyItemRangeChanged(0, mItemCount);
+            }
+        }
+    }
+
+    private void inflateHelpScreen() {
+        // As the help sceen always uses a dark background, create a themed context
+        ContextThemeWrapper themedContext =
+                new ContextThemeWrapper(getActivity(), android.R.style.Theme_Material);
+        int themeOverlayAccentResId = ThemeUtil.getThemeOverlayAccentResId(getActivity(), true);
+        int themeOverlayTextResId = ThemeUtil.getThemeOverlayTextResId(getActivity(), true);
+        int themeOverlayRippleResId = ThemeUtil.getThemeOverlayRippleResId(getActivity(), true);
+        int accentColor = ThemeUtil.getColorFromThemeAttribute(getActivity(), R.attr.colorAccent);
+        int themeOverlayColoredBackground = ColorUtil.isColorDark(accentColor)
+                ? R.style.ThemeOverlay_HelpScreen_ColoredBackgroundDark
+                : R.style.ThemeOverlay_HelpScreen_ColoredBackgroundLight;
+        int themeOverlayBackground = Config.getThemeUseDarkTheme(getActivity())
+                ? R.style.ThemeOverlay_HelpScreen_Dark
+                : R.style.ThemeOverlay_HelpScreen_Light;
+
+        if (themeOverlayAccentResId > 0) {
+            // Apply the (custom) accent color to the themed context
+            themedContext.getTheme().applyStyle(themeOverlayAccentResId, true);
+        }
+        if (themeOverlayTextResId > 0) {
+            // Apply the (custom) dark text color to the themed context
+            themedContext.getTheme().applyStyle(themeOverlayTextResId, true);
+        }
+        if (themeOverlayRippleResId > 0) {
+            // Apply the (custom) dark ripple effect color to the themed context
+            themedContext.getTheme().applyStyle(themeOverlayRippleResId, true);
+        }
+
+        // Apply needed colors related to backgrounds using the accent color:
+        // (dark on light backgrounds and vise versa)
+        // - Text color
+        // - Icon color
+        // - Ripple effect color
+        themedContext.getTheme().applyStyle(themeOverlayColoredBackground, true);
+
+        // Apply black / translucent black background on light/dark app theme
+        themedContext.getTheme().applyStyle(themeOverlayBackground, true);
+
+        // Inflate the help screen using the themed context
+        LayoutInflater inflater =
+                (LayoutInflater) themedContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        mHelpScreen = inflater.inflate(R.layout.color_picker_help_screen, mColorPickerView, false);
+        mColorPickerView.addView(mHelpScreen);
+    }
+
+    private void setAllFavoriteColors() {
+        mFavoriteColors = new int[NUM_MAX_FAVORITES];
+
+        for (int i = 0; i < NUM_MAX_FAVORITES; i++) {
+            mFavoriteColors[i] = getFavoriteColor(i + 1);
+        }
+    }
+
+    private void setUpResetMenuAppearience() {
+        if (mResetColor1 == Color.TRANSPARENT) {
+            if (mResetColor2 != Color.TRANSPARENT) {
+                mResetColor2 = Color.TRANSPARENT;
+                Log.w(TAG, "Reset color 1 has not been set, ignore reset color 2 value");
+            }
+            if (mResetColor1Title != null) {
+                mResetColor1Title = null;
+                Log.w(TAG, "Reset color 1 has not been set, ignore reset color 1 title");
+            }
+            if (mResetColor2Title != null) {
+                mResetColor2Title = null;
+                Log.w(TAG, "Reset color 1 has not been set, ignore reset color 2 title");
+            }
+        } else if (mResetColor2 == Color.TRANSPARENT) {
+            if (mResetColor2Title != null) {
+                mResetColor2Title = null;
+                Log.w(TAG, "Reset color 2 has not been set, ignore reset color 2 title");
+            }
+        }
+
+        if (mResetColor1 != 0) {
+            mHideResetColor1 = false;
+            if (mResetColor2 != 0) {
+                mHideResetColor2 = false;
+                mShowSubMenu = true;
+            }
+        }
+    }
+
+    private void setUpHelpScreen() {
+        WebView wv = (WebView) mColorPickerView.findViewById(R.id.help_screen_html_content);
+
+        // As there is no difference for the accent color on light or dark themes,
+        // we can resolve the accent color for the web view using the current app theme.
+        int accentColor = ThemeUtil.getColorFromThemeAttribute(getActivity(), R.attr.colorAccent);
+        // The help screen may uses a different primary/secondary text color,
+        // so we have to resolve the primary/secondary text color for the web view using the help screen theme.
+        int primaryTextColor = ThemeUtil.getColorFromThemeAttribute(
+                mHelpScreen.getContext(), android.R.attr.textColorPrimary);
+        // Convert 'color ints' to 'color strings'
+        String accentColorString = ColorPickerHelper.convertToRGB(accentColor);
+        String primaryTextColorString =
+                ColorPickerHelper.convertToRGBAForWebView(primaryTextColor, "1");
+        String secondaryTextColorString =
+                ColorPickerHelper.convertToRGBAForWebView(primaryTextColor, "0.7");
+        // Get the colorized web view 'html string' content
+        String content = getString(R.string.color_picker_help_main_content, accentColorString,
+                primaryTextColorString, secondaryTextColorString);
+
+        wv.getSettings().setJavaScriptEnabled(true);
+        wv.setBackgroundColor(0);
+        wv.loadData(content, "text/html", "utf-8");
+        mCheckShowHelpScreen = (CheckedTextView) mColorPickerView.findViewById(
+                R.id.color_picker_check_show_help_screen);
+        mCheckShowHelpScreen.setChecked(!mShowHelpScreen);
+        mCheckShowHelpScreen.setOnClickListener(this);
+        mCloseHelpScreen = (Button) mColorPickerView.findViewById(
+                R.id.color_picker_help_button_ok);
+        mCloseHelpScreen.setOnClickListener(this);
+
+        mHelpScreen.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return true;
+            }
+        });
+    }
+
+    private void setUpMainContent(boolean isSavedState) {
+        if (mChipsGroup != null) {
+            mChipsGroup.check(ConfigColorPicker.getChipChededId(getActivity(), isSavedState));
+            final HorizontalScrollView scroller =
+                    (HorizontalScrollView) mColorPickerView.findViewById(R.id.color_picker_chips_scroller);
+            final View checkedView = mColorPickerView.findViewById(mMainButtonsCheckedId);
+            scroller.post(new Runnable() {
+                @Override
+                public void run() {
+                    scroller.scrollTo((int) checkedView.getX(), 0);
+                }
+            });
+        }
+        if (mChipsGroupsGroup != null) {
+            mChipsGroupsGroup.check(ConfigColorPicker.getChipChededId(getActivity(), isSavedState));
+        }
     }
 
     @Override
@@ -286,16 +458,15 @@ public class ColorPickerFragment extends Fragment implements
         LinearLayout editHexActionView = (LinearLayout) mShowEditHexAction.getActionView();
         mEditHexValue = (EditText) editHexActionView.findViewById(R.id.ab_edit_hex);
         ImageButton setHexValueButton = (ImageButton) editHexActionView.findViewById(R.id.ab_edit_hex_enter);
-        MenuItem showHideFavorites = menu.findItem(R.id.show_hide_favorites);
         MenuItem showHideHelp = menu.findItem(R.id.show_hide_help);
 
         boolean newColor = mNewColorValue != mInitialColor;
-        int favoritesTitleResId = mShowFavorites
-                ? R.string.hide_favorites_title : R.string.show_favorites_title;
         int helpTitleResId = mHelpScreenVisible ? R.string.hide_help_title : R.string.show_help_title;
+        float translationX = mResources.getDimension(
+                R.dimen.color_picker_action_apply_color_translation_x);
 
         mApplyColorAction.setColor(mNewColorValue);
-        mApplyColorAction.setColorPreviewTranslationX(newColor ? 0f : mFullTranslationX);
+        mApplyColorAction.setColorPreviewTranslationX(newColor ? 0f : translationX);
         mApplyColorAction.showSetIcon(newColor ? true : false);
         mApplyColorAction.applySetIconAlpha(newColor ? 1f : 0f);
         mApplyColorAction.setOnClickListener(newColor ? this : null);
@@ -304,249 +475,174 @@ public class ColorPickerFragment extends Fragment implements
         mEditHexValue.setOnFocusChangeListener(this);
         setHexValueButton.setOnClickListener(this);
 
-        showHideFavorites.setTitle(mResources.getString(favoritesTitleResId));
         showHideHelp.setTitle(mResources.getString(helpTitleResId));
     }
 
-    private ValueAnimator createAnimator() {
-        ValueAnimator animator = ValueAnimator.ofFloat(0f, 1f);
-        animator.setDuration(300);
-        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override public void onAnimationUpdate(ValueAnimator animation) {
-                float position = animation.getAnimatedFraction();
-                if (mAnimationType == ANIMATE_COLOR_TRANSITION) {
-                    int blended = ColorPickerHelper.getBlendColor(mOldColorValue, mNewColorValue, position);
-                    mApplyColorAction.setColor(blended);
-                    if (mApplyColorIconAnimationType != NO_ANIMATION) {
-                        final boolean animateShow = mApplyColorIconAnimationType == ANIMATE_TO_SHOW;
-                        float currentTranslationX = animateShow ? mFullTranslationX : 0f;
-                        float alpha = animateShow ? 0f : 1f;
-                        boolean applyAlpha = false;
+    @Override
+    public void onCheckedChanged(RadioGroup group, int checkedId) {
+        onCheckedChanged(checkedId);
+    }
 
-                        if (animateShow) {
-                            currentTranslationX = mFullTranslationX * (1f - position);
-                            if (position > 0.5f) {
-                                alpha = (position - 0.5f) * 2;
-                                applyAlpha = true;
-                            }
-                        } else {
-                            currentTranslationX = mFullTranslationX * position;
-                            if (position <= 0.5f && position > 0f) {
-                                alpha = 1f - position * 2;
-                                applyAlpha = true;
-                            }
-                        }
-                        mApplyColorAction.setColorPreviewTranslationX(currentTranslationX);
-                        if (applyAlpha) {
-                            mApplyColorAction.applySetIconAlpha(alpha);
-                        }
-                    }
-                } else if (mAnimationType == ANIMATE_FAVORITES_VISIBILITY) {
-                    int childCount = mColorButtonsLayout.getChildCount();
-                    for (int i = 0; i < childCount; i++) {
-                        if (i == 0) {
-                            mFavoritesLayout.setAlpha(mShowFavorites ? 1f - position : position);
-                        } else {
-                            View child = mColorButtonsLayout.getChildAt(i);
-                            child.setTranslationY(0 - mFavoritesLayoutHeight * (
-                                    mShowFavorites ? position : 1f - position));
-                        }
-                    }
+    @Override
+    public void onCheckedChanged(RadioGroupsGroup group, int checkedId) {
+        onCheckedChanged(checkedId);
+    }
+
+    private void onCheckedChanged(int checkedId) {
+        if (checkedId == -1) {
+            return;
+        }
+        if (mMainButtonsCheckedId != checkedId) {
+            mMainButtonsCheckedId = checkedId;
+            ConfigColorPicker.setChipChededIdValue(getActivity(), mMainButtonsCheckedId);
+            if (mMainButtonsCheckedId != mOldMainButtonsCheckedId) {
+                Boolean animate = mMainButtonsCheckedId == R.id.color_picker_chip_pick
+                        || mOldMainButtonsCheckedId == R.id.color_picker_chip_pick
+                        || mOldMainButtonsCheckedId == -1;
+                if (animate) {
+                    mContentList.setItemAnimator(null);
                 } else {
-                    mHelpScreen.setTranslationY(
-                            mHelpScreenHeight * (mHelpScreenVisible ? position  : 1f - position));
-                    mHelpScreen.setAlpha(mHelpScreenVisible ? 1f - position : position);
-                }
-            }
-        });
-        animator.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationStart(Animator animation) {
-                if (mAnimationType == ANIMATE_FAVORITES_VISIBILITY) {
-                } else if (mAnimationType != ANIMATE_COLOR_TRANSITION) {
-                    if (!mHelpScreenVisible) {
-                        mHelpScreen.setVisibility(View.VISIBLE);
+                    if (mContentList.getItemAnimator() instanceof ColorPickerCardAnimator
+                            || mContentList.getItemAnimator() == null) {
+                        mContentList.setItemAnimator(new BaseItemAnimator());
                     }
                 }
-            }
-        });
-        animator.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                if (mAnimationType == ANIMATE_COLOR_TRANSITION) {
-                    if (mApplyColorIconAnimationType != NO_ANIMATION) {
-                        if (mApplyColorIconAnimationType != ANIMATE_TO_SHOW) {
-                            mApplyColorAction.showSetIcon(false);
-                        } else {
-                            mApplyColorAction.setOnClickListener(getFragmentOnClickListener());
-                        }
-                    }
-                    mOldColorValue = mNewColorValue;
-                    getArguments().putInt(KEY_NEW_COLOR, mOldColorValue);
-                } else if (mAnimationType == ANIMATE_FAVORITES_VISIBILITY) {
-                    animation.setInterpolator(null);
-                    mShowFavorites = !mShowFavorites;
-                    putShowFavorites(mShowFavorites);
-                } else {
-                    animation.setInterpolator(null);
-                    if (mHelpScreenVisible) {
-                        mHelpScreen.setVisibility(View.GONE);
-                    }
-                    mHelpScreenVisible = !mHelpScreenVisible;
-                    getArguments().putInt(KEY_HELP_SCREEN_VISIBILITY, mHelpScreenVisible
-                            ? HELP_SCREEN_VISIBILITY_VISIBLE : HELP_SCREEN_VISIBILITY_GONE);
-                    getActivity().invalidateOptionsMenu();
+                if (mMainButtonsCheckedId != R.id.color_picker_chip_pick) {
+                    buildOrClearCardList();
                 }
-            }
-        });
-        return animator;
-    }
-
-    private void setUpResetMenuAppearience() {
-        if (mResetColor1 == Color.TRANSPARENT) {
-            if (mResetColor2 != Color.TRANSPARENT) {
-                mResetColor2 = Color.TRANSPARENT;
-                Log.w(TAG, "Reset color 1 has not been set, ignore reset color 2 value");
-            }
-            if (mResetColor1Title != null) {
-                mResetColor1Title = null;
-                Log.w(TAG, "Reset color 1 has not been set, ignore reset color 1 title");
-            }
-            if (mResetColor2Title != null) {
-                mResetColor2Title = null;
-                Log.w(TAG, "Reset color 1 has not been set, ignore reset color 2 title");
-            }
-        } else if (mResetColor2 == Color.TRANSPARENT) {
-            if (mResetColor2Title != null) {
-                mResetColor2Title = null;
-                Log.w(TAG, "Reset color 2 has not been set, ignore reset color 2 title");
-            }
-        }
-
-        if (mResetColor1 != 0) {
-            mHideResetColor1 = false;
-            if (mResetColor2 != 0) {
-                mHideResetColor2 = false;
-                mShowSubMenu = true;
+                if (animate) {
+                    View view = mMainButtonsCheckedId == R.id.color_picker_chip_pick
+                                ? mColorPicker : mContentList;
+                    if (mOldMainButtonsCheckedId == -1) {
+                        mFragmentAnimator.animateShow(view,
+                                mColorPickerView.findViewById(R.id.color_picker_content).getWidth());
+                    } else {
+                        View oldView = mOldMainButtonsCheckedId == R.id.color_picker_chip_pick
+                                ? mColorPicker : mContentList;
+                        mFragmentAnimator.animateSwitch(oldView, view,
+                                mColorPickerView.findViewById(R.id.color_picker_content).getWidth());
+                    }
+                }
+                mOldMainButtonsCheckedId = mMainButtonsCheckedId;
             }
         }
     }
 
-    private void setUpFavoriteColorButtons() {
-        mShowFavorites = getShowFavorites();
-        TypedArray ta = mResources.obtainTypedArray(R.array.color_picker_favorite_color_buttons);
-
-        for (int i=0; i<4; i++) {
-            int resId = ta.getResourceId(i, 0);
-            int buttonNumber = i + 1;
-            String tag = String.valueOf(buttonNumber);
-            ColorViewButton button = (ColorViewButton) mColorPickerView.findViewById(resId);
-            button.setTag(tag);
-            button.setBorderColor(mBorderColor);
-            button.setOnLongClickListener(this);
-            if (getFavoriteButtonValue(button) != 0) {
-                button.setColor(getFavoriteButtonValue(button));
-                button.setOnClickListener(this);
-            } else {
-                button.setShowFavoriteIcon(true);
-            }
-        }
-
-        ta.recycle();
-
-        mFavoritesLayout.getViewTreeObserver().addOnGlobalLayoutListener(new OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                mFavoritesLayoutHeight = mFavoritesLayout.getHeight()
-                        + mResources.getDimensionPixelSize(
-                                R.dimen.color_picker_color_buttons_container_margin_bottom);
-                mFavoritesLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                if (!mShowFavorites) {
-                    int childCount = mColorButtonsLayout.getChildCount();
-                    for (int i = 0; i < childCount; i++) {
-                        if (i == 0) {
-                            mFavoritesLayout.setAlpha(0f);
-                        } else {
-                            View child = mColorButtonsLayout.getChildAt(i);
-                            child.setTranslationY(0 - mFavoritesLayoutHeight);
-                        }
-                    }
-                }
-            }
-        });
-
+    public void setOldColorValue(int oldColor) {
+        mOldColorValue = oldColor;
     }
 
-    private void setUpPaletteColorButtons() {
-        TypedArray layouts = mResources.obtainTypedArray(
-                R.array.color_picker_palette_color_buttons_layouts);
-        TypedArray buttons = mResources.obtainTypedArray(R.array.color_picker_palette_color_buttons);
-        TypedArray materialButtons = mResources.obtainTypedArray(R.array.color_picker_material_palette_color_buttons);
+    public void setIsHelpScreenVisible(boolean visible) {
+        mHelpScreenVisible = visible;
+        getActivity().invalidateOptionsMenu();
+    }
+
+    private void buildOrUpdateFavoriteCards() {
+        for (int i = 0; i < NUM_MAX_FAVORITES; i++) {
+            int favoriteNumber = i + 1;
+            int color = getFavoriteColor(favoriteNumber);
+
+            ColorPickerCard card = new ColorPickerFavoriteCard(getActivity(), favoriteNumber, color);
+            mColorPickerCards.add(card);
+        }
+        mItemCount = NUM_MAX_FAVORITES;
+        buildOrUpdateCardAdapter();
+    }
+
+    private void buildOrUpdateDarkKatCards() {
+        TypedArray titles = mResources.obtainTypedArray(R.array.color_picker_darkkat_palette_titles);
         TypedArray colors = mResources.obtainTypedArray(R.array.color_picker_darkkat_palette);
+        for (int i = 0; i < 8; i++) {
+            ColorPickerCard card = new ColorPickerColorCard(getActivity(),
+                    colors.getResourceId(i, 0), titles.getResourceId(i, 0));
+            mColorPickerCards.add(card);
+        }
+        titles.recycle();
+        colors.recycle();
+        mItemCount = 8;
+        buildOrUpdateCardAdapter();
+    }
 
-        for (int i = 0; i < 3; i++) {
-            int layoutResId = layouts.getResourceId(i, 0);
-            LinearLayout layout = (LinearLayout) mColorPickerView.findViewById(layoutResId);
-            TextView paletteTitle = (TextView) layout.findViewById(R.id.palette_color_buttons_title);
-            int titleResId = R.string.palette_darkkat_title;
-            if (i == PALETTE_MATERIAL) {
-                titleResId = R.string.palette_material_title;
-                colors = mResources.obtainTypedArray(R.array.color_picker_material_palette);
-            } else if (i == PALETTE_RGB) {
-                titleResId = R.string.palette_rgb_title;
-                colors = mResources.obtainTypedArray(R.array.color_picker_rgb_palette);
-            }
-            paletteTitle.setText(titleResId);
+    private void buildOrUpdateMaterialCards() {
+        TypedArray titles = mResources.obtainTypedArray(R.array.color_picker_material_palette_titles);
+        TypedArray colors = mResources.obtainTypedArray(R.array.color_picker_material_palette);
+        for (int i = 0; i < 17; i++) {
+            ColorPickerCard card = new ColorPickerColorCard(getActivity(),
+                    colors.getResourceId(i, 0), titles.getResourceId(i, 0));
+            mColorPickerCards.add(card);
+        }
+        titles.recycle();
+        colors.recycle();
+        mItemCount = 17;
+        buildOrUpdateCardAdapter();
+    }
 
-            int paletteButtonsIndex = i == PALETTE_MATERIAL ? 17 : 8;
-            for (int j = 0; j < paletteButtonsIndex; j++) {
-                int buttonResId = i == PALETTE_MATERIAL
-                        ? materialButtons.getResourceId(j, 0)
-                        : buttons.getResourceId(j, 0);
-                ColorViewButton button = (ColorViewButton) layout.findViewById(buttonResId);
-                button.setColor(getActivity().getColor(colors.getResourceId(j, 0)));
-                button.setBorderColor(mBorderColor);
-                button.setOnClickListener(this);
+    private void buildOrUpdateHoloCards() {
+        TypedArray titles = mResources.obtainTypedArray(R.array.color_picker_holo_palette_titles);
+        TypedArray colors = mResources.obtainTypedArray(R.array.color_picker_holo_palette);
+        for (int i = 0; i < 10; i++) {
+            ColorPickerCard card = new ColorPickerColorCard(getActivity(),
+                    colors.getResourceId(i, 0), titles.getResourceId(i, 0));
+            mColorPickerCards.add(card);
+        }
+        titles.recycle();
+        colors.recycle();
+        mItemCount = 10;
+        buildOrUpdateCardAdapter();
+    }
+
+    private void buildOrUpdateRGBCards() {
+        TypedArray titles = mResources.obtainTypedArray(R.array.color_picker_rgb_palette_titles);
+        TypedArray colors = mResources.obtainTypedArray(R.array.color_picker_rgb_palette);
+        for (int i = 0; i < 8; i++) {
+            ColorPickerCard card = new ColorPickerColorCard(getActivity(),
+                    colors.getResourceId(i, 0), titles.getResourceId(i, 0));
+            mColorPickerCards.add(card);
+        }
+        titles.recycle();
+        colors.recycle();
+        mItemCount = 8;
+        buildOrUpdateCardAdapter();
+    }
+
+    private void buildOrClearCardList() {
+        if (mColorPickerCards == null) {
+            mColorPickerCards = new ArrayList<ColorPickerCard>();
+        } else {
+            if (mCardAdapter != null && mItemCount > 0) {
+                mColorPickerCards.clear();
+                mDisabledCardClickedItem = -1;
+                mCardAdapter.notifyItemRangeRemoved(0, mItemCount);
             }
         }
 
-        layouts.recycle();
-        buttons.recycle();
-        materialButtons.recycle();
-        colors.recycle();
+        if (mMainButtonsCheckedId == R.id.color_picker_chip_favorites) {
+            buildOrUpdateFavoriteCards();
+        } else if (mMainButtonsCheckedId == R.id.color_picker_chip_darkkat) {
+            buildOrUpdateDarkKatCards();
+        } else if (mMainButtonsCheckedId == R.id.color_picker_chip_material) {
+            buildOrUpdateMaterialCards();
+        } else if (mMainButtonsCheckedId == R.id.color_picker_chip_holo) {
+            buildOrUpdateHoloCards();
+        } else if (mMainButtonsCheckedId == R.id.color_picker_chip_rgb) {
+            buildOrUpdateRGBCards();
+        }
     }
 
-    private void setUpHelpScreen() {
-        mCheckShowHelpScreen = (CheckedTextView) mColorPickerView.findViewById(
-                R.id.color_picker_check_show_help_screen);
-        mCheckShowHelpScreen.setChecked(!mShowHelpScreen);
-        mCheckShowHelpScreen.setOnClickListener(this);
-        mCloseHelpScreen = (Button) mColorPickerView.findViewById(
-                R.id.color_picker_help_button_ok);
-        mCloseHelpScreen.setOnClickListener(this);
-
-        mHelpScreen.getViewTreeObserver().addOnGlobalLayoutListener(new OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                mHelpScreenHeight = mHelpScreen.getHeight();
-                mHelpScreen.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                if (!mHelpScreenVisible) {
-                    mHelpScreen.setTranslationY(mFavoritesLayoutHeight);
-                    mHelpScreen.setAlpha(0f);
-                    mHelpScreen.setVisibility(View.GONE);
-                }
-            }
-        });
-        mHelpScreen.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                return true;
-            }
-        });
-    }
-
-    public void setOnColorChangedListener(OnColorChangedListener listener) {
-        mListener = listener;
+    private void buildOrUpdateCardAdapter() {
+        if (mCardAdapter == null) {
+            mCardAdapter = new ColorPickerCardAdapter(getActivity(), mColorPickerCards, mInitialColor,
+                    mNewColorValue, mFavoriteColors);
+            mCardAdapter.setOnCardClickedListener(this);
+        } else {
+            mCardAdapter.setNewColor(mNewColorValue);
+        }
+        if (mContentList.getAdapter() == null) {
+            mContentList.setAdapter(mCardAdapter);
+        }
+        if (mItemCount > 0) {
+            mCardAdapter.notifyItemRangeInserted(0, mItemCount);
+        }
     }
 
     @Override
@@ -560,17 +656,12 @@ public class ColorPickerFragment extends Fragment implements
         } else if (item.getItemId() == R.id.edit_hex) {
             mEditHexValue.setText(ColorPickerHelper.convertToARGB(mNewColorValue));
             return true;
-        } else if (item.getItemId() == R.id.show_hide_favorites) {
-            mAnimationType = ANIMATE_FAVORITES_VISIBILITY;
-            mAnimator.setInterpolator(new FastOutSlowInInterpolator());
-            mAnimator.setDuration(300);
-            mAnimator.start();
-            return true;
         } else if (item.getItemId() == R.id.show_hide_help) {
-            mAnimationType = ANIMATE_HELP_SCREEN_VISIBILITY;
-            mAnimator.setInterpolator(new FastOutSlowInInterpolator());
-            mAnimator.setDuration(mShowFavorites ? 195 : 225);
-            mAnimator.start();
+            showHideHelpScreen();
+            return true;
+        } else if (item.getItemId() == R.id.color_picker_settings) {
+            Intent intent = new Intent(getActivity(), ColorPickerSettingsActivity.class);
+            startActivity(intent);
             return true;
         } else {
             return super.onOptionsItemSelected(item);
@@ -588,78 +679,36 @@ public class ColorPickerFragment extends Fragment implements
         } else if (v.getId() == R.id.ab_edit_hex_enter) {
             String text = mEditHexValue.getText().toString();
             mShowEditHexAction.collapseActionView();
-            try {
-                int newColor = ColorPickerHelper.convertToColorInt(text);
-                if (newColor != mOldColorValue) {
-                    mNewColorValue = newColor;
-                    mOldColorValue = mNewColorValue;
-                    mColorPicker.setColor(mNewColorValue);
-                    getArguments().putInt(KEY_NEW_COLOR, mNewColorValue);
-                    getArguments().putInt(KEY_OLD_COLOR, mOldColorValue);
-                    if (mNewColorValue != mInitialColor) {
-                        mApplyColorAction.setColor(mNewColorValue);
-                        mApplyColorAction.setColorPreviewTranslationX(0f);
-                        mApplyColorAction.showSetIcon(true);
-                        mApplyColorAction.applySetIconAlpha(1f);
-                        mApplyColorAction.setOnClickListener(getFragmentOnClickListener());
-                    } else {
-                        mApplyColorAction.setColor(mNewColorValue);
-                        mApplyColorAction.setColorPreviewTranslationX(mFullTranslationX);
-                        mApplyColorAction.showSetIcon(false);
-                        mApplyColorAction.applySetIconAlpha(0f);
-                        mApplyColorAction.setOnClickListener(null);
-                    }
-                }
-            } catch (Exception e) {}
+            mColorPicker.setColor(ColorPickerHelper.convertToColorInt(text), true);
         } else if (v.getId() == R.id.color_picker_check_show_help_screen) {
             mCheckShowHelpScreen.toggle();
             putShowHelpScreen(!mCheckShowHelpScreen.isChecked());
         } else if (v.getId() == R.id.color_picker_help_button_ok) {
-            mAnimationType = ANIMATE_HELP_SCREEN_VISIBILITY;
-            mAnimator.setInterpolator(new FastOutSlowInInterpolator());
-            mAnimator.setDuration(195);
-            mAnimator.start();
-        } else if (v instanceof ColorViewButton) {
-            try {
-                int newColor = ((ColorViewButton) v).getColor();
-                if (newColor != mOldColorValue) {
-                    mColorPicker.setColor(newColor, true);
-                }
-            } catch (Exception e) {}
+            showHideHelpScreen();
         }
-    }
-
-    @Override
-    public boolean onLongClick(View v) {
-        ColorViewButton button = (ColorViewButton) v;
-        if (!v.hasOnClickListeners()) {
-            button.setOnClickListener(this);
-        }
-        button.setShowFavoriteIcon(false);
-        button.setColor(mApplyColorAction.getColor());
-        putFavoriteButtonValue(button);
-        return true;
     }
 
     @Override
     public void onColorChanged(int color) {
-        mApplyColorIconAnimationType = NO_ANIMATION;
+        int animationType = ColorPickerFragmentAnimator.NO_ANIMATION;
         if (color != mOldColorValue) {
             mNewColorValue = color;
+            if (mCardAdapter != null) {
+                mCardAdapter.setNewColor(mNewColorValue);
+            }
             getArguments().putInt(KEY_NEW_COLOR, mNewColorValue);
             if (mNewColorValue == mInitialColor) {
                 if (mOldColorValue != mInitialColor) {
-                    mApplyColorIconAnimationType = ANIMATE_TO_HIDE;
+                    animationType = ColorPickerFragmentAnimator.ANIMATE_TO_HIDE;
                     mApplyColorAction.setOnClickListener(null);
                     mApplyColorAction.setClickable(false);
                 }
             } else if (mOldColorValue == mInitialColor) {
-                mApplyColorIconAnimationType = ANIMATE_TO_SHOW;
+                animationType = ColorPickerFragmentAnimator.ANIMATE_TO_SHOW;
                 mApplyColorAction.showSetIcon(true);
             }
-            mAnimationType = ANIMATE_COLOR_TRANSITION;
-            mAnimator.setDuration(300);
-            mAnimator.start();
+            mFragmentAnimator.animateColorTransition(mOldColorValue, mNewColorValue, animationType,
+                    mApplyColorAction);
 
             try {
                 if (mEditHexValue != null) {
@@ -668,6 +717,87 @@ public class ColorPickerFragment extends Fragment implements
             } catch (Exception e) {}
         }
 
+    }
+
+    @Override
+    public void onCardClicked(int color, int position) {
+        try {
+            if (color != mOldColorValue) {
+                mColorPicker.setColor(color, true);
+                if (mContentList.getAdapter() != null) {
+                    if (!(mContentList.getItemAnimator() instanceof ColorPickerCardAnimator)) {
+                        mContentList.setItemAnimator(new ColorPickerCardAnimator());
+                    }
+                    mCardAdapter.notifyItemChanged(position);
+                    if (mDisabledCardClickedItem > -1) {
+                        mCardAdapter.notifyItemChanged(mDisabledCardClickedItem);
+                    }
+                    mDisabledCardClickedItem = position;
+                }
+            }
+        } catch (Exception e) {}
+    }
+
+    @Override
+    public void onCardActionApplyClicked(int color) {
+        Intent data = new Intent();
+        data.putExtra(KEY_NEW_COLOR, color);
+        data.putExtra(ColorPickerPreference.PREFERENCE_KEY, mPreferenceKey);
+        getActivity().setResult(Activity.RESULT_OK, data);
+        getActivity().finish();
+    }
+
+    @Override
+    public void onFavoriteCardActionFavoriteClicked(ColorPickerCard oldCard, int position, boolean addFavorite) {
+        if (!(mContentList.getItemAnimator() instanceof ColorPickerCardAnimator)) {
+            mContentList.setItemAnimator(new ColorPickerCardAnimator());
+        }
+        int favoriteNumber = position + 1;
+        int color = addFavorite ? mNewColorValue : 0;
+
+        mColorPickerCards.get(position).setColor(color);
+        String subtitle = mColorPickerCards.get(position).getSubtitle();
+
+        setFavoriteColor(favoriteNumber, color);
+        setFavoriteSubtitle(favoriteNumber, subtitle);
+        mFavoriteColors[position] = color;
+        mCardAdapter.notifyItemChanged(position);
+    }
+
+    @Override
+    public void onColorCardActionFavoriteClicked(ColorPickerCard card, int position, boolean isFavorite) {
+        if (!(mContentList.getItemAnimator() instanceof ColorPickerCardAnimator)) {
+            mContentList.setItemAnimator(new ColorPickerCardAnimator());
+        }
+        int color = card.getColor();
+        if (!isFavorite) {
+            int firstEmptyFavorite = -1;
+            for (int i = 0; i < NUM_MAX_FAVORITES; i++) {
+                if (mFavoriteColors[i] == 0) {
+                    firstEmptyFavorite = i + 1;
+                    mFavoriteColors[i] = color;
+                    break;
+                }
+            }
+            if (firstEmptyFavorite != -1) {
+                setFavoriteColor(firstEmptyFavorite, color);
+                setFavoriteSubtitle(firstEmptyFavorite, card.getTitle());
+            }
+        } else {
+            int favoriteNumber = -1;
+            for (int i = 0; i < NUM_MAX_FAVORITES; i++) {
+                if (mFavoriteColors[i] == color) {
+                    favoriteNumber = i + 1;
+                    mFavoriteColors[i] = 0;
+                    break;
+                }
+            }
+            if (favoriteNumber != -1) {
+                setFavoriteColor(favoriteNumber, 0);
+                setFavoriteSubtitle(favoriteNumber, "");
+            }
+        }
+        mCardAdapter.notifyItemChanged(position);
     }
 
     @Override
@@ -694,31 +824,12 @@ public class ColorPickerFragment extends Fragment implements
         }
     }
 
+    public void setOnColorChangedListener(OnColorChangedListener listener) {
+        mListener = listener;
+    }
+
     private int getColor() {
         return mColorPicker.getColor();
-    }
-
-    private View.OnClickListener getFragmentOnClickListener() {
-        return this;
-    }
-
-    private void putShowFavorites(boolean show) {
-        ConfigColorPicker.setShowFavorites(getActivity(), show);
-        getActivity().invalidateOptionsMenu();
-    }
-
-    private boolean getShowFavorites() {
-        return ConfigColorPicker.getShowFavorites(getActivity());
-    }
-
-    private void putFavoriteButtonValue(ColorViewButton button) {
-        ConfigColorPicker.setFavoriteButtonValue(getActivity(),
-                COLOR_PICKER_FAVORITES + (String) button.getTag(), button.getColor());
-    }
-
-    private int getFavoriteButtonValue(ColorViewButton button) {
-        return ConfigColorPicker.getFavoriteButtonValue(getActivity(),
-                COLOR_PICKER_FAVORITES + (String) button.getTag());
     }
 
     private void putShowHelpScreen(boolean show) {
@@ -739,5 +850,32 @@ public class ColorPickerFragment extends Fragment implements
         } else {
             return visibility == HELP_SCREEN_VISIBILITY_VISIBLE ? true : false;
         }
+    }
+
+    private int getFavoriteColor(int favoriteNumber) {
+        return Integer.valueOf(ConfigColorPicker.getFavoriteColor(getActivity(),
+                KEY_FAVORITE_BASE + favoriteNumber));
+    }
+
+    private void setFavoriteColor(int favoriteNumber, int color) {
+        ConfigColorPicker.setFavoriteColor(getActivity(), KEY_FAVORITE_BASE + favoriteNumber, color);
+    }
+
+    private String getFavoriteSubtitle(int favoriteNumber) {
+        return ConfigColorPicker.getFavoriteSubtitle(getActivity(),
+               KEY_FAVORITE_BASE + favoriteNumber + KEY_ADDITION_SUBTITLE);
+    }
+
+    private void setFavoriteSubtitle(int favoriteNumber, String subtitle) {
+        ConfigColorPicker.setFavoriteSubtitle(getActivity(),
+                KEY_FAVORITE_BASE + favoriteNumber + KEY_ADDITION_SUBTITLE, subtitle);
+    }
+
+    public boolean isHelpScreenVisible() {
+        return mFragmentAnimator.isHelpScreenVisible();
+    }
+
+    public void showHideHelpScreen() {
+        mFragmentAnimator.animateShowHideHelpScreen(mHelpScreen);
     }
 }

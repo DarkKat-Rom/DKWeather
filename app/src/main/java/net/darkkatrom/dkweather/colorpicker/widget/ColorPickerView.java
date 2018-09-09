@@ -33,7 +33,9 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
+import net.darkkatrom.dkweather.R;
 import net.darkkatrom.dkweather.colorpicker.drawable.AlphaPatternDrawable;
+import net.darkkatrom.dkweather.utils.ThemeUtil;
 
 /*
  * Displays a color picker to the user and allow them
@@ -108,7 +110,7 @@ public class ColorPickerView extends View {
 
     private String mAlphaSliderText = "";
     private int mSliderTrackerColor = 0xff1c1c1c;
-    private int mBorderColor = 0xff6E6E6E;
+    private int mBorderColor;
     private boolean mShowAlphaPanel = false;
 
     /*
@@ -167,6 +169,8 @@ public class ColorPickerView extends View {
         mDrawingOffset = calculateRequiredOffset();
 
         initPaintTools();
+
+        mBorderColor = ThemeUtil.getColorFromThemeAttribute(getContext(), R.attr.colorControlHighlight);
 
         //Needed for receiving trackball motion events.
         setFocusable(true);

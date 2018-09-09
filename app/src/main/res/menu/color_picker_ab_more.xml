@@ -38,9 +38,8 @@
         android:icon="@drawable/ic_action_edit"
         app:actionLayout="@layout/color_picker_action_edit_hex"
         app:showAsAction="ifRoom|collapseActionView" />
-    <item android:id="@+id/show_hide_favorites"
-        android:title="@string/hide_favorites_title" />
     <item android:id="@+id/show_hide_help"
         android:title="@string/show_help_title" />
+    <item android:id="@+id/color_picker_settings"
+        android:title="@string/settings_title" />
 </menu>
-

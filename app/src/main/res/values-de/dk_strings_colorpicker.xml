@@ -15,55 +15,91 @@
 -->
 <resources>
 
-    <!-- Color picker -->
-    <string name="pick_color_title">Farbe wählen</string>
-    <string name="color_picker_fragment_title">Farbauswahl</string>
+    <!-- Activity title -->
+    <string name="pick_color_title">Farbauswahl</string>
+
+    <!-- General -->
+    <string name="empty_title">Leer</string>
+
+    <!-- Chip titles -->
+    <string name="chip_pick_title">Farbe wählen</string>
+    <string name="chip_favorites_title">Favoriten</string>
+    <string name="chip_darkkat_title">DarkKat Farben</string>
+    <string name="chip_material_title">Material Farben</string>
+    <string name="chip_holo_title">Holo Farben</string>
+    <string name="chip_rgb_title">RGB Farben</string>
+
+    <!-- Cards -->
+    <string name="favorite_title">Favorit</string>
+    <string name="color_picker_color_card_status_card_click_disabled">Karten Klick (\"Farbe Setzen\") deaktiviert, diese Farbe entspricht der neuen Farbe.</string>
+    <string name="color_picker_color_card_status_action_apply_disabled">\"Farbe Übernehmen\" deaktiviert, diese Karte hat keine Farbe.</string>
+    <string name="color_picker_color_card_status_action_apply_disabled_initial_color">\"Farbe Übernehmen\" deaktiviert, diese Farbe wird bereits genutzt.</string>
+    <string name="color_picker_favorite_card_status_card_click_disabled">Karten Klick (\"Farbe Setzen\") deaktiviert, diese Favoritenfarbe entspricht der neuen Farbe.</string>
+    <string name="color_picker_favorite_card_status_empty">Karten Klick (\"Farbe Setzen\") deaktiviert, dieser Favorit ist leer.</string>
+    <string name="color_picker_favorite_card_status_action_apply_disabled">\"Farbe Übernehmen\" deaktiviert, dieser Favorit ist leer.</string>
+    <string name="color_picker_favorite_card_status_action_apply_disabled_initial_color">\"Farbe Übernehmen\" deaktiviert, diese Favoritenfarbe wird bereits genutzt.</string>
+    <string name="color_picker_card_apply_color_title">Übernehmen</string>
+
+    <!-- Card titles -->
+    <string name="card_darkkat_blue_grey">Blue Grey</string>
+    <string name="card_darkkat_blue_blue_grey">Blue-Blue Grey</string>
+    <string name="card_accent_darkkat">Accent</string>
+    <string name="card_holo_blue_light">Blue Light</string>
+    <string name="card_material_blue_grey_500">Blue Grey 500</string>
+    <string name="card_material_blue_500">Blue 500</string>
+    <string name="card_material_light_blue_500">Light Blue 500</string>
+    <string name="card_material_cyan_500">Cyan 500</string>
+    <string name="card_material_deep_teal_500">Deep Teal 500</string>
+    <string name="card_material_indigo_500">Indigo 500</string>
+    <string name="card_material_purple_500">Purple 500</string>
+    <string name="card_material_deep_purple_500">Deep Purple 500</string>
+    <string name="card_material_pink_500">Pink 500</string>
+    <string name="card_material_orange_500">Orange 500</string>
+    <string name="card_material_deep_orange_500">Deep Orange 500</string>
+    <string name="card_material_red_500">Red 500</string>
+    <string name="card_material_yellow_500">Yellow 500</string>
+    <string name="card_material_amber_500">Amber 500</string>
+    <string name="card_material_green_500">Green 500</string>
+    <string name="card_material_light_green_500">Light Green 500</string>
+    <string name="card_material_lime_500">Lime 500</string>
+    <string name="card_holo_blue_dark">Blue Dark</string>
+    <string name="card_holo_blue_bright">Blue Bright</string>
+    <string name="card_holo_purple">Purple</string>
+    <string name="card_holo_orange_light">Orange Light</string>
+    <string name="card_holo_orange_dark">Orange Dark</string>
+    <string name="card_holo_red_light">Red Light</string>
+    <string name="card_holo_red_dark">Red Dark</string>
+    <string name="card_holo_green_light">Green Light</string>
+    <string name="card_holo_green_dark">Green Dark</string>
+
+    <!-- Palette titles -->
+    <string name="darkkat_title">DarkKat</string>
+    <string name="material_title">Material</string>
+    <string name="holo_title">Holo</string>
+    <string name="rgb_title">RGB</string>
+
+    <!-- Action bar menu -->
     <string name="apply_color_title">Farbe anwenden</string>
     <string name="edit_hex_title">HEX-Wert</string>
-    <string name="palette_darkkat_title">DarkKat</string>
-    <string name="palette_material_title">Material</string>
-    <string name="palette_rgb_title">RGB</string>
     <string name="reset_color_title">Zurücksetzen</string>
     <string name="reset_android_title">Android Standard</string>
     <string name="reset_darkkat_title">DarkKat Standard</string>
     <string name="reset_theme_default_title">Theme Standard</string>
-    <string name="favorites_title">Favoriten</string>
-    <string name="hide_favorites_title">Favoriten verbergen</string>
-    <string name="show_favorites_title">Favoriten anzeigen</string>
     <string name="hide_help_title">Hilfe verbergen</string>
     <string name="show_help_title">Hilfe anzeigen</string>
-    <string name="empty_title">Leer</string>
-
-    <!-- Color picker dialog -->
-    <string name="dialog_ok">OK</string>
-    <string name="dialog_cancel">Abbrechen</string>
 
     <!-- Color picker help screen -->
     <string name="color_picker_help_screen_title">Farbauswahl Hilfe</string>
-    <string name="color_picker_help_ab_title">Actionsleiste:</string>
-    <string name="color_picker_help_ab_back_title">Zurück-Schaltfläche:</string>
-    <string name="color_picker_help_ab_back_summary">Schließt die Farbauswahl ohne die neue Farbe anzuwenden, (abbrechen).\nDies hat den selben Effekt wie das Drücken auf die Zurück-Schaltfläche der Navigationsleiste.</string>
-    <string name="color_picker_help_ab_name_title">Titel:</string>
-    <string name="color_picker_help_ab_name_summary">Zeigt nur den Namen, keine zusätzlichen Funktionen</string>
-    <string name="color_picker_help_ab_color_apply_title">Farbvorschau und Farbe anwenden:</string>
-    <string name="color_picker_help_ab_color_apply_summary">Die Farbvorschau wird immer angezeigt.\nWenn die neue Farbe nicht der alte Farbe entspricht, wird die Farbvorschau erweitert, um die neue Farbe anwenden zu können.</string>
-    <string name="color_picker_help_ab_hex_title">Hex-Wert:</string>
-    <string name="color_picker_help_ab_hex_summary">Zeigt das Hex-Eingabefeld an.\nHex-Werte müssen im Hex-Farbformat vorliegen:\n\"#aarrggbb\", (\"alpha\" (Transparenz), \"rot\", \"grün\" und \"blau\").\nDie Zurück-Schaltfläche schließt das Hex-Eingabefeld ohne den Hex-Wert zu setzen.\nDie Anwenden-Schaltfläche setzt den Hex-Wert als neue Farbe ohne die neue Farbe anzuwenden.</string>
-    <string name="color_picker_help_ab_menu_title">Menü-Schaltfläche:</string>
-    <string name="color_picker_help_ab_menu_reset_title">Zurücksetzen:</string>
-    <string name="color_picker_help_ab_menu_reset_summary">Setzt die neue Farbe auf die Standard Android, Darkkat oder Theme abhängige Farbe zurück ohne die neue Farbe anzuwenden.</string>
-    <string name="color_picker_help_ab_menu_favorites_title">Favoriten anzeigen/verbergen:</string>
-    <string name="color_picker_help_ab_menu_favorites_summary">Zeigt/verbirgt die Favoriten.\nDas Verbergen der Favoriten setzt nicht die Favoritfarben zurück.</string>
-    <string name="color_picker_help_ab_menu_help_title">Hilfe anzeigen/verbergen:</string>
-    <string name="color_picker_help_ab_menu_help_summary">Zeigt/verbirgt diese Hilfe.</string>
-    <string name="color_picker_help_colors_title">Farben:</string>
-    <string name="color_picker_help_picker_view_title">Farbfeld:</string>
-    <string name="color_picker_help_picker_view_summary">Wähle eine Farbe um eine neue Farbe zu setzen ohne die neue Farbe anzuwenden.\nDer Farbbereich kann über den Regler auf der rechten Seite geändert werden.</string>
-    <string name="color_picker_help_color_buttons_title">Farb-Schaltflächen:</string>
-    <string name="color_picker_help_favorites_title">Favoriten:</string>
-    <string name="color_picker_help_favorites_summary">Favoriten sind standardmäßig leer.\nEs kann zu jeder Zeit per Langklick die neue Farbe als Favorit gespeichert werden, (ein nicht leerer Favorit wird hierbei mit der aktuellen Farbe überschrieben).\nEin Klick setzt die Favoritenfarbe als neue Farbe, ohne die neue Farbe anzuwenden.</string>
-    <string name="color_picker_help_palette_title">Palette:\n(DarkKat, Material und RGB)</string>
-    <string name="color_picker_help_palette_summary">Alle Palette Farben haben einen festen Wert.\nEin Klick setzt die Palette Farbe als neue Farbe, ohne die neue Farbe anzuwenden.</string>
     <string name="color_picker_help_do_not_show_title">Nicht erneut anzeigen</string>
     <string name="color_picker_help_button_ok_title">OK</string>
+
+   <!-- Settings -->
+    <string name="color_picker_settings_cat_favorite_card">Favoriten Karten</string>
+    <string name="color_picker_settings_default_view_title">Standard Ansicht</string>
+    <string name="color_picker_settings_default_view_current_view_title">Aktuelle Ansicht merken</string>
+    <string name="color_picker_settings_favorite_card_allow_delete_type_title">Favoriten löschen erlauben</string>
+    <string name="color_picker_settings_favorite_card_allow_delete_type_all_title">Alle Favoriten</string>
+    <string name="color_picker_settings_favorite_card_allow_delete_type_palette_title">Alle Favoriten außer eigenen Farben</string>
+    <string name="color_picker_settings_favorite_card_allow_delete_type_never_title">Keine Favoriten</string>
+
 </resources>

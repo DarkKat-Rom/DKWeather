@@ -15,8 +15,9 @@
 -->
 <resources>
 
-    <!-- Actionbar -->
+    <!-- Actionbar/Toolbar -->
     <dimen name="actionbar_update_button_size">48dp</dimen>
+    <dimen name="toolbar_elevation">4dp</dimen>
 
     <!-- No weather data fragment -->
     <dimen name="no_weather_data_layout_padding_start_top_end">16dp</dimen>

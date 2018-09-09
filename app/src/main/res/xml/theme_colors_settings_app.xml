@@ -43,64 +43,90 @@ limitations under the License.
         android:summary="@string/theme_customize_colors_summary"
         android:defaultValue="false" />
 
-     <net.darkkatrom.dkweather.colorpicker.preference.ColorPickerPreference
-        android:key="theme_primary_color"
-        android:title="@string/theme_primary_color_title"
-        android:summary="@string/theme_primary_color_summary"
-        app:pickerSubtitle="@string/action_bar_picker_subtitle_settings_theme_colors"
-        app:pickerAdditionalSubtitle="@string/picker_fragment_additional_subtitle_app_primary"
-        app:resetColor1="@color/primary_darkkat"
-        app:defaultColor="@color/primary_darkkat" />
-
-    <net.darkkatrom.dkweather.colorpicker.preference.ColorPickerListPreference
-        android:key="theme_accent_color"
-        android:title="@string/theme_accent_color_title"
-        android:summary="@string/list_preference_default_summary"
-        android:entries="@array/theme_color_list_entries"
-        android:entryValues="@array/theme_color_list_values"
-        app:entryColors="@array/theme_color_list_entry_colors"
-        android:defaultValue="0" />
-
-    <net.darkkatrom.dkweather.colorpicker.preference.ColorPickerListPreference
-        android:key="theme_light_text_color"
-        android:title="@string/theme_light_text_color_title"
-        android:summary="@string/list_preference_default_summary"
-        android:entries="@array/theme_color_list_entries"
-        android:entryValues="@array/theme_color_list_values"
-        app:entryColors="@array/theme_color_list_entry_colors"
-        android:defaultValue="19" />
-
-    <net.darkkatrom.dkweather.colorpicker.preference.ColorPickerListPreference
-        android:key="theme_dark_text_color"
-        android:title="@string/theme_dark_text_color_title"
-        android:summary="@string/list_preference_default_summary"
-        android:entries="@array/theme_color_list_entries"
-        android:entryValues="@array/theme_color_list_values"
-        app:entryColors="@array/theme_color_list_entry_colors"
-        android:defaultValue="20" />
-
-    <net.darkkatrom.dkweather.colorpicker.preference.ColorPickerListPreference
-        android:key="theme_light_ripple_color"
-        android:title="@string/theme_light_ripple_color_title"
-        android:summary="@string/list_preference_default_summary"
-        android:entries="@array/theme_color_list_entries"
-        android:entryValues="@array/theme_color_list_values"
-        app:entryColors="@array/theme_color_list_entry_colors"
-        android:defaultValue="19" />
-
-    <net.darkkatrom.dkweather.colorpicker.preference.ColorPickerListPreference
-        android:key="theme_dark_ripple_color"
-        android:title="@string/theme_dark_ripple_color_title"
-        android:summary="@string/list_preference_default_summary"
-        android:entries="@array/theme_color_list_entries"
-        android:entryValues="@array/theme_color_list_values"
-        app:entryColors="@array/theme_color_list_entry_colors"
-        android:defaultValue="20" />
-
     <SwitchPreference
         android:key="theme_colorize_navigation_bar"
         android:title="@string/theme_colorize_navigation_bar_title"
         android:summary="@string/theme_colorize_navigation_bar_summary"
         android:defaultValue="false" />
 
+    <PreferenceCategory
+        android:key="theme_cat_all_colors"
+        android:title="@string/theme_cat_all_colors_title">
+
+        <net.darkkatrom.dkweather.colorpicker.preference.ColorPickerPreference
+            android:key="theme_primary_color"
+            android:title="@string/theme_primary_color_title"
+            android:summary="@string/theme_primary_color_summary"
+            app:pickerSubtitle="@string/action_bar_picker_subtitle_settings_theme_colors"
+            app:pickerAdditionalSubtitle="@string/picker_fragment_additional_subtitle_app_primary"
+            app:resetColor1="@color/primary_darkkat"
+            app:defaultColor="@color/primary_darkkat" />
+
+	</PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="theme_cat_light_colors"
+        android:title="@string/theme_cat_light_colors_title">
+
+        <net.darkkatrom.dkweather.colorpicker.preference.ColorPickerListPreference
+            android:key="theme_light_accent_color"
+            android:title="@string/theme_accent_color_title"
+            android:summary="@string/list_preference_default_summary"
+            android:entries="@array/theme_color_list_entries"
+            android:entryValues="@array/theme_color_list_values"
+            app:entryColors="@array/theme_color_list_entry_colors"
+            android:defaultValue="0" />
+
+        <net.darkkatrom.dkweather.colorpicker.preference.ColorPickerListPreference
+            android:key="theme_light_text_color"
+            android:title="@string/theme_text_color_title"
+            android:summary="@string/list_preference_default_summary"
+            android:entries="@array/theme_color_list_entries"
+            android:entryValues="@array/theme_color_list_values"
+            app:entryColors="@array/theme_color_list_entry_colors"
+            android:defaultValue="19" />
+
+        <net.darkkatrom.dkweather.colorpicker.preference.ColorPickerListPreference
+            android:key="theme_light_ripple_color"
+            android:title="@string/theme_ripple_color_title"
+            android:summary="@string/list_preference_default_summary"
+            android:entries="@array/theme_color_list_entries"
+            android:entryValues="@array/theme_color_list_values"
+            app:entryColors="@array/theme_color_list_entry_colors"
+            android:defaultValue="19" />
+
+	</PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="theme_cat_dark_colors"
+        android:title="@string/theme_cat_dark_colors_title">
+
+        <net.darkkatrom.dkweather.colorpicker.preference.ColorPickerListPreference
+            android:key="theme_dark_accent_color"
+            android:title="@string/theme_accent_color_title"
+            android:summary="@string/list_preference_default_summary"
+            android:entries="@array/theme_color_list_entries"
+            android:entryValues="@array/theme_color_list_values"
+            app:entryColors="@array/theme_color_list_entry_colors"
+            android:defaultValue="0" />
+
+        <net.darkkatrom.dkweather.colorpicker.preference.ColorPickerListPreference
+            android:key="theme_dark_text_color"
+            android:title="@string/theme_text_color_title"
+            android:summary="@string/list_preference_default_summary"
+            android:entries="@array/theme_color_list_entries"
+            android:entryValues="@array/theme_color_list_values"
+            app:entryColors="@array/theme_color_list_entry_colors"
+            android:defaultValue="20" />
+
+        <net.darkkatrom.dkweather.colorpicker.preference.ColorPickerListPreference
+            android:key="theme_dark_ripple_color"
+            android:title="@string/theme_ripple_color_title"
+            android:summary="@string/list_preference_default_summary"
+            android:entries="@array/theme_color_list_entries"
+            android:entryValues="@array/theme_color_list_values"
+            app:entryColors="@array/theme_color_list_entry_colors"
+            android:defaultValue="20" />
+
+	</PreferenceCategory>
 </PreferenceScreen>

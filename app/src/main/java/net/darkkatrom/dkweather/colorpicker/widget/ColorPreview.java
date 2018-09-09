@@ -30,22 +30,22 @@ import net.darkkatrom.dkweather.R;
 import net.darkkatrom.dkweather.colorpicker.drawable.ColorViewCircleDrawable;
 import net.darkkatrom.dkweather.colorpicker.util.ColorPickerHelper;
 
-public class ColorViewButton extends LinearLayout {
+public class ColorPreview extends LinearLayout {
 
     private ImageView mColorView;
     private TextView mHexView;
 
     private ColorViewCircleDrawable mColorPreview;
 
-    public ColorViewButton(Context context) {
+    public ColorPreview(Context context) {
         this(context, null);
     }
 
-    public ColorViewButton(Context context, AttributeSet attrs) {
+    public ColorPreview(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public ColorViewButton(Context context, AttributeSet attrs, int defStyle) {
+    public ColorPreview(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
 

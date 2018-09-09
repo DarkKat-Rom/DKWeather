@@ -50,19 +50,26 @@ public class Config {
     public static final String PREF_KEY_WIDGET_SHOW_SETTINGS_BUTTONS_LEFT
             = "widget_show_settings_buttons_left";
 
+    public static final String PREF_KEY_CAT_ALL_COLORS =
+            "theme_cat_all_colors";
+    public static final String PREF_KEY_CAT_LIGHT_COLORS =
+            "theme_cat_light_colors";
+    public static final String PREF_KEY_CAT_DARK_COLORS =
+            "theme_cat_dark_colors";
     public static final String PREF_KEY_THEME =
             "theme";
     public static final String PREF_KEY_THEME_USE_LIGHT_STATUS_BAR =
             "theme_use_light_status_bar";
     public static final String PREF_KEY_THEME_USE_LIGHT_NAVIGATION_BAR =
             "theme_use_light_navigation_bar";
-
     public static final String PREF_KEY_THEME_CUSTOMIZE_COLORS =
             "theme_customize_colors";
     public static final String PREF_KEY_THEME_PRIMARY_COLOR =
             "theme_primary_color";
-    public static final String PREF_KEY_THEME_ACCENT_COLOR =
-            "theme_accent_color";
+    public static final String PREF_KEY_THEME_LIGHT_ACCENT_COLOR =
+            "theme_light_accent_color";
+    public static final String PREF_KEY_THEME_DARK_ACCENT_COLOR =
+            "theme_dark_accent_color";
     public static final String PREF_KEY_THEME_LIGHT_TEXT_COLOR =
             "theme_light_text_color";
     public static final String PREF_KEY_THEME_DARK_TEXT_COLOR =
@@ -300,12 +307,23 @@ public class Config {
     }
 
     public static int getIndexForAccentColor(Context context) {
+        return getIndexForAccentColor(context, false);
+    }
+
+    public static int getIndexForAccentColor(Context context, boolean forceDark) {
         if (!getThemeCustomizeColors(context)) {
             return 0;
         } else {
             SharedPreferences prefs = PreferenceManager
                     .getDefaultSharedPreferences(context);
-            String valueString = prefs.getString(PREF_KEY_THEME_ACCENT_COLOR, "0");
+            String valueString = "0";
+            if (forceDark) {
+                valueString = prefs.getString(PREF_KEY_THEME_DARK_ACCENT_COLOR, "0");
+            } else {
+                valueString = getThemeUseDarkTheme(context)
+                        ? prefs.getString(PREF_KEY_THEME_DARK_ACCENT_COLOR, "0")
+                        : prefs.getString(PREF_KEY_THEME_LIGHT_ACCENT_COLOR, "0");
+            }
             return Integer.valueOf(valueString);
         }
     }
@@ -333,15 +351,42 @@ public class Config {
     }
 
     public static int getIndexForRippleColor(Context context) {
-        int defaultColorIndex = getThemeUseDarkTheme(context) ? 20 : 19;
+        return getIndexForRippleColor(context, false);
+    }
+
+    public static int getIndexForRippleColor(Context context, boolean forceDark) {
+        int defaultColorIndex = 0;
+        if (forceDark) {
+            defaultColorIndex = 20;
+        } else {
+            defaultColorIndex = getThemeUseDarkTheme(context) ? 20 : 19;
+        }
         if (!getThemeCustomizeColors(context)) {
             return defaultColorIndex;
         } else {
             SharedPreferences prefs = PreferenceManager
                     .getDefaultSharedPreferences(context);
-            String valueString = getThemeUseDarkTheme(context)
-                    ? prefs.getString(PREF_KEY_THEME_DARK_RIPPLE_COLOR, "20")
-                    : prefs.getString(PREF_KEY_THEME_LIGHT_RIPPLE_COLOR, "19");
+            String valueString = "0";
+            if (forceDark) {
+                valueString = prefs.getString(PREF_KEY_THEME_DARK_RIPPLE_COLOR, "20");
+            } else {
+                valueString = getThemeUseDarkTheme(context)
+                        ? prefs.getString(PREF_KEY_THEME_DARK_RIPPLE_COLOR, "20")
+                        : prefs.getString(PREF_KEY_THEME_LIGHT_RIPPLE_COLOR, "19");
+            }
+            int colorIndex = Integer.valueOf(valueString);
+            return colorIndex == defaultColorIndex ? -1 : colorIndex;
+        }
+    }
+
+    public static int getIndexForDarkRippleColor(Context context) {
+        int defaultColorIndex = 20;
+        if (!getThemeCustomizeColors(context)) {
+            return defaultColorIndex;
+        } else {
+            SharedPreferences prefs = PreferenceManager
+                    .getDefaultSharedPreferences(context);
+            String valueString = prefs.getString(PREF_KEY_THEME_DARK_RIPPLE_COLOR, "20");
             int colorIndex = Integer.valueOf(valueString);
             return colorIndex == defaultColorIndex ? -1 : colorIndex;
         }

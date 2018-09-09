@@ -29,13 +29,7 @@ public class ThemeUtil {
     public static int getConditionIconColor(Context context, int conditionIconType) {
         int conditionIconColor = 0;
         if (conditionIconType == WeatherInfo.ICON_MONOCHROME) {
-            TypedValue tv = new TypedValue();
-            context.getTheme().resolveAttribute(R.attr.colorControlNormal, tv, true);
-            if (tv.type >= TypedValue.TYPE_FIRST_COLOR_INT && tv.type <= TypedValue.TYPE_LAST_COLOR_INT) {
-                conditionIconColor = tv.data;
-            } else {
-                conditionIconColor = context.getColor(tv.resourceId);
-            }
+            conditionIconColor = getColorFromThemeAttribute(context, R.attr.colorControlNormal);
         }
         return conditionIconColor;
     }
@@ -81,6 +75,11 @@ public class ThemeUtil {
                     ? Config.getThemePrimaryColor(context) : context.getColor(R.color.primary_darkkat);
         }
         return color;
+    }
+
+    public static int getDefaultHighlightColor(Context context) {
+        return context.getColor(Config.getThemeUseDarkTheme(context)
+                ? R.color.ripple_white : R.color.ripple_black);
     }
 
     public static int getThemeResId(Context context) {
@@ -132,7 +131,11 @@ public class ThemeUtil {
     }
 
     public static int getThemeOverlayAccentResId(Context context) {
-        int index = Config.getIndexForAccentColor(context);
+        return getThemeOverlayAccentResId(context, false);
+    }
+
+    public static int getThemeOverlayAccentResId(Context context, boolean forceDark) {
+        int index = Config.getIndexForAccentColor(context, forceDark);
 
         int resId = 0;
         if (index == 1) {
@@ -189,6 +192,19 @@ public class ThemeUtil {
             resId = R.style.Theme_Overlay_Accent_Green;
         }
         return resId;
+    }
+
+    public static int getThemeOverlayTextResId(Context context) {
+        return getThemeOverlayTextResId(context, false);
+    }
+
+    public static int getThemeOverlayTextResId(Context context, boolean forceDark) {
+        boolean isDark = Config.getThemeUseDarkTheme(context) || forceDark;
+        if (isDark) {
+            return getThemeOverlayDarkTextResId(context);
+        } else {
+            return getThemeOverlayLightTextResId(context);
+        }
     }
 
     public static int getThemeOverlayLightTextResId(Context context) {
@@ -312,12 +328,16 @@ public class ThemeUtil {
     }
 
     public static int getThemeOverlayRippleResId(Context context) {
-        int index = Config.getIndexForRippleColor(context);
+        return getThemeOverlayRippleResId(context, false);
+    }
+
+    public static int getThemeOverlayRippleResId(Context context, boolean forceDark) {
+        int index = Config.getIndexForRippleColor(context, forceDark);
 
         int resId = 0;
         if (index != -1) {
             if (index == 0) {
-                resId = R.style.Theme_Overlay_TextDark_AccentDarkKat;
+                resId = R.style.Theme_Overlay_Ripple_AccentDarkKat;
             } else if (index == 1) {
                 resId = R.style.Theme_Overlay_Ripple_HoloBlueLight;
             } else if (index == 2) {
@@ -373,5 +393,17 @@ public class ThemeUtil {
             }
         }
         return resId;
+    }
+
+    public static int getColorFromThemeAttribute(Context context, int resId) {
+        TypedValue tv = new TypedValue();
+        int color = 0;
+        context.getTheme().resolveAttribute(resId, tv, true);
+        if (tv.type >= TypedValue.TYPE_FIRST_COLOR_INT && tv.type <= TypedValue.TYPE_LAST_COLOR_INT) {
+            color = tv.data;
+        } else {
+            color = context.getColor(tv.resourceId);
+        }
+        return color;
     }
 }

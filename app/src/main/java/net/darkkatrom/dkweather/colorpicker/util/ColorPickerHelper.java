@@ -16,11 +16,16 @@
 
 package net.darkkatrom.dkweather.colorpicker.util;
 
+import android.content.Context;
+import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+
+import net.darkkatrom.dkweather.R;
 
 public class ColorPickerHelper {
 
@@ -79,6 +84,43 @@ public class ColorPickerHelper {
     }
 
     /*
+     * Converts a color int to a rrggbb color string
+     * 
+     * @param color
+     */
+    public static String convertToRGB(int color) {
+        String alpha = Integer.toHexString(Color.alpha(color));
+        String red = Integer.toHexString(Color.red(color));
+        String green = Integer.toHexString(Color.green(color));
+        String blue = Integer.toHexString(Color.blue(color));
+
+        if (red.length() == 1) {
+            red = "0" + red;
+        }
+        if (green.length() == 1) {
+            green = "0" + green;
+        }
+        if (blue.length() == 1) {
+            blue = "0" + blue;
+        }
+
+        return "#" + red + green + blue;
+    }
+
+    /*
+     * Converts a color int to a rgba color string
+     * 
+     * @param color
+     * @param alpha
+     */
+    public static String convertToRGBAForWebView(int color, String alpha) {
+        String red = String.valueOf(Color.red(color));
+        String green = String.valueOf(Color.green(color));
+        String blue = String.valueOf(Color.blue(color));
+        return red + ", " + green + ", " + blue + ", " + alpha;
+    }
+
+    /*
      * Converts a aarrggbb- or rrggbb color string to a color int
      * 
      * @param argb
@@ -106,5 +148,56 @@ public class ColorPickerHelper {
 
         return Color.argb(alpha, red, green, blue);
     }
-}
 
+    public static String getColorTitle(Context context, int color) {
+        Resources res = context.getResources();
+        TypedArray colors = res.obtainTypedArray(R.array.color_picker_all_palette);
+        TypedArray titles = res.obtainTypedArray(R.array.color_picker_all_palette_titles);
+        int titleResId = 0;
+        for (int i = 0; i < 38; i++) {
+            int resId = colors.getResourceId(i, 0);
+            if (color == context.getColor(resId)) {
+                titleResId = titles.getResourceId(i, 0);
+                break;
+            }
+        }
+
+        colors.recycle();
+        titles.recycle();
+
+        if (titleResId > 0) {
+            return res.getString(titleResId);
+        } else {
+            return "";
+        }
+    }
+
+    public static String getPaletteTitle(Context context, int color) {
+        Resources res = context.getResources();
+        TypedArray colors = res.obtainTypedArray(R.array.color_picker_all_palette);
+        int titleResId = 0;
+        for (int i = 0; i < 38; i++) {
+            int resId = colors.getResourceId(i, 0);
+            if (color == context.getColor(resId)) {
+                if (i < 3) {
+                    titleResId = R.string.darkkat_title;
+                } else if (i < 20) {
+                    titleResId = R.string.material_title;
+                } else if (i < 30) {
+                    titleResId = R.string.holo_title;
+                } else {
+                    titleResId = R.string.rgb_title;
+                }
+                break;
+            }
+        }
+
+        colors.recycle();
+
+        if (titleResId > 0) {
+            return res.getString(titleResId);
+        } else {
+            return "";
+        }
+    }
+}

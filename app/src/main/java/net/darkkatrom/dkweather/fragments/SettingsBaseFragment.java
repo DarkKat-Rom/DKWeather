@@ -19,14 +19,14 @@ package net.darkkatrom.dkweather.fragments;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 
-import net.darkkatrom.dkweather.activities.SettingsActivity;
+import net.darkkatrom.dkweather.activities.BaseActivity;
 
 public class SettingsBaseFragment extends PreferenceFragment {
 
     @Override
     public void onResume() {
         super.onResume();
-        SettingsActivity activity = (SettingsActivity) getActivity();
+        BaseActivity activity = (BaseActivity) getActivity();
         if (activity.getSupportActionBar() != null && getSubtitleResId() > 0) {
             activity.getSupportActionBar().setSubtitle(getSubtitleResId());
         }
