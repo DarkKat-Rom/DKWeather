@@ -40,6 +40,7 @@ public class BaseActivity extends Activity {
     private int mThemeResId = 0;
     private int mThemeOverlayAccentResId = 0;
     private int mThemeOverlayTextResId = 0;
+    private int mThemeOverlayRippleResId = 0;
     private boolean mLightStatusBar = false;
     private boolean mLightNavigationBar = false;
     private boolean mCustomizeColors = false;
@@ -84,6 +85,7 @@ public class BaseActivity extends Activity {
         mThemeOverlayTextResId = Config.getThemeUseDarkTheme(this)
                 ? ThemeUtil.getThemeOverlayDarkTextResId(this)
                 : ThemeUtil.getThemeOverlayLightTextResId(this);
+        mThemeOverlayRippleResId = ThemeUtil.getThemeOverlayRippleResId(this);
         mLightStatusBar = ThemeUtil.needsLightStatusBar(this);
         mLightNavigationBar = ThemeUtil.needsLightNavigationBar(this);
         mCustomizeColors = Config.getThemeCustomizeColors(this);
@@ -96,6 +98,9 @@ public class BaseActivity extends Activity {
         }
         if (mThemeOverlayTextResId > 0) {
             getTheme().applyStyle(mThemeOverlayTextResId, true);
+        }
+        if (mThemeOverlayRippleResId > 0) {
+            getTheme().applyStyle(mThemeOverlayRippleResId, true);
         }
 
         int oldFlags = getWindow().getDecorView().getSystemUiVisibility();
@@ -186,6 +191,7 @@ public class BaseActivity extends Activity {
             int themeOverlayTextResId = Config.getThemeUseDarkTheme(this)
                     ? ThemeUtil.getThemeOverlayDarkTextResId(this)
                     : ThemeUtil.getThemeOverlayLightTextResId(this);
+            int themeOverlayRippleResId = ThemeUtil.getThemeOverlayRippleResId(this);
             boolean lightStatusBar = ThemeUtil.needsLightStatusBar(this);
             boolean lightNavigationBar = ThemeUtil.needsLightNavigationBar(this);
             boolean customizeColors = Config.getThemeCustomizeColors(this);
@@ -195,6 +201,7 @@ public class BaseActivity extends Activity {
             if (mThemeResId != themeResId
                     || mThemeOverlayAccentResId != themeOverlayAccentResId
                     || mThemeOverlayTextResId != themeOverlayTextResId
+                    || mThemeOverlayRippleResId != themeOverlayRippleResId
                     || mLightStatusBar != lightStatusBar
                     || mLightNavigationBar != lightNavigationBar
                     || mCustomizeColors != customizeColors

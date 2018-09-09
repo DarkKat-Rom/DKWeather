@@ -17,6 +17,9 @@
 
     <item name="disabled_alpha_material_light" format="float" type="dimen">0.26</item>
     <item name="disabled_alpha_material_dark" format="float" type="dimen">0.30</item>
+    <item name="highlight_alpha_material_light" format="float" type="dimen">0.12</item>
+    <item name="highlight_alpha_material_dark" format="float" type="dimen">0.20</item>
+    <item name="highlight_alpha_material_colored" format="float" type="dimen">0.26</item>
 
     <!-- Accent DarkKat -->
     <!-- 87% Accent DarkKat -->

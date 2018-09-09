@@ -23,6 +23,7 @@
     android:minHeight="?android:attr/listPreferredItemHeightSmall"
     android:paddingStart="@dimen/select_dialog_padding_start_material"
     android:paddingEnd="?android:attr/dialogPreferredPadding"
+    android:background="?android:attr/selectableItemBackground"
     android:gravity="center_vertical">
 
     <CheckedTextView
