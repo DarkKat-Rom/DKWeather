@@ -15,6 +15,13 @@
 -->
 <resources>
 
+    <string name="main_button_pick_title">Farbe wählen</string>
+    <string name="main_button_favorites_title">Favoriten</string>
+    <string name="main_button_darkkat_title">DarkKat</string>
+    <string name="main_button_material_title">Material</string>
+    <string name="main_button_rgb_title">RGB</string>
+    <string name="main_button_help_title">Hilfe</string>
+
     <!-- Color picker -->
     <string name="pick_color_title">Farbe wählen</string>
     <string name="color_picker_fragment_title">Farbauswahl</string>
