@@ -231,6 +231,7 @@ public class ColorPickerFragmentNew extends Fragment implements
 
         setUpResetMenuAppearience();
         setUpMainButtons();
+        setUpMainContent();
         setUpHelpScreen();
 
         return mColorPickerView;
@@ -310,6 +311,16 @@ public class ColorPickerFragmentNew extends Fragment implements
             if (checkedId != R.id.main_button_help) {
                 ConfigColorPicker.setMainButtonChededId(getActivity(), checkedId);
             }
+
+            if (checkedId == R.id.main_button_pick) {
+                mColorPicker.setVisibility(View.VISIBLE);
+                mColorPickerView.findViewById(R.id.dummy).setVisibility(View.GONE);
+            }
+            if (checkedId == R.id.main_button_favorites) {
+                mColorPicker.setVisibility(View.GONE);
+                mColorPickerView.findViewById(R.id.dummy).setVisibility(View.VISIBLE);
+            }
+
         }
 
         if (checkedId == R.id.main_button_help) {
@@ -435,7 +446,6 @@ public class ColorPickerFragmentNew extends Fragment implements
     private void setUpMainButtons() {
         mMainButtons[0] = (CompoundButton) mColorPickerView.findViewById(R.id.main_button_pick);
         mMainButtons[1] = (CompoundButton) mColorPickerView.findViewById(R.id.main_button_favorites);
-        mMainButtons[1].setEnabled(false);
         mMainButtons[2] = (CompoundButton) mColorPickerView.findViewById(R.id.main_button_darkkat);
         mMainButtons[2].setEnabled(false);
         mMainButtons[3] = (CompoundButton) mColorPickerView.findViewById(R.id.main_button_material);
@@ -449,6 +459,15 @@ public class ColorPickerFragmentNew extends Fragment implements
         }
 
         onCheckedChanged(mMainButtonsGroup, ConfigColorPicker.getMainButtonChededId(getActivity()));
+    }
+
+    private void setUpMainContent() {
+        int mainButtonsCheckedId = ConfigColorPicker.getMainButtonChededId(getActivity());
+        if (mainButtonsCheckedId == R.id.main_button_pick) {
+            mColorPicker.setVisibility(View.VISIBLE);
+        } else if (mainButtonsCheckedId == R.id.main_button_favorites) {
+            mColorPickerView.findViewById(R.id.dummy).setVisibility(View.VISIBLE);
+        }
     }
 
     private void setUpHelpScreen() {
