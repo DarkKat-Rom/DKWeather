@@ -38,16 +38,23 @@
         android:layout_below="@id/color_picker_additional_subtitle"
         android:orientation="horizontal">
 
-        <net.darkkatrom.dkweather.colorpicker.widget.ColorPickerView 
-            android:id="@+id/color_picker_view"
+        <FrameLayout
+            android:id="@+id/color_picker_content"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/color_picker_view_margin"
-            android:layout_marginStart="@dimen/color_picker_view_margin"
-            android:layout_marginBottom="@dimen/color_picker_view_margin"
-            android:layout_marginEnd="@dimen/color_picker_view_margin"
-            android:tag="landscape"
-            android:layerType="software" />
+            android:layout_height="wrap_content">
+
+            <net.darkkatrom.dkweather.colorpicker.widget.ColorPickerView 
+                android:id="@+id/color_picker_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/color_picker_view_margin"
+                android:layout_marginStart="@dimen/color_picker_view_margin"
+                android:layout_marginBottom="@dimen/color_picker_view_margin"
+                android:layout_marginEnd="@dimen/color_picker_view_margin"
+                android:tag="landscape"
+                android:layerType="software" />
+
+        </FrameLayout>
 
         <RadioGroup
             android:id="@+id/color_picker_main_buttons_group"

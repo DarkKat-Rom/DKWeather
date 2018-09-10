@@ -137,15 +137,22 @@
         </LinearLayout>
     </RadioGroup>
 
-    <net.darkkatrom.dkweather.colorpicker.widget.ColorPickerView
-        android:id="@+id/color_picker_view"
+    <FrameLayout
+        android:id="@+id/color_picker_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/color_picker_main_buttons_group"
-        android:layout_marginTop="@dimen/color_picker_view_margin"
-        android:layout_marginStart="@dimen/color_picker_view_margin"
-        android:layout_marginEnd="@dimen/color_picker_view_margin"
-        android:tag="portrait" />
+        android:layout_below="@id/color_picker_main_buttons_group">
+
+        <net.darkkatrom.dkweather.colorpicker.widget.ColorPickerView
+            android:id="@+id/color_picker_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/color_picker_view_margin"
+            android:layout_marginStart="@dimen/color_picker_view_margin"
+            android:layout_marginEnd="@dimen/color_picker_view_margin"
+            android:tag="portrait" />
+
+    </FrameLayout>
 
     <include layout="@layout/color_picker_help_screen"
             android:id="@+id/color_picker_help_screen" />
