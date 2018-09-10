@@ -21,17 +21,12 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.app.Fragment;
-import android.content.ContentResolver;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.support.v4.view.animation.FastOutLinearInInterpolator;
 import android.support.v4.view.animation.FastOutSlowInInterpolator;
-import android.support.v4.view.animation.LinearOutSlowInInterpolator;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -51,7 +46,6 @@ import android.widget.CheckedTextView;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.PopupMenu;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -60,7 +54,6 @@ import net.darkkatrom.dkweather.colorpicker.ColorPickerActivityNew;
 import net.darkkatrom.dkweather.colorpicker.preference.ColorPickerPreference;
 import net.darkkatrom.dkweather.colorpicker.widget.ApplyColorView;
 import net.darkkatrom.dkweather.colorpicker.widget.ColorPickerView;
-import net.darkkatrom.dkweather.colorpicker.widget.ColorViewButton;
 import net.darkkatrom.dkweather.colorpicker.util.ColorPickerHelper;
 import net.darkkatrom.dkweather.colorpicker.util.ConfigColorPicker;
 
@@ -96,7 +89,6 @@ public class ColorPickerFragmentNew extends Fragment implements
     private static final int ANIMATE_COLOR_TRANSITION       = 0;
     private static final int ANIMATE_HELP_SCREEN_VISIBILITY = 2;
 
-    private SharedPreferences mPrefs;
     private Resources mResources;
 
     private ApplyColorView mApplyColorAction;
@@ -134,7 +126,6 @@ public class ColorPickerFragmentNew extends Fragment implements
     private boolean mShowSubMenu = false;
 
     private float mFullTranslationX;
-    private int mFavoritesLayoutHeight = 0;
     private int mHelpScreenHeight = 0;
 
     private Animator mAnimator;
@@ -164,7 +155,6 @@ public class ColorPickerFragmentNew extends Fragment implements
     private View inflateAndSetupView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
 
-        mPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         mResources = getActivity().getResources();
         TypedValue tv = new TypedValue();
 
@@ -476,7 +466,7 @@ public class ColorPickerFragmentNew extends Fragment implements
                 mHelpScreenHeight = mHelpScreen.getHeight();
                 mHelpScreen.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                 if (!mHelpScreenVisible) {
-                    mHelpScreen.setTranslationY(mFavoritesLayoutHeight);
+                    mHelpScreen.setTranslationY(0);
                     mHelpScreen.setAlpha(0f);
                     mHelpScreen.setVisibility(View.GONE);
                 }
@@ -488,10 +478,6 @@ public class ColorPickerFragmentNew extends Fragment implements
                 return true;
             }
         });
-    }
-
-    public void setOnColorChangedListener(OnColorChangedListener listener) {
-        mListener = listener;
     }
 
     @Override
@@ -612,6 +598,10 @@ public class ColorPickerFragmentNew extends Fragment implements
         } else {
             mEditHexValue.addTextChangedListener(this);
         }
+    }
+
+    public void setOnColorChangedListener(OnColorChangedListener listener) {
+        mListener = listener;
     }
 
     private int getColor() {
