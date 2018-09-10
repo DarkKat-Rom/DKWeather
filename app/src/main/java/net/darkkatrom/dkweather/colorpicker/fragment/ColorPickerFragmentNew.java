@@ -305,6 +305,7 @@ public class ColorPickerFragmentNew extends Fragment implements
                     if (l.getChildAt(j) instanceof CompoundButton) {
                         CompoundButton cb = (CompoundButton) l.getChildAt(j);
                         cb.setChecked(cb.getId() == checkedId);
+                        cb.setClickable(cb.getId() != checkedId);
                     }
                 }
             }
