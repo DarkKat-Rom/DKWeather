@@ -27,6 +27,8 @@ import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.view.animation.FastOutSlowInInterpolator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -51,16 +53,22 @@ import android.widget.TextView;
 
 import net.darkkatrom.dkweather.R;
 import net.darkkatrom.dkweather.colorpicker.ColorPickerActivityNew;
+import net.darkkatrom.dkweather.colorpicker.adapter.ColorPickerFavoritesListAdapter;
+import net.darkkatrom.dkweather.colorpicker.model.ColorPickerFavoritesListItem;
 import net.darkkatrom.dkweather.colorpicker.preference.ColorPickerPreference;
 import net.darkkatrom.dkweather.colorpicker.widget.ApplyColorView;
 import net.darkkatrom.dkweather.colorpicker.widget.ColorPickerView;
 import net.darkkatrom.dkweather.colorpicker.util.ColorPickerHelper;
 import net.darkkatrom.dkweather.colorpicker.util.ConfigColorPicker;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ColorPickerFragmentNew extends Fragment implements
         ColorPickerView.OnColorChangedListener, TextWatcher, View.OnClickListener,
         View.OnFocusChangeListener, CompoundButton.OnCheckedChangeListener,
-        RadioGroup.OnCheckedChangeListener {
+        RadioGroup.OnCheckedChangeListener,
+        ColorPickerFavoritesListAdapter.OnFavoriteItemClickedListener {
 
     public static final String TAG = "ColorPickerFragment";
 
@@ -75,7 +83,8 @@ public class ColorPickerFragmentNew extends Fragment implements
     public static final String KEY_RESET_COLOR_1_TITLE      = "reset_color_1_Title";
     public static final String KEY_RESET_COLOR_2_TITLE      = "reset_color_2_Title";
     public static final String KEY_ALPHA_SLIDER_VISIBLE     = "alpha_slider_visible";
-
+    public static final String KEY_FAVORITE_BASE            = "color_picker_favorite_";
+    public static final String KEY_ADDITION_SUBTITLE        = "_subtitle";
     public static final String KEY_HELP_SCREEN_VISIBILITY   = "help_screen_Visibility";
 
     private static final int HELP_SCREEN_VISIBILITY_DEFAULT = 0;
@@ -89,6 +98,8 @@ public class ColorPickerFragmentNew extends Fragment implements
     private static final int ANIMATE_COLOR_TRANSITION       = 0;
     private static final int ANIMATE_HELP_SCREEN_VISIBILITY = 2;
 
+    private static final int NUM_MAX_FAVORITES = 10;
+
     private Resources mResources;
 
     private ApplyColorView mApplyColorAction;
@@ -101,6 +112,8 @@ public class ColorPickerFragmentNew extends Fragment implements
 
     private RadioGroup mMainButtonsGroup;
     private CompoundButton[] mMainButtons = new CompoundButton[6];
+
+    private RecyclerView mContentList;
 
     private View mHelpScreen;
     private CheckedTextView mCheckShowHelpScreen;
@@ -132,6 +145,9 @@ public class ColorPickerFragmentNew extends Fragment implements
     private int mApplyColorIconAnimationType;
     private int mAnimationType;
 
+    private ColorPickerFavoritesListAdapter mAdapter = null;
+    private List<ColorPickerFavoritesListItem> mColorPickerFavoritesListItems;
+
     private OnColorChangedListener mListener;
 
     public interface OnColorChangedListener {
@@ -162,6 +178,7 @@ public class ColorPickerFragmentNew extends Fragment implements
         mAdditionalSubtitleView = (TextView) mColorPickerView.findViewById(R.id.color_picker_additional_subtitle);
         mColorPicker = (ColorPickerView) mColorPickerView.findViewById(R.id.color_picker_view);
         mMainButtonsGroup = (RadioGroup) mColorPickerView.findViewById(R.id.color_picker_main_buttons_group);
+        mContentList = (RecyclerView) mColorPickerView.findViewById(R.id.color_picker_content_list);
         mHelpScreen = mColorPickerView.findViewById(R.id.color_picker_help_screen);
 
         if (getArguments() != null) {
@@ -272,7 +289,6 @@ public class ColorPickerFragmentNew extends Fragment implements
         LinearLayout editHexActionView = (LinearLayout) mShowEditHexAction.getActionView();
         mEditHexValue = (EditText) editHexActionView.findViewById(R.id.ab_edit_hex);
         ImageButton setHexValueButton = (ImageButton) editHexActionView.findViewById(R.id.ab_edit_hex_enter);
-        MenuItem showHideFavorites = menu.findItem(R.id.show_hide_favorites);
 
         boolean newColor = mNewColorValue != mInitialColor;
 
@@ -314,11 +330,11 @@ public class ColorPickerFragmentNew extends Fragment implements
 
             if (checkedId == R.id.main_button_pick) {
                 mColorPicker.setVisibility(View.VISIBLE);
-                mColorPickerView.findViewById(R.id.dummy).setVisibility(View.GONE);
+                mContentList.setVisibility(View.GONE);
             }
             if (checkedId == R.id.main_button_favorites) {
                 mColorPicker.setVisibility(View.GONE);
-                mColorPickerView.findViewById(R.id.dummy).setVisibility(View.VISIBLE);
+                mContentList.setVisibility(View.VISIBLE);
             }
 
         }
@@ -463,11 +479,27 @@ public class ColorPickerFragmentNew extends Fragment implements
 
     private void setUpMainContent() {
         int mainButtonsCheckedId = ConfigColorPicker.getMainButtonChededId(getActivity());
+        String favorite = mResources.getString(R.string.favorite_title);
+
         if (mainButtonsCheckedId == R.id.main_button_pick) {
             mColorPicker.setVisibility(View.VISIBLE);
         } else if (mainButtonsCheckedId == R.id.main_button_favorites) {
-            mColorPickerView.findViewById(R.id.dummy).setVisibility(View.VISIBLE);
+            mContentList.setVisibility(View.VISIBLE);
         }
+
+        mColorPickerFavoritesListItems = new ArrayList<ColorPickerFavoritesListItem>();
+        for (int i = 0; i < NUM_MAX_FAVORITES; i++) {
+            int favoriteNumber = i + 1;
+            ColorPickerFavoritesListItem item = new ColorPickerFavoritesListItem(
+                    (favorite + " " + favoriteNumber), getFavoriteSubtitle(favoriteNumber),
+                    getFavoriteColor(favoriteNumber));
+            mColorPickerFavoritesListItems.add(item);
+        }
+
+        mAdapter = new ColorPickerFavoritesListAdapter(getActivity(), mColorPickerFavoritesListItems);
+        mAdapter.setOnFavoriteItemClickedListener(this);
+        mContentList.setLayoutManager(new LinearLayoutManager(getContext()));
+        mContentList.setAdapter(mAdapter);
     }
 
     private void setUpHelpScreen() {
@@ -509,12 +541,6 @@ public class ColorPickerFragmentNew extends Fragment implements
             return true;
         } else if (item.getItemId() == R.id.edit_hex) {
             mEditHexValue.setText(ColorPickerHelper.convertToARGB(mNewColorValue));
-            return true;
-        } else if (item.getItemId() == R.id.show_hide_help) {
-            mAnimationType = ANIMATE_HELP_SCREEN_VISIBILITY;
-            mAnimator.setInterpolator(new FastOutSlowInInterpolator());
-            mAnimator.setDuration(225);
-            mAnimator.start();
             return true;
         } else {
             return super.onOptionsItemSelected(item);
@@ -596,6 +622,23 @@ public class ColorPickerFragmentNew extends Fragment implements
     }
 
     @Override
+    public void onFavoriteItemClicked(int color) {
+        try {
+            if (color != mOldColorValue) {
+                mColorPicker.setColor(color, true);
+            }
+        } catch (Exception e) {}
+    }
+
+    @Override
+    public void onFavoriteItemLongClicked(int position) {
+        int favoriteNumber = position + 1;
+        setFavoriteColor(favoriteNumber, mNewColorValue);
+        mColorPickerFavoritesListItems.get(position).setColor(getFavoriteColor(favoriteNumber));
+        mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
     }
 
@@ -649,5 +692,24 @@ public class ColorPickerFragmentNew extends Fragment implements
         } else {
             return visibility == HELP_SCREEN_VISIBILITY_VISIBLE ? true : false;
         }
+    }
+
+    private int getFavoriteColor(int favoriteNumber) {
+        return Integer.valueOf(ConfigColorPicker.getFavoriteColor(getActivity(),
+                KEY_FAVORITE_BASE + favoriteNumber));
+    }
+
+    private void setFavoriteColor(int favoriteNumber, int color) {
+        ConfigColorPicker.setFavoriteColor(getActivity(), KEY_FAVORITE_BASE + favoriteNumber, color);
+    }
+
+    private String getFavoriteSubtitle(int favoriteNumber) {
+        return ConfigColorPicker.getFavoriteSubtitle(getActivity(),
+               KEY_FAVORITE_BASE + favoriteNumber + KEY_ADDITION_SUBTITLE);
+    }
+
+    private void setFavoriteSubtitle(int favoriteNumber, String subtitle) {
+        ConfigColorPicker.setFavoriteSubtitle(getActivity(),
+                KEY_FAVORITE_BASE + favoriteNumber + KEY_ADDITION_SUBTITLE, subtitle);
     }
 }

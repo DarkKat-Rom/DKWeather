@@ -71,6 +71,36 @@ public class ConfigColorPicker {
         prefs.edit().putInt(buttonId, value).commit();
     }
 
+
+    public static int getFavoriteColor(Context context, String key) {
+        SharedPreferences prefs = PreferenceManager
+                .getDefaultSharedPreferences(context);
+
+        return prefs.getInt(key, 0);
+    }
+
+    public static void setFavoriteColor(Context context, String key, int color) {
+        SharedPreferences prefs = PreferenceManager
+                .getDefaultSharedPreferences(context);
+
+        prefs.edit().putInt(key, color).commit();
+    }
+
+    public static String getFavoriteSubtitle(Context context, String key) {
+        SharedPreferences prefs = PreferenceManager
+                .getDefaultSharedPreferences(context);
+
+        return prefs.getString(key, "");
+    }
+
+    public static void setFavoriteSubtitle(Context context, String key, String subtitle) {
+        SharedPreferences prefs = PreferenceManager
+                .getDefaultSharedPreferences(context);
+
+        prefs.edit().putString(key, subtitle).commit();
+    }
+
+
     public static int getMainButtonChededId(Context context) {
         SharedPreferences prefs = PreferenceManager
                 .getDefaultSharedPreferences(context);

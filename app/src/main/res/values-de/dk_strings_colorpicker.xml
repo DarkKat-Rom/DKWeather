@@ -21,7 +21,7 @@
     <string name="main_button_material_title">Material</string>
     <string name="main_button_rgb_title">RGB</string>
     <string name="main_button_help_title">Hilfe</string>
-    <string name="dummy_title">Inhalt wird später hinzugefügt</string>
+    <string name="favorite_title">Favorit</string>
 
     <!-- Color picker -->
     <string name="pick_color_title">Farbe wählen</string>

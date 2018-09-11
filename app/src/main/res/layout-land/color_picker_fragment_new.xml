@@ -40,12 +40,15 @@
 
         <FrameLayout
             android:id="@+id/color_picker_content"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1">
 
             <net.darkkatrom.dkweather.colorpicker.widget.ColorPickerView 
                 android:id="@+id/color_picker_view"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/color_picker_view_margin"
                 android:layout_marginStart="@dimen/color_picker_view_margin"
@@ -55,23 +58,30 @@
                 android:tag="landscape"
                 android:layerType="software" />
 
-            <TextView
-                android:id="@+id/dummy"
-                android:layout_width="wrap_content"
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/color_picker_content_list"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginStart="16dp"
-                android:text="@string/dummy_title"
+                android:layout_marginStart="8dp"
                 android:visibility="gone" />
 
         </FrameLayout>
 
+        <View
+            android:id="@+id/color_picker_content_divider"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="?attr/dividerColor" />
+
         <RadioGroup
             android:id="@+id/color_picker_main_buttons_group"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:layout_below="@id/color_picker_additional_subtitle"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="16dp"
             android:layout_marginEnd="16dp">

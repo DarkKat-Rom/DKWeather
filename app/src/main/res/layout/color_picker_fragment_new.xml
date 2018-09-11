@@ -39,7 +39,7 @@
         android:layout_below="@id/color_picker_additional_subtitle"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="16dp">
 
         <LinearLayout
@@ -137,11 +137,22 @@
         </LinearLayout>
     </RadioGroup>
 
+    <View
+        android:id="@+id/color_picker_content_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/color_picker_main_buttons_group"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="?attr/dividerColor" />
+
     <FrameLayout
         android:id="@+id/color_picker_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/color_picker_main_buttons_group">
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_below="@id/color_picker_content_divider">
 
         <net.darkkatrom.dkweather.colorpicker.widget.ColorPickerView
             android:id="@+id/color_picker_view"
@@ -153,13 +164,13 @@
             android:visibility="gone"
             android:tag="portrait" />
 
-        <TextView
-            android:id="@+id/dummy"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/color_picker_content_list"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:layout_marginStart="16dp"
-            android:text="@string/dummy_title"
+            android:layout_marginEnd="8dp"
             android:visibility="gone" />
 
     </FrameLayout>
