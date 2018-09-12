@@ -54,7 +54,9 @@ import android.widget.TextView;
 import net.darkkatrom.dkweather.R;
 import net.darkkatrom.dkweather.colorpicker.ColorPickerActivityNew;
 import net.darkkatrom.dkweather.colorpicker.adapter.ColorPickerFavoritesListAdapter;
+import net.darkkatrom.dkweather.colorpicker.adapter.ColorPickerColorCardAdapter;
 import net.darkkatrom.dkweather.colorpicker.model.ColorPickerFavoritesListItem;
+import net.darkkatrom.dkweather.colorpicker.model.ColorPickerColorCard;
 import net.darkkatrom.dkweather.colorpicker.preference.ColorPickerPreference;
 import net.darkkatrom.dkweather.colorpicker.widget.ApplyColorView;
 import net.darkkatrom.dkweather.colorpicker.widget.ColorPickerView;
@@ -68,7 +70,8 @@ public class ColorPickerFragmentNew extends Fragment implements
         ColorPickerView.OnColorChangedListener, TextWatcher, View.OnClickListener,
         View.OnFocusChangeListener, CompoundButton.OnCheckedChangeListener,
         RadioGroup.OnCheckedChangeListener,
-        ColorPickerFavoritesListAdapter.OnFavoriteItemClickedListener {
+        ColorPickerFavoritesListAdapter.OnFavoriteItemClickedListener,
+        ColorPickerColorCardAdapter.OnColorCardClickedListener {
 
     public static final String TAG = "ColorPickerFragment";
 
@@ -145,8 +148,11 @@ public class ColorPickerFragmentNew extends Fragment implements
     private int mApplyColorIconAnimationType;
     private int mAnimationType;
 
-    private ColorPickerFavoritesListAdapter mAdapter = null;
+    private ColorPickerFavoritesListAdapter mFavoritesAdapter = null;
+    private ColorPickerColorCardAdapter mCardAdapter = null;
+
     private List<ColorPickerFavoritesListItem> mColorPickerFavoritesListItems;
+    private List<ColorPickerColorCard> mColorPickerColorCards;
 
     private OnColorChangedListener mListener;
 
@@ -327,7 +333,6 @@ public class ColorPickerFragmentNew extends Fragment implements
             if (checkedId != R.id.main_button_help) {
                 ConfigColorPicker.setMainButtonChededId(getActivity(), checkedId);
             }
-
             if (checkedId == R.id.main_button_pick) {
                 mColorPicker.setVisibility(View.VISIBLE);
                 mContentList.setVisibility(View.GONE);
@@ -335,8 +340,29 @@ public class ColorPickerFragmentNew extends Fragment implements
             if (checkedId == R.id.main_button_favorites) {
                 mColorPicker.setVisibility(View.GONE);
                 mContentList.setVisibility(View.VISIBLE);
+                if (mFavoritesAdapter == null || mColorPickerFavoritesListItems.size() < 1) {
+                    setUpFavorites();
+                }
+                mContentList.setAdapter(mFavoritesAdapter);
             }
-
+            if (checkedId == R.id.main_button_darkkat) {
+                mColorPicker.setVisibility(View.GONE);
+                mContentList.setVisibility(View.VISIBLE);
+                setUpDarkKatColors();
+                mContentList.setAdapter(mCardAdapter);
+            }
+            if (checkedId == R.id.main_button_material) {
+                mColorPicker.setVisibility(View.GONE);
+                mContentList.setVisibility(View.VISIBLE);
+                setUpMaterialColors();
+                mContentList.setAdapter(mCardAdapter);
+            }
+            if (checkedId == R.id.main_button_rgb) {
+                mColorPicker.setVisibility(View.GONE);
+                mContentList.setVisibility(View.VISIBLE);
+                setUpRGBColors();
+                mContentList.setAdapter(mCardAdapter);
+            }
         }
 
         if (checkedId == R.id.main_button_help) {
@@ -463,11 +489,8 @@ public class ColorPickerFragmentNew extends Fragment implements
         mMainButtons[0] = (CompoundButton) mColorPickerView.findViewById(R.id.main_button_pick);
         mMainButtons[1] = (CompoundButton) mColorPickerView.findViewById(R.id.main_button_favorites);
         mMainButtons[2] = (CompoundButton) mColorPickerView.findViewById(R.id.main_button_darkkat);
-        mMainButtons[2].setEnabled(false);
         mMainButtons[3] = (CompoundButton) mColorPickerView.findViewById(R.id.main_button_material);
-        mMainButtons[3].setEnabled(false);
         mMainButtons[4] = (CompoundButton) mColorPickerView.findViewById(R.id.main_button_rgb);
-        mMainButtons[4].setEnabled(false);
         mMainButtons[5] = (CompoundButton) mColorPickerView.findViewById(R.id.main_button_help);
 
         for (int i = 0; i < mMainButtons.length; i++) {
@@ -479,13 +502,36 @@ public class ColorPickerFragmentNew extends Fragment implements
 
     private void setUpMainContent() {
         int mainButtonsCheckedId = ConfigColorPicker.getMainButtonChededId(getActivity());
-        String favorite = mResources.getString(R.string.favorite_title);
 
+        mContentList.setLayoutManager(new LinearLayoutManager(getContext()));
         if (mainButtonsCheckedId == R.id.main_button_pick) {
             mColorPicker.setVisibility(View.VISIBLE);
         } else if (mainButtonsCheckedId == R.id.main_button_favorites) {
             mContentList.setVisibility(View.VISIBLE);
+            setUpFavorites();
+            mContentList.setAdapter(mFavoritesAdapter);
+        } else if (mainButtonsCheckedId == R.id.main_button_darkkat) {
+            mContentList.setVisibility(View.VISIBLE);
+            setUpDarkKatColors();
+            mContentList.setAdapter(mCardAdapter);
+        } else if (mainButtonsCheckedId == R.id.main_button_material) {
+            mContentList.setVisibility(View.VISIBLE);
+            setUpMaterialColors();
+            mContentList.setAdapter(mCardAdapter);
+        } else if (mainButtonsCheckedId == R.id.main_button_rgb) {
+            mContentList.setVisibility(View.VISIBLE);
+            setUpRGBColors();
+            mContentList.setAdapter(mCardAdapter);
         }
+    }
+
+    private void setUpFavorites() {
+        if (mColorPickerFavoritesListItems == null) {
+            mColorPickerFavoritesListItems = new ArrayList<ColorPickerFavoritesListItem>();
+        } else {
+            mColorPickerFavoritesListItems.clear();
+        }
+        String favorite = mResources.getString(R.string.favorite_title);
 
         mColorPickerFavoritesListItems = new ArrayList<ColorPickerFavoritesListItem>();
         for (int i = 0; i < NUM_MAX_FAVORITES; i++) {
@@ -496,10 +542,69 @@ public class ColorPickerFragmentNew extends Fragment implements
             mColorPickerFavoritesListItems.add(item);
         }
 
-        mAdapter = new ColorPickerFavoritesListAdapter(getActivity(), mColorPickerFavoritesListItems);
-        mAdapter.setOnFavoriteItemClickedListener(this);
-        mContentList.setLayoutManager(new LinearLayoutManager(getContext()));
-        mContentList.setAdapter(mAdapter);
+        mFavoritesAdapter = new ColorPickerFavoritesListAdapter(
+                getActivity(), mColorPickerFavoritesListItems);
+        mFavoritesAdapter.setOnFavoriteItemClickedListener(this);
+    }
+
+    private void setUpDarkKatColors() {
+        if (mColorPickerColorCards == null) {
+            mColorPickerColorCards = new ArrayList<ColorPickerColorCard>();
+        } else {
+            mColorPickerColorCards.clear();
+        }
+        TypedArray titles = mResources.obtainTypedArray(R.array.color_picker_darkkat_palette_titles);
+        TypedArray colors = mResources.obtainTypedArray(R.array.color_picker_darkkat_palette);
+        for (int i = 0; i < 8; i++) {
+            ColorPickerColorCard card = new ColorPickerColorCard(titles.getResourceId(i, 0), "",
+                    colors.getResourceId(i, 0));
+            mColorPickerColorCards.add(card);
+        }
+
+        titles.recycle();
+        colors.recycle();
+        mCardAdapter = new ColorPickerColorCardAdapter(getActivity(), mColorPickerColorCards);
+        mCardAdapter.setOnColorCardClickedListener(this);
+    }
+
+    private void setUpMaterialColors() {
+        if (mColorPickerColorCards == null) {
+            mColorPickerColorCards = new ArrayList<ColorPickerColorCard>();
+        } else {
+            mColorPickerColorCards.clear();
+        }
+        TypedArray titles = mResources.obtainTypedArray(R.array.color_picker_material_palette_titles);
+        TypedArray colors = mResources.obtainTypedArray(R.array.color_picker_material_palette);
+        for (int i = 0; i < 17; i++) {
+            ColorPickerColorCard card = new ColorPickerColorCard(titles.getResourceId(i, 0), "",
+                    colors.getResourceId(i, 0));
+            mColorPickerColorCards.add(card);
+        }
+
+        titles.recycle();
+        colors.recycle();
+        mCardAdapter = new ColorPickerColorCardAdapter(getActivity(), mColorPickerColorCards);
+        mCardAdapter.setOnColorCardClickedListener(this);
+    }
+
+    private void setUpRGBColors() {
+        if (mColorPickerColorCards == null) {
+            mColorPickerColorCards = new ArrayList<ColorPickerColorCard>();
+        } else {
+            mColorPickerColorCards.clear();
+        }
+        TypedArray titles = mResources.obtainTypedArray(R.array.color_picker_rgb_palette_titles);
+        TypedArray colors = mResources.obtainTypedArray(R.array.color_picker_rgb_palette);
+        for (int i = 0; i < 8; i++) {
+            ColorPickerColorCard card = new ColorPickerColorCard(titles.getResourceId(i, 0), "",
+                    colors.getResourceId(i, 0));
+            mColorPickerColorCards.add(card);
+        }
+
+        titles.recycle();
+        colors.recycle();
+        mCardAdapter = new ColorPickerColorCardAdapter(getActivity(), mColorPickerColorCards);
+        mCardAdapter.setOnColorCardClickedListener(this);
     }
 
     private void setUpHelpScreen() {
@@ -635,7 +740,16 @@ public class ColorPickerFragmentNew extends Fragment implements
         int favoriteNumber = position + 1;
         setFavoriteColor(favoriteNumber, mNewColorValue);
         mColorPickerFavoritesListItems.get(position).setColor(getFavoriteColor(favoriteNumber));
-        mAdapter.notifyDataSetChanged();
+        mFavoritesAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onColorCardClicked(int color) {
+        try {
+            if (color != mOldColorValue) {
+                mColorPicker.setColor(color, true);
+            }
+        } catch (Exception e) {}
     }
 
     @Override
