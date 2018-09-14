@@ -16,38 +16,73 @@
 
 package net.darkkatrom.dkweather.colorpicker.model;
 
-public class ColorPickerFavoritesListItem {
-    private String mTitle;
-    private String mSubtitle;
-    private int mColor;
+import android.content.Context;
 
-    public ColorPickerFavoritesListItem(String title, String subtitle, int color) {
-        mTitle = title;
-        mSubtitle = subtitle;
-        mColor = color;
+import net.darkkatrom.dkweather.colorpicker.util.ColorPickerHelper;
+import net.darkkatrom.dkweather.utils.ColorUtil;
+
+public class ColorPickerCard {
+    protected Context mContext;
+    protected int mTitleResId = 0;
+    protected String mTitle = "";
+    protected int mSubtitleResId = 0;
+    protected String mSubtitle = "";
+    protected int mColorResId = 0;
+    protected int mColor = 0;
+
+    public ColorPickerCard(Context context) {
+        mContext = context;
+    }
+
+    public int getTitleResId() {
+        return mTitleResId;
     }
 
     public String getTitle() {
         return mTitle;
     }
 
+    public int getSubtitleResId() {
+        return mSubtitleResId;
+    }
+
     public String getSubtitle() {
         return mSubtitle;
+    }
+
+    public int getColorResId() {
+        return mColorResId;
     }
 
     public int getColor() {
         return mColor;
     }
 
+    public void setTitleResId(int resId) {
+        mTitleResId = resId;
+    }
+
     public void setTitle(String title) {
         mTitle = title;
+    }
+
+    public void setSubtitleResId(int resId) {
+        mSubtitleResId = resId;
     }
 
     public void setSubtitle(String subtitle) {
         mSubtitle = subtitle;
     }
 
+    public void setColorResId(int resId) {
+        mColorResId = resId;
+    }
+
     public void setColor(int color) {
         mColor = color;
+    }
+
+    public boolean needLightTheme() {
+        return !ColorUtil.isColorDark(getColor());
     }
 }

@@ -53,10 +53,10 @@ import android.widget.TextView;
 
 import net.darkkatrom.dkweather.R;
 import net.darkkatrom.dkweather.colorpicker.ColorPickerActivityNew;
-import net.darkkatrom.dkweather.colorpicker.adapter.ColorPickerFavoritesListAdapter;
-import net.darkkatrom.dkweather.colorpicker.adapter.ColorPickerColorCardAdapter;
-import net.darkkatrom.dkweather.colorpicker.model.ColorPickerFavoritesListItem;
+import net.darkkatrom.dkweather.colorpicker.adapter.ColorPickerCardAdapter;
+import net.darkkatrom.dkweather.colorpicker.model.ColorPickerCard;
 import net.darkkatrom.dkweather.colorpicker.model.ColorPickerColorCard;
+import net.darkkatrom.dkweather.colorpicker.model.ColorPickerFavoriteCard;
 import net.darkkatrom.dkweather.colorpicker.preference.ColorPickerPreference;
 import net.darkkatrom.dkweather.colorpicker.widget.ApplyColorView;
 import net.darkkatrom.dkweather.colorpicker.widget.ColorPickerView;
@@ -70,8 +70,7 @@ public class ColorPickerFragmentNew extends Fragment implements
         ColorPickerView.OnColorChangedListener, TextWatcher, View.OnClickListener,
         View.OnFocusChangeListener, CompoundButton.OnCheckedChangeListener,
         RadioGroup.OnCheckedChangeListener,
-        ColorPickerFavoritesListAdapter.OnFavoriteItemClickedListener,
-        ColorPickerColorCardAdapter.OnColorCardClickedListener {
+        ColorPickerCardAdapter.OnCardClickedListener {
 
     public static final String TAG = "ColorPickerFragment";
 
@@ -148,11 +147,8 @@ public class ColorPickerFragmentNew extends Fragment implements
     private int mApplyColorIconAnimationType;
     private int mAnimationType;
 
-    private ColorPickerFavoritesListAdapter mFavoritesAdapter = null;
-    private ColorPickerColorCardAdapter mCardAdapter = null;
-
-    private List<ColorPickerFavoritesListItem> mColorPickerFavoritesListItems;
-    private List<ColorPickerColorCard> mColorPickerColorCards;
+    private ColorPickerCardAdapter mCardAdapter = null;
+    private List<ColorPickerCard> mColorPickerCards;
     private int[] mFavoriteColors;
 
     private OnColorChangedListener mListener;
@@ -343,41 +339,25 @@ public class ColorPickerFragmentNew extends Fragment implements
                 mColorPicker.setVisibility(View.GONE);
                 mContentList.setVisibility(View.VISIBLE);
                 setUpFavorites();
-                if (mContentList.getAdapter() instanceof ColorPickerFavoritesListAdapter) {
-                    mFavoritesAdapter.notifyDataSetChanged();
-                } else {
-                    mContentList.setAdapter(mFavoritesAdapter);
-                }
+                mCardAdapter.notifyDataSetChanged();
             }
             if (checkedId == R.id.main_button_darkkat) {
                 mColorPicker.setVisibility(View.GONE);
                 mContentList.setVisibility(View.VISIBLE);
                 setUpDarkKatColors();
-                if (mContentList.getAdapter() instanceof ColorPickerColorCardAdapter) {
-                    mCardAdapter.notifyDataSetChanged();
-                } else {
-                    mContentList.setAdapter(mCardAdapter);
-                }
+                mCardAdapter.notifyDataSetChanged();
             }
             if (checkedId == R.id.main_button_material) {
                 mColorPicker.setVisibility(View.GONE);
                 mContentList.setVisibility(View.VISIBLE);
                 setUpMaterialColors();
-                if (mContentList.getAdapter() instanceof ColorPickerColorCardAdapter) {
-                    mCardAdapter.notifyDataSetChanged();
-                } else {
-                    mContentList.setAdapter(mCardAdapter);
-                }
+                mCardAdapter.notifyDataSetChanged();
             }
             if (checkedId == R.id.main_button_rgb) {
                 mColorPicker.setVisibility(View.GONE);
                 mContentList.setVisibility(View.VISIBLE);
                 setUpRGBColors();
-                if (mContentList.getAdapter() instanceof ColorPickerColorCardAdapter) {
-                    mCardAdapter.notifyDataSetChanged();
-                } else {
-                    mContentList.setAdapter(mCardAdapter);
-                }
+                mCardAdapter.notifyDataSetChanged();
             }
         }
 
@@ -533,7 +513,7 @@ public class ColorPickerFragmentNew extends Fragment implements
         } else if (mainButtonsCheckedId == R.id.main_button_favorites) {
             mContentList.setVisibility(View.VISIBLE);
             setUpFavorites();
-            mContentList.setAdapter(mFavoritesAdapter);
+            mContentList.setAdapter(mCardAdapter);
         } else if (mainButtonsCheckedId == R.id.main_button_darkkat) {
             mContentList.setVisibility(View.VISIBLE);
             setUpDarkKatColors();
@@ -550,97 +530,96 @@ public class ColorPickerFragmentNew extends Fragment implements
     }
 
     private void setUpFavorites() {
-        if (mColorPickerFavoritesListItems == null) {
-            mColorPickerFavoritesListItems = new ArrayList<ColorPickerFavoritesListItem>();
+        if (mColorPickerCards == null) {
+            mColorPickerCards = new ArrayList<ColorPickerCard>();
         } else {
-            mColorPickerFavoritesListItems.clear();
+            mColorPickerCards.clear();
         }
-        String favorite = mResources.getString(R.string.favorite_title);
 
         for (int i = 0; i < NUM_MAX_FAVORITES; i++) {
             int favoriteNumber = i + 1;
-            ColorPickerFavoritesListItem item = new ColorPickerFavoritesListItem(
-                    (favorite + " " + favoriteNumber), getFavoriteSubtitle(favoriteNumber),
+            ColorPickerCard card = new ColorPickerFavoriteCard(getActivity(),
+                    favoriteNumber, getFavoriteSubtitle(favoriteNumber),
                     getFavoriteColor(favoriteNumber));
-            mColorPickerFavoritesListItems.add(item);
+            mColorPickerCards.add(card);
         }
 
-        if (mFavoritesAdapter == null) {
-            mFavoritesAdapter = new ColorPickerFavoritesListAdapter(
-                    getActivity(), mColorPickerFavoritesListItems);
-            mFavoritesAdapter.setOnFavoriteItemClickedListener(this);
+        if (mCardAdapter == null) {
+            mCardAdapter = new ColorPickerCardAdapter(getActivity(), mColorPickerCards,
+                    mNewColorValue, mFavoriteColors);
+            mCardAdapter.setOnCardClickedListener(this);
         }
     }
 
     private void setUpDarkKatColors() {
-        if (mColorPickerColorCards == null) {
-            mColorPickerColorCards = new ArrayList<ColorPickerColorCard>();
+        if (mColorPickerCards == null) {
+            mColorPickerCards = new ArrayList<ColorPickerCard>();
         } else {
-            mColorPickerColorCards.clear();
+            mColorPickerCards.clear();
         }
         TypedArray titles = mResources.obtainTypedArray(R.array.color_picker_darkkat_palette_titles);
         TypedArray colors = mResources.obtainTypedArray(R.array.color_picker_darkkat_palette);
         for (int i = 0; i < 8; i++) {
-            ColorPickerColorCard card = new ColorPickerColorCard(getActivity(),
+            ColorPickerCard card = new ColorPickerColorCard(getActivity(),
                     titles.getResourceId(i, 0), colors.getResourceId(i, 0));
-            mColorPickerColorCards.add(card);
+            mColorPickerCards.add(card);
         }
 
         titles.recycle();
         colors.recycle();
 
         if (mCardAdapter == null) {
-            mCardAdapter = new ColorPickerColorCardAdapter(getActivity(), mColorPickerColorCards,
+            mCardAdapter = new ColorPickerCardAdapter(getActivity(), mColorPickerCards,
                     mNewColorValue, mFavoriteColors);
-            mCardAdapter.setOnColorCardClickedListener(this);
+            mCardAdapter.setOnCardClickedListener(this);
         }
     }
 
     private void setUpMaterialColors() {
-        if (mColorPickerColorCards == null) {
-            mColorPickerColorCards = new ArrayList<ColorPickerColorCard>();
+        if (mColorPickerCards == null) {
+            mColorPickerCards = new ArrayList<ColorPickerCard>();
         } else {
-            mColorPickerColorCards.clear();
+            mColorPickerCards.clear();
         }
         TypedArray titles = mResources.obtainTypedArray(R.array.color_picker_material_palette_titles);
         TypedArray colors = mResources.obtainTypedArray(R.array.color_picker_material_palette);
         for (int i = 0; i < 17; i++) {
-            ColorPickerColorCard card = new ColorPickerColorCard(getActivity(),
+            ColorPickerCard card = new ColorPickerColorCard(getActivity(),
                     titles.getResourceId(i, 0), colors.getResourceId(i, 0));
-            mColorPickerColorCards.add(card);
+            mColorPickerCards.add(card);
         }
 
         titles.recycle();
         colors.recycle();
 
         if (mCardAdapter == null) {
-            mCardAdapter = new ColorPickerColorCardAdapter(getActivity(), mColorPickerColorCards,
+            mCardAdapter = new ColorPickerCardAdapter(getActivity(), mColorPickerCards,
                     mNewColorValue, mFavoriteColors);
-            mCardAdapter.setOnColorCardClickedListener(this);
+            mCardAdapter.setOnCardClickedListener(this);
         }
     }
 
     private void setUpRGBColors() {
-        if (mColorPickerColorCards == null) {
-            mColorPickerColorCards = new ArrayList<ColorPickerColorCard>();
+        if (mColorPickerCards == null) {
+            mColorPickerCards = new ArrayList<ColorPickerCard>();
         } else {
-            mColorPickerColorCards.clear();
+            mColorPickerCards.clear();
         }
         TypedArray titles = mResources.obtainTypedArray(R.array.color_picker_rgb_palette_titles);
         TypedArray colors = mResources.obtainTypedArray(R.array.color_picker_rgb_palette);
         for (int i = 0; i < 8; i++) {
-            ColorPickerColorCard card = new ColorPickerColorCard(getActivity(),
+            ColorPickerCard card = new ColorPickerColorCard(getActivity(),
                     titles.getResourceId(i, 0), colors.getResourceId(i, 0));
-            mColorPickerColorCards.add(card);
+            mColorPickerCards.add(card);
         }
 
         titles.recycle();
         colors.recycle();
 
         if (mCardAdapter == null) {
-            mCardAdapter = new ColorPickerColorCardAdapter(getActivity(), mColorPickerColorCards,
+            mCardAdapter = new ColorPickerCardAdapter(getActivity(), mColorPickerCards,
                     mNewColorValue, mFavoriteColors);
-            mCardAdapter.setOnColorCardClickedListener(this);
+            mCardAdapter.setOnCardClickedListener(this);
         }
     }
 
@@ -772,7 +751,7 @@ public class ColorPickerFragmentNew extends Fragment implements
     }
 
     @Override
-    public void onFavoriteItemClicked(int color) {
+    public void onCardActionSetClicked(int color) {
         try {
             if (color != mOldColorValue) {
                 mColorPicker.setColor(color, true);
@@ -781,26 +760,17 @@ public class ColorPickerFragmentNew extends Fragment implements
     }
 
     @Override
-    public void onFavoriteItemLongClicked(int position) {
+    public void onFavoriteCardActionFavoriteClicked(int position) {
         int favoriteNumber = position + 1;
         setFavoriteColor(favoriteNumber, mNewColorValue);
-        mColorPickerFavoritesListItems.get(position).setColor(getFavoriteColor(favoriteNumber));
+        mColorPickerCards.get(position).setColor(getFavoriteColor(favoriteNumber));
         mFavoriteColors[position] = mNewColorValue;
-        mFavoritesAdapter.notifyDataSetChanged();
+        mCardAdapter.notifyDataSetChanged();
     }
 
     @Override
-    public void onColorCardActionSetClicked(int color) {
-        try {
-            if (color != mOldColorValue) {
-                mColorPicker.setColor(color, true);
-            }
-        } catch (Exception e) {}
-    }
-
-    @Override
-    public void onColorCardActionFavoriteClicked(ColorPickerColorCard card, boolean isFavorite) {
-        int color = getActivity().getColor(card.getColorResId());
+    public void onColorCardActionFavoriteClicked(ColorPickerCard card, boolean isFavorite) {
+        int color = card.getColor();
         if (!isFavorite) {
             int firstEmptyFavorite = -1;
             for (int i = 0; i < NUM_MAX_FAVORITES; i++) {
@@ -812,7 +782,7 @@ public class ColorPickerFragmentNew extends Fragment implements
             }
             if (firstEmptyFavorite != -1) {
                 setFavoriteColor(firstEmptyFavorite, color);
-                setFavoriteSubtitle(firstEmptyFavorite, getActivity().getString(card.getTitleResId()));
+                setFavoriteSubtitle(firstEmptyFavorite, card.getTitle());
             }
         } else {
             int favoriteNumber = -1;
