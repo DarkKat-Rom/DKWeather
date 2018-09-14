@@ -101,7 +101,7 @@ public class ColorPickerFragmentNew extends Fragment implements
     private static final int ANIMATE_COLOR_TRANSITION       = 0;
     private static final int ANIMATE_HELP_SCREEN_VISIBILITY = 2;
 
-    private static final int NUM_MAX_FAVORITES = 10;
+    public static final int NUM_MAX_FAVORITES = 10;
 
     private Resources mResources;
 
@@ -153,6 +153,7 @@ public class ColorPickerFragmentNew extends Fragment implements
 
     private List<ColorPickerFavoritesListItem> mColorPickerFavoritesListItems;
     private List<ColorPickerColorCard> mColorPickerColorCards;
+    private int[] mFavoriteColors;
 
     private OnColorChangedListener mListener;
 
@@ -252,6 +253,7 @@ public class ColorPickerFragmentNew extends Fragment implements
             mAnimator = createAnimator();
         }
 
+        setAllFavoriteColors();
         setUpResetMenuAppearience();
         setUpMainButtons();
         setUpMainContent();
@@ -340,28 +342,42 @@ public class ColorPickerFragmentNew extends Fragment implements
             if (checkedId == R.id.main_button_favorites) {
                 mColorPicker.setVisibility(View.GONE);
                 mContentList.setVisibility(View.VISIBLE);
-                if (mFavoritesAdapter == null || mColorPickerFavoritesListItems.size() < 1) {
-                    setUpFavorites();
+                setUpFavorites();
+                if (mContentList.getAdapter() instanceof ColorPickerFavoritesListAdapter) {
+                    mFavoritesAdapter.notifyDataSetChanged();
+                } else {
+                    mContentList.setAdapter(mFavoritesAdapter);
                 }
-                mContentList.setAdapter(mFavoritesAdapter);
             }
             if (checkedId == R.id.main_button_darkkat) {
                 mColorPicker.setVisibility(View.GONE);
                 mContentList.setVisibility(View.VISIBLE);
                 setUpDarkKatColors();
-                mContentList.setAdapter(mCardAdapter);
+                if (mContentList.getAdapter() instanceof ColorPickerColorCardAdapter) {
+                    mCardAdapter.notifyDataSetChanged();
+                } else {
+                    mContentList.setAdapter(mCardAdapter);
+                }
             }
             if (checkedId == R.id.main_button_material) {
                 mColorPicker.setVisibility(View.GONE);
                 mContentList.setVisibility(View.VISIBLE);
                 setUpMaterialColors();
-                mContentList.setAdapter(mCardAdapter);
+                if (mContentList.getAdapter() instanceof ColorPickerColorCardAdapter) {
+                    mCardAdapter.notifyDataSetChanged();
+                } else {
+                    mContentList.setAdapter(mCardAdapter);
+                }
             }
             if (checkedId == R.id.main_button_rgb) {
                 mColorPicker.setVisibility(View.GONE);
                 mContentList.setVisibility(View.VISIBLE);
                 setUpRGBColors();
-                mContentList.setAdapter(mCardAdapter);
+                if (mContentList.getAdapter() instanceof ColorPickerColorCardAdapter) {
+                    mCardAdapter.notifyDataSetChanged();
+                } else {
+                    mContentList.setAdapter(mCardAdapter);
+                }
             }
         }
 
@@ -455,6 +471,14 @@ public class ColorPickerFragmentNew extends Fragment implements
         return animator;
     }
 
+    private void setAllFavoriteColors() {
+        mFavoriteColors = new int[NUM_MAX_FAVORITES];
+
+        for (int i = 0; i < NUM_MAX_FAVORITES; i++) {
+            mFavoriteColors[i] = getFavoriteColor(i + 1);
+        }
+    }
+
     private void setUpResetMenuAppearience() {
         if (mResetColor1 == Color.TRANSPARENT) {
             if (mResetColor2 != Color.TRANSPARENT) {
@@ -533,7 +557,6 @@ public class ColorPickerFragmentNew extends Fragment implements
         }
         String favorite = mResources.getString(R.string.favorite_title);
 
-        mColorPickerFavoritesListItems = new ArrayList<ColorPickerFavoritesListItem>();
         for (int i = 0; i < NUM_MAX_FAVORITES; i++) {
             int favoriteNumber = i + 1;
             ColorPickerFavoritesListItem item = new ColorPickerFavoritesListItem(
@@ -542,9 +565,11 @@ public class ColorPickerFragmentNew extends Fragment implements
             mColorPickerFavoritesListItems.add(item);
         }
 
-        mFavoritesAdapter = new ColorPickerFavoritesListAdapter(
-                getActivity(), mColorPickerFavoritesListItems);
-        mFavoritesAdapter.setOnFavoriteItemClickedListener(this);
+        if (mFavoritesAdapter == null) {
+            mFavoritesAdapter = new ColorPickerFavoritesListAdapter(
+                    getActivity(), mColorPickerFavoritesListItems);
+            mFavoritesAdapter.setOnFavoriteItemClickedListener(this);
+        }
     }
 
     private void setUpDarkKatColors() {
@@ -556,15 +581,19 @@ public class ColorPickerFragmentNew extends Fragment implements
         TypedArray titles = mResources.obtainTypedArray(R.array.color_picker_darkkat_palette_titles);
         TypedArray colors = mResources.obtainTypedArray(R.array.color_picker_darkkat_palette);
         for (int i = 0; i < 8; i++) {
-            ColorPickerColorCard card = new ColorPickerColorCard(titles.getResourceId(i, 0), "",
-                    colors.getResourceId(i, 0));
+            ColorPickerColorCard card = new ColorPickerColorCard(getActivity(),
+                    titles.getResourceId(i, 0), colors.getResourceId(i, 0));
             mColorPickerColorCards.add(card);
         }
 
         titles.recycle();
         colors.recycle();
-        mCardAdapter = new ColorPickerColorCardAdapter(getActivity(), mColorPickerColorCards);
-        mCardAdapter.setOnColorCardClickedListener(this);
+
+        if (mCardAdapter == null) {
+            mCardAdapter = new ColorPickerColorCardAdapter(getActivity(), mColorPickerColorCards,
+                    mNewColorValue, mFavoriteColors);
+            mCardAdapter.setOnColorCardClickedListener(this);
+        }
     }
 
     private void setUpMaterialColors() {
@@ -576,15 +605,19 @@ public class ColorPickerFragmentNew extends Fragment implements
         TypedArray titles = mResources.obtainTypedArray(R.array.color_picker_material_palette_titles);
         TypedArray colors = mResources.obtainTypedArray(R.array.color_picker_material_palette);
         for (int i = 0; i < 17; i++) {
-            ColorPickerColorCard card = new ColorPickerColorCard(titles.getResourceId(i, 0), "",
-                    colors.getResourceId(i, 0));
+            ColorPickerColorCard card = new ColorPickerColorCard(getActivity(),
+                    titles.getResourceId(i, 0), colors.getResourceId(i, 0));
             mColorPickerColorCards.add(card);
         }
 
         titles.recycle();
         colors.recycle();
-        mCardAdapter = new ColorPickerColorCardAdapter(getActivity(), mColorPickerColorCards);
-        mCardAdapter.setOnColorCardClickedListener(this);
+
+        if (mCardAdapter == null) {
+            mCardAdapter = new ColorPickerColorCardAdapter(getActivity(), mColorPickerColorCards,
+                    mNewColorValue, mFavoriteColors);
+            mCardAdapter.setOnColorCardClickedListener(this);
+        }
     }
 
     private void setUpRGBColors() {
@@ -596,15 +629,19 @@ public class ColorPickerFragmentNew extends Fragment implements
         TypedArray titles = mResources.obtainTypedArray(R.array.color_picker_rgb_palette_titles);
         TypedArray colors = mResources.obtainTypedArray(R.array.color_picker_rgb_palette);
         for (int i = 0; i < 8; i++) {
-            ColorPickerColorCard card = new ColorPickerColorCard(titles.getResourceId(i, 0), "",
-                    colors.getResourceId(i, 0));
+            ColorPickerColorCard card = new ColorPickerColorCard(getActivity(),
+                    titles.getResourceId(i, 0), colors.getResourceId(i, 0));
             mColorPickerColorCards.add(card);
         }
 
         titles.recycle();
         colors.recycle();
-        mCardAdapter = new ColorPickerColorCardAdapter(getActivity(), mColorPickerColorCards);
-        mCardAdapter.setOnColorCardClickedListener(this);
+
+        if (mCardAdapter == null) {
+            mCardAdapter = new ColorPickerColorCardAdapter(getActivity(), mColorPickerColorCards,
+                    mNewColorValue, mFavoriteColors);
+            mCardAdapter.setOnColorCardClickedListener(this);
+        }
     }
 
     private void setUpHelpScreen() {
@@ -702,6 +739,14 @@ public class ColorPickerFragmentNew extends Fragment implements
         mApplyColorIconAnimationType = NO_ANIMATION;
         if (color != mOldColorValue) {
             mNewColorValue = color;
+            int mainButtonsCheckedId = ConfigColorPicker.getMainButtonChededId(getActivity());
+            if (mainButtonsCheckedId != R.id.main_button_pick
+                    && mainButtonsCheckedId != R.id.main_button_favorites) {
+                if (mContentList.getAdapter() != null) {
+                    mCardAdapter.setNewColor(mNewColorValue);
+                    mCardAdapter.notifyDataSetChanged();
+                }
+            }
             getArguments().putInt(KEY_NEW_COLOR, mNewColorValue);
             if (mNewColorValue == mInitialColor) {
                 if (mOldColorValue != mInitialColor) {
@@ -740,16 +785,50 @@ public class ColorPickerFragmentNew extends Fragment implements
         int favoriteNumber = position + 1;
         setFavoriteColor(favoriteNumber, mNewColorValue);
         mColorPickerFavoritesListItems.get(position).setColor(getFavoriteColor(favoriteNumber));
+        mFavoriteColors[position] = mNewColorValue;
         mFavoritesAdapter.notifyDataSetChanged();
     }
 
     @Override
-    public void onColorCardClicked(int color) {
+    public void onColorCardActionSetClicked(int color) {
         try {
             if (color != mOldColorValue) {
                 mColorPicker.setColor(color, true);
             }
         } catch (Exception e) {}
+    }
+
+    @Override
+    public void onColorCardActionFavoriteClicked(ColorPickerColorCard card, boolean isFavorite) {
+        int color = getActivity().getColor(card.getColorResId());
+        if (!isFavorite) {
+            int firstEmptyFavorite = -1;
+            for (int i = 0; i < NUM_MAX_FAVORITES; i++) {
+                if (mFavoriteColors[i] == 0) {
+                    firstEmptyFavorite = i + 1;
+                    mFavoriteColors[i] = color;
+                    break;
+                }
+            }
+            if (firstEmptyFavorite != -1) {
+                setFavoriteColor(firstEmptyFavorite, color);
+                setFavoriteSubtitle(firstEmptyFavorite, getActivity().getString(card.getTitleResId()));
+            }
+        } else {
+            int favoriteNumber = -1;
+            for (int i = 0; i < NUM_MAX_FAVORITES; i++) {
+                if (mFavoriteColors[i] == color) {
+                    favoriteNumber = i + 1;
+                    mFavoriteColors[i] = 0;
+                    break;
+                }
+            }
+            if (favoriteNumber != -1) {
+                setFavoriteColor(favoriteNumber, 0);
+                setFavoriteSubtitle(favoriteNumber, "");
+            }
+        }
+        mCardAdapter.notifyDataSetChanged();
     }
 
     @Override

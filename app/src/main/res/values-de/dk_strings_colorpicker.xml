@@ -23,6 +23,11 @@
     <string name="main_button_help_title">Hilfe</string>
     <string name="favorite_title">Favorit</string>
 
+    <string name="color_picker_color_card_support_text_action_set">Klicke auf \"Farbe Setzen\", um diese Farbe als neue Farbe zu setzen, ohne die neue Farbe anzuwenden.</string>
+    <string name="color_picker_color_card_support_text_action_favorite">Klicke auf das \"Stern-\" Symbol, um diese Farbe als Favoriten zu speichern</string>
+
+    <string name="set_color_title">Farbe Setzen</string>
+
     <!-- Color picker -->
     <string name="pick_color_title">Farbe wählen</string>
     <string name="color_picker_fragment_title">Farbauswahl</string>

@@ -16,14 +16,21 @@
 
 package net.darkkatrom.dkweather.colorpicker.model;
 
+import android.content.Context;
+
+import net.darkkatrom.dkweather.colorpicker.util.ColorPickerHelper;
+import net.darkkatrom.dkweather.utils.ColorUtil;
+
 public class ColorPickerColorCard {
+    private Context mContext;
     private int mTitleResId;
     private String mSubtitle;
     private int mColorResId;
 
-    public ColorPickerColorCard(int titleResId, String subtitle, int colorResId) {
+    public ColorPickerColorCard(Context context, int titleResId, int colorResId) {
+        mContext = context;
         mTitleResId = titleResId;
-        mSubtitle = subtitle;
+        mSubtitle = ColorPickerHelper.convertToARGB(mContext.getColor(colorResId));
         mColorResId = colorResId;
     }
 
@@ -39,15 +46,7 @@ public class ColorPickerColorCard {
         return mColorResId;
     }
 
-    public void setTitleResId(int titleResId) {
-        mTitleResId = titleResId;
-    }
-
-    public void setSubtitle(String subtitle) {
-        mSubtitle = subtitle;
-    }
-
-    public void setColorResId(int colorResId) {
-        mColorResId = colorResId;
+    public boolean needLightTheme() {
+        return !ColorUtil.isColorDark(mContext.getColor(getColorResId()));
     }
 }

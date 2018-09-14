@@ -23,6 +23,9 @@
     <string name="main_button_help_title">Help</string>
     <string name="favorite_title">Favorite</string>
 
+    <string name="color_picker_color_card_support_text_action_set">Click on \'Set color\', to set this color as new color, without applying the new color.</string>
+    <string name="color_picker_color_card_support_text_action_favorite">Click on the \'star-\' icon, to save this color as favorite.</string>
+
     <!-- Color picker -->
     <string name="pick_color_title">Pick color</string>
     <string name="color_picker_fragment_title">Color Picker</string>
