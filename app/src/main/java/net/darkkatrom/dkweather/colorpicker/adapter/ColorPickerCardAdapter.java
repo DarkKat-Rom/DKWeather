@@ -85,36 +85,35 @@ public class ColorPickerCardAdapter extends
         final ColorPickerCard card = mColorPickerCards.get(position);
         final boolean isFavoriteCard = card instanceof ColorPickerFavoriteCard;
         final int color = card.getColor();
-        final boolean isFavorite = isFavorite(color);
         int cardBackgroundColor = isFavoriteCard && color == 0
                 ? resolveDefaultCardBackgroundColor() : color;
+        String subtitle = card.getSubtitle();
+        final boolean isFavorite = isFavorite(color);
+        int supportTextActionFavoriteResId = -1;
+        int favoriteIconResId = -1;
 
-
-        int favoriteIconResId = !isFavoriteCard && isFavorite
-                ? R.drawable.ic_action_remove_favorite : R.drawable.ic_action_add_favorite;
+        if (isFavoriteCard) {
+            if (color == 0) {
+                supportTextActionFavoriteResId =
+                        R.string.color_picker_favorite_card_support_text_action_favorite_add;
+                favoriteIconResId = R.drawable.ic_action_add_favorite;
+            }
+        } else {
+            supportTextActionFavoriteResId = isFavorite
+                    ? R.string.color_picker_color_card_support_text_action_favorite_remove
+                    : R.string.color_picker_color_card_support_text_action_favorite_add;
+            favoriteIconResId = isFavorite
+                    ? R.drawable.ic_action_remove_favorite : R.drawable.ic_action_add_favorite;
+        }
 
         holder.mTitle.setText(card.getTitle());
         holder.mSubtitle.setText(card.getSubtitle());
         holder.mCardView.setCardBackgroundColor(cardBackgroundColor);
-        holder.mActionFavorite.setImageResource(favoriteIconResId);
-        if (color == mNewColor || (isFavoriteCard && color == 0)) {
-            holder.mActionSet.setOnClickListener(null);
-            holder.mActionSet.setEnabled(false);
-        } else {
-            holder.mActionSet.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (mOnCardClickedListener != null) {
-                        mOnCardClickedListener.onCardActionSetClicked(color);
-                    }
-                }
-            });
-            holder.mActionSet.setEnabled(true);
-        }
-        if (isFavoriteCard && color != 0) {
-            holder.mActionFavorite.setOnClickListener(null);
-            holder.mActionFavorite.setEnabled(false);
-        } else {
+        if (supportTextActionFavoriteResId != -1) {
+            holder.mSupportTextActionFavorite.setText(supportTextActionFavoriteResId);
+            holder.mActionFavorite.setImageResource(favoriteIconResId);
+            holder.mSupportTextActionFavorite.setVisibility(View.VISIBLE);
+            holder.mActionFavorite.setVisibility(View.VISIBLE);
             holder.mActionFavorite.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -127,7 +126,30 @@ public class ColorPickerCardAdapter extends
                     }
                 }
             });
-            holder.mActionFavorite.setEnabled(true);
+        } else {
+            holder.mSupportTextActionFavorite.setText(null);
+            holder.mActionFavorite.setImageDrawable(null);
+            holder.mSupportTextActionFavorite.setVisibility(View.GONE);
+            holder.mActionFavorite.setVisibility(View.GONE);
+            holder.mActionFavorite.setOnClickListener(null);
+        }
+        if (color == mNewColor || (isFavoriteCard && color == 0)) {
+            holder.mActionSet.setOnClickListener(null);
+            holder.mActionSet.setEnabled(false);
+            holder.mSupportTextActionSet.setText(isFavoriteCard && color == 0
+                    ? R.string.color_picker_favorite_card_support_text_action_set_disabled
+                    : R.string.color_picker_card_support_text_action_set_disabled);
+        } else {
+            holder.mActionSet.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mOnCardClickedListener != null) {
+                        mOnCardClickedListener.onCardActionSetClicked(color);
+                    }
+                }
+            });
+            holder.mActionSet.setEnabled(true);
+            holder.mSupportTextActionSet.setText(R.string.color_picker_card_support_text_action_set);
         }
     }
 
@@ -174,6 +196,8 @@ public class ColorPickerCardAdapter extends
         public CardView mCardView;
         public TextView mTitle;
         public TextView mSubtitle;
+        public TextView mSupportTextActionSet;
+        public TextView mSupportTextActionFavorite;
         public TextView mActionSet;
         public ImageView mActionFavorite;
 
@@ -184,6 +208,10 @@ public class ColorPickerCardAdapter extends
             mCardView = (CardView) v.findViewById(R.id.color_picker_color_card);
             mTitle = (TextView) v.findViewById(R.id.color_picker_color_card_header_title);
             mSubtitle = (TextView) v.findViewById(R.id.color_picker_color_card_header_subtitle);
+            mSupportTextActionSet =
+                    (TextView) v.findViewById(R.id.color_picker_color_card_support_text_action_set);
+            mSupportTextActionFavorite =
+                    (TextView) v.findViewById(R.id.color_picker_color_card_support_text_action_favorite);
             mActionSet = (TextView) v.findViewById(R.id.color_picker_color_card_action_set_color);
             mActionFavorite = (ImageView) v.findViewById(R.id.color_picker_color_card_icon_favorite);
         }

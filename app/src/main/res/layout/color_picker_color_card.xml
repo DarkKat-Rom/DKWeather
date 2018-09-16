@@ -73,21 +73,21 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/color_picker_color_card_support_text_action_set_title"
+                    android:id="@+id/color_picker_color_card_support_text_action_set"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:textColor="?android:attr/textColorSecondary"
-                    android:text="@string/color_picker_color_card_support_text_action_set" />
+                    android:text="@string/color_picker_card_support_text_action_set" />
 
                 <TextView
-                    android:id="@+id/color_picker_color_card_support_text_action_favorite_title"
+                    android:id="@+id/color_picker_color_card_support_text_action_favorite"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:textColor="?android:attr/textColorSecondary"
-                    android:text="@string/color_picker_color_card_support_text_action_favorite" />
+                    android:text="@string/color_picker_color_card_support_text_action_favorite_add" />
 
             </LinearLayout>
 

@@ -719,8 +719,7 @@ public class ColorPickerFragmentNew extends Fragment implements
         if (color != mOldColorValue) {
             mNewColorValue = color;
             int mainButtonsCheckedId = ConfigColorPicker.getMainButtonChededId(getActivity());
-            if (mainButtonsCheckedId != R.id.main_button_pick
-                    && mainButtonsCheckedId != R.id.main_button_favorites) {
+            if (mainButtonsCheckedId != R.id.main_button_pick) {
                 if (mContentList.getAdapter() != null) {
                     mCardAdapter.setNewColor(mNewColorValue);
                     mCardAdapter.notifyDataSetChanged();

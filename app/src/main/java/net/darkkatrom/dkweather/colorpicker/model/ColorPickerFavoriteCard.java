@@ -29,8 +29,8 @@ public class ColorPickerFavoriteCard extends ColorPickerCard {
     public ColorPickerFavoriteCard(Context context, int number, String subtitle, int color) {
         super(context);
         mTitleResId = R.string.favorite_title;
-        mTitle = context.getResources().getString(mTitleResId) + number;
-        mSubtitle = subtitle;
+        mTitle = context.getResources().getString(mTitleResId) + " " + number;
+        mSubtitle = subtitle.isEmpty() ? context.getResources().getString(R.string.empty_title) : subtitle;
         mColor = color;
     }
 }
