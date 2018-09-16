@@ -339,25 +339,45 @@ public class ColorPickerFragmentNew extends Fragment implements
                 mColorPicker.setVisibility(View.GONE);
                 mContentList.setVisibility(View.VISIBLE);
                 setUpFavorites();
-                mCardAdapter.notifyDataSetChanged();
+                mCardAdapter.setNewColor(mNewColorValue);
+                if (mContentList.getAdapter() == null) {
+                    mContentList.setAdapter(mCardAdapter);
+                } else {
+                    mCardAdapter.notifyDataSetChanged();
+                }
             }
             if (checkedId == R.id.main_button_darkkat) {
                 mColorPicker.setVisibility(View.GONE);
                 mContentList.setVisibility(View.VISIBLE);
                 setUpDarkKatColors();
-                mCardAdapter.notifyDataSetChanged();
+                mCardAdapter.setNewColor(mNewColorValue);
+                if (mContentList.getAdapter() == null) {
+                    mContentList.setAdapter(mCardAdapter);
+                } else {
+                    mCardAdapter.notifyDataSetChanged();
+                }
             }
             if (checkedId == R.id.main_button_material) {
                 mColorPicker.setVisibility(View.GONE);
                 mContentList.setVisibility(View.VISIBLE);
                 setUpMaterialColors();
-                mCardAdapter.notifyDataSetChanged();
+                mCardAdapter.setNewColor(mNewColorValue);
+                if (mContentList.getAdapter() == null) {
+                    mContentList.setAdapter(mCardAdapter);
+                } else {
+                    mCardAdapter.notifyDataSetChanged();
+                }
             }
             if (checkedId == R.id.main_button_rgb) {
                 mColorPicker.setVisibility(View.GONE);
                 mContentList.setVisibility(View.VISIBLE);
                 setUpRGBColors();
-                mCardAdapter.notifyDataSetChanged();
+                mCardAdapter.setNewColor(mNewColorValue);
+                if (mContentList.getAdapter() == null) {
+                    mContentList.setAdapter(mCardAdapter);
+                } else {
+                    mCardAdapter.notifyDataSetChanged();
+                }
             }
         }
 
@@ -679,29 +699,7 @@ public class ColorPickerFragmentNew extends Fragment implements
         } else if (v.getId() == R.id.ab_edit_hex_enter) {
             String text = mEditHexValue.getText().toString();
             mShowEditHexAction.collapseActionView();
-            try {
-                int newColor = ColorPickerHelper.convertToColorInt(text);
-                if (newColor != mOldColorValue) {
-                    mNewColorValue = newColor;
-                    mOldColorValue = mNewColorValue;
-                    mColorPicker.setColor(mNewColorValue);
-                    getArguments().putInt(KEY_NEW_COLOR, mNewColorValue);
-                    getArguments().putInt(KEY_OLD_COLOR, mOldColorValue);
-                    if (mNewColorValue != mInitialColor) {
-                        mApplyColorAction.setColor(mNewColorValue);
-                        mApplyColorAction.setColorPreviewTranslationX(0f);
-                        mApplyColorAction.showSetIcon(true);
-                        mApplyColorAction.applySetIconAlpha(1f);
-                        mApplyColorAction.setOnClickListener(getFragmentOnClickListener());
-                    } else {
-                        mApplyColorAction.setColor(mNewColorValue);
-                        mApplyColorAction.setColorPreviewTranslationX(mFullTranslationX);
-                        mApplyColorAction.showSetIcon(false);
-                        mApplyColorAction.applySetIconAlpha(0f);
-                        mApplyColorAction.setOnClickListener(null);
-                    }
-                }
-            } catch (Exception e) {}
+            mColorPicker.setColor(ColorPickerHelper.convertToColorInt(text), true);
         } else if (v.getId() == R.id.color_picker_check_show_help_screen) {
             mCheckShowHelpScreen.toggle();
             putShowHelpScreen(!mCheckShowHelpScreen.isChecked());
@@ -718,10 +716,12 @@ public class ColorPickerFragmentNew extends Fragment implements
         mApplyColorIconAnimationType = NO_ANIMATION;
         if (color != mOldColorValue) {
             mNewColorValue = color;
+            if (mCardAdapter != null) {
+                mCardAdapter.setNewColor(mNewColorValue);
+            }
             int mainButtonsCheckedId = ConfigColorPicker.getMainButtonChededId(getActivity());
             if (mainButtonsCheckedId != R.id.main_button_pick) {
                 if (mContentList.getAdapter() != null) {
-                    mCardAdapter.setNewColor(mNewColorValue);
                     mCardAdapter.notifyDataSetChanged();
                 }
             }
