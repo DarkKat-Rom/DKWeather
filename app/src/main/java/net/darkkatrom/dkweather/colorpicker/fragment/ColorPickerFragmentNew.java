@@ -45,7 +45,6 @@ import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.widget.EditText;
 import android.widget.Button;
 import android.widget.CheckedTextView;
-import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
@@ -68,8 +67,7 @@ import java.util.List;
 
 public class ColorPickerFragmentNew extends Fragment implements
         ColorPickerView.OnColorChangedListener, TextWatcher, View.OnClickListener,
-        View.OnFocusChangeListener, CompoundButton.OnCheckedChangeListener,
-        RadioGroup.OnCheckedChangeListener,
+        View.OnFocusChangeListener, RadioGroup.OnCheckedChangeListener,
         ColorPickerCardAdapter.OnCardClickedListener {
 
     public static final String TAG = "ColorPickerFragment";
@@ -112,8 +110,7 @@ public class ColorPickerFragmentNew extends Fragment implements
     private TextView mAdditionalSubtitleView;
     private ColorPickerView mColorPicker;
 
-    private RadioGroup mMainButtonsGroup;
-    private CompoundButton[] mMainButtons = new CompoundButton[6];
+    private RadioGroup mChipsGroup;
 
     private RecyclerView mContentList;
 
@@ -180,7 +177,7 @@ public class ColorPickerFragmentNew extends Fragment implements
         mColorPickerView = inflater.inflate(R.layout.color_picker_fragment_new, container, false);
         mAdditionalSubtitleView = (TextView) mColorPickerView.findViewById(R.id.color_picker_additional_subtitle);
         mColorPicker = (ColorPickerView) mColorPickerView.findViewById(R.id.color_picker_view);
-        mMainButtonsGroup = (RadioGroup) mColorPickerView.findViewById(R.id.color_picker_main_buttons_group);
+        mChipsGroup = (RadioGroup) mColorPickerView.findViewById(R.id.color_picker_chips_group);
         mContentList = (RecyclerView) mColorPickerView.findViewById(R.id.color_picker_content_list);
         mHelpScreen = mColorPickerView.findViewById(R.id.color_picker_help_screen);
 
@@ -240,7 +237,7 @@ public class ColorPickerFragmentNew extends Fragment implements
         mColorPicker.setOnColorChangedListener(this);
         mColorPicker.setColor(mNewColorValue);
         mColorPicker.setBorderColor(mBorderColor);
-        mMainButtonsGroup.setOnCheckedChangeListener(this);
+        mChipsGroup.setOnCheckedChangeListener(this);
         if (getArguments() != null && getArguments().getBoolean(KEY_ALPHA_SLIDER_VISIBLE)) {
             mColorPicker.setAlphaSliderVisible(true);
         }
@@ -251,7 +248,6 @@ public class ColorPickerFragmentNew extends Fragment implements
 
         setAllFavoriteColors();
         setUpResetMenuAppearience();
-        setUpMainButtons();
         setUpMainContent();
         setUpHelpScreen();
 
@@ -309,60 +305,38 @@ public class ColorPickerFragmentNew extends Fragment implements
 
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
-        for (int i = 0; i < group.getChildCount(); i++) {
-            if (group.getChildAt(i) instanceof LinearLayout) {
-                LinearLayout l = (LinearLayout) group.getChildAt(i);
-                for (int j = 0; j < l.getChildCount(); j++) {
-                    if (l.getChildAt(j) instanceof CompoundButton) {
-                        CompoundButton cb = (CompoundButton) l.getChildAt(j);
-                        cb.setChecked(cb.getId() == checkedId);
-                        cb.setClickable(cb.getId() != checkedId);
-                    }
-                }
-            }
+        if (checkedId != R.id.color_picker_chip_help) {
+            ConfigColorPicker.setChipChededId(getActivity(), checkedId);
         }
-    }
-
-    @Override
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        int checkedId = buttonView.getId();
-        if (isChecked) {
-            mMainButtonsGroup.check(checkedId);
-            if (checkedId != R.id.main_button_help) {
-                ConfigColorPicker.setMainButtonChededId(getActivity(), checkedId);
-            }
-            if (checkedId == R.id.main_button_pick) {
-                mColorPicker.setVisibility(View.VISIBLE);
-                mContentList.setVisibility(View.GONE);
-            }
-            if (checkedId == R.id.main_button_favorites) {
-                mColorPicker.setVisibility(View.GONE);
-                mContentList.setVisibility(View.VISIBLE);
-                buildOrUpdateFavoriteCards();
-            }
-            if (checkedId == R.id.main_button_darkkat) {
-                mColorPicker.setVisibility(View.GONE);
-                mContentList.setVisibility(View.VISIBLE);
-                buildOrUpdateDarkKatCards();
-            }
-            if (checkedId == R.id.main_button_material) {
-                mColorPicker.setVisibility(View.GONE);
-                mContentList.setVisibility(View.VISIBLE);
-                buildOrUpdateMaterialCards();
-            }
-            if (checkedId == R.id.main_button_rgb) {
-                mColorPicker.setVisibility(View.GONE);
-                mContentList.setVisibility(View.VISIBLE);
-                buildOrUpdateRGBCards();
-            }
+        if (checkedId == R.id.color_picker_chip_pick) {
+            mColorPicker.setVisibility(View.VISIBLE);
+            mContentList.setVisibility(View.GONE);
         }
-
-        if (checkedId == R.id.main_button_help) {
-            if (mHelpScreenVisible && !isChecked
-                    || !mHelpScreenVisible && isChecked) {
+        if (checkedId == R.id.color_picker_chip_favorites) {
+            mColorPicker.setVisibility(View.GONE);
+            mContentList.setVisibility(View.VISIBLE);
+            buildOrUpdateFavoriteCards();
+        }
+        if (checkedId == R.id.color_picker_chip_darkkat) {
+            mColorPicker.setVisibility(View.GONE);
+            mContentList.setVisibility(View.VISIBLE);
+            buildOrUpdateDarkKatCards();
+        }
+        if (checkedId == R.id.color_picker_chip_material) {
+            mColorPicker.setVisibility(View.GONE);
+            mContentList.setVisibility(View.VISIBLE);
+            buildOrUpdateMaterialCards();
+        }
+        if (checkedId == R.id.color_picker_chip_rgb) {
+            mColorPicker.setVisibility(View.GONE);
+            mContentList.setVisibility(View.VISIBLE);
+            buildOrUpdateRGBCards();
+        }
+        if (checkedId == R.id.color_picker_chip_help) {
+            if (!mHelpScreenVisible) {
                 mAnimationType = ANIMATE_HELP_SCREEN_VISIBILITY;
                 mAnimator.setInterpolator(new FastOutSlowInInterpolator());
-                mAnimator.setDuration(mHelpScreenVisible ? 195 : 225);
+                mAnimator.setDuration(195);
                 mAnimator.start();
             }
         }
@@ -415,7 +389,7 @@ public class ColorPickerFragmentNew extends Fragment implements
                     if (!mHelpScreenVisible) {
                         mHelpScreen.setVisibility(View.VISIBLE);
                     } else {
-                        onCheckedChanged(mMainButtonsGroup, ConfigColorPicker.getMainButtonChededId(getActivity()));
+                        mChipsGroup.check(ConfigColorPicker.getChipChededId(getActivity()));
                     }
                 }
             }
@@ -486,36 +460,25 @@ public class ColorPickerFragmentNew extends Fragment implements
     }
 
     private void setUpMainButtons() {
-        mMainButtons[0] = (CompoundButton) mColorPickerView.findViewById(R.id.main_button_pick);
-        mMainButtons[1] = (CompoundButton) mColorPickerView.findViewById(R.id.main_button_favorites);
-        mMainButtons[2] = (CompoundButton) mColorPickerView.findViewById(R.id.main_button_darkkat);
-        mMainButtons[3] = (CompoundButton) mColorPickerView.findViewById(R.id.main_button_material);
-        mMainButtons[4] = (CompoundButton) mColorPickerView.findViewById(R.id.main_button_rgb);
-        mMainButtons[5] = (CompoundButton) mColorPickerView.findViewById(R.id.main_button_help);
 
-        for (int i = 0; i < mMainButtons.length; i++) {
-            mMainButtons[i].setOnCheckedChangeListener(this);
-        }
-
-        onCheckedChanged(mMainButtonsGroup, ConfigColorPicker.getMainButtonChededId(getActivity()));
     }
 
     private void setUpMainContent() {
-        int mainButtonsCheckedId = ConfigColorPicker.getMainButtonChededId(getActivity());
-
+        int mainButtonsCheckedId = ConfigColorPicker.getChipChededId(getActivity());
+        mChipsGroup.check(mainButtonsCheckedId);
         mContentList.setLayoutManager(new LinearLayoutManager(getContext()));
-        if (mainButtonsCheckedId == R.id.main_button_pick) {
+        if (mainButtonsCheckedId == R.id.color_picker_chip_pick) {
             mColorPicker.setVisibility(View.VISIBLE);
-        } else if (mainButtonsCheckedId == R.id.main_button_favorites) {
+        } else if (mainButtonsCheckedId == R.id.color_picker_chip_favorites) {
             mContentList.setVisibility(View.VISIBLE);
             buildOrUpdateFavoriteCards();
-        } else if (mainButtonsCheckedId == R.id.main_button_darkkat) {
+        } else if (mainButtonsCheckedId == R.id.color_picker_chip_darkkat) {
             mContentList.setVisibility(View.VISIBLE);
             buildOrUpdateDarkKatCards();
-        } else if (mainButtonsCheckedId == R.id.main_button_material) {
+        } else if (mainButtonsCheckedId == R.id.color_picker_chip_material) {
             mContentList.setVisibility(View.VISIBLE);
             buildOrUpdateMaterialCards();
-        } else if (mainButtonsCheckedId == R.id.main_button_rgb) {
+        } else if (mainButtonsCheckedId == R.id.color_picker_chip_rgb) {
             mContentList.setVisibility(View.VISIBLE);
             buildOrUpdateRGBCards();
         }
@@ -674,8 +637,8 @@ public class ColorPickerFragmentNew extends Fragment implements
             if (mCardAdapter != null) {
                 mCardAdapter.setNewColor(mNewColorValue);
             }
-            int mainButtonsCheckedId = ConfigColorPicker.getMainButtonChededId(getActivity());
-            if (mainButtonsCheckedId != R.id.main_button_pick) {
+            int mainButtonsCheckedId = ConfigColorPicker.getChipChededId(getActivity());
+            if (mainButtonsCheckedId != R.id.color_picker_chip_pick) {
                 if (mContentList.getAdapter() != null) {
                     mCardAdapter.notifyDataSetChanged();
                 }

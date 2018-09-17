@@ -25,9 +25,9 @@ public class ConfigColorPicker {
     public static final String COLOR_PICKER_SHOW_FAVORITES   = "color_picker_show_favorites";
     public static final String COLOR_PICKER_SHOW_HELP_SCREEN = "color_picker_show_help_screen";
 
-    public static final String COLOR_PICKER_MAIN_BUTTONS_CHECKED_ID = "color_picker_main_buttons_checked_id";
+    public static final String COLOR_PICKER_CHIP_CHECKED_ID = "color_picker_main_buttons_checked_id";
 
-    public static final int COLOR_PICKER_MAIN_BUTTON_DEFAULT_CHECKED_ID = R.id.main_button_pick;
+    public static final int COLOR_PICKER_CHIP_DEFAULT_CHECKED_ID = R.id.color_picker_chip_pick;
 
     public static boolean getShowFavorites(Context context) {
         SharedPreferences prefs = PreferenceManager
@@ -101,17 +101,17 @@ public class ConfigColorPicker {
     }
 
 
-    public static int getMainButtonChededId(Context context) {
+    public static int getChipChededId(Context context) {
         SharedPreferences prefs = PreferenceManager
                 .getDefaultSharedPreferences(context);
 
-        return prefs.getInt(COLOR_PICKER_MAIN_BUTTONS_CHECKED_ID, COLOR_PICKER_MAIN_BUTTON_DEFAULT_CHECKED_ID);
+        return prefs.getInt(COLOR_PICKER_CHIP_CHECKED_ID, COLOR_PICKER_CHIP_DEFAULT_CHECKED_ID);
     }
 
-    public static void setMainButtonChededId(Context context, int checkedId) {
+    public static void setChipChededId(Context context, int checkedId) {
         SharedPreferences prefs = PreferenceManager
                 .getDefaultSharedPreferences(context);
 
-        prefs.edit().putInt(COLOR_PICKER_MAIN_BUTTONS_CHECKED_ID, checkedId).commit();
+        prefs.edit().putInt(COLOR_PICKER_CHIP_CHECKED_ID, checkedId).commit();
     }
 }

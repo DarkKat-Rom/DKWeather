@@ -75,119 +75,113 @@
             android:layout_marginBottom="8dp"
             android:background="?attr/dividerColor" />
 
-        <RadioGroup
-            android:id="@+id/color_picker_main_buttons_group"
+        <HorizontalScrollView
+            android:id="@+id/color_picker_chips_scroller"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="32dp"
+            android:layout_marginTop="16dp"
             android:layout_weight="1"
-            android:layout_below="@id/color_picker_additional_subtitle"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="16dp"
-            android:layout_marginEnd="16dp">
+            android:requiresFadingEdge="none"
+            android:scrollbars="none">
 
-            <LinearLayout
-                android:id="@+id/color_picker_main_buttons_row_1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:gravity="center_vertical"
+            <RadioGroup
+                android:id="@+id/color_picker_chips_group"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
                 android:orientation="horizontal">
 
-                <ToggleButton
-                    android:id="@+id/main_button_pick"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                <net.darkkatrom.dkweather.colorpicker.widget.Chip
+                    android:id="@+id/color_picker_chip_pick"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginEnd="4dp"
-                    android:text="@string/main_button_pick_title"
-                    android:textColor="?attr/checkableTextColor"
-                    android:textOn="@null"
-                    android:textOff="@null"
-                    style="?android:attr/borderlessButtonStyle" />
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:gravity="center"
+                    android:text="@string/chip_pick_title"
+                    android:textColor="@color/primary_text_dark_white"
+                    android:textSize="14sp"
+                    android:button="@null"
+                    android:background="@drawable/chip_background" />
 
-                <ToggleButton
-                    android:id="@+id/main_button_favorites"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                <net.darkkatrom.dkweather.colorpicker.widget.Chip
+                    android:id="@+id/color_picker_chip_favorites"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginStart="4dp"
-                    android:text="@string/main_button_favorites_title"
-                    android:textColor="?attr/checkableTextColor"
-                    android:textOn="@null"
-                    android:textOff="@null"
-                    style="?android:attr/borderlessButtonStyle" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/type_buttons_row_2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <ToggleButton
-                    android:id="@+id/main_button_darkkat"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_marginEnd="4dp"
-                    android:textColor="?attr/checkableTextColor"
-                    android:text="@string/main_button_darkkat_title"
-                    android:textOn="@null"
-                    android:textOff="@null"
-                    style="?android:attr/borderlessButtonStyle" />
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:gravity="center"
+                    android:text="@string/chip_favorites_title"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:textSize="14sp"
+                    android:button="@null"
+                    android:background="@drawable/chip_background" />
 
-                <ToggleButton
-                    android:id="@+id/main_button_material"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                <net.darkkatrom.dkweather.colorpicker.widget.Chip
+                    android:id="@+id/color_picker_chip_darkkat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginStart="4dp"
-                    android:text="@string/main_button_material_title"
-                    android:textColor="?attr/checkableTextColor"
-                    android:textOn="@null"
-                    android:textOff="@null"
-                    style="?android:attr/borderlessButtonStyle" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/type_buttons_row_3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <ToggleButton
-                    android:id="@+id/main_button_rgb"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_marginEnd="4dp"
-                    android:text="@string/main_button_rgb_title"
-                    android:textColor="?attr/checkableTextColor"
-                    android:textOn="@null"
-                    android:textOff="@null"
-                    style="?android:attr/borderlessButtonStyle" />
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:gravity="center"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:text="@string/chip_darkkat_title"
+                    android:textSize="14sp"
+                    android:button="@null"
+                    android:background="@drawable/chip_background" />
 
-                <ToggleButton
-                    android:id="@+id/main_button_help"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                <net.darkkatrom.dkweather.colorpicker.widget.Chip
+                    android:id="@+id/color_picker_chip_material"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginStart="4dp"
-                    android:text="@string/main_button_help_title"
-                    android:textColor="?attr/checkableTextColor"
-                    android:textOn="@null"
-                    android:textOff="@null"
-                    style="?android:attr/borderlessButtonStyle" />
+                    android:layout_marginEnd="4dp"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:gravity="center"
+                    android:text="@string/chip_material_title"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:textSize="14sp"
+                    android:button="@null"
+                    android:background="@drawable/chip_background" />
 
-            </LinearLayout>
-        </RadioGroup>
+                <net.darkkatrom.dkweather.colorpicker.widget.Chip
+                    android:id="@+id/color_picker_chip_rgb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:gravity="center"
+                    android:text="@string/chip_rgb_title"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:textSize="14sp"
+                    android:button="@null"
+                    android:background="@drawable/chip_background" />
+
+                <net.darkkatrom.dkweather.colorpicker.widget.Chip
+                    android:id="@+id/color_picker_chip_help"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="4dp"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:gravity="center"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:text="@string/chip_help_title"
+                    android:textSize="14sp"
+                    android:button="@null"
+                    android:background="@drawable/chip_background" />
+
+            </RadioGroup>
+        </HorizontalScrollView>
     </LinearLayout>
 
     <include layout="@layout/color_picker_help_screen"

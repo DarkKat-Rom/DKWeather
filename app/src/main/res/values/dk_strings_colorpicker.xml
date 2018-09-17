@@ -15,13 +15,14 @@
 -->
 <resources>
 
-    <string name="main_button_pick_title">Pick color</string>
-    <string name="main_button_favorites_title">Favorites</string>
-    <string name="main_button_darkkat_title">DarkKat</string>
-    <string name="main_button_material_title">Material</string>
-    <string name="main_button_rgb_title">RGB</string>
-    <string name="main_button_help_title">Help</string>
     <string name="favorite_title">Favorite</string>
+
+    <string name="chip_pick_title">Pick color</string>
+    <string name="chip_favorites_title">Favorites</string>
+    <string name="chip_darkkat_title">DarkKat colors</string>
+    <string name="chip_material_title">Material colors</string>
+    <string name="chip_rgb_title">RGB colors</string>
+    <string name="chip_help_title">Help</string>
 
     <string name="color_picker_card_support_text_action_set">Click on \'Set color\', to set this color as new color, without applying the new color.</string>
     <string name="color_picker_card_support_text_action_set_disabled">\'Set color\' disabled, This color equals the new color.</string>
