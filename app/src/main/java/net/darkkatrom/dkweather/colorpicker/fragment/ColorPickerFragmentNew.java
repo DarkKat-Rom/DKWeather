@@ -59,6 +59,7 @@ import net.darkkatrom.dkweather.colorpicker.model.ColorPickerFavoriteCard;
 import net.darkkatrom.dkweather.colorpicker.preference.ColorPickerPreference;
 import net.darkkatrom.dkweather.colorpicker.widget.ApplyColorView;
 import net.darkkatrom.dkweather.colorpicker.widget.ColorPickerView;
+import net.darkkatrom.dkweather.colorpicker.widget.RadioGroupsGroup;
 import net.darkkatrom.dkweather.colorpicker.util.ColorPickerHelper;
 import net.darkkatrom.dkweather.colorpicker.util.ConfigColorPicker;
 
@@ -68,7 +69,7 @@ import java.util.List;
 public class ColorPickerFragmentNew extends Fragment implements
         ColorPickerView.OnColorChangedListener, TextWatcher, View.OnClickListener,
         View.OnFocusChangeListener, RadioGroup.OnCheckedChangeListener,
-        ColorPickerCardAdapter.OnCardClickedListener {
+        RadioGroupsGroup.OnCheckedChangeListener, ColorPickerCardAdapter.OnCardClickedListener {
 
     public static final String TAG = "ColorPickerFragment";
 
@@ -111,6 +112,7 @@ public class ColorPickerFragmentNew extends Fragment implements
     private ColorPickerView mColorPicker;
 
     private RadioGroup mChipsGroup;
+    private RadioGroupsGroup mChipsGroupsGroup;
 
     private RecyclerView mContentList;
 
@@ -178,6 +180,7 @@ public class ColorPickerFragmentNew extends Fragment implements
         mAdditionalSubtitleView = (TextView) mColorPickerView.findViewById(R.id.color_picker_additional_subtitle);
         mColorPicker = (ColorPickerView) mColorPickerView.findViewById(R.id.color_picker_view);
         mChipsGroup = (RadioGroup) mColorPickerView.findViewById(R.id.color_picker_chips_group);
+        mChipsGroupsGroup = (RadioGroupsGroup) mColorPickerView.findViewById(R.id.color_picker_chips_groups_group);
         mContentList = (RecyclerView) mColorPickerView.findViewById(R.id.color_picker_content_list);
         mHelpScreen = mColorPickerView.findViewById(R.id.color_picker_help_screen);
 
@@ -237,7 +240,12 @@ public class ColorPickerFragmentNew extends Fragment implements
         mColorPicker.setOnColorChangedListener(this);
         mColorPicker.setColor(mNewColorValue);
         mColorPicker.setBorderColor(mBorderColor);
-        mChipsGroup.setOnCheckedChangeListener(this);
+        if (mChipsGroup != null) {
+            mChipsGroup.setOnCheckedChangeListener(this);
+        }
+        if (mChipsGroupsGroup != null) {
+            mChipsGroupsGroup.setOnCheckedChangeListener(this);
+        }
         if (getArguments() != null && getArguments().getBoolean(KEY_ALPHA_SLIDER_VISIBLE)) {
             mColorPicker.setAlphaSliderVisible(true);
         }
@@ -305,7 +313,16 @@ public class ColorPickerFragmentNew extends Fragment implements
 
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
-        if (checkedId != R.id.color_picker_chip_help) {
+        onCheckedChanged(checkedId);
+    }
+
+    @Override
+    public void onCheckedChanged(RadioGroupsGroup group, int checkedId) {
+        onCheckedChanged(checkedId);
+    }
+
+    private void onCheckedChanged(int checkedId) {
+        if (checkedId != R.id.color_picker_chip_help && checkedId != -1) {
             ConfigColorPicker.setChipChededId(getActivity(), checkedId);
         }
         if (checkedId == R.id.color_picker_chip_pick) {
@@ -389,7 +406,12 @@ public class ColorPickerFragmentNew extends Fragment implements
                     if (!mHelpScreenVisible) {
                         mHelpScreen.setVisibility(View.VISIBLE);
                     } else {
-                        mChipsGroup.check(ConfigColorPicker.getChipChededId(getActivity()));
+                        if (mChipsGroup != null) {
+                            mChipsGroup.check(ConfigColorPicker.getChipChededId(getActivity()));
+                        }
+                        if (mChipsGroupsGroup != null) {
+                            mChipsGroupsGroup.check(ConfigColorPicker.getChipChededId(getActivity()));
+                        }
                     }
                 }
             }
@@ -465,7 +487,12 @@ public class ColorPickerFragmentNew extends Fragment implements
 
     private void setUpMainContent() {
         int mainButtonsCheckedId = ConfigColorPicker.getChipChededId(getActivity());
-        mChipsGroup.check(mainButtonsCheckedId);
+        if (mChipsGroup != null) {
+            mChipsGroup.check(mainButtonsCheckedId);
+        }
+        if (mChipsGroupsGroup != null) {
+            mChipsGroupsGroup.check(mainButtonsCheckedId);
+        }
         mContentList.setLayoutManager(new LinearLayoutManager(getContext()));
         if (mainButtonsCheckedId == R.id.color_picker_chip_pick) {
             mColorPicker.setVisibility(View.VISIBLE);

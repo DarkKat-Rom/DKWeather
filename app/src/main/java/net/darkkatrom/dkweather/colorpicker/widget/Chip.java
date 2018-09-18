@@ -30,6 +30,7 @@ public class Chip extends RadioButton {
 
     private int mBackgroundColorChecked = 0;
     private int mBackgroundColorNormal = 0;
+    private boolean mBackgroundTintListSet = false;
 
     public Chip(Context context) {
         this(context, null);
@@ -63,7 +64,7 @@ public class Chip extends RadioButton {
         if (mBackgroundColorNormal == 0) {
             mBackgroundColorNormal = ThemeUtil.getActionBarBackgroundColor(getContext());
         }
-        if (mBackgroundColorChecked != 0 && mBackgroundColorNormal != 0) {
+        if (mBackgroundColorChecked != 0 && mBackgroundColorNormal != 0 && !mBackgroundTintListSet) {
             int states[][] = new int[][] {
                 new int[] { android.R.attr.state_checked },
                 new int[]{}
@@ -75,6 +76,7 @@ public class Chip extends RadioButton {
 
             ColorStateList stateColors = new ColorStateList(states, colors);
             setBackgroundTintList(stateColors);
+            mBackgroundTintListSet = true;
         }
         int textColorResId = 0;
         if (checked) {
