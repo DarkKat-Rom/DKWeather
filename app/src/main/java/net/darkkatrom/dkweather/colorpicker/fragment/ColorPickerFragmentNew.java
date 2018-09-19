@@ -51,6 +51,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import net.darkkatrom.dkweather.R;
+import net.darkkatrom.dkweather.utils.ThemeUtil;
 import net.darkkatrom.dkweather.colorpicker.ColorPickerActivityNew;
 import net.darkkatrom.dkweather.colorpicker.adapter.ColorPickerCardAdapter;
 import net.darkkatrom.dkweather.colorpicker.model.ColorPickerCard;
@@ -131,7 +132,6 @@ public class ColorPickerFragmentNew extends Fragment implements
     private int mResetColor2;
     private CharSequence mResetColor1Title;
     private CharSequence mResetColor2Title;
-    private int mBorderColor;
     private boolean mShowHelpScreen;
     private boolean mHelpScreenVisible;
 
@@ -174,7 +174,6 @@ public class ColorPickerFragmentNew extends Fragment implements
             Bundle savedInstanceState) {
 
         mResources = getActivity().getResources();
-        TypedValue tv = new TypedValue();
 
         mColorPickerView = inflater.inflate(R.layout.color_picker_fragment_new, container, false);
         mAdditionalSubtitleView = (TextView) mColorPickerView.findViewById(R.id.color_picker_additional_subtitle);
@@ -222,13 +221,6 @@ public class ColorPickerFragmentNew extends Fragment implements
             }
         }
 
-        getActivity().getTheme().resolveAttribute(R.attr.colorControlHighlight, tv, true);
-        if (tv.type >= TypedValue.TYPE_FIRST_COLOR_INT && tv.type <= TypedValue.TYPE_LAST_COLOR_INT) {
-            mBorderColor = tv.data;
-        } else {
-            mBorderColor = getActivity().getColor(tv.resourceId);
-        }
-
         mFullTranslationX = mResources.getDimension(
                 R.dimen.color_picker_action_apply_color_translation_x);
 
@@ -239,7 +231,7 @@ public class ColorPickerFragmentNew extends Fragment implements
 
         mColorPicker.setOnColorChangedListener(this);
         mColorPicker.setColor(mNewColorValue);
-        mColorPicker.setBorderColor(mBorderColor);
+        mColorPicker.setBorderColor(ThemeUtil.getDefaultHighlightColor(getActivity()));
         if (mChipsGroup != null) {
             mChipsGroup.setOnCheckedChangeListener(this);
         }

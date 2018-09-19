@@ -29,10 +29,10 @@ import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.View;
 
 import net.darkkatrom.dkweather.R;
+import net.darkkatrom.dkweather.utils.ThemeUtil;
 import net.darkkatrom.dkweather.colorpicker.drawable.ColorViewCircleDrawable;
 import net.darkkatrom.dkweather.colorpicker.fragment.ColorPickerFragment;
 import net.darkkatrom.dkweather.colorpicker.util.ColorPickerHelper;
@@ -151,16 +151,8 @@ public class ColorPickerPreference extends Preference {
             preview = (ColorViewButton) view.findViewById(R.id.color_picker_widget);
         }
         if (preview != null) {
-            TypedValue tv = new TypedValue();
-            int borderColor;
-            getContext().getTheme().resolveAttribute(R.attr.colorControlHighlight, tv, true);
-            if (tv.type >= TypedValue.TYPE_FIRST_COLOR_INT && tv.type <= TypedValue.TYPE_LAST_COLOR_INT) {
-                borderColor = tv.data;
-            } else {
-                borderColor = getContext().getColor(tv.resourceId);
-            }
             preview.setColor(mValue);
-            preview.setBorderColor(borderColor);
+            preview.setBorderColor(ThemeUtil.getDefaultHighlightColor(getContext()));
         }
     }
 

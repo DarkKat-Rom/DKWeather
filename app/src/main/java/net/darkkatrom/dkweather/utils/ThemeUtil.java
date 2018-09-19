@@ -83,6 +83,11 @@ public class ThemeUtil {
         return color;
     }
 
+    public static int getDefaultHighlightColor(Context context) {
+        return context.getColor(Config.getThemeUseDarkTheme(context)
+                ? R.color.ripple_white : R.color.ripple_black);
+    }
+
     public static int getThemeResId(Context context) {
         int themeResId = 0;
         if (Config.getTheme(context) == Config.THEME_MATERIAL_LIGHT) {

@@ -30,9 +30,11 @@ import android.graphics.RectF;
 import android.graphics.Shader;
 import android.graphics.Shader.TileMode;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
 
+import net.darkkatrom.dkweather.R;
 import net.darkkatrom.dkweather.colorpicker.drawable.AlphaPatternDrawable;
 
 /*
@@ -108,7 +110,7 @@ public class ColorPickerView extends View {
 
     private String mAlphaSliderText = "";
     private int mSliderTrackerColor = 0xff1c1c1c;
-    private int mBorderColor = 0xff6E6E6E;
+    private int mBorderColor;
     private boolean mShowAlphaPanel = false;
 
     /*
@@ -167,6 +169,14 @@ public class ColorPickerView extends View {
         mDrawingOffset = calculateRequiredOffset();
 
         initPaintTools();
+
+        TypedValue tv = new TypedValue();
+        getContext().getTheme().resolveAttribute(R.attr.colorControlHighlight, tv, true);
+        if (tv.type >= TypedValue.TYPE_FIRST_COLOR_INT && tv.type <= TypedValue.TYPE_LAST_COLOR_INT) {
+            mBorderColor = tv.data;
+        } else {
+            mBorderColor = getContext().getColor(tv.resourceId);
+        }
 
         //Needed for receiving trackball motion events.
         setFocusable(true);
