@@ -18,6 +18,8 @@ package net.darkkatrom.dkweather.colorpicker.widget;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.graphics.drawable.RippleDrawable;
+import android.graphics.drawable.GradientDrawable;
 import android.widget.RadioButton;
 import android.util.AttributeSet;
 import android.util.TypedValue;
@@ -75,23 +77,35 @@ public class Chip extends RadioButton {
             };
 
             ColorStateList stateColors = new ColorStateList(states, colors);
-            setBackgroundTintList(stateColors);
+            RippleDrawable bg = (RippleDrawable) getBackground();
+            bg.findDrawableByLayerId(R.id.background).setTintList(stateColors);
             mBackgroundTintListSet = true;
         }
         int textColorResId = 0;
+        int rippleColorResId = 0;
         if (checked) {
             if (mBackgroundColorChecked != 0) {
                 textColorResId = ColorUtil.isColorDark(mBackgroundColorChecked)
                         ? R.color.chip_text_color_dark : R.color.chip_text_color_light;
+                rippleColorResId = ColorUtil.isColorDark(mBackgroundColorChecked)
+                        ? R.color.ripple_white : R.color.ripple_black;
             }
         } else {
             if (mBackgroundColorNormal != 0) {
                 textColorResId = ColorUtil.isColorDark(mBackgroundColorNormal)
                         ? R.color.chip_text_color_dark : R.color.chip_text_color_light;
+                rippleColorResId = ColorUtil.isColorDark(mBackgroundColorNormal)
+                        ? R.color.ripple_white : R.color.ripple_black;
             }
         }
         if (textColorResId != 0) {
             setTextColor(getContext().getColorStateList(textColorResId));
         }
+        if (rippleColorResId != 0) {
+            RippleDrawable bg = (RippleDrawable) getBackground();
+            int rippleColor = getContext().getColor(rippleColorResId);
+            bg.setColor(ColorStateList.valueOf(rippleColor));
+        }
+
     }
 }
