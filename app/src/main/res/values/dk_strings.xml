@@ -184,6 +184,15 @@
     <string name="material_green_500">Material Green 500</string>
     <string name="material_light_green_500">Material Light Green 500</string>
     <string name="material_lime_500">Material Lime 500</string>
+    <string name="holo_blue_dark">Holo Blue Dark</string>
+    <string name="holo_blue_bright">Holo Blue Bright</string>
+    <string name="holo_purple">Holo Purple</string>
+    <string name="holo_orange_light">Holo Orange Light</string>
+    <string name="holo_orange_dark">Holo Orange Dark</string>
+    <string name="holo_red_light">Holo Red Light</string>
+    <string name="holo_red_dark">Holo Red Dark</string>
+    <string name="holo_green_light">Holo Green Light</string>
+    <string name="holo_green_dark">Holo Green Dark</string>
     <string name="black">Black</string>
     <string name="white">White</string>
     <string name="blue">Blue</string>

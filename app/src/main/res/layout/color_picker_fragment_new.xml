@@ -109,7 +109,7 @@
                 android:background="@drawable/chip_background" />
 
             <net.darkkatrom.dkweather.colorpicker.widget.Chip
-                android:id="@+id/color_picker_chip_rgb"
+                android:id="@+id/color_picker_chip_holo"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginStart="4dp"
@@ -117,14 +117,14 @@
                 android:paddingStart="12dp"
                 android:paddingEnd="12dp"
                 android:gravity="center"
-                android:text="@string/chip_rgb_title"
+                android:text="@string/chip_holo_title"
                 android:textColor="?android:attr/textColorPrimary"
                 android:textSize="14sp"
                 android:button="@null"
                 android:background="@drawable/chip_background" />
 
             <net.darkkatrom.dkweather.colorpicker.widget.Chip
-                android:id="@+id/color_picker_chip_help"
+                android:id="@+id/color_picker_chip_rgb"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginStart="4dp"
@@ -132,7 +132,7 @@
                 android:paddingEnd="12dp"
                 android:gravity="center"
                 android:textColor="?android:attr/textColorPrimary"
-                android:text="@string/chip_help_title"
+                android:text="@string/chip_rgb_title"
                 android:textSize="14sp"
                 android:button="@null"
                 android:background="@drawable/chip_background" />

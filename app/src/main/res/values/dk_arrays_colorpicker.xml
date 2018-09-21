@@ -121,6 +121,32 @@
         <item>@color/material_lime_500</item>
     </array>
 
+    <array name="color_picker_holo_palette_titles">
+        <item>@string/holo_blue_light</item>
+        <item>@string/holo_blue_dark</item>
+        <item>@string/holo_blue_bright</item>
+        <item>@string/holo_purple</item>
+        <item>@string/holo_orange_light</item>
+        <item>@string/holo_orange_dark</item>
+        <item>@string/holo_red_light</item>
+        <item>@string/holo_red_dark</item>
+        <item>@string/holo_green_light</item>
+        <item>@string/holo_green_dark</item>
+    </array>
+
+    <array name="color_picker_holo_palette">
+        <item>@color/holo_blue_light</item>
+        <item>@color/holo_blue_dark</item>
+        <item>@color/holo_blue_bright</item>
+        <item>@color/holo_purple</item>
+        <item>@color/holo_orange_light</item>
+        <item>@color/holo_orange_dark</item>
+        <item>@color/holo_red_light</item>
+        <item>@color/holo_red_dark</item>
+        <item>@color/holo_green_light</item>
+        <item>@color/holo_green_dark</item>
+    </array>
+
     <array name="color_picker_rgb_palette_titles">
         <item>@string/black</item>
         <item>@string/red</item>
