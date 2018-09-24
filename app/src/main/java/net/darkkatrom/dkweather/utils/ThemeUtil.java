@@ -83,6 +83,19 @@ public class ThemeUtil {
         return color;
     }
 
+    public static int getAccentColor(Context context) {
+        TypedValue tv = new TypedValue();
+        int accentColor = 0;
+
+        context.getTheme().resolveAttribute(R.attr.colorAccent, tv, true);
+        if (tv.type >= TypedValue.TYPE_FIRST_COLOR_INT && tv.type <= TypedValue.TYPE_LAST_COLOR_INT) {
+            accentColor = tv.data;
+        } else {
+            accentColor = context.getColor(tv.resourceId);
+        }
+        return accentColor;
+    }
+
     public static int getDefaultHighlightColor(Context context) {
         return context.getColor(Config.getThemeUseDarkTheme(context)
                 ? R.color.ripple_white : R.color.ripple_black);

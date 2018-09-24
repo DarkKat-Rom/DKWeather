@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2018 DarkKat
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources>
+
+    <string name="color_picker_help_main_content">
+            <![CDATA[
+                <html>
+                <head>
+                <style>
+                h2    {color: %1$s}
+                h3   {color: #ffffff;}
+                p    {color: rgba(255, 255, 255, 0.7);}
+                li    {color: rgba(255, 255, 255, 0.7); font-size: 14px;}
+                </style>
+                </head>
+
+                <h2>
+                    Actionsleiste:
+                </h2>
+                <h3>
+                    Farbvorschau und Farbe anwenden:
+                </h3>
+                <p>
+                    Die Farbvorschau wird immer angezeigt.<br>
+                    Wenn die neue Farbe nicht der alte Farbe entspricht, wird die Farbvorschau erweitert, um die neue Farbe anwenden zu können.
+                </p>
+                <h3>
+                    Bearbeiten Schaltfläche:
+                </h3>
+                <p>
+                    Zeigt das Hex-Eingabefeld an.<br>
+                    Hex-Werte müssen im Hex-Farbformat vorliegen:<br>
+                    &#34;#aarrggbb&#34;, (&#34;alpha&#34; (Transparenz), &#34;rot&#34;, &#34;grün&#34; und &#34;blau&#34;).<br>
+                    Die Zurück-Schaltfläche schließt das Hex-Eingabefeld ohne den Hex-Wert zu setzen.<br>
+                    Die Anwenden-Schaltfläche setzt den Hex-Wert als neue Farbe ohne die neue Farbe anzuwenden.
+                </p>
+                <h3>
+                    Menü-Schaltfläche:
+                </h3>
+                <p>
+                    Zurücksetzen:<br>
+                    (Setzt die neue Farbe zurück auf die
+                </p>
+                <ul>
+                    <li>Standard Android (optional) Farbe</li>
+                    <li>Darkkat (optional) Farbe</li>
+                    <li>Theme abhängige Farbe</li>
+                </ul>
+                <p>
+                    ohne die neue Farbe anzuwenden)
+                </p>
+                <h3>
+                    Hilfe anzeigen/verbergen:
+                </h3>
+                <p>
+                    Zeigt/verbirgt diese Hilfe.
+                </p>
+
+                <h2>
+                    Farbauswahl:
+                </h2>
+                <h3>
+                    Farbauswahl Typ Schaltflächen:
+                </h3>
+                <p>
+                    Mit diesen Schaltflächen kann zwischen den Typen der Farbauswahl gewechselt werden:
+                </p>
+                <ul>
+                    <li>Farbwähler</li>
+                    <li>Favoriten (Favoritkarte)</li>
+                    <li>DarkKat Farben (Farbkarte)</li>
+                    <li>Material Farben (Farbkarte)</li>
+                    <li>Holo Farben (Farbkarte)</li>
+                    <li>RGB Farben (Farbkarte)</li>
+                </ul>
+
+                <h2>
+                    Farbwähler:
+                </h2>
+                <h3>
+                    Farbfeld:
+                </h3>
+                <p>
+                    Wähle eine Farbe aus dem aktuellen Farbbereich um eine neue Farbe zu setzen ohne die neue Farbe anzuwenden.
+                </p>
+                <h3>
+                    Farbbereichsregler:
+                </h3>
+                <p>
+                    Der Farbbereich für das Farbfeld kann über den Regler auf der rechten Seite geändert werden.
+                </p>
+
+                <h2>
+                    Karten:
+                </h2>
+
+                <h3>
+                    Karten (allgemein):
+                </h3>
+                <p>
+                    Bereiche:<br>
+                    (teilweise abhängig vom Kartentyp / Kartenstatus)
+                </p>
+                <ul>
+                    <li>
+                        Hintergrund: Eingefärbt mit der Kartenfarbe
+                    </li>
+                    <li>
+                        Kopfzeile (Text):
+                        <ul>
+                            <li>
+                                Titel
+                            </li>
+                            <li>
+                                Untertitel
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        Fußzeile (Aktionen):
+                        <ul>
+                            <li>
+                                Links: &#34;Farbe Setzen&#34;
+                            </li>
+                            <li>
+                                Rechts: &#34;Favorit hinzufügen/entfernen&#34;
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <h3>
+                    Favoritkarte:
+                </h3>
+                <p>
+                    Bereiche:
+                </p>
+                <ul>
+                    <li>
+                        Titel: &#34;Favorit &#34; + Favoritennummer
+                    </li>
+                    <li>
+                        Untertitel: Farbname oder &#34;Leer&#34;
+                    </li>
+                    <li>
+                        Aktion &#34;Farbe Setzen&#34; (ist deaktiviert):
+                        <ul>
+                            <li>
+                                 Bei leerem Favoriten
+                            </li>
+                            <li>
+                                 Favoritenfarbe entspricht der neuen Farbe
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        Aktion &#34;Favorit hinzufügen&#34; (ist verfügbar):
+                        <ul>
+                            <li>
+                                 Bei leerem Favoriten
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        Aktion &#34;Favorit entfernen&#34; (ist verfügbar):
+                        <ul>
+                            <li>
+                                 Nie
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <h3>
+                    FarbKarte:
+                </h3>
+                <p>
+                    Bereiche:
+                </p>
+                <ul>
+                    <li>
+                        Titel: Farbname
+                    </li>
+                    <li>
+                        Untertitel: Farb Hex Wert
+                    </li>
+                    <li>
+                        Aktion &#34;Farbe Setzen&#34; (ist deaktiviert):
+                        <ul>
+                            <li>
+                                 Kartenfarbe entspricht der neuen Farbe
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        Aktion &#34;Favorit hinzufügen/entfernen&#34;:
+                        <ul>
+                            <li>
+                                 Das entsprechende Symbol wird angezeigt
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        Aktion &#34;Favorit hinzufügen&#34;:
+                        <ul>
+                            <li>
+                                 Verfügbar wenn kein Favorit der Kartenfarbe entspricht
+                            </li>
+                            <li>
+                                 Wird in der 1. leeren Favoritenkarte gespeichert
+                            </li>
+                            <li>
+                                 Auf der Favoritenkarte wird der Farbname als Untertitel angezeigt
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        Aktion &#34;Favorit entfernen&#34;:
+                        <ul>
+                            <li>
+                                 Verfügbar wenn mindestens ein Favorit der Kartenfarbe entspricht
+                            </li>
+                            <li>
+                                 Es wird der 1. Favorit entfernt, der der Kartenfarbe entspricht
+                            </li>
+                            <li>
+                                 Bei mehreren Favoriten die der Kartenfarbe entsprechen, wird bei jedem klick der nächste Favorit entfernt, der der Kartenfarbe entspricht
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                </html>
+            ]]>
+    </string>
+</resources>

@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2018 DarkKat
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources>
+
+    <string name="color_picker_help_main_content">
+            <![CDATA[
+                <html>
+                <head>
+                <style>
+                h2    {color: %1$s}
+                h3   {color: #ffffff;}
+                p    {color: rgba(255, 255, 255, 0.7);}
+                li    {color: rgba(255, 255, 255, 0.7); font-size: 14px;}
+                </style>
+                </head>
+
+                <h2>
+                    Actionbar:
+                </h2>
+                <h3>
+                    Color preview and apply color:
+                </h3>
+                <p>
+                    The color preview is always visible.<br>
+                    If the new color doesn&#39;t equals the old color, the color preview will be expanded, to allow apply the new color.
+                </p>
+                <h3>
+                    Edit button:
+                </h3>
+                <p>
+                    Shows the hex input field.<br>
+                    Hex values have to be in hex color format:<br>
+                    &#39;#aarrggbb&#39;, (&#39;alpha&#39; (transparency), &#39;red&#39;, &#39;green&#39; and &#39;blue&#39;).<br>
+                    The back button closes the hex input field without setting the hex value.<br>
+                    The apply button sets the hex value as new color without applying the new color.
+                </p>
+                <h3>
+                    Menu button:
+                </h3>
+                <p>
+                    Reset:<br>
+                    (Resets the new color to
+                </p>
+                <ul>
+                    <li>Default Android (optional) color</li>
+                    <li>Darkkat (optional) color</li>
+                    <li>theme related color</li>
+                </ul>
+                <p>
+                    without applying the new color)
+                </p>
+                <h3>
+                    Show/hide help:
+                </h3>
+                <p>
+                    Shows/hides this help screen.
+                </p>
+
+                <h2>
+                    Pick color:
+                </h2>
+                <h3>
+                    Pick color type buttons:
+                </h3>
+                <p>
+                    Use this button to change the Pick color type:
+                </p>
+                <ul>
+                    <li>Color picker</li>
+                    <li>Favorites (Favorite card)</li>
+                    <li>DarkKat colors (color card)</li>
+                    <li>Material colors (color card)</li>
+                    <li>Holo colors (color card)</li>
+                    <li>RGB colors (color card)</li>
+                </ul>
+
+                <h2>
+                    Color picker:
+                </h2>
+                <h3>
+                    Color panel:
+                </h3>
+                <p>
+                    Choose a color from the current color range to set a new color without applying the new color.
+                </p>
+                <h3>
+                    Color range slider:
+                </h3>
+                <p>
+                    The color range of the color panel can be changed using the slider on the right side.
+                </p>
+
+                <h2>
+                    Cards:
+                </h2>
+
+                <h3>
+                    Cards (general):
+                </h3>
+                <p>
+                    Areas:<br>
+                    (partially related to the current card type / card status)
+                </p>
+                <ul>
+                    <li>
+                        Background: Colorized using the card color
+                    </li>
+                    <li>
+                        Header (text):
+                        <ul>
+                            <li>
+                                Title
+                            </li>
+                            <li>
+                                Subtitle
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        Footer (actions):
+                        <ul>
+                            <li>
+                                Left: &#39;Set color&#39;
+                            </li>
+                            <li>
+                                Right: &#39;Add/remove favorite&#39;
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <h3>
+                    Favorite card:
+                </h3>
+                <p>
+                    Areas:
+                </p>
+                <ul>
+                    <li>
+                        Title: &#39;Favorite &#39; + Favoritenumber
+                    </li>
+                    <li>
+                        Subtitle: color name or &#39;Empty&#39;
+                    </li>
+                    <li>
+                        Action &#39;Set color&#39; (is disabled):
+                        <ul>
+                            <li>
+                                 On empty favorite
+                            </li>
+                            <li>
+                                 Favorite color equals the new color
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        Action &#34;Add favorite&#39; (is available):
+                        <ul>
+                            <li>
+                                 On empty favorite
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        Action &#34;Remove favorite&#39; (is available):
+                        <ul>
+                            <li>
+                                 Never
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <h3>
+                    Color card:
+                </h3>
+                <p>
+                    Areas:
+                </p>
+                <ul>
+                    <li>
+                        Title: Color name
+                    </li>
+                    <li>
+                        Subtitle: Color hex value
+                    </li>
+                    <li>
+                       Action &#39;Set color&#39; (is disabled):
+                        <ul>
+                            <li>
+                                 Card color equals the new color
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        Action &#39;Add/remove favorite&#39;:
+                        <ul>
+                            <li>
+                                 The icon will equals the action
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        Action &#34;Add favorite&#39;:
+                        <ul>
+                            <li>
+                                 Available if no favorite equals the card color
+                            </li>
+                            <li>
+                                 Will be saved to the first empty favorite
+                            </li>
+                            <li>
+                                 The color name will be shown as subtitle on the favorite card
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        Action &#34;Remove favorite&#39;:
+                        <ul>
+                            <li>
+                                 Available if at least one favorite equals the card color
+                            </li>
+                            <li>
+                                 The first favorite which equals the card color will be removed
+                            </li>
+                            <li>
+                                 If more than one favorite equals the card color, every click will remove the next favorite which equals the card color
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                </html>
+            ]]>
+    </string>
+</resources>

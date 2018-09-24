@@ -32,7 +32,6 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.inputmethod.InputMethodManager;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -42,6 +41,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
+import android.webkit.WebView;
 import android.widget.EditText;
 import android.widget.Button;
 import android.widget.CheckedTextView;
@@ -592,6 +592,14 @@ public class ColorPickerFragmentNew extends Fragment implements
     }
 
     private void setUpHelpScreen() {
+        WebView wv = (WebView) mColorPickerView.findViewById(R.id.help_screen_html_content);
+
+        String content = getString(R.string.color_picker_help_main_content,
+                ColorPickerHelper.convertToRGB(ThemeUtil.getAccentColor(getActivity())));
+
+        wv.getSettings().setJavaScriptEnabled(true);
+        wv.setBackgroundColor(0);
+        wv.loadData(content, "text/html", "utf-8");
         mCheckShowHelpScreen = (CheckedTextView) mColorPickerView.findViewById(
                 R.id.color_picker_check_show_help_screen);
         mCheckShowHelpScreen.setChecked(!mShowHelpScreen);

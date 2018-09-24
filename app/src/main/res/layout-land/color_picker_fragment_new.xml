@@ -177,7 +177,7 @@
         </net.darkkatrom.dkweather.colorpicker.widget.RadioGroupsGroup>
     </LinearLayout>
 
-    <include layout="@layout/color_picker_help_screen"
+    <include layout="@layout/color_picker_help_screen_new"
             android:id="@+id/color_picker_help_screen" />
 
 </RelativeLayout>
