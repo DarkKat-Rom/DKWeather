@@ -640,10 +640,7 @@ public class ColorPickerFragmentNew extends Fragment implements
             mEditHexValue.setText(ColorPickerHelper.convertToARGB(mNewColorValue));
             return true;
         } else if (item.getItemId() == R.id.show_hide_help) {
-            mAnimationType = ANIMATE_HELP_SCREEN_VISIBILITY;
-            mAnimator.setInterpolator(new FastOutSlowInInterpolator());
-            mAnimator.setDuration(225);
-            mAnimator.start();
+            showHideHelpScreen();
             return true;
         } else {
             return super.onOptionsItemSelected(item);
@@ -666,9 +663,7 @@ public class ColorPickerFragmentNew extends Fragment implements
             mCheckShowHelpScreen.toggle();
             putShowHelpScreen(!mCheckShowHelpScreen.isChecked());
         } else if (v.getId() == R.id.color_picker_help_button_ok) {
-            mAnimationType = ANIMATE_HELP_SCREEN_VISIBILITY;
-            mAnimator.setInterpolator(new FastOutSlowInInterpolator());
-            mAnimator.setDuration(195);
+            showHideHelpScreen();
             mAnimator.start();
         }
     }
@@ -835,5 +830,16 @@ public class ColorPickerFragmentNew extends Fragment implements
     private void setFavoriteSubtitle(int favoriteNumber, String subtitle) {
         ConfigColorPicker.setFavoriteSubtitle(getActivity(),
                 KEY_FAVORITE_BASE + favoriteNumber + KEY_ADDITION_SUBTITLE, subtitle);
+    }
+
+    public boolean isHelpScreenVisible() {
+        return mHelpScreenVisible;
+    }
+
+    public void showHideHelpScreen() {
+        mAnimationType = ANIMATE_HELP_SCREEN_VISIBILITY;
+        mAnimator.setInterpolator(new FastOutSlowInInterpolator());
+        mAnimator.setDuration(mHelpScreenVisible ? 195 : 225);
+        mAnimator.start();
     }
 }
