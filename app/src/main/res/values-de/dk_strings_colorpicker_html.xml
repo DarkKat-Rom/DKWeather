@@ -21,9 +21,9 @@
                 <head>
                 <style>
                 h2    {color: %1$s}
-                h3   {color: #ffffff;}
-                p    {color: rgba(255, 255, 255, 0.7);}
-                li    {color: rgba(255, 255, 255, 0.7); font-size: 14px;}
+                h3   {color: rgba(%2$s);}
+                p    {color: rgba(%2$s);}
+                li    {color: rgba(%3$s); font-size: 14px;}
                 </style>
                 </head>
 

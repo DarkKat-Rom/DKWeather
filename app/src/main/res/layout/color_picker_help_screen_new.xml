@@ -20,9 +20,8 @@
     android:layout_height="match_parent"
     android:paddingStart="@dimen/color_picker_help_screen_padding_start_end"
     android:paddingEnd="@dimen/color_picker_help_screen_padding_start_end"
-    android:background="@color/color_picker_help_screen_background"
-    android:orientation="vertical"
-    android:theme="@style/ThemeOverlay.HelpScreen">
+    android:background="?android:attr/colorBackground"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -70,7 +69,7 @@
             android:textColor="?android:attr/textColorPrimary"
             android:text="@string/color_picker_help_do_not_show_title"
             android:drawablePadding="6dp"
-            android:drawableEnd="@drawable/indicator_check_box" />
+            android:drawableEnd="@drawable/indicator_check_box_new" />
 
         <Space
             android:layout_width="0px"
@@ -83,7 +82,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_gravity="end"
-            android:textColor="@color/color_button_text_color"
+            android:textColor="?attr/coloredBackgroundTextIconColor"
             android:text="@string/color_picker_help_button_ok_title"
             android:background="@drawable/button_colored" />
 

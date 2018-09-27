@@ -33,4 +33,6 @@
         <attr name="needEntryColors" format="boolean" />
         <attr name="entryColors" format="reference" />
     </declare-styleable>
+
+    <attr name="coloredBackgroundTextIconColor" format="reference" />
 </resources>

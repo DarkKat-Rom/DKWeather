@@ -21,6 +21,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
@@ -33,6 +34,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.inputmethod.InputMethodManager;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -51,6 +53,8 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import net.darkkatrom.dkweather.R;
+import net.darkkatrom.dkweather.utils.ColorUtil;
+import net.darkkatrom.dkweather.utils.Config;
 import net.darkkatrom.dkweather.utils.ThemeUtil;
 import net.darkkatrom.dkweather.colorpicker.ColorPickerActivityNew;
 import net.darkkatrom.dkweather.colorpicker.adapter.ColorPickerCardAdapter;
@@ -108,7 +112,7 @@ public class ColorPickerFragmentNew extends Fragment implements
     private MenuItem mShowEditHexAction;
     private EditText mEditHexValue;
 
-    private View mColorPickerView;
+    private ViewGroup mColorPickerView;
     private TextView mAdditionalSubtitleView;
     private ColorPickerView mColorPicker;
 
@@ -175,13 +179,13 @@ public class ColorPickerFragmentNew extends Fragment implements
 
         mResources = getActivity().getResources();
 
-        mColorPickerView = inflater.inflate(R.layout.color_picker_fragment_new, container, false);
+        mColorPickerView = (ViewGroup) inflater.inflate(R.layout.color_picker_fragment_new, container, false);
         mAdditionalSubtitleView = (TextView) mColorPickerView.findViewById(R.id.color_picker_additional_subtitle);
         mColorPicker = (ColorPickerView) mColorPickerView.findViewById(R.id.color_picker_view);
         mChipsGroup = (RadioGroup) mColorPickerView.findViewById(R.id.color_picker_chips_group);
         mChipsGroupsGroup = (RadioGroupsGroup) mColorPickerView.findViewById(R.id.color_picker_chips_groups_group);
         mContentList = (RecyclerView) mColorPickerView.findViewById(R.id.color_picker_content_list);
-        mHelpScreen = mColorPickerView.findViewById(R.id.color_picker_help_screen);
+        inflateHelpScreen();
 
         if (getArguments() != null) {
             mPreferenceKey = getArguments().getString(ColorPickerPreference.PREFERENCE_KEY);
@@ -252,6 +256,50 @@ public class ColorPickerFragmentNew extends Fragment implements
         setUpHelpScreen();
 
         return mColorPickerView;
+    }
+
+    private void inflateHelpScreen() {
+        // As the help sceen always uses a dark background, create a themed context
+        ContextThemeWrapper themedContext =
+                new ContextThemeWrapper(getActivity(), android.R.style.Theme_Material);
+        int themeOverlayAccentResId = 0;
+        int themeOverlayTextResId = ThemeUtil.getThemeOverlayDarkTextResId(getActivity());
+        int accentColor = ThemeUtil.getColorFromThemeAttribute(getActivity(), R.attr.colorAccent);
+        int themeOverlayColoredBackground = ColorUtil.isColorDark(accentColor)
+                ? R.style.ThemeOverlay_HelpScreen_ColoredBackgroundDark
+                : R.style.ThemeOverlay_HelpScreen_ColoredBackgroundLight;
+        int themeOverlayBackground = Config.getThemeUseDarkTheme(getActivity())
+                ? R.style.ThemeOverlay_HelpScreen_Dark
+                : R.style.ThemeOverlay_HelpScreen_Light;
+
+        if (Config.getIndexForAccentColor(getActivity()) > 0) {
+            themeOverlayAccentResId = ThemeUtil.getThemeOverlayAccentResId(getActivity());
+        }
+        if (themeOverlayAccentResId > 0) {
+            // Apply the (custom) accent color to the themed context
+            themedContext.getTheme().applyStyle(themeOverlayAccentResId, true);
+        }
+        if (themeOverlayTextResId > 0) {
+            // Apply the (custom) dark text color to the themed context
+            themedContext.getTheme().applyStyle(themeOverlayTextResId, true);
+        }
+
+        // Apply needed colors related to backgrounds using the accent color:
+        // (dark on light backgrounds and vise versa)
+        // - Text color
+        // - Icon color
+        // - Ripple effect color
+        themedContext.getTheme().applyStyle(themeOverlayColoredBackground, true);
+
+        // Apply black / translucent black background on light/dark app theme
+        themedContext.getTheme().applyStyle(themeOverlayBackground, true);
+
+        // Inflate the help screen using the themed context
+        LayoutInflater inflater =
+                (LayoutInflater) themedContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        mHelpScreen = inflater.inflate(R.layout.color_picker_help_screen_new, mColorPickerView, false);
+        mColorPickerView.addView(mHelpScreen);
     }
 
     @Override
@@ -594,8 +642,22 @@ public class ColorPickerFragmentNew extends Fragment implements
     private void setUpHelpScreen() {
         WebView wv = (WebView) mColorPickerView.findViewById(R.id.help_screen_html_content);
 
-        String content = getString(R.string.color_picker_help_main_content,
-                ColorPickerHelper.convertToRGB(ThemeUtil.getAccentColor(getActivity())));
+        // As there is no difference for the accent color on light or dark themes,
+        // we can resolve the accent color for the web view using the current app theme.
+        int accentColor = ThemeUtil.getColorFromThemeAttribute(getActivity(), R.attr.colorAccent);
+        // The help screen may uses a different primary/secondary text color,
+        // so we have to resolve the primary/secondary text color for the web view using the help screen theme.
+        int primaryTextColor = ThemeUtil.getColorFromThemeAttribute(
+                mHelpScreen.getContext(), android.R.attr.textColorPrimary);
+        // Convert 'color ints' to 'color strings'
+        String accentColorString = ColorPickerHelper.convertToRGB(accentColor);
+        String primaryTextColorString =
+                ColorPickerHelper.convertToRGBAForWebView(primaryTextColor, "1");
+        String secondaryTextColorString =
+                ColorPickerHelper.convertToRGBAForWebView(primaryTextColor, "0.7");
+        // Get the colorized web view 'html string' content
+        String content = getString(R.string.color_picker_help_main_content, accentColorString,
+                primaryTextColorString, secondaryTextColorString);
 
         wv.getSettings().setJavaScriptEnabled(true);
         wv.setBackgroundColor(0);

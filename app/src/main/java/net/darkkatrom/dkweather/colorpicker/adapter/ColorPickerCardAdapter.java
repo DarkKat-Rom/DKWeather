@@ -20,7 +20,6 @@ import android.view.ContextThemeWrapper;
 import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +30,8 @@ import net.darkkatrom.dkweather.R;
 import net.darkkatrom.dkweather.colorpicker.fragment.ColorPickerFragmentNew;
 import net.darkkatrom.dkweather.colorpicker.model.ColorPickerCard;
 import net.darkkatrom.dkweather.colorpicker.model.ColorPickerFavoriteCard;
+import net.darkkatrom.dkweather.utils.Config;
+import net.darkkatrom.dkweather.utils.ThemeUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -160,7 +161,13 @@ public class ColorPickerCardAdapter extends
 
     @Override
     public int getItemViewType(int position) {
-        boolean useLightTheme = mColorPickerCards.get(position).needLightTheme();
+        boolean useLightTheme = false;
+        ColorPickerCard card = mColorPickerCards.get(position);
+        if (card instanceof ColorPickerFavoriteCard && card.getColor() == 0) {
+            useLightTheme = Config.getThemeUseDarkTheme(mContext) ? false : true;
+        } else {
+            useLightTheme = card.needLightTheme();
+        }
         return useLightTheme ? VIEW_TYPE_LIGHT_THEME : VIEW_TYPE_DARK_THEME;
     }
 
@@ -176,15 +183,7 @@ public class ColorPickerCardAdapter extends
     }
 
     private int resolveDefaultCardBackgroundColor() {
-        TypedValue tv = new TypedValue();
-        int color = 0;
-        mContext.getTheme().resolveAttribute(R.attr.colorBackgroundFloating, tv, true);
-        if (tv.type >= TypedValue.TYPE_FIRST_COLOR_INT && tv.type <= TypedValue.TYPE_LAST_COLOR_INT) {
-            color = tv.data;
-        } else {
-            color = mContext.getColor(tv.resourceId);
-        }
-        return color;
+        return ThemeUtil.getColorFromThemeAttribute(mContext, R.attr.colorBackgroundFloating);
     }
 
     public void setNewColor(int newColor) {

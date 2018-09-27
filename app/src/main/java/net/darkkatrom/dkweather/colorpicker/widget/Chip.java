@@ -22,7 +22,6 @@ import android.graphics.drawable.RippleDrawable;
 import android.graphics.drawable.GradientDrawable;
 import android.widget.RadioButton;
 import android.util.AttributeSet;
-import android.util.TypedValue;
 
 import net.darkkatrom.dkweather.R;
 import net.darkkatrom.dkweather.utils.ColorUtil;
@@ -55,13 +54,8 @@ public class Chip extends RadioButton {
         super.setChecked(checked);
 
         if (mBackgroundColorChecked == 0) {
-            TypedValue tv = new TypedValue();
-            getContext().getTheme().resolveAttribute(R.attr.colorAccent, tv, true);
-            if (tv.type >= TypedValue.TYPE_FIRST_COLOR_INT && tv.type <= TypedValue.TYPE_LAST_COLOR_INT) {
-                mBackgroundColorChecked = tv.data;
-            } else {
-                mBackgroundColorChecked = getContext().getColor(tv.resourceId);
-            }
+            mBackgroundColorChecked =
+                    ThemeUtil.getColorFromThemeAttribute(getContext(), R.attr.colorAccent);
         }
         if (mBackgroundColorNormal == 0) {
             mBackgroundColorNormal = ThemeUtil.getActionBarBackgroundColor(getContext());

@@ -29,13 +29,7 @@ public class ThemeUtil {
     public static int getConditionIconColor(Context context, int conditionIconType) {
         int conditionIconColor = 0;
         if (conditionIconType == WeatherInfo.ICON_MONOCHROME) {
-            TypedValue tv = new TypedValue();
-            context.getTheme().resolveAttribute(R.attr.colorControlNormal, tv, true);
-            if (tv.type >= TypedValue.TYPE_FIRST_COLOR_INT && tv.type <= TypedValue.TYPE_LAST_COLOR_INT) {
-                conditionIconColor = tv.data;
-            } else {
-                conditionIconColor = context.getColor(tv.resourceId);
-            }
+            conditionIconColor = getColorFromThemeAttribute(context, R.attr.colorControlNormal);
         }
         return conditionIconColor;
     }
@@ -81,19 +75,6 @@ public class ThemeUtil {
                     ? Config.getThemePrimaryColor(context) : context.getColor(R.color.primary_darkkat);
         }
         return color;
-    }
-
-    public static int getAccentColor(Context context) {
-        TypedValue tv = new TypedValue();
-        int accentColor = 0;
-
-        context.getTheme().resolveAttribute(R.attr.colorAccent, tv, true);
-        if (tv.type >= TypedValue.TYPE_FIRST_COLOR_INT && tv.type <= TypedValue.TYPE_LAST_COLOR_INT) {
-            accentColor = tv.data;
-        } else {
-            accentColor = context.getColor(tv.resourceId);
-        }
-        return accentColor;
     }
 
     public static int getDefaultHighlightColor(Context context) {
@@ -391,5 +372,17 @@ public class ThemeUtil {
             }
         }
         return resId;
+    }
+
+    public static int getColorFromThemeAttribute(Context context, int resId) {
+        TypedValue tv = new TypedValue();
+        int color = 0;
+        context.getTheme().resolveAttribute(resId, tv, true);
+        if (tv.type >= TypedValue.TYPE_FIRST_COLOR_INT && tv.type <= TypedValue.TYPE_LAST_COLOR_INT) {
+            color = tv.data;
+        } else {
+            color = context.getColor(tv.resourceId);
+        }
+        return color;
     }
 }

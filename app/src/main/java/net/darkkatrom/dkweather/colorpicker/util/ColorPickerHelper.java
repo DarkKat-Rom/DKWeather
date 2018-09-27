@@ -103,6 +103,19 @@ public class ColorPickerHelper {
     }
 
     /*
+     * Converts a color int to a rgba color string
+     * 
+     * @param color
+     * @param alpha
+     */
+    public static String convertToRGBAForWebView(int color, String alpha) {
+        String red = String.valueOf(Color.red(color));
+        String green = String.valueOf(Color.green(color));
+        String blue = String.valueOf(Color.blue(color));
+        return red + ", " + green + ", " + blue + ", " + alpha;
+    }
+
+    /*
      * Converts a aarrggbb- or rrggbb color string to a color int
      * 
      * @param argb
