@@ -150,6 +150,8 @@ public class ColorPickerFragment extends Fragment implements
     private int mApplyColorIconAnimationType;
     private int mAnimationType;
 
+    private boolean mIsAnimatingHelpScreen = false;
+
     private ColorPickerCardAdapter mCardAdapter = null;
     private List<ColorPickerCard> mColorPickerCards;
     private int[] mFavoriteColors;
@@ -469,6 +471,7 @@ public class ColorPickerFragment extends Fragment implements
                         mHelpScreen.setVisibility(View.GONE);
                     }
                     mHelpScreenVisible = !mHelpScreenVisible;
+                    mIsAnimatingHelpScreen = false;
                     getArguments().putInt(KEY_HELP_SCREEN_VISIBILITY, mHelpScreenVisible
                             ? HELP_SCREEN_VISIBILITY_VISIBLE : HELP_SCREEN_VISIBILITY_GONE);
                 }
@@ -899,9 +902,12 @@ public class ColorPickerFragment extends Fragment implements
     }
 
     public void showHideHelpScreen() {
-        mAnimationType = ANIMATE_HELP_SCREEN_VISIBILITY;
-        mAnimator.setInterpolator(new FastOutSlowInInterpolator());
-        mAnimator.setDuration(mHelpScreenVisible ? 195 : 225);
-        mAnimator.start();
+        if (!mIsAnimatingHelpScreen) {
+            mIsAnimatingHelpScreen = true;
+            mAnimationType = ANIMATE_HELP_SCREEN_VISIBILITY;
+            mAnimator.setInterpolator(new FastOutSlowInInterpolator());
+            mAnimator.setDuration(mHelpScreenVisible ? 195 : 225);
+            mAnimator.start();
+        }
     }
 }
