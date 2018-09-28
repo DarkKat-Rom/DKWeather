@@ -22,7 +22,7 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceCategory;
 
-import net.darkkatrom.dkweather.colorpicker.ColorPickerActivityNew;
+import net.darkkatrom.dkweather.colorpicker.ColorPickerActivity;
 import net.darkkatrom.dkweather.colorpicker.preference.ColorPickerPreference;
 import net.darkkatrom.dkweather.fragments.SettingsBaseFragment;
 
@@ -52,7 +52,7 @@ public class SettingsColorPickerFragment extends SettingsBaseFragment implements
 
     @Override
     public void pickColor(Bundle extras, int requestCode) {
-        Intent intent = new Intent(getActivity(), ColorPickerActivityNew.class);
+        Intent intent = new Intent(getActivity(), ColorPickerActivity.class);
         intent.putExtras(extras);
         startActivityForResult(intent, requestCode);
     }

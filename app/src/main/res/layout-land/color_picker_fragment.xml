@@ -38,55 +38,143 @@
         android:layout_below="@id/color_picker_additional_subtitle"
         android:orientation="horizontal">
 
-        <net.darkkatrom.dkweather.colorpicker.widget.ColorPickerView 
-            android:id="@+id/color_picker_view"
-            android:layout_width="wrap_content"
+        <FrameLayout
+            android:id="@+id/color_picker_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/color_picker_view_margin"
-            android:layout_marginStart="@dimen/color_picker_view_margin"
-            android:layout_marginBottom="@dimen/color_picker_view_margin"
-            android:layout_marginEnd="@dimen/color_picker_view_margin"
-            android:tag="landscape"
-            android:layerType="software" />
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1">
 
-        <ScrollView
-            android:layout_width="0px"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_marginTop="@dimen/color_picker_color_buttons_scroll_view_margin_top"
-            android:paddingBottom="@dimen/color_picker_color_buttons_scroll_padding_bottom"
-            android:requiresFadingEdge="vertical"
-            android:fadingEdgeLength="@dimen/color_picker_color_buttons_scroll_view_fading_edge_lenght"
-            android:scrollbars="vertical"
-            android:scrollbarStyle="outsideOverlay"
-            android:scrollbarDefaultDelayBeforeFade="1500"
-            android:scrollbarAlwaysDrawVerticalTrack="true"
-            android:fillViewport="true">
-
-            <LinearLayout
-                android:id="@+id/color_picker_color_buttons_layout"
+            <net.darkkatrom.dkweather.colorpicker.widget.ColorPickerView 
+                android:id="@+id/color_picker_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_marginTop="@dimen/color_picker_view_margin"
+                android:layout_marginStart="@dimen/color_picker_view_margin"
+                android:layout_marginBottom="@dimen/color_picker_view_margin"
+                android:layout_marginEnd="@dimen/color_picker_view_margin"
+                android:visibility="gone"
+                android:tag="landscape"
+                android:layerType="software" />
 
-                <include layout="@layout/color_picker_favorite_color_buttons_layout"
-                    android:id="@+id/favorite_buttons" />
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/color_picker_content_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:visibility="gone" />
 
-                <include layout="@layout/color_picker_palette_color_buttons_layout"
-                    android:id="@+id/color_buttons_dk" />
+        </FrameLayout>
 
-                <include layout="@layout/color_picker_material_palette_color_buttons_layout"
-                    android:id="@+id/color_buttons_material" />
+        <net.darkkatrom.dkweather.colorpicker.widget.RadioGroupsGroup
+            android:id="@+id/color_picker_chips_groups_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal">
 
-                <include layout="@layout/color_picker_palette_color_buttons_layout"
-                    android:id="@+id/color_buttons_rgb"
-                    android:layout_marginBottom="0dp" />
+            <RadioGroup
+                android:id="@+id/color_picker_chips_group_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="16dp"
+                android:paddingEnd="4dp">
 
-            </LinearLayout>
-        </ScrollView>
+                <net.darkkatrom.dkweather.colorpicker.widget.Chip
+                    android:id="@+id/color_picker_chip_pick"
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:gravity="center"
+                    android:text="@string/chip_pick_title"
+                    android:textColor="@color/primary_text_dark_white"
+                    android:textSize="14sp"
+                    android:button="@null"
+                    android:background="@drawable/chip_background" />
+
+                <net.darkkatrom.dkweather.colorpicker.widget.Chip
+                    android:id="@+id/color_picker_chip_favorites"
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:layout_marginTop="8dp"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:gravity="center"
+                    android:text="@string/chip_favorites_title"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:textSize="14sp"
+                    android:button="@null"
+                    android:background="@drawable/chip_background" />
+
+                <net.darkkatrom.dkweather.colorpicker.widget.Chip
+                    android:id="@+id/color_picker_chip_darkkat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:layout_marginTop="8dp"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:gravity="center"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:text="@string/chip_darkkat_title"
+                    android:textSize="14sp"
+                    android:button="@null"
+                    android:background="@drawable/chip_background" />
+
+            </RadioGroup>
+
+            <RadioGroup
+                android:id="@+id/color_picker_chips_group_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="4dp"
+                android:paddingEnd="16dp">
+
+                <net.darkkatrom.dkweather.colorpicker.widget.Chip
+                    android:id="@+id/color_picker_chip_material"
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:gravity="center"
+                    android:text="@string/chip_material_title"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:textSize="14sp"
+                    android:button="@null"
+                    android:background="@drawable/chip_background" />
+
+                <net.darkkatrom.dkweather.colorpicker.widget.Chip
+                    android:id="@+id/color_picker_chip_holo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:layout_marginTop="8dp"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:gravity="center"
+                    android:text="@string/chip_holo_title"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:textSize="14sp"
+                    android:button="@null"
+                    android:background="@drawable/chip_background" />
+
+                <net.darkkatrom.dkweather.colorpicker.widget.Chip
+                    android:id="@+id/color_picker_chip_rgb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:layout_marginTop="8dp"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:gravity="center"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:text="@string/chip_rgb_title"
+                    android:textSize="14sp"
+                    android:button="@null"
+                    android:background="@drawable/chip_background" />
+
+            </RadioGroup>
+        </net.darkkatrom.dkweather.colorpicker.widget.RadioGroupsGroup>
     </LinearLayout>
-
-    <include layout="@layout/color_picker_help_screen"
-            android:id="@+id/color_picker_help_screen" />
 
 </RelativeLayout>

@@ -34,10 +34,6 @@
             android:name="net.darkkatrom.dkweather.colorpicker.ColorPickerActivity"
             android:label="@string/pick_color_title" />
 
-        <activity
-            android:name="net.darkkatrom.dkweather.colorpicker.ColorPickerActivityNew"
-            android:label="@string/pick_color_title" />
-
         <activity-alias
             android:name=".DetailedWeatherActivity"
             android:exported="true"

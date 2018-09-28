@@ -27,18 +27,20 @@ import net.darkkatrom.dkweather.colorpicker.fragment.ColorPickerFragment;
 
 public class ColorPickerActivity extends BaseActivity {
 
+    private ColorPickerFragment mFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         if (savedInstanceState == null) {
-            Fragment f = new ColorPickerFragment();
+            mFragment = new ColorPickerFragment();
             Bundle extras = getIntent().getExtras();
             if (extras != null) {
-                f.setArguments(extras);
+                mFragment.setArguments(extras);
             }
             getFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_content, f)
+                    .replace(R.id.fragment_content, mFragment)
                     .commit();
         }
     }
@@ -51,5 +53,14 @@ public class ColorPickerActivity extends BaseActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (mFragment.isHelpScreenVisible()) {
+            mFragment.showHideHelpScreen();
+        } else {
+            super.onBackPressed();
+        }
     }
 }

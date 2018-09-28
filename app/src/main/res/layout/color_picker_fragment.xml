@@ -32,53 +32,139 @@
         android:textColor="?attr/colorAccent"
         android:visibility="gone" />
 
-    <net.darkkatrom.dkweather.colorpicker.widget.ColorPickerView
-        android:id="@+id/color_picker_view"
+    <HorizontalScrollView
+        android:id="@+id/color_picker_chips_scroller"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="32dp"
         android:layout_below="@id/color_picker_additional_subtitle"
-        android:layout_marginTop="@dimen/color_picker_view_margin"
-        android:layout_marginStart="@dimen/color_picker_view_margin"
-        android:layout_marginEnd="@dimen/color_picker_view_margin"
-        android:tag="portrait" />
+        android:layout_marginTop="16dp"
+        android:requiresFadingEdge="none"
+        android:scrollbars="none">
 
-    <ScrollView
+        <RadioGroup
+            android:id="@+id/color_picker_chips_group"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:orientation="horizontal">
+
+            <net.darkkatrom.dkweather.colorpicker.widget.Chip
+                android:id="@+id/color_picker_chip_pick"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="4dp"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:gravity="center"
+                android:text="@string/chip_pick_title"
+                android:textColor="@color/primary_text_dark_white"
+                android:textSize="14sp"
+                android:button="@null"
+                android:background="@drawable/chip_background" />
+
+            <net.darkkatrom.dkweather.colorpicker.widget.Chip
+                android:id="@+id/color_picker_chip_favorites"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:gravity="center"
+                android:text="@string/chip_favorites_title"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="14sp"
+                android:button="@null"
+                android:background="@drawable/chip_background" />
+
+            <net.darkkatrom.dkweather.colorpicker.widget.Chip
+                android:id="@+id/color_picker_chip_darkkat"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:gravity="center"
+                android:textColor="?android:attr/textColorPrimary"
+                android:text="@string/chip_darkkat_title"
+                android:textSize="14sp"
+                android:button="@null"
+                android:background="@drawable/chip_background" />
+
+            <net.darkkatrom.dkweather.colorpicker.widget.Chip
+                android:id="@+id/color_picker_chip_material"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:gravity="center"
+                android:text="@string/chip_material_title"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="14sp"
+                android:button="@null"
+                android:background="@drawable/chip_background" />
+
+            <net.darkkatrom.dkweather.colorpicker.widget.Chip
+                android:id="@+id/color_picker_chip_holo"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:gravity="center"
+                android:text="@string/chip_holo_title"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="14sp"
+                android:button="@null"
+                android:background="@drawable/chip_background" />
+
+            <net.darkkatrom.dkweather.colorpicker.widget.Chip
+                android:id="@+id/color_picker_chip_rgb"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="4dp"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:gravity="center"
+                android:textColor="?android:attr/textColorPrimary"
+                android:text="@string/chip_rgb_title"
+                android:textSize="14sp"
+                android:button="@null"
+                android:background="@drawable/chip_background" />
+
+        </RadioGroup>
+    </HorizontalScrollView>
+
+    <FrameLayout
+        android:id="@+id/color_picker_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/color_picker_view"
-        android:layout_marginTop="@dimen/color_picker_color_buttons_scroll_view_margin_top"
-        android:paddingBottom="@dimen/color_picker_color_buttons_scroll_padding_bottom"
-        android:requiresFadingEdge="vertical"
-        android:fadingEdgeLength="@dimen/color_picker_color_buttons_scroll_view_fading_edge_lenght"
-        android:scrollbars="vertical"
-        android:scrollbarStyle="outsideOverlay"
-        android:scrollbarDefaultDelayBeforeFade="1500"
-        android:scrollbarAlwaysDrawVerticalTrack="true"
-        android:fillViewport="true">
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
+        android:layout_below="@id/color_picker_chips_scroller">
 
-        <LinearLayout
-            android:id="@+id/color_picker_color_buttons_layout"
+        <net.darkkatrom.dkweather.colorpicker.widget.ColorPickerView
+            android:id="@+id/color_picker_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_marginTop="@dimen/color_picker_view_margin"
+            android:layout_marginStart="@dimen/color_picker_view_margin"
+            android:layout_marginEnd="@dimen/color_picker_view_margin"
+            android:visibility="gone"
+            android:tag="portrait" />
 
-            <include layout="@layout/color_picker_favorite_color_buttons_layout"
-                android:id="@+id/favorite_buttons" />
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/color_picker_content_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="4dp"
+            android:visibility="gone" />
 
-            <include layout="@layout/color_picker_palette_color_buttons_layout"
-                android:id="@+id/color_buttons_dk" />
-
-            <include layout="@layout/color_picker_material_palette_color_buttons_layout"
-                android:id="@+id/color_buttons_material" />
-
-            <include layout="@layout/color_picker_palette_color_buttons_layout"
-                android:id="@+id/color_buttons_rgb"
-                android:layout_marginBottom="0dp" />
-
-        </LinearLayout>
-    </ScrollView>
-
-    <include layout="@layout/color_picker_help_screen"
-            android:id="@+id/color_picker_help_screen" />
+    </FrameLayout>
 
 </RelativeLayout>

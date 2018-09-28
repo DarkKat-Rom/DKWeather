@@ -27,7 +27,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import net.darkkatrom.dkweather.R;
-import net.darkkatrom.dkweather.colorpicker.fragment.ColorPickerFragmentNew;
+import net.darkkatrom.dkweather.colorpicker.fragment.ColorPickerFragment;
 import net.darkkatrom.dkweather.colorpicker.model.ColorPickerCard;
 import net.darkkatrom.dkweather.colorpicker.model.ColorPickerFavoriteCard;
 import net.darkkatrom.dkweather.utils.Config;
@@ -173,7 +173,7 @@ public class ColorPickerCardAdapter extends
 
     private boolean isFavorite(int color) {
         boolean isFavorite = false;
-        for (int i = 0; i < ColorPickerFragmentNew.NUM_MAX_FAVORITES; i++) {
+        for (int i = 0; i < ColorPickerFragment.NUM_MAX_FAVORITES; i++) {
             if (mFavoriteColors[i] == color) {
                 isFavorite = true;
                 break;
