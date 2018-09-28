@@ -15,7 +15,7 @@
      limitations under the License.
 -->
 
-<net.darkkatrom.dkweather.colorpicker.widget.ColorViewButton
+<net.darkkatrom.dkweather.colorpicker.widget.ColorPreview
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/color_picker_widget"
     android:layout_width="@dimen/color_picker_preference_widget_width"
@@ -39,4 +39,4 @@
         android:textSize="@dimen/color_picker_color_button_value_text_size"
         android:textColor="?android:attr/textColorSecondary" />
 
-</net.darkkatrom.dkweather.colorpicker.widget.ColorViewButton>
+</net.darkkatrom.dkweather.colorpicker.widget.ColorPreview>

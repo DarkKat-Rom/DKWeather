@@ -36,7 +36,7 @@ import net.darkkatrom.dkweather.utils.ThemeUtil;
 import net.darkkatrom.dkweather.colorpicker.drawable.ColorViewCircleDrawable;
 import net.darkkatrom.dkweather.colorpicker.fragment.ColorPickerFragment;
 import net.darkkatrom.dkweather.colorpicker.util.ColorPickerHelper;
-import net.darkkatrom.dkweather.colorpicker.widget.ColorViewButton;
+import net.darkkatrom.dkweather.colorpicker.widget.ColorPreview;
 
 /*
  * A preference type that allows a user to choose a color
@@ -146,9 +146,9 @@ public class ColorPickerPreference extends Preference {
     public void onBindView(View view) {
         super.onBindView(view);
 
-        ColorViewButton preview = null;
+        ColorPreview preview = null;
         if (view != null) {
-            preview = (ColorViewButton) view.findViewById(R.id.color_picker_widget);
+            preview = (ColorPreview) view.findViewById(R.id.color_picker_widget);
         }
         if (preview != null) {
             preview.setColor(mValue);

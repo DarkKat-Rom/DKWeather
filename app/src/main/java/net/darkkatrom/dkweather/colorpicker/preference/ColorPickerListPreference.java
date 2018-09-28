@@ -37,7 +37,6 @@ import android.widget.TextView;
 
 import net.darkkatrom.dkweather.R;
 import net.darkkatrom.dkweather.colorpicker.util.ColorPickerHelper;
-import net.darkkatrom.dkweather.colorpicker.widget.ColorViewButton;
 
 public class ColorPickerListPreference extends ListPreference implements
         ColorPickerListAdapter.OnItemClickedListener {

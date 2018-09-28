@@ -39,7 +39,7 @@
         android:drawablePadding="@dimen/select_dialog_drawable_padding_start_material"
         android:ellipsize="marquee" />
 
-    <net.darkkatrom.dkweather.colorpicker.widget.ColorViewButton
+    <net.darkkatrom.dkweather.colorpicker.widget.ColorPreview
         android:id="@+id/color_picker_dialog_list_item_preview"
         android:layout_width="@dimen/color_picker_preference_widget_width"
         android:layout_height="wrap_content"
@@ -63,5 +63,5 @@
             android:textSize="@dimen/color_picker_preference_widget_text_size"
             android:textColor="?android:attr/textColorSecondary" />
 
-    </net.darkkatrom.dkweather.colorpicker.widget.ColorViewButton>
+    </net.darkkatrom.dkweather.colorpicker.widget.ColorPreview>
 </LinearLayout>
