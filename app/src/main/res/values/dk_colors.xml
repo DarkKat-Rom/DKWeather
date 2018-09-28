@@ -15,31 +15,30 @@
 -->
 <resources>
 
-    <!-- General colors (used for all themes) -->
+    <!-- Overlay for theme default action-, navigation- and status bar colors -->
+    <color name="primary_theme_dark">@color/primary_darkkat</color>
+    <color name="primary_dark_theme_dark">@color/primary_dark_darkkat</color>
+
+    <!-- Overlay for default action-, navigation- and status bar colors (light mode)  -->
+    <color name="primary_theme_light">@color/material_grey_100</color>
+    <color name="primary_dark_theme_light">@color/material_grey_300</color>
+
+    <!-- Overlay for theme default accent color -->
+    <color name="accent_theme">@color/accent_darkkat</color>
 
     <!-- Widget colors -->
     <color name="widget_default_frame_color">#66ffffff</color>
     <color name="widget_default_background_color">@color/darkkat_blue_grey</color>
     <color name="widget_text_shadow_color">#61000000</color>
-    <color name="widget_default_text_color">#ffffffff</color>
-    <color name="widget_default_icon_color">#b3ffffff</color>
+    <color name="widget_default_text_color">@color/white</color>
+    <color name="widget_default_icon_color">@color/secondary_text_default_dark_white</color>
 
     <!-- Notification colors -->
-    <color name="notification_small_icon_color">@color/text_primary_dark</color>
-    <color name="notification_action_icon_tint">@color/text_secondary_light</color>
+    <color name="notification_small_icon_color">@color/white</color>
+    <color name="notification_action_icon_tint">@color/secondary_text_default_light_black</color>
     <color name="notification_condition_icon_tint">@color/accent_darkkat</color>
-    <!-- General colors (used for all themes) end -->
-
-    <!-- Overlay for theme default action- and status bar colors -->
-    <color name="theme_primary">@color/primary_darkkat</color>
-    <color name="theme_primary_dark">@color/primary_dark_darkkat</color>
-    <color name="theme_light_primary">@color/material_grey_100</color>
-    <color name="theme_light_primary_dark">@color/material_grey_300</color>
-
-    <!-- Overlay for theme default accent color -->
-    <color name="theme_accent">@color/accent_darkkat</color>
 
     <!-- Overlay for theme default background colors on dark theme -->
-    <color name="theme_background_dark">@color/darkkat_blue_grey</color>
-    <color name="theme_background_floating_dark">@color/darkkat_blue_blue_grey</color>
+    <color name="theme_background_darkkat">@color/darkkat_blue_grey</color>
+    <color name="theme_background_floating_darkkat">@color/darkkat_blue_blue_grey</color>
 </resources>

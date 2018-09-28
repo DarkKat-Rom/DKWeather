@@ -75,8 +75,8 @@ public class ColorPickerListPreference extends ListPreference implements
             }
             a.recycle();
         }
-        setPositiveButtonText(R.string.dialog_ok);
-        setNegativeButtonText(R.string.dialog_cancel);
+        setPositiveButtonText(R.string.dlg_ok);
+        setNegativeButtonText(R.string.dlg_cancel);
         setLayoutResource(R.layout.preference_color_picker);
         setWidgetLayoutResource(R.layout.preference_widget_color_picker_list);
     }

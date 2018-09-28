@@ -16,5 +16,4 @@
 <resources>
 
     <attr name="dividerColor" format="reference" />
-    <attr name="checkableTextColor" format="reference" />
 </resources>
