@@ -20,6 +20,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
 import android.preference.Preference;
+import android.preference.PreferenceCategory;
 
 import net.darkkatrom.dkweather.R;
 import net.darkkatrom.dkweather.activities.SettingsActivity;
@@ -37,6 +38,13 @@ public class ThemeColorsApp extends SettingsColorPickerFragment implements
 
         addPreferencesFromResource(R.xml.theme_colors_settings_app);
 
+        PreferenceCategory catAllThemes =
+                (PreferenceCategory) findPreference(Config.PREF_KEY_CAT_ALL_COLORS);
+        PreferenceCategory catLightTheme =
+                (PreferenceCategory) findPreference(Config.PREF_KEY_CAT_LIGHT_COLORS);
+        PreferenceCategory catDarkTheme =
+                (PreferenceCategory) findPreference(Config.PREF_KEY_CAT_DARK_COLORS);
+
         mPrimaryColor = Config.getThemePrimaryColor(getActivity());
 
         if (Config.getThemeUseDarkTheme(getActivity())
@@ -51,19 +59,20 @@ public class ThemeColorsApp extends SettingsColorPickerFragment implements
 
 
         if (!Config.getThemeCustomizeColors(getActivity())) {
-            removePreference(Config.PREF_KEY_THEME_PRIMARY_COLOR);
-            removePreference(Config.PREF_KEY_THEME_ACCENT_COLOR);
-            removePreference(Config.PREF_KEY_THEME_LIGHT_TEXT_COLOR);
-            removePreference(Config.PREF_KEY_THEME_DARK_TEXT_COLOR);
-            removePreference(Config.PREF_KEY_THEME_LIGHT_RIPPLE_COLOR);
-            removePreference(Config.PREF_KEY_THEME_DARK_RIPPLE_COLOR);
+            catAllThemes.removePreference(findPreference(Config.PREF_KEY_THEME_PRIMARY_COLOR));
+            catAllThemes.removePreference(findPreference(Config.PREF_KEY_THEME_ACCENT_COLOR));
+            catLightTheme.removePreference(findPreference(Config.PREF_KEY_THEME_LIGHT_TEXT_COLOR));
+            catLightTheme.removePreference(findPreference(Config.PREF_KEY_THEME_LIGHT_RIPPLE_COLOR));
+            catDarkTheme.removePreference(findPreference(Config.PREF_KEY_THEME_DARK_TEXT_COLOR));
+            catDarkTheme.removePreference(findPreference(Config.PREF_KEY_THEME_DARK_RIPPLE_COLOR));
+            removePreference(Config.PREF_KEY_CAT_ALL_COLORS);
+            removePreference(Config.PREF_KEY_CAT_LIGHT_COLORS);
+            removePreference(Config.PREF_KEY_CAT_DARK_COLORS);
         } else {
            if (Config.getThemeUseDarkTheme(getActivity())) {
-                removePreference(Config.PREF_KEY_THEME_LIGHT_TEXT_COLOR);
-                removePreference(Config.PREF_KEY_THEME_LIGHT_RIPPLE_COLOR);
-            } else {
-                removePreference(Config.PREF_KEY_THEME_DARK_TEXT_COLOR);
-                removePreference(Config.PREF_KEY_THEME_DARK_RIPPLE_COLOR);
+                catLightTheme.removePreference(findPreference(Config.PREF_KEY_THEME_LIGHT_TEXT_COLOR));
+                catLightTheme.removePreference(findPreference(Config.PREF_KEY_THEME_LIGHT_RIPPLE_COLOR));
+                removePreference(Config.PREF_KEY_CAT_LIGHT_COLORS);
             }
         }
     }

@@ -146,6 +146,9 @@
     <string name="theme_colors_widget_summary">Choose how to colorize the widget</string>
 
     <!-- App ui-->
+    <string name="theme_cat_all_colors_title">All themes</string>
+    <string name="theme_cat_light_colors_title">Light theme</string>
+    <string name="theme_cat_dark_colors_title">Dark theme &amp; help screen</string>
     <string name="theme_title">Theme</string>
     <string name="theme_material_light">Material (light version)</string>
     <string name="theme_material_darkkat">Material (DarkKat version)</string>
@@ -159,10 +162,8 @@
     <string name="theme_primary_color_title">Primary color</string>
     <string name="theme_primary_color_summary">This color is used to colorize the action- and (optional) navigation bar. A darker variant of this color is used to colorize the status bar.</string>
     <string name="theme_accent_color_title">Accent color</string>
-    <string name="theme_light_text_color_title">Text &amp; icon color (light theme)</string>
-    <string name="theme_dark_text_color_title">Text &amp; icon color (dark theme)</string>
-    <string name="theme_light_ripple_color_title">Ripple effect color (light theme)</string>
-    <string name="theme_dark_ripple_color_title">Ripple effect color (dark theme)</string>
+    <string name="theme_text_color_title">Text &amp; icon color</string>
+    <string name="theme_ripple_color_title">Ripple effect color</string>
     <string name="darkkat_blue_grey">Darkkat Background</string>
     <string name="darkkat_blue_blue_grey">Darkkat Background Floating</string>
     <string name="accent_darkkat">Accent Darkkat</string>

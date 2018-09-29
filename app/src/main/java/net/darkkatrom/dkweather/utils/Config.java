@@ -50,13 +50,18 @@ public class Config {
     public static final String PREF_KEY_WIDGET_SHOW_SETTINGS_BUTTONS_LEFT
             = "widget_show_settings_buttons_left";
 
+    public static final String PREF_KEY_CAT_ALL_COLORS =
+            "theme_cat_all_colors";
+    public static final String PREF_KEY_CAT_LIGHT_COLORS =
+            "theme_cat_light_colors";
+    public static final String PREF_KEY_CAT_DARK_COLORS =
+            "theme_cat_dark_colors";
     public static final String PREF_KEY_THEME =
             "theme";
     public static final String PREF_KEY_THEME_USE_LIGHT_STATUS_BAR =
             "theme_use_light_status_bar";
     public static final String PREF_KEY_THEME_USE_LIGHT_NAVIGATION_BAR =
             "theme_use_light_navigation_bar";
-
     public static final String PREF_KEY_THEME_CUSTOMIZE_COLORS =
             "theme_customize_colors";
     public static final String PREF_KEY_THEME_PRIMARY_COLOR =
