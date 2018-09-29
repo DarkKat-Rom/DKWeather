@@ -788,8 +788,11 @@ public class ColorPickerFragment extends Fragment implements
     @Override
     public void onFavoriteCardActionFavoriteClicked(int position) {
         int favoriteNumber = position + 1;
+        String subtitle = ColorPickerHelper.getColorTitle(getActivity(), mNewColorValue);
         setFavoriteColor(favoriteNumber, mNewColorValue);
+        setFavoriteSubtitle(favoriteNumber, subtitle);
         mColorPickerCards.get(position).setColor(getFavoriteColor(favoriteNumber));
+        mColorPickerCards.get(position).setSubtitle(subtitle);
         mFavoriteColors[position] = mNewColorValue;
         mCardAdapter.notifyDataSetChanged();
     }

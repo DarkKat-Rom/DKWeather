@@ -16,11 +16,16 @@
 
 package net.darkkatrom.dkweather.colorpicker.util;
 
+import android.content.Context;
+import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+
+import net.darkkatrom.dkweather.R;
 
 public class ColorPickerHelper {
 
@@ -143,5 +148,27 @@ public class ColorPickerHelper {
 
         return Color.argb(alpha, red, green, blue);
     }
-}
 
+    public static String getColorTitle(Context context, int color) {
+        Resources res = context.getResources();
+        TypedArray colors = res.obtainTypedArray(R.array.color_picker_all_palette);
+        TypedArray titles = res.obtainTypedArray(R.array.color_picker_all_palette_titles);
+        int titleResId = 0;
+        for (int i = 0; i < 38; i++) {
+            int resId = colors.getResourceId(i, 0);
+            if (color == context.getColor(resId)) {
+                titleResId = titles.getResourceId(i, 0);
+                break;
+            }
+        }
+
+        colors.recycle();
+        titles.recycle();
+
+        if (titleResId > 0) {
+            return res.getString(titleResId);
+        } else {
+            return "";
+        }
+    }
+}

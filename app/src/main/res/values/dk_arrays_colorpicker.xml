@@ -124,4 +124,87 @@
         <item>@color/yellow</item>>
         <item>@color/orange</item>
     </array>
+
+
+    <array name="color_picker_all_palette_titles">
+        <item>@string/darkkat_blue_grey</item>
+        <item>@string/darkkat_blue_blue_grey</item>
+        <item>@string/accent_darkkat</item>
+        <item>@string/material_blue_grey_500</item>
+        <item>@string/material_blue_500</item>
+        <item>@string/material_light_blue_500</item>
+        <item>@string/material_cyan_500</item>
+        <item>@string/material_deep_teal_500</item>
+        <item>@string/material_indigo_500</item>
+        <item>@string/material_purple_500</item>
+        <item>@string/material_deep_purple_500</item>
+        <item>@string/material_pink_500</item>
+        <item>@string/material_orange_500</item>
+        <item>@string/material_deep_orange_500</item>
+        <item>@string/material_red_500</item>
+        <item>@string/material_yellow_500</item>
+        <item>@string/material_amber_500</item>
+        <item>@string/material_green_500</item>
+        <item>@string/material_light_green_500</item>
+        <item>@string/material_lime_500</item>
+        <item>@string/holo_blue_light</item>
+        <item>@string/holo_blue_dark</item>
+        <item>@string/holo_blue_bright</item>
+        <item>@string/holo_purple</item>
+        <item>@string/holo_orange_light</item>
+        <item>@string/holo_orange_dark</item>
+        <item>@string/holo_red_light</item>
+        <item>@string/holo_red_dark</item>
+        <item>@string/holo_green_light</item>
+        <item>@string/holo_green_dark</item>
+        <item>@string/black</item>
+        <item>@string/red</item>
+        <item>@string/green</item>
+        <item>@string/blue</item>
+        <item>@string/white</item>
+        <item>@string/purple</item>
+        <item>@string/yellow</item>>
+        <item>@string/orange</item>
+    </array>
+
+    <array name="color_picker_all_palette">
+        <item>@color/darkkat_blue_grey</item>
+        <item>@color/darkkat_blue_blue_grey</item>
+        <item>@color/accent_darkkat</item>
+        <item>@color/material_blue_grey_500</item>
+        <item>@color/material_blue_500</item>
+        <item>@color/material_light_blue_500</item>
+        <item>@color/material_cyan_500</item>
+        <item>@color/material_deep_teal_500</item>
+        <item>@color/material_indigo_500</item>
+        <item>@color/material_purple_500</item>
+        <item>@color/material_deep_purple_500</item>
+        <item>@color/material_pink_500</item>
+        <item>@color/material_orange_500</item>
+        <item>@color/material_deep_orange_500</item>
+        <item>@color/material_red_500</item>
+        <item>@color/material_yellow_500</item>
+        <item>@color/material_amber_500</item>
+        <item>@color/material_green_500</item>
+        <item>@color/material_light_green_500</item>
+        <item>@color/material_lime_500</item>
+        <item>@color/holo_blue_light</item>
+        <item>@color/holo_blue_dark</item>
+        <item>@color/holo_blue_bright</item>
+        <item>@color/holo_purple</item>
+        <item>@color/holo_orange_light</item>
+        <item>@color/holo_orange_dark</item>
+        <item>@color/holo_red_light</item>
+        <item>@color/holo_red_dark</item>
+        <item>@color/holo_green_light</item>
+        <item>@color/holo_green_dark</item>
+        <item>@color/black</item>
+        <item>@color/red</item>
+        <item>@color/green</item>
+        <item>@color/blue</item>
+        <item>@color/white</item>
+        <item>@color/purple</item>
+        <item>@color/yellow</item>>
+        <item>@color/orange</item>
+    </array>
 </resources>
