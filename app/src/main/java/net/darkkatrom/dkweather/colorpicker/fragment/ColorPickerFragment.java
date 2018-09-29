@@ -266,6 +266,7 @@ public class ColorPickerFragment extends Fragment implements
                 new ContextThemeWrapper(getActivity(), android.R.style.Theme_Material);
         int themeOverlayAccentResId = 0;
         int themeOverlayTextResId = ThemeUtil.getThemeOverlayDarkTextResId(getActivity());
+        int themeOverlayRippleResId = ThemeUtil.getThemeOverlayRippleResId(getActivity(), true);
         int accentColor = ThemeUtil.getColorFromThemeAttribute(getActivity(), R.attr.colorAccent);
         int themeOverlayColoredBackground = ColorUtil.isColorDark(accentColor)
                 ? R.style.ThemeOverlay_HelpScreen_ColoredBackgroundDark
@@ -284,6 +285,10 @@ public class ColorPickerFragment extends Fragment implements
         if (themeOverlayTextResId > 0) {
             // Apply the (custom) dark text color to the themed context
             themedContext.getTheme().applyStyle(themeOverlayTextResId, true);
+        }
+        if (themeOverlayRippleResId > 0) {
+            // Apply the (custom) dark ripple effect color to the themed context
+            themedContext.getTheme().applyStyle(themeOverlayRippleResId, true);
         }
 
         // Apply needed colors related to backgrounds using the accent color:

@@ -311,12 +311,16 @@ public class ThemeUtil {
     }
 
     public static int getThemeOverlayRippleResId(Context context) {
-        int index = Config.getIndexForRippleColor(context);
+        return getThemeOverlayRippleResId(context, false);
+    }
+
+    public static int getThemeOverlayRippleResId(Context context, boolean forceDark) {
+        int index = Config.getIndexForRippleColor(context, forceDark);
 
         int resId = 0;
         if (index != -1) {
             if (index == 0) {
-                resId = R.style.Theme_Overlay_TextDark_AccentDarkKat;
+                resId = R.style.Theme_Overlay_Ripple_AccentDarkKat;
             } else if (index == 1) {
                 resId = R.style.Theme_Overlay_Ripple_HoloBlueLight;
             } else if (index == 2) {

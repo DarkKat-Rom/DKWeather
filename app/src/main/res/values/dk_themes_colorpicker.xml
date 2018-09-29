@@ -17,16 +17,17 @@
 
     <style name="ThemeOverlay" />
 
-    <style name="ThemeOverlay.HelpScreen" />
+    <style name="ThemeOverlay.HelpScreen">
+    </style>
 
     <style name="ThemeOverlay.HelpScreen.ColoredBackgroundLight">
         <item name="coloredBackgroundTextIconColor">@color/primary_text_light_black</item>
-        <item name="colorControlHighlight">@color/ripple_black</item>
+        <item name="coloredBackgroundHighlight">@color/ripple_black</item>
     </style>
 
     <style name="ThemeOverlay.HelpScreen.ColoredBackgroundDark">
         <item name="coloredBackgroundTextIconColor">@color/primary_text_dark_white</item>
-        <item name="colorControlHighlight">@color/ripple_white</item>
+        <item name="coloredBackgroundHighlight">@color/ripple_white</item>
     </style>
 
     <style name="ThemeOverlay.HelpScreen.Light">

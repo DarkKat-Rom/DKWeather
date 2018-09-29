@@ -69,7 +69,8 @@
             android:textColor="?android:attr/textColorPrimary"
             android:text="@string/color_picker_help_do_not_show_title"
             android:drawablePadding="6dp"
-            android:drawableEnd="@drawable/indicator_check_box" />
+            android:drawableEnd="@drawable/indicator_check_box"
+            android:background="@drawable/ripple_drawable_rectangle" />
 
         <Space
             android:layout_width="0px"

@@ -35,4 +35,5 @@
     </declare-styleable>
 
     <attr name="coloredBackgroundTextIconColor" format="reference" />
+    <attr name="coloredBackgroundHighlight" format="reference" />
 </resources>

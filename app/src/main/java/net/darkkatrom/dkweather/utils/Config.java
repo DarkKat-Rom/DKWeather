@@ -333,15 +333,42 @@ public class Config {
     }
 
     public static int getIndexForRippleColor(Context context) {
-        int defaultColorIndex = getThemeUseDarkTheme(context) ? 20 : 19;
+        return getIndexForRippleColor(context, false);
+    }
+
+    public static int getIndexForRippleColor(Context context, boolean forceDark) {
+        int defaultColorIndex = 0;
+        if (forceDark) {
+            defaultColorIndex = 20;
+        } else {
+            defaultColorIndex = getThemeUseDarkTheme(context) ? 20 : 19;
+        }
         if (!getThemeCustomizeColors(context)) {
             return defaultColorIndex;
         } else {
             SharedPreferences prefs = PreferenceManager
                     .getDefaultSharedPreferences(context);
-            String valueString = getThemeUseDarkTheme(context)
-                    ? prefs.getString(PREF_KEY_THEME_DARK_RIPPLE_COLOR, "20")
-                    : prefs.getString(PREF_KEY_THEME_LIGHT_RIPPLE_COLOR, "19");
+            String valueString = "0";
+            if (forceDark) {
+                valueString = prefs.getString(PREF_KEY_THEME_DARK_RIPPLE_COLOR, "20");
+            } else {
+                valueString = getThemeUseDarkTheme(context)
+                        ? prefs.getString(PREF_KEY_THEME_DARK_RIPPLE_COLOR, "20")
+                        : prefs.getString(PREF_KEY_THEME_LIGHT_RIPPLE_COLOR, "19");
+            }
+            int colorIndex = Integer.valueOf(valueString);
+            return colorIndex == defaultColorIndex ? -1 : colorIndex;
+        }
+    }
+
+    public static int getIndexForDarkRippleColor(Context context) {
+        int defaultColorIndex = 20;
+        if (!getThemeCustomizeColors(context)) {
+            return defaultColorIndex;
+        } else {
+            SharedPreferences prefs = PreferenceManager
+                    .getDefaultSharedPreferences(context);
+            String valueString = prefs.getString(PREF_KEY_THEME_DARK_RIPPLE_COLOR, "20");
             int colorIndex = Integer.valueOf(valueString);
             return colorIndex == defaultColorIndex ? -1 : colorIndex;
         }
