@@ -190,6 +190,19 @@ public class ThemeUtil {
         return resId;
     }
 
+    public static int getThemeOverlayTextResId(Context context) {
+        return getThemeOverlayTextResId(context, false);
+    }
+
+    public static int getThemeOverlayTextResId(Context context, boolean forceDark) {
+        boolean isDark = Config.getThemeUseDarkTheme(context) || forceDark;
+        if (isDark) {
+            return getThemeOverlayDarkTextResId(context);
+        } else {
+            return getThemeOverlayLightTextResId(context);
+        }
+    }
+
     public static int getThemeOverlayLightTextResId(Context context) {
         int index = Config.getIndexForLightTextColor(context);
 

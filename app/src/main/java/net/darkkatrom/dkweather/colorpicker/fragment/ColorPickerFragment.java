@@ -265,7 +265,7 @@ public class ColorPickerFragment extends Fragment implements
         ContextThemeWrapper themedContext =
                 new ContextThemeWrapper(getActivity(), android.R.style.Theme_Material);
         int themeOverlayAccentResId = 0;
-        int themeOverlayTextResId = ThemeUtil.getThemeOverlayDarkTextResId(getActivity());
+        int themeOverlayTextResId = ThemeUtil.getThemeOverlayTextResId(getActivity(), true);
         int themeOverlayRippleResId = ThemeUtil.getThemeOverlayRippleResId(getActivity(), true);
         int accentColor = ThemeUtil.getColorFromThemeAttribute(getActivity(), R.attr.colorAccent);
         int themeOverlayColoredBackground = ColorUtil.isColorDark(accentColor)
