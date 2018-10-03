@@ -62,20 +62,20 @@ limitations under the License.
             app:resetColor1="@color/primary_darkkat"
             app:defaultColor="@color/primary_darkkat" />
 
+	</PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="theme_cat_light_colors"
+        android:title="@string/theme_cat_light_colors_title">
+
         <net.darkkatrom.dkweather.colorpicker.preference.ColorPickerListPreference
-            android:key="theme_accent_color"
+            android:key="theme_light_accent_color"
             android:title="@string/theme_accent_color_title"
             android:summary="@string/list_preference_default_summary"
             android:entries="@array/theme_color_list_entries"
             android:entryValues="@array/theme_color_list_values"
             app:entryColors="@array/theme_color_list_entry_colors"
             android:defaultValue="0" />
-
-	</PreferenceCategory>
-
-    <PreferenceCategory
-        android:key="theme_cat_light_colors"
-        android:title="@string/theme_cat_light_colors_title">
 
         <net.darkkatrom.dkweather.colorpicker.preference.ColorPickerListPreference
             android:key="theme_light_text_color"
@@ -100,6 +100,15 @@ limitations under the License.
     <PreferenceCategory
         android:key="theme_cat_dark_colors"
         android:title="@string/theme_cat_dark_colors_title">
+
+        <net.darkkatrom.dkweather.colorpicker.preference.ColorPickerListPreference
+            android:key="theme_dark_accent_color"
+            android:title="@string/theme_accent_color_title"
+            android:summary="@string/list_preference_default_summary"
+            android:entries="@array/theme_color_list_entries"
+            android:entryValues="@array/theme_color_list_values"
+            app:entryColors="@array/theme_color_list_entry_colors"
+            android:defaultValue="0" />
 
         <net.darkkatrom.dkweather.colorpicker.preference.ColorPickerListPreference
             android:key="theme_dark_text_color"

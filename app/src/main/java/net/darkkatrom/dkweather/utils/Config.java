@@ -66,8 +66,10 @@ public class Config {
             "theme_customize_colors";
     public static final String PREF_KEY_THEME_PRIMARY_COLOR =
             "theme_primary_color";
-    public static final String PREF_KEY_THEME_ACCENT_COLOR =
-            "theme_accent_color";
+    public static final String PREF_KEY_THEME_LIGHT_ACCENT_COLOR =
+            "theme_light_accent_color";
+    public static final String PREF_KEY_THEME_DARK_ACCENT_COLOR =
+            "theme_dark_accent_color";
     public static final String PREF_KEY_THEME_LIGHT_TEXT_COLOR =
             "theme_light_text_color";
     public static final String PREF_KEY_THEME_DARK_TEXT_COLOR =
@@ -305,12 +307,23 @@ public class Config {
     }
 
     public static int getIndexForAccentColor(Context context) {
+        return getIndexForAccentColor(context, false);
+    }
+
+    public static int getIndexForAccentColor(Context context, boolean forceDark) {
         if (!getThemeCustomizeColors(context)) {
             return 0;
         } else {
             SharedPreferences prefs = PreferenceManager
                     .getDefaultSharedPreferences(context);
-            String valueString = prefs.getString(PREF_KEY_THEME_ACCENT_COLOR, "0");
+            String valueString = "0";
+            if (forceDark) {
+                valueString = prefs.getString(PREF_KEY_THEME_DARK_ACCENT_COLOR, "0");
+            } else {
+                valueString = getThemeUseDarkTheme(context)
+                        ? prefs.getString(PREF_KEY_THEME_DARK_ACCENT_COLOR, "0")
+                        : prefs.getString(PREF_KEY_THEME_LIGHT_ACCENT_COLOR, "0");
+            }
             return Integer.valueOf(valueString);
         }
     }

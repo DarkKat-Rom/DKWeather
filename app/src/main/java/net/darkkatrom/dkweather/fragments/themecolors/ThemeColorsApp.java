@@ -60,9 +60,10 @@ public class ThemeColorsApp extends SettingsColorPickerFragment implements
 
         if (!Config.getThemeCustomizeColors(getActivity())) {
             catAllThemes.removePreference(findPreference(Config.PREF_KEY_THEME_PRIMARY_COLOR));
-            catAllThemes.removePreference(findPreference(Config.PREF_KEY_THEME_ACCENT_COLOR));
+            catLightTheme.removePreference(findPreference(Config.PREF_KEY_THEME_LIGHT_ACCENT_COLOR));
             catLightTheme.removePreference(findPreference(Config.PREF_KEY_THEME_LIGHT_TEXT_COLOR));
             catLightTheme.removePreference(findPreference(Config.PREF_KEY_THEME_LIGHT_RIPPLE_COLOR));
+            catDarkTheme.removePreference(findPreference(Config.PREF_KEY_THEME_DARK_ACCENT_COLOR));
             catDarkTheme.removePreference(findPreference(Config.PREF_KEY_THEME_DARK_TEXT_COLOR));
             catDarkTheme.removePreference(findPreference(Config.PREF_KEY_THEME_DARK_RIPPLE_COLOR));
             removePreference(Config.PREF_KEY_CAT_ALL_COLORS);
@@ -70,6 +71,7 @@ public class ThemeColorsApp extends SettingsColorPickerFragment implements
             removePreference(Config.PREF_KEY_CAT_DARK_COLORS);
         } else {
            if (Config.getThemeUseDarkTheme(getActivity())) {
+                catLightTheme.removePreference(findPreference(Config.PREF_KEY_THEME_LIGHT_ACCENT_COLOR));
                 catLightTheme.removePreference(findPreference(Config.PREF_KEY_THEME_LIGHT_TEXT_COLOR));
                 catLightTheme.removePreference(findPreference(Config.PREF_KEY_THEME_LIGHT_RIPPLE_COLOR));
                 removePreference(Config.PREF_KEY_CAT_LIGHT_COLORS);
@@ -86,7 +88,8 @@ public class ThemeColorsApp extends SettingsColorPickerFragment implements
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         if (Config.PREF_KEY_THEME.equals(key)
-                    || Config.PREF_KEY_THEME_ACCENT_COLOR.equals(key)
+                    || Config.PREF_KEY_THEME_LIGHT_ACCENT_COLOR.equals(key)
+                    || Config.PREF_KEY_THEME_DARK_ACCENT_COLOR.equals(key)
                     || Config.PREF_KEY_THEME_LIGHT_TEXT_COLOR.equals(key)
                     || Config.PREF_KEY_THEME_DARK_TEXT_COLOR.equals(key)
                     || Config.PREF_KEY_THEME_LIGHT_RIPPLE_COLOR.equals(key)

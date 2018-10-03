@@ -264,7 +264,7 @@ public class ColorPickerFragment extends Fragment implements
         // As the help sceen always uses a dark background, create a themed context
         ContextThemeWrapper themedContext =
                 new ContextThemeWrapper(getActivity(), android.R.style.Theme_Material);
-        int themeOverlayAccentResId = 0;
+        int themeOverlayAccentResId = ThemeUtil.getThemeOverlayAccentResId(getActivity(), true);
         int themeOverlayTextResId = ThemeUtil.getThemeOverlayTextResId(getActivity(), true);
         int themeOverlayRippleResId = ThemeUtil.getThemeOverlayRippleResId(getActivity(), true);
         int accentColor = ThemeUtil.getColorFromThemeAttribute(getActivity(), R.attr.colorAccent);
@@ -275,9 +275,6 @@ public class ColorPickerFragment extends Fragment implements
                 ? R.style.ThemeOverlay_HelpScreen_Dark
                 : R.style.ThemeOverlay_HelpScreen_Light;
 
-        if (Config.getIndexForAccentColor(getActivity()) > 0) {
-            themeOverlayAccentResId = ThemeUtil.getThemeOverlayAccentResId(getActivity());
-        }
         if (themeOverlayAccentResId > 0) {
             // Apply the (custom) accent color to the themed context
             themedContext.getTheme().applyStyle(themeOverlayAccentResId, true);

@@ -131,7 +131,11 @@ public class ThemeUtil {
     }
 
     public static int getThemeOverlayAccentResId(Context context) {
-        int index = Config.getIndexForAccentColor(context);
+        return getThemeOverlayAccentResId(context, false);
+    }
+
+    public static int getThemeOverlayAccentResId(Context context, boolean forceDark) {
+        int index = Config.getIndexForAccentColor(context, forceDark);
 
         int resId = 0;
         if (index == 1) {
