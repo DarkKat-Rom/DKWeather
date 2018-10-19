@@ -31,12 +31,8 @@
 
     <!-- Cards -->
     <string name="favorite_title">Favorite</string>
-    <string name="color_picker_card_support_text_action_set">Click on \'Set color\', to set this color as new color, without applying the new color.</string>
-    <string name="color_picker_card_support_text_action_set_disabled">\'Set color\' disabled, This color equals the new color.</string>
-    <string name="color_picker_favorite_card_support_text_action_set_disabled">\'Set color\' disabled, This favorite is empty.</string>
-    <string name="color_picker_favorite_card_support_text_action_favorite_add">Click on the bottom right \'Add favorite-\' icon, to save the new color to this favorite.</string>
-    <string name="color_picker_color_card_support_text_action_favorite_add">Click on the bottom right \'Add favorite-\' icon, to save this color as favorite.</string>
-    <string name="color_picker_color_card_support_text_action_favorite_remove">Click on the bottom right \'Remove favorite-\' icon, to remove this color from the favorites.</string>
+    <string name="color_picker_color_card_status_action_set_disabled">\'Set color\' disabled, this color equals the new color.</string>
+    <string name="color_picker_favorite_card_status_action_set_disabled">\'Set color\' disabled, This favorite is empty.</string>
     <string name="set_color_title">Set color</string>
 
     <!-- Action bar menu -->

@@ -31,12 +31,8 @@
 
     <!-- Cards -->
     <string name="favorite_title">Favorit</string>
-    <string name="color_picker_card_support_text_action_set">Klicke auf \"Farbe Setzen\", um diese Farbe als neue Farbe zu setzen, ohne die neue Farbe anzuwenden.</string>
-    <string name="color_picker_card_support_text_action_set_disabled">\"Farbe Setzen\" deaktiviert, diese Farbe entspricht der neue Farbe.</string>
-    <string name="color_picker_favorite_card_support_text_action_set_disabled">\"Farbe Setzen\" deaktiviert, dieser Favorit ist leer.</string>
-    <string name="color_picker_favorite_card_support_text_action_favorite_add">Klicke unten rechts auf das \"Favorit hinzufügen-\" Symbol, um die neue Farbe in diesem Favoriten zu speichern.</string>
-    <string name="color_picker_color_card_support_text_action_favorite_add">Klicke unten rechts auf das \"Favorit hinzufügen-\" Symbol, um diese Farbe als Favoriten zu speichern.</string>
-    <string name="color_picker_color_card_support_text_action_favorite_remove">Klicke unten rechts auf das \"Favorit entfernen-\" Symbol, um diese Farbe aus den Favoriten zu entfernen.</string>
+    <string name="color_picker_color_card_status_action_set_disabled">\"Farbe Setzen\" deaktiviert, diese Farbe entspricht der neue Farbe.</string>
+    <string name="color_picker_favorite_card_status_action_set_disabled">\"Farbe Setzen\" deaktiviert, dieser Favorit ist leer.</string>
     <string name="set_color_title">Farbe Setzen</string>
 
     <!-- Action bar menu -->

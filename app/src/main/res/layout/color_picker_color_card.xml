@@ -26,14 +26,14 @@
     <android.support.v7.widget.CardView
         android:id="@+id/color_picker_color_card"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="230dp"
         android:layout_margin="4dp"
         app:cardElevation="4dp">
 
         <LinearLayout
             android:id="@+id/color_picker_color_card_content_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <LinearLayout
@@ -62,34 +62,18 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/color_picker_color_card_support_text_layout"
+            <TextView
+                android:id="@+id/color_picker_color_card_status_text_action_set"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:layout_marginTop="8dp"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
                 android:gravity="center_vertical"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/color_picker_color_card_support_text_action_set"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="?android:attr/textColorSecondary"
-                    android:text="@string/color_picker_card_support_text_action_set" />
-
-                <TextView
-                    android:id="@+id/color_picker_color_card_support_text_action_favorite"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="?android:attr/textColorSecondary"
-                    android:text="@string/color_picker_color_card_support_text_action_favorite_add" />
-
-            </LinearLayout>
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="?android:attr/textColorSecondary"
+                android:text="@string/color_picker_color_card_status_action_set_disabled" />
 
             <LinearLayout
                 android:id="@+id/color_picker_color_card_footer_layout"
