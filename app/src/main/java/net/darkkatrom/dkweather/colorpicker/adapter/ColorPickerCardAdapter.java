@@ -132,9 +132,10 @@ public class ColorPickerCardAdapter extends
             holder.mActionFavorite.setOnClickListener(null);
         }
         if (disableCardClick) {
-            holder.mCardView.setOnClickListener(null);
+            holder.mCardLayout.setOnClickListener(null);
+            holder.mCardLayout.setClickable(false);
         } else {
-            holder.mCardView.setOnClickListener(new View.OnClickListener() {
+            holder.mCardLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (mOnCardClickedListener != null) {
@@ -238,6 +239,7 @@ public class ColorPickerCardAdapter extends
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public View mView;
         public CardView mCardView;
+        public View mCardLayout;
         public TextView mTitle;
         public TextView mSubtitle;
         public TextView mStatusText;
@@ -249,6 +251,7 @@ public class ColorPickerCardAdapter extends
 
             mView = v;
             mCardView = (CardView) v.findViewById(R.id.color_picker_color_card);
+            mCardLayout = v.findViewById(R.id.color_picker_color_card_content_layout);
             mTitle = (TextView) v.findViewById(R.id.color_picker_color_card_header_title);
             mSubtitle = (TextView) v.findViewById(R.id.color_picker_color_card_header_subtitle);
             mStatusText = (TextView) v.findViewById(R.id.color_picker_color_card_status_text);

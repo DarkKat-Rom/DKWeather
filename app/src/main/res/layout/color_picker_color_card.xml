@@ -34,6 +34,7 @@
             android:id="@+id/color_picker_color_card_content_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@drawable/ripple_drawable_rectangle"
             android:orientation="vertical">
 
             <LinearLayout
