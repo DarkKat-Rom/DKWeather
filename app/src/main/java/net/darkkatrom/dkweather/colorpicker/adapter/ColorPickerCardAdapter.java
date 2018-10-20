@@ -44,19 +44,21 @@ public class ColorPickerCardAdapter extends
 
     private Context mContext;
     private List<ColorPickerCard> mColorPickerCards;
+    private int mInitialColor;
     private int mNewColor;
     private int[] mFavoriteColors;
 
     private OnCardClickedListener mOnCardClickedListener;
 
     public interface OnCardClickedListener {
-        public void onCardActionSetClicked(int color);
+        public void onCardClicked(int color);
+        public void onCardActionApplyClicked(int color);
         public void onColorCardActionFavoriteClicked(ColorPickerCard card, boolean isFavorite);
         public void onFavoriteCardActionFavoriteClicked(int position);
     }
 
-    public ColorPickerCardAdapter(Context context, List<ColorPickerCard> items, int newColor,
-            int[] favoriteColors) {
+    public ColorPickerCardAdapter(Context context, List<ColorPickerCard> items, int initialColor,
+            int newColor, int[] favoriteColors) {
         super();
 
         mContext = context;
@@ -65,6 +67,7 @@ public class ColorPickerCardAdapter extends
         } else {
             mColorPickerCards = new ArrayList<ColorPickerCard>();
         }
+        mInitialColor = initialColor;
         mNewColor = newColor;
         mFavoriteColors = favoriteColors;
     }
@@ -90,8 +93,10 @@ public class ColorPickerCardAdapter extends
                 ? resolveDefaultCardBackgroundColor() : color;
         String subtitle = card.getSubtitle();
         final boolean isFavorite = isFavorite(color);
-        boolean disableActionSet = color == mNewColor || (isFavoriteCard && color == 0);
+        boolean disableCardClick = color == mNewColor || (isFavoriteCard && color == 0);
+        boolean disableActionApply = color == 0 || color == mInitialColor;
         boolean hideActionFavorite = isFavoriteCard && color != 0;
+        String statusText = "";
         int favoriteIconResId = -1;
 
         if (isFavoriteCard) {
@@ -126,25 +131,72 @@ public class ColorPickerCardAdapter extends
             holder.mActionFavorite.setVisibility(View.GONE);
             holder.mActionFavorite.setOnClickListener(null);
         }
-        if (disableActionSet) {
-            holder.mActionSet.setOnClickListener(null);
-            holder.mActionSet.setEnabled(false);
-            holder.mSupportTextActionSet.setVisibility(View.VISIBLE);
-            holder.mSupportTextActionSet.setText(isFavoriteCard && color == 0
-                    ? R.string.color_picker_favorite_card_status_action_set_disabled
-                    : R.string.color_picker_color_card_status_action_set_disabled);
+        if (disableCardClick) {
+            holder.mCardView.setOnClickListener(null);
         } else {
-            holder.mActionSet.setOnClickListener(new View.OnClickListener() {
+            holder.mCardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (mOnCardClickedListener != null) {
-                        mOnCardClickedListener.onCardActionSetClicked(color);
+                        mOnCardClickedListener.onCardClicked(color);
                     }
                 }
             });
-            holder.mActionSet.setEnabled(true);
-            holder.mSupportTextActionSet.setVisibility(View.INVISIBLE);
         }
+        if (disableActionApply) {
+            holder.mActionApply.setOnClickListener(null);
+            holder.mActionApply.setEnabled(false);
+        } else {
+            holder.mActionApply.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mOnCardClickedListener != null) {
+                        mOnCardClickedListener.onCardActionApplyClicked(color);
+                    }
+                }
+            });
+            holder.mActionApply.setEnabled(true);
+        }
+        if (isFavoriteCard) {
+            if (disableCardClick) {
+                statusText = mContext.getResources().getString(color == 0
+                        ? R.string.color_picker_favorite_card_status_empty
+                        : R.string.color_picker_favorite_card_status_card_click_disabled);
+            }
+            if (disableActionApply) {
+                if (statusText.isEmpty()) {
+                    statusText = mContext.getResources().getString(color == mInitialColor
+                            ? R.string.color_picker_favorite_card_status_action_apply_disabled_initial_color
+                            : R.string.color_picker_favorite_card_status_action_apply_disabled);
+                } else {
+                    statusText += "\n" + mContext.getResources().getString(color == mInitialColor
+                            ? R.string.color_picker_favorite_card_status_action_apply_disabled_initial_color
+                            : R.string.color_picker_favorite_card_status_action_apply_disabled);
+                }
+            }
+        } else {
+            if (disableCardClick) {
+                statusText = mContext.getResources().getString(
+                        R.string.color_picker_color_card_status_card_click_disabled);
+            }
+            if (disableActionApply) {
+                if (statusText.isEmpty()) {
+                    statusText = mContext.getResources().getString(color == mInitialColor
+                            ? R.string.color_picker_color_card_status_action_apply_disabled_initial_color
+                            : R.string.color_picker_color_card_status_action_apply_disabled);
+                } else {
+                    statusText += "\n" + mContext.getResources().getString(color == mInitialColor
+                            ? R.string.color_picker_color_card_status_action_apply_disabled_initial_color
+                            : R.string.color_picker_color_card_status_action_apply_disabled);
+                }
+            }
+        }
+        if (statusText.isEmpty()) {
+            holder.mStatusText.setVisibility(View.INVISIBLE);
+        } else {
+            holder.mStatusText.setVisibility(View.VISIBLE);
+        }
+        holder.mStatusText.setText(statusText);
     }
 
     @Override
@@ -188,8 +240,8 @@ public class ColorPickerCardAdapter extends
         public CardView mCardView;
         public TextView mTitle;
         public TextView mSubtitle;
-        public TextView mSupportTextActionSet;
-        public TextView mActionSet;
+        public TextView mStatusText;
+        public TextView mActionApply;
         public ImageView mActionFavorite;
 
         public ViewHolder(View v) {
@@ -199,9 +251,8 @@ public class ColorPickerCardAdapter extends
             mCardView = (CardView) v.findViewById(R.id.color_picker_color_card);
             mTitle = (TextView) v.findViewById(R.id.color_picker_color_card_header_title);
             mSubtitle = (TextView) v.findViewById(R.id.color_picker_color_card_header_subtitle);
-            mSupportTextActionSet =
-                    (TextView) v.findViewById(R.id.color_picker_color_card_status_text_action_set);
-            mActionSet = (TextView) v.findViewById(R.id.color_picker_color_card_action_set_color);
+            mStatusText = (TextView) v.findViewById(R.id.color_picker_color_card_status_text);
+            mActionApply = (TextView) v.findViewById(R.id.color_picker_color_card_action_apply_color);
             mActionFavorite = (ImageView) v.findViewById(R.id.color_picker_color_card_icon_favorite);
         }
     }

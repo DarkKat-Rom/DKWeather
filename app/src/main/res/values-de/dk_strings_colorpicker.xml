@@ -31,9 +31,14 @@
 
     <!-- Cards -->
     <string name="favorite_title">Favorit</string>
-    <string name="color_picker_color_card_status_action_set_disabled">\"Farbe Setzen\" deaktiviert, diese Farbe entspricht der neue Farbe.</string>
-    <string name="color_picker_favorite_card_status_action_set_disabled">\"Farbe Setzen\" deaktiviert, dieser Favorit ist leer.</string>
-    <string name="set_color_title">Farbe Setzen</string>
+    <string name="color_picker_color_card_status_card_click_disabled">Karten Klick (\"Farbe Setzen\") deaktiviert, diese Farbe entspricht der neuen Farbe.</string>
+    <string name="color_picker_color_card_status_action_apply_disabled">\"Farbe Übernehmen\" deaktiviert, diese Karte hat keine Farbe.</string>
+   <string name="color_picker_color_card_status_action_apply_disabled_initial_color">\"Farbe Übernehmen\" deaktiviert, diese Farbe wird bereits genutzt.</string>
+    <string name="color_picker_favorite_card_status_card_click_disabled">Karten Klick (\"Farbe Setzen\") deaktiviert, diese Favoritenfarbe entspricht der neuen Farbe.</string>
+    <string name="color_picker_favorite_card_status_empty">Karten Klick (\"Farbe Setzen\") deaktiviert, dieser Favorit ist leer.</string>
+    <string name="color_picker_favorite_card_status_action_apply_disabled">\"Farbe Übernehmen\" deaktiviert, dieser Favorit ist leer.</string>
+    <string name="color_picker_favorite_card_status_action_apply_disabled_initial_color">\"Farbe Übernehmen\" deaktiviert, diese Favoritenfarbe wird bereits genutzt.</string>
+    <string name="color_picker_card_apply_color_title">Farbe Übernehmen</string>
 
     <!-- Action bar menu -->
     <string name="apply_color_title">Farbe anwenden</string>

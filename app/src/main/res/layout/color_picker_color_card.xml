@@ -63,7 +63,7 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/color_picker_color_card_status_text_action_set"
+                android:id="@+id/color_picker_color_card_status_text"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
@@ -72,8 +72,7 @@
                 android:paddingEnd="16dp"
                 android:gravity="center_vertical"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="?android:attr/textColorSecondary"
-                android:text="@string/color_picker_color_card_status_action_set_disabled" />
+                android:textColor="?android:attr/textColorSecondary" />
 
             <LinearLayout
                 android:id="@+id/color_picker_color_card_footer_layout"
@@ -84,12 +83,12 @@
                 android:gravity="center_vertical">
 
                 <Button
-                    android:id="@+id/color_picker_color_card_action_set_color"
+                    android:id="@+id/color_picker_color_card_action_apply_color"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:paddingStart="12dp"
-                    android:text="@string/set_color_title"
+                    android:text="@string/color_picker_card_apply_color_title"
                     android:gravity="center_vertical"
                     style="@style/Widget.AppCompat.Button.Borderless" />
 

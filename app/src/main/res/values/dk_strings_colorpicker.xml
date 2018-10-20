@@ -31,9 +31,14 @@
 
     <!-- Cards -->
     <string name="favorite_title">Favorite</string>
-    <string name="color_picker_color_card_status_action_set_disabled">\'Set color\' disabled, this color equals the new color.</string>
-    <string name="color_picker_favorite_card_status_action_set_disabled">\'Set color\' disabled, This favorite is empty.</string>
-    <string name="set_color_title">Set color</string>
+    <string name="color_picker_color_card_status_card_click_disabled">Card click (\'Set color\') disabled, this color equals the new color.</string>
+    <string name="color_picker_color_card_status_action_apply_disabled">\'Apply color\' disabled, this card has no color.</string>
+    <string name="color_picker_color_card_status_action_apply_disabled_initial_color">\'Apply color\' disabled, this color is already in use.</string>
+    <string name="color_picker_favorite_card_status_card_click_disabled">Card click (\'Set color\') disabled, this favorite color equals the new color.</string>
+    <string name="color_picker_favorite_card_status_empty">Card click (\'Set color\') disabled, this favorite is empty.</string>
+    <string name="color_picker_favorite_card_status_action_apply_disabled">\'Apply color\' disabled, this favorite is empty.</string>
+    <string name="color_picker_favorite_card_status_action_apply_disabled_initial_color">\'Apply color\' disabled, this favorite color is already in use.</string>
+    <string name="color_picker_card_apply_color_title">Apply color</string>
 
     <!-- Action bar menu -->
     <string name="apply_color_title">Apply color</string>

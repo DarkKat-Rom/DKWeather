@@ -631,7 +631,7 @@ public class ColorPickerFragment extends Fragment implements
 
     private void buildOrUpdateCardAdapter() {
         if (mCardAdapter == null) {
-            mCardAdapter = new ColorPickerCardAdapter(getActivity(), mColorPickerCards,
+            mCardAdapter = new ColorPickerCardAdapter(getActivity(), mColorPickerCards, mInitialColor,
                     mNewColorValue, mFavoriteColors);
             mCardAdapter.setOnCardClickedListener(this);
         } else {
@@ -774,12 +774,21 @@ public class ColorPickerFragment extends Fragment implements
     }
 
     @Override
-    public void onCardActionSetClicked(int color) {
+    public void onCardClicked(int color) {
         try {
             if (color != mOldColorValue) {
                 mColorPicker.setColor(color, true);
             }
         } catch (Exception e) {}
+    }
+
+    @Override
+    public void onCardActionApplyClicked(int color) {
+        Intent data = new Intent();
+        data.putExtra(KEY_NEW_COLOR, color);
+        data.putExtra(ColorPickerPreference.PREFERENCE_KEY, mPreferenceKey);
+        getActivity().setResult(Activity.RESULT_OK, data);
+        getActivity().finish();
     }
 
     @Override
