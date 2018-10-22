@@ -26,7 +26,7 @@
     <android.support.v7.widget.CardView
         android:id="@+id/color_picker_color_card"
         android:layout_width="match_parent"
-        android:layout_height="230dp"
+        android:layout_height="wrap_content"
         android:layout_margin="4dp"
         app:cardElevation="4dp">
 
@@ -73,14 +73,14 @@
                 android:paddingEnd="16dp"
                 android:gravity="center_vertical"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="?android:attr/textColorSecondary" />
+                android:textColor="?android:attr/textColorSecondary"
+                android:visibility="gone" />
 
             <LinearLayout
                 android:id="@+id/color_picker_color_card_footer_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
                 android:gravity="center_vertical">
 
                 <Button

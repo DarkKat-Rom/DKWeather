@@ -16,14 +16,14 @@
 <resources>
 
     <array name="color_picker_darkkat_palette_titles">
-        <item>@string/darkkat_blue_grey</item>
-        <item>@string/darkkat_blue_blue_grey</item>
-        <item>@string/accent_darkkat</item>
-        <item>@string/holo_blue_light</item>
+        <item>@string/card_darkkat_blue_grey</item>
+        <item>@string/card_darkkat_blue_blue_grey</item>
+        <item>@string/card_accent_darkkat</item>
+        <item>@string/card_holo_blue_light</item>
         <item>@string/black</item>
         <item>@string/white</item>
-        <item>@string/material_deep_teal_500</item>
-        <item>@string/material_indigo_500</item>
+        <item>@string/card_material_deep_teal_500</item>
+        <item>@string/card_material_indigo_500</item>
     </array>
 
     <array name="color_picker_darkkat_palette">
@@ -38,23 +38,23 @@
     </array>
 
     <array name="color_picker_material_palette_titles">
-        <item>@string/material_blue_grey_500</item>
-        <item>@string/material_blue_500</item>
-        <item>@string/material_light_blue_500</item>
-        <item>@string/material_cyan_500</item>
-        <item>@string/material_deep_teal_500</item>
-        <item>@string/material_indigo_500</item>
-        <item>@string/material_purple_500</item>
-        <item>@string/material_deep_purple_500</item>
-        <item>@string/material_pink_500</item>
-        <item>@string/material_orange_500</item>
-        <item>@string/material_deep_orange_500</item>
-        <item>@string/material_red_500</item>
-        <item>@string/material_yellow_500</item>
-        <item>@string/material_amber_500</item>
-        <item>@string/material_green_500</item>
-        <item>@string/material_light_green_500</item>
-        <item>@string/material_lime_500</item>
+        <item>@string/card_material_blue_grey_500</item>
+        <item>@string/card_material_blue_500</item>
+        <item>@string/card_material_light_blue_500</item>
+        <item>@string/card_material_cyan_500</item>
+        <item>@string/card_material_deep_teal_500</item>
+        <item>@string/card_material_indigo_500</item>
+        <item>@string/card_material_purple_500</item>
+        <item>@string/card_material_deep_purple_500</item>
+        <item>@string/card_material_pink_500</item>
+        <item>@string/card_material_orange_500</item>
+        <item>@string/card_material_deep_orange_500</item>
+        <item>@string/card_material_red_500</item>
+        <item>@string/card_material_yellow_500</item>
+        <item>@string/card_material_amber_500</item>
+        <item>@string/card_material_green_500</item>
+        <item>@string/card_material_light_green_500</item>
+        <item>@string/card_material_lime_500</item>
     </array>
 
     <array name="color_picker_material_palette">
@@ -78,16 +78,16 @@
     </array>
 
     <array name="color_picker_holo_palette_titles">
-        <item>@string/holo_blue_light</item>
-        <item>@string/holo_blue_dark</item>
-        <item>@string/holo_blue_bright</item>
-        <item>@string/holo_purple</item>
-        <item>@string/holo_orange_light</item>
-        <item>@string/holo_orange_dark</item>
-        <item>@string/holo_red_light</item>
-        <item>@string/holo_red_dark</item>
-        <item>@string/holo_green_light</item>
-        <item>@string/holo_green_dark</item>
+        <item>@string/card_holo_blue_light</item>
+        <item>@string/card_holo_blue_dark</item>
+        <item>@string/card_holo_blue_bright</item>
+        <item>@string/card_holo_purple</item>
+        <item>@string/card_holo_orange_light</item>
+        <item>@string/card_holo_orange_dark</item>
+        <item>@string/card_holo_red_light</item>
+        <item>@string/card_holo_red_dark</item>
+        <item>@string/card_holo_green_light</item>
+        <item>@string/card_holo_green_dark</item>
     </array>
 
     <array name="color_picker_holo_palette">
@@ -127,36 +127,36 @@
 
 
     <array name="color_picker_all_palette_titles">
-        <item>@string/darkkat_blue_grey</item>
-        <item>@string/darkkat_blue_blue_grey</item>
-        <item>@string/accent_darkkat</item>
-        <item>@string/material_blue_grey_500</item>
-        <item>@string/material_blue_500</item>
-        <item>@string/material_light_blue_500</item>
-        <item>@string/material_cyan_500</item>
-        <item>@string/material_deep_teal_500</item>
-        <item>@string/material_indigo_500</item>
-        <item>@string/material_purple_500</item>
-        <item>@string/material_deep_purple_500</item>
-        <item>@string/material_pink_500</item>
-        <item>@string/material_orange_500</item>
-        <item>@string/material_deep_orange_500</item>
-        <item>@string/material_red_500</item>
-        <item>@string/material_yellow_500</item>
-        <item>@string/material_amber_500</item>
-        <item>@string/material_green_500</item>
-        <item>@string/material_light_green_500</item>
-        <item>@string/material_lime_500</item>
-        <item>@string/holo_blue_light</item>
-        <item>@string/holo_blue_dark</item>
-        <item>@string/holo_blue_bright</item>
-        <item>@string/holo_purple</item>
-        <item>@string/holo_orange_light</item>
-        <item>@string/holo_orange_dark</item>
-        <item>@string/holo_red_light</item>
-        <item>@string/holo_red_dark</item>
-        <item>@string/holo_green_light</item>
-        <item>@string/holo_green_dark</item>
+        <item>@string/card_darkkat_blue_grey</item>
+        <item>@string/card_darkkat_blue_blue_grey</item>
+        <item>@string/card_accent_darkkat</item>
+        <item>@string/card_material_blue_grey_500</item>
+        <item>@string/card_material_blue_500</item>
+        <item>@string/card_material_light_blue_500</item>
+        <item>@string/card_material_cyan_500</item>
+        <item>@string/card_material_deep_teal_500</item>
+        <item>@string/card_material_indigo_500</item>
+        <item>@string/card_material_purple_500</item>
+        <item>@string/card_material_deep_purple_500</item>
+        <item>@string/card_material_pink_500</item>
+        <item>@string/card_material_orange_500</item>
+        <item>@string/card_material_deep_orange_500</item>
+        <item>@string/card_material_red_500</item>
+        <item>@string/card_material_yellow_500</item>
+        <item>@string/card_material_amber_500</item>
+        <item>@string/card_material_green_500</item>
+        <item>@string/card_material_light_green_500</item>
+        <item>@string/card_material_lime_500</item>
+        <item>@string/card_holo_blue_light</item>
+        <item>@string/card_holo_blue_dark</item>
+        <item>@string/card_holo_blue_bright</item>
+        <item>@string/card_holo_purple</item>
+        <item>@string/card_holo_orange_light</item>
+        <item>@string/card_holo_orange_dark</item>
+        <item>@string/card_holo_red_light</item>
+        <item>@string/card_holo_red_dark</item>
+        <item>@string/card_holo_green_light</item>
+        <item>@string/card_holo_green_dark</item>
         <item>@string/black</item>
         <item>@string/red</item>
         <item>@string/green</item>

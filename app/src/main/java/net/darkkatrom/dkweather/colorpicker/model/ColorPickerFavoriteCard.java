@@ -26,11 +26,12 @@ public class ColorPickerFavoriteCard extends ColorPickerCard {
         super(context);
     }
 
-    public ColorPickerFavoriteCard(Context context, int number, String subtitle, int color) {
+    public ColorPickerFavoriteCard(Context context, String title, String subtitle, int color,
+            String paletteTitle) {
         super(context);
-        mTitleResId = R.string.favorite_title;
-        mTitle = context.getResources().getString(mTitleResId) + " " + number;
-        mSubtitle = subtitle.isEmpty() ? context.getResources().getString(R.string.empty_title) : subtitle;
+        mTitle = color != 0 ? paletteTitle + " " + title : title + " (" + paletteTitle + ")";
+        mSubtitle = subtitle;
         mColor = color;
+        mPaletteTitle = paletteTitle;
     }
 }

@@ -28,8 +28,10 @@ import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.view.animation.FastOutSlowInInterpolator;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.RecyclerView.LayoutManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -152,6 +154,8 @@ public class ColorPickerFragment extends Fragment implements
 
     private boolean mIsAnimatingHelpScreen = false;
 
+    private LinearLayoutManager mLinearLayoutManager = null;
+    private GridLayoutManager mGridLayoutManager = null;
     private ColorPickerCardAdapter mCardAdapter = null;
     private List<ColorPickerCard> mColorPickerCards;
     private int[] mFavoriteColors;
@@ -525,6 +529,8 @@ public class ColorPickerFragment extends Fragment implements
     }
 
     private void setUpMainContent() {
+        mLinearLayoutManager = new LinearLayoutManager(getContext());
+        mGridLayoutManager = new GridLayoutManager(getContext(), 2);
         int mainButtonsCheckedId = ConfigColorPicker.getChipChededId(getActivity());
         if (mChipsGroup != null) {
             mChipsGroup.check(mainButtonsCheckedId);
@@ -532,7 +538,6 @@ public class ColorPickerFragment extends Fragment implements
         if (mChipsGroupsGroup != null) {
             mChipsGroupsGroup.check(mainButtonsCheckedId);
         }
-        mContentList.setLayoutManager(new LinearLayoutManager(getContext()));
         if (mainButtonsCheckedId == R.id.color_picker_chip_pick) {
             mColorPicker.setVisibility(View.VISIBLE);
         } else if (mainButtonsCheckedId == R.id.color_picker_chip_favorites) {
@@ -557,12 +562,22 @@ public class ColorPickerFragment extends Fragment implements
         buildOrClearCardList();
         for (int i = 0; i < NUM_MAX_FAVORITES; i++) {
             int favoriteNumber = i + 1;
-            ColorPickerCard card = new ColorPickerFavoriteCard(getActivity(),
-                    favoriteNumber, getFavoriteSubtitle(favoriteNumber),
-                    getFavoriteColor(favoriteNumber));
+            int color = getFavoriteColor(favoriteNumber);
+            String title = color == 0
+                    ? (getActivity().getResources().getString(R.string.favorite_title) + " " + favoriteNumber)
+                    : ColorPickerHelper.getColorTitle(getActivity(), color);
+            String subtitle = color == 0
+                    ? "0"
+                    : ColorPickerHelper.convertToARGB(color);
+
+            String paletteTitle = color == 0
+                    ? getActivity().getResources().getString(R.string.empty_title)
+                    : ColorPickerHelper.getPaletteTitle(getActivity(), color);
+
+            ColorPickerCard card = new ColorPickerFavoriteCard(getActivity(), title, subtitle, color, paletteTitle);
             mColorPickerCards.add(card);
         }
-        buildOrUpdateCardAdapter();
+        buildOrUpdateCardAdapter(mLinearLayoutManager);
     }
 
     private void buildOrUpdateDarkKatCards() {
@@ -576,7 +591,7 @@ public class ColorPickerFragment extends Fragment implements
         }
         titles.recycle();
         colors.recycle();
-        buildOrUpdateCardAdapter();
+        buildOrUpdateCardAdapter(mGridLayoutManager);
     }
 
     private void buildOrUpdateMaterialCards() {
@@ -590,7 +605,7 @@ public class ColorPickerFragment extends Fragment implements
         }
         titles.recycle();
         colors.recycle();
-        buildOrUpdateCardAdapter();
+        buildOrUpdateCardAdapter(mGridLayoutManager);
     }
 
     private void buildOrUpdateHoloCards() {
@@ -604,7 +619,7 @@ public class ColorPickerFragment extends Fragment implements
         }
         titles.recycle();
         colors.recycle();
-        buildOrUpdateCardAdapter();
+        buildOrUpdateCardAdapter(mGridLayoutManager);
     }
 
     private void buildOrUpdateRGBCards() {
@@ -618,7 +633,7 @@ public class ColorPickerFragment extends Fragment implements
         }
         titles.recycle();
         colors.recycle();
-        buildOrUpdateCardAdapter();
+        buildOrUpdateCardAdapter(mGridLayoutManager);
     }
 
     private void buildOrClearCardList() {
@@ -629,7 +644,7 @@ public class ColorPickerFragment extends Fragment implements
         }
     }
 
-    private void buildOrUpdateCardAdapter() {
+    private void buildOrUpdateCardAdapter(LayoutManager lm) {
         if (mCardAdapter == null) {
             mCardAdapter = new ColorPickerCardAdapter(getActivity(), mColorPickerCards, mInitialColor,
                     mNewColorValue, mFavoriteColors);
@@ -637,6 +652,7 @@ public class ColorPickerFragment extends Fragment implements
         } else {
             mCardAdapter.setNewColor(mNewColorValue);
         }
+        mContentList.setLayoutManager(lm);
         if (mContentList.getAdapter() == null) {
             mContentList.setAdapter(mCardAdapter);
         } else {

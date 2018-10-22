@@ -171,4 +171,33 @@ public class ColorPickerHelper {
             return "";
         }
     }
+
+    public static String getPaletteTitle(Context context, int color) {
+        Resources res = context.getResources();
+        TypedArray colors = res.obtainTypedArray(R.array.color_picker_all_palette);
+        int titleResId = 0;
+        for (int i = 0; i < 38; i++) {
+            int resId = colors.getResourceId(i, 0);
+            if (color == context.getColor(resId)) {
+                if (i < 3) {
+                    titleResId = R.string.darkkat_title;
+                } else if (i < 20) {
+                    titleResId = R.string.material_title;
+                } else if (i < 30) {
+                    titleResId = R.string.holo_title;
+                } else {
+                    titleResId = R.string.rgb_title;
+                }
+                break;
+            }
+        }
+
+        colors.recycle();
+
+        if (titleResId > 0) {
+            return res.getString(titleResId);
+        } else {
+            return "";
+        }
+    }
 }

@@ -38,7 +38,45 @@
     <string name="color_picker_favorite_card_status_empty">Card click (\'Set color\') disabled, this favorite is empty.</string>
     <string name="color_picker_favorite_card_status_action_apply_disabled">\'Apply color\' disabled, this favorite is empty.</string>
     <string name="color_picker_favorite_card_status_action_apply_disabled_initial_color">\'Apply color\' disabled, this favorite color is already in use.</string>
-    <string name="color_picker_card_apply_color_title">Apply color</string>
+    <string name="color_picker_card_apply_color_title">Apply</string>
+
+    <!-- Card titles -->
+    <string name="card_darkkat_blue_grey">Blue Grey</string>
+    <string name="card_darkkat_blue_blue_grey">Blue-Blue Grey</string>
+    <string name="card_accent_darkkat">Accent</string>
+    <string name="card_holo_blue_light">Blue Light</string>
+    <string name="card_material_blue_grey_500">Blue Grey 500</string>
+    <string name="card_material_blue_500">Blue 500</string>
+    <string name="card_material_light_blue_500">Light Blue 500</string>
+    <string name="card_material_cyan_500">Cyan 500</string>
+    <string name="card_material_deep_teal_500">Deep Teal 500</string>
+    <string name="card_material_indigo_500">Indigo 500</string>
+    <string name="card_material_purple_500">Purple 500</string>
+    <string name="card_material_deep_purple_500">Deep Purple 500</string>
+    <string name="card_material_pink_500">Pink 500</string>
+    <string name="card_material_orange_500">Orange 500</string>
+    <string name="card_material_deep_orange_500">Deep Orange 500</string>
+    <string name="card_material_red_500">Red 500</string>
+    <string name="card_material_yellow_500">Yellow 500</string>
+    <string name="card_material_amber_500">Amber 500</string>
+    <string name="card_material_green_500">Green 500</string>
+    <string name="card_material_light_green_500">Light Green 500</string>
+    <string name="card_material_lime_500">Lime 500</string>
+    <string name="card_holo_blue_dark">Blue Dark</string>
+    <string name="card_holo_blue_bright">Blue Bright</string>
+    <string name="card_holo_purple">Purple</string>
+    <string name="card_holo_orange_light">Orange Light</string>
+    <string name="card_holo_orange_dark">Orange Dark</string>
+    <string name="card_holo_red_light">Red Light</string>
+    <string name="card_holo_red_dark">Red Dark</string>
+    <string name="card_holo_green_light">Green Light</string>
+    <string name="card_holo_green_dark">Green Dark</string>
+
+    <!-- Palette titles -->
+    <string name="darkkat_title">DarkKat</string>
+    <string name="material_title">Material</string>
+    <string name="holo_title">Holo</string>
+    <string name="rgb_title">RGB</string>
 
     <!-- Action bar menu -->
     <string name="apply_color_title">Apply color</string>
@@ -54,4 +92,5 @@
     <string name="color_picker_help_screen_title">Color Picker help</string>
     <string name="color_picker_help_do_not_show_title">Don\'t show again</string>
     <string name="color_picker_help_button_ok_title">OK</string>
+
 </resources>

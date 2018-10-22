@@ -29,6 +29,8 @@ public class ColorPickerCard {
     protected String mSubtitle = "";
     protected int mColorResId = 0;
     protected int mColor = 0;
+    protected int mPaletteTitleResId = 0;
+    protected String mPaletteTitle = "";
 
     public ColorPickerCard(Context context) {
         mContext = context;
@@ -58,6 +60,14 @@ public class ColorPickerCard {
         return mColor;
     }
 
+    public int getPaletteTitleResId() {
+        return mPaletteTitleResId;
+    }
+
+    public String getPaletteTitle() {
+        return mPaletteTitle;
+    }
+
     public void setTitleResId(int resId) {
         mTitleResId = resId;
     }
@@ -80,6 +90,14 @@ public class ColorPickerCard {
 
     public void setColor(int color) {
         mColor = color;
+    }
+
+    public void setPaletteTitleResId(int resId) {
+        mPaletteTitleResId = resId;
+    }
+
+    public void setPaletteTitle(String paletteTitle) {
+        mPaletteTitle = paletteTitle;
     }
 
     public boolean needLightTheme() {

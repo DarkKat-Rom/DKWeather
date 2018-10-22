@@ -193,11 +193,11 @@ public class ColorPickerCardAdapter extends
             }
         }
         if (statusText.isEmpty()) {
-            holder.mStatusText.setVisibility(View.INVISIBLE);
+//            holder.mStatusText.setVisibility(View.INVISIBLE);
         } else {
-            holder.mStatusText.setVisibility(View.VISIBLE);
+//            holder.mStatusText.setVisibility(View.VISIBLE);
         }
-        holder.mStatusText.setText(statusText);
+//        holder.mStatusText.setText(statusText);
     }
 
     @Override
