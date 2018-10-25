@@ -27,6 +27,8 @@ import net.darkkatrom.dkweather.colorpicker.fragment.ColorPickerFragment;
 
 public class ColorPickerActivity extends BaseActivity {
 
+    private static final String FRAGMENT_TAG = "color_picker_fragment";
+
     private ColorPickerFragment mFragment;
 
     @Override
@@ -40,8 +42,10 @@ public class ColorPickerActivity extends BaseActivity {
                 mFragment.setArguments(extras);
             }
             getFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_content, mFragment)
+                    .replace(R.id.fragment_content, mFragment, FRAGMENT_TAG)
                     .commit();
+        } else {
+            mFragment = (ColorPickerFragment) getFragmentManager().findFragmentByTag(FRAGMENT_TAG);
         }
     }
 
