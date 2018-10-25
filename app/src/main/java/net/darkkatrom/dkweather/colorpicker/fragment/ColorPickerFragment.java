@@ -49,6 +49,7 @@ import android.webkit.WebView;
 import android.widget.EditText;
 import android.widget.Button;
 import android.widget.CheckedTextView;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
@@ -534,6 +535,15 @@ public class ColorPickerFragment extends Fragment implements
         int mainButtonsCheckedId = ConfigColorPicker.getChipChededId(getActivity());
         if (mChipsGroup != null) {
             mChipsGroup.check(mainButtonsCheckedId);
+            final HorizontalScrollView scroller =
+                    (HorizontalScrollView) mColorPickerView.findViewById(R.id.color_picker_chips_scroller);
+            final View checkedView = mColorPickerView.findViewById(mainButtonsCheckedId);
+            scroller.post(new Runnable() {
+                @Override
+                public void run() {
+                    scroller.smoothScrollTo((int) checkedView.getX(), 0);
+                }
+            });
         }
         if (mChipsGroupsGroup != null) {
             mChipsGroupsGroup.check(mainButtonsCheckedId);
