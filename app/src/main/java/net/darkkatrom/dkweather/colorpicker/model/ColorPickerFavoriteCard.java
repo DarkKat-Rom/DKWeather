@@ -29,7 +29,7 @@ public class ColorPickerFavoriteCard extends ColorPickerCard {
     public ColorPickerFavoriteCard(Context context, String title, String subtitle, int color,
             String paletteTitle) {
         super(context);
-        mTitle = color != 0 ? paletteTitle + " " + title : title + " (" + paletteTitle + ")";
+        mTitle = color != 0 ? paletteTitle + ":\n" + title : title + " (" + paletteTitle + ")";
         mSubtitle = subtitle;
         mColor = color;
         mPaletteTitle = paletteTitle;

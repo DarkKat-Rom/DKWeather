@@ -51,9 +51,9 @@ public class ColorPickerCardAdapter extends
     private OnCardClickedListener mOnCardClickedListener;
 
     public interface OnCardClickedListener {
-        public void onCardClicked(int color);
+        public void onCardClicked(int color, int position);
         public void onCardActionApplyClicked(int color);
-        public void onColorCardActionFavoriteClicked(ColorPickerCard card, boolean isFavorite);
+        public void onColorCardActionFavoriteClicked(ColorPickerCard card, int position, boolean isFavorite);
         public void onFavoriteCardActionFavoriteClicked(int position);
     }
 
@@ -122,7 +122,7 @@ public class ColorPickerCardAdapter extends
                         if (isFavoriteCard) {
                             mOnCardClickedListener.onFavoriteCardActionFavoriteClicked(position);
                         } else {
-                            mOnCardClickedListener.onColorCardActionFavoriteClicked(card, isFavorite);
+                            mOnCardClickedListener.onColorCardActionFavoriteClicked(card, position, isFavorite);
                         }
                     }
                 }
@@ -139,7 +139,7 @@ public class ColorPickerCardAdapter extends
                 @Override
                 public void onClick(View v) {
                     if (mOnCardClickedListener != null) {
-                        mOnCardClickedListener.onCardClicked(color);
+                        mOnCardClickedListener.onCardClicked(color, position);
                     }
                 }
             });
