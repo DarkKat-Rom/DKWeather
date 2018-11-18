@@ -234,6 +234,9 @@ public class ColorPickerFragment extends Fragment implements
             mColorPicker.setAlphaSliderVisible(true);
         }
 
+        mFragmentAnimator = new ColorPickerFragmentAnimator(getActivity(),
+                ColorPickerFragment.this, mHelpScreenVisible);
+
         setAllFavoriteColors();
         setUpResetMenuAppearience();
 
@@ -254,8 +257,6 @@ public class ColorPickerFragment extends Fragment implements
                 mColorPicker.setTranslationX(mColorPickerView.findViewById(R.id.color_picker_content).getWidth());
                 mContentList.setTranslationX(mColorPickerView.findViewById(R.id.color_picker_content).getWidth());
 
-                mFragmentAnimator = new ColorPickerFragmentAnimator(getActivity(),
-                        ColorPickerFragment.this, mHelpScreenVisible);
                 setUpHelpScreen();
                 setUpMainContent();
             }
