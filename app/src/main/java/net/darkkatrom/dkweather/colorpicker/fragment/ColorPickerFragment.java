@@ -24,7 +24,6 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -55,7 +54,8 @@ import net.darkkatrom.dkweather.utils.ThemeUtil;
 import net.darkkatrom.dkweather.colorpicker.ColorPickerActivity;
 import net.darkkatrom.dkweather.colorpicker.adapter.ColorPickerCardAdapter;
 import net.darkkatrom.dkweather.colorpicker.animator.BaseItemAnimator;
-import net.darkkatrom.dkweather.colorpicker.animator.ViewAnimator;
+import net.darkkatrom.dkweather.colorpicker.animator.ColorPickerCardAnimator;
+import net.darkkatrom.dkweather.colorpicker.animator.ColorPickerFragmentAnimator;
 import net.darkkatrom.dkweather.colorpicker.model.ColorPickerCard;
 import net.darkkatrom.dkweather.colorpicker.model.ColorPickerColorCard;
 import net.darkkatrom.dkweather.colorpicker.model.ColorPickerFavoriteCard;
@@ -136,7 +136,7 @@ public class ColorPickerFragment extends Fragment implements
     private boolean mHideResetColor2 = true;
     private boolean mShowSubMenu = false;
 
-    private ViewAnimator mViewAnimator;
+    private ColorPickerFragmentAnimator mFragmentAnimator;
 
     private ColorPickerCardAdapter mCardAdapter = null;
     private List<ColorPickerCard> mColorPickerCards;
@@ -254,7 +254,8 @@ public class ColorPickerFragment extends Fragment implements
                 mColorPicker.setTranslationX(mColorPickerView.findViewById(R.id.color_picker_content).getWidth());
                 mContentList.setTranslationX(mColorPickerView.findViewById(R.id.color_picker_content).getWidth());
 
-                mViewAnimator = new ViewAnimator(getActivity(), ColorPickerFragment.this, mHelpScreenVisible);
+                mFragmentAnimator = new ColorPickerFragmentAnimator(getActivity(),
+                        ColorPickerFragment.this, mHelpScreenVisible);
                 setUpHelpScreen();
                 setUpMainContent();
             }
@@ -481,7 +482,8 @@ public class ColorPickerFragment extends Fragment implements
                 if (animate) {
                     mContentList.setItemAnimator(null);
                 } else {
-                    if (!(mContentList.getItemAnimator() instanceof BaseItemAnimator)) {
+                    if (mContentList.getItemAnimator() instanceof ColorPickerCardAnimator
+                            || mContentList.getItemAnimator() == null) {
                         mContentList.setItemAnimator(new BaseItemAnimator());
                     }
                 }
@@ -492,12 +494,12 @@ public class ColorPickerFragment extends Fragment implements
                     View view = mMainButtonsCheckedId == R.id.color_picker_chip_pick
                                 ? mColorPicker : mContentList;
                     if (mOldMainButtonsCheckedId == -1) {
-                        mViewAnimator.animateShow(view,
+                        mFragmentAnimator.animateShow(view,
                                 mColorPickerView.findViewById(R.id.color_picker_content).getWidth());
                     } else {
                         View oldView = mOldMainButtonsCheckedId == R.id.color_picker_chip_pick
                                 ? mColorPicker : mContentList;
-                        mViewAnimator.animateSwitch(oldView, view,
+                        mFragmentAnimator.animateSwitch(oldView, view,
                                 mColorPickerView.findViewById(R.id.color_picker_content).getWidth());
                     }
                 }
@@ -674,7 +676,7 @@ public class ColorPickerFragment extends Fragment implements
 
     @Override
     public void onColorChanged(int color) {
-        int animationType = ViewAnimator.NO_ANIMATION;
+        int animationType = ColorPickerFragmentAnimator.NO_ANIMATION;
         if (color != mOldColorValue) {
             mNewColorValue = color;
             if (mCardAdapter != null) {
@@ -683,15 +685,15 @@ public class ColorPickerFragment extends Fragment implements
             getArguments().putInt(KEY_NEW_COLOR, mNewColorValue);
             if (mNewColorValue == mInitialColor) {
                 if (mOldColorValue != mInitialColor) {
-                    animationType = ViewAnimator.ANIMATE_TO_HIDE;
+                    animationType = ColorPickerFragmentAnimator.ANIMATE_TO_HIDE;
                     mApplyColorAction.setOnClickListener(null);
                     mApplyColorAction.setClickable(false);
                 }
             } else if (mOldColorValue == mInitialColor) {
-                animationType = ViewAnimator.ANIMATE_TO_SHOW;
+                animationType = ColorPickerFragmentAnimator.ANIMATE_TO_SHOW;
                 mApplyColorAction.showSetIcon(true);
             }
-            mViewAnimator.animateTransition(mOldColorValue, mNewColorValue, animationType,
+            mFragmentAnimator.animateColorTransition(mOldColorValue, mNewColorValue, animationType,
                     mApplyColorAction);
 
             try {
@@ -709,8 +711,8 @@ public class ColorPickerFragment extends Fragment implements
             if (color != mOldColorValue) {
                 mColorPicker.setColor(color, true);
                 if (mContentList.getAdapter() != null) {
-                    if (mContentList.getItemAnimator() instanceof BaseItemAnimator) {
-                        mContentList.setItemAnimator(new DefaultItemAnimator());
+                    if (!(mContentList.getItemAnimator() instanceof ColorPickerCardAnimator)) {
+                        mContentList.setItemAnimator(new ColorPickerCardAnimator());
                     }
                     mCardAdapter.notifyItemChanged(position);
                     if (mDisabledCardClickedItem > -1) {
@@ -733,23 +735,33 @@ public class ColorPickerFragment extends Fragment implements
 
     @Override
     public void onFavoriteCardActionFavoriteClicked(int position) {
-        if (mContentList.getItemAnimator() instanceof BaseItemAnimator) {
-            mContentList.setItemAnimator(new DefaultItemAnimator());
+        if (!(mContentList.getItemAnimator() instanceof ColorPickerCardAnimator)) {
+            mContentList.setItemAnimator(new ColorPickerCardAnimator());
         }
         int favoriteNumber = position + 1;
-        String subtitle = ColorPickerHelper.getColorTitle(getActivity(), mNewColorValue);
+        String colorTitle = mNewColorValue == 0
+                ? (getActivity().getResources().getString(R.string.favorite_title) + " " + favoriteNumber)
+                : ColorPickerHelper.getColorTitle(getActivity(), mNewColorValue);
+        String paletteTitle = mNewColorValue == 0
+                ? getActivity().getResources().getString(R.string.empty_title)
+                : ColorPickerHelper.getPaletteTitle(getActivity(), mNewColorValue);
+        String title = mNewColorValue != 0 ? paletteTitle + ":\n" + colorTitle : colorTitle + " (" + paletteTitle + ")";
+        String subtitle = mNewColorValue == 0
+                ? "0"
+                : ColorPickerHelper.convertToARGB(mNewColorValue);
         setFavoriteColor(favoriteNumber, mNewColorValue);
         setFavoriteSubtitle(favoriteNumber, subtitle);
-        mColorPickerCards.get(position).setColor(getFavoriteColor(favoriteNumber));
+        mColorPickerCards.get(position).setTitle(title);
         mColorPickerCards.get(position).setSubtitle(subtitle);
+        mColorPickerCards.get(position).setColor(getFavoriteColor(favoriteNumber));
         mFavoriteColors[position] = mNewColorValue;
         mCardAdapter.notifyItemChanged(position);
     }
 
     @Override
     public void onColorCardActionFavoriteClicked(ColorPickerCard card, int position, boolean isFavorite) {
-        if (mContentList.getItemAnimator() instanceof BaseItemAnimator) {
-            mContentList.setItemAnimator(new DefaultItemAnimator());
+        if (!(mContentList.getItemAnimator() instanceof ColorPickerCardAnimator)) {
+            mContentList.setItemAnimator(new ColorPickerCardAnimator());
         }
         int color = card.getColor();
         if (!isFavorite) {
@@ -854,10 +866,10 @@ public class ColorPickerFragment extends Fragment implements
     }
 
     public boolean isHelpScreenVisible() {
-        return mViewAnimator.isHelpScreenVisible();
+        return mFragmentAnimator.isHelpScreenVisible();
     }
 
     public void showHideHelpScreen() {
-        mViewAnimator.animateShowHideHelpScreen(mHelpScreen);
+        mFragmentAnimator.animateShowHideHelpScreen(mHelpScreen);
     }
 }

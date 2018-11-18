@@ -17,12 +17,14 @@
 package net.darkkatrom.dkweather.colorpicker.model;
 
 import android.content.Context;
+import android.content.res.Resources;
 
 import net.darkkatrom.dkweather.colorpicker.util.ColorPickerHelper;
 import net.darkkatrom.dkweather.utils.ColorUtil;
 
 public class ColorPickerCard {
     protected Context mContext;
+    protected Resources mResources;
     protected int mTitleResId = 0;
     protected String mTitle = "";
     protected int mSubtitleResId = 0;
@@ -34,6 +36,25 @@ public class ColorPickerCard {
 
     public ColorPickerCard(Context context) {
         mContext = context;
+        mResources = mContext.getResources();
+    }
+
+    public ColorPickerCard(Context context, int titleResId, int colorResId) {
+        this(context);
+        mTitleResId = titleResId;
+        mTitle = mResources.getString(titleResId);
+        mSubtitle = ColorPickerHelper.convertToARGB(context.getColor(colorResId));
+        mColorResId = colorResId;
+        mColor = mContext.getColor(mColorResId);
+    }
+
+    public ColorPickerCard(Context context, String title, String subtitle, int color,
+            String paletteTitle) {
+        this(context);
+        mTitle = color != 0 ? paletteTitle + ":\n" + title : title + " (" + paletteTitle + ")";
+        mSubtitle = subtitle;
+        mColor = color;
+        mPaletteTitle = paletteTitle;
     }
 
     public int getTitleResId() {
@@ -70,6 +91,7 @@ public class ColorPickerCard {
 
     public void setTitleResId(int resId) {
         mTitleResId = resId;
+        mTitle = mResources.getString(resId);
     }
 
     public void setTitle(String title) {
@@ -78,6 +100,7 @@ public class ColorPickerCard {
 
     public void setSubtitleResId(int resId) {
         mSubtitleResId = resId;
+        mSubtitle = mResources.getString(resId);
     }
 
     public void setSubtitle(String subtitle) {
@@ -86,6 +109,7 @@ public class ColorPickerCard {
 
     public void setColorResId(int resId) {
         mColorResId = resId;
+        setColor(mContext.getColor(mColorResId));
     }
 
     public void setColor(int color) {
@@ -94,6 +118,7 @@ public class ColorPickerCard {
 
     public void setPaletteTitleResId(int resId) {
         mPaletteTitleResId = resId;
+        mPaletteTitle = mResources.getString(resId);
     }
 
     public void setPaletteTitle(String paletteTitle) {

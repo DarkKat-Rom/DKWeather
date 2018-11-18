@@ -29,7 +29,7 @@ import net.darkkatrom.dkweather.colorpicker.fragment.ColorPickerFragment;
 import net.darkkatrom.dkweather.colorpicker.util.ColorPickerHelper;
 import net.darkkatrom.dkweather.colorpicker.widget.ApplyColorView;
 
-public class ViewAnimator {
+public class ColorPickerFragmentAnimator {
     public static final long ADD_DURATION    = 225;
     public static final long REMOVE_DURATION = 195;
     public static final long CHANGE_DURATION = 250;
@@ -43,7 +43,8 @@ public class ViewAnimator {
     private boolean mHelpScreenVisible;
     private boolean mIsAnimatingHelpScreen = false;
 
-    public ViewAnimator(Context context, ColorPickerFragment fragment, boolean helpScreenVisible) {
+    public ColorPickerFragmentAnimator(Context context, ColorPickerFragment fragment,
+            boolean helpScreenVisible) {
         mFragment = fragment;
         mFullTranslationX = context.getResources().getDimension(
                 R.dimen.color_picker_action_apply_color_translation_x);
@@ -128,7 +129,7 @@ public class ViewAnimator {
 
 
 
-    public void animateTransition(final int oldColor, final int newColor, final int animationType,
+    public void animateColorTransition(final int oldColor, final int newColor, final int animationType,
             final ApplyColorView applyColorAction) {
         ValueAnimator animator = ValueAnimator.ofFloat(0f, 1f);
         animator.setDuration(CHANGE_DURATION);

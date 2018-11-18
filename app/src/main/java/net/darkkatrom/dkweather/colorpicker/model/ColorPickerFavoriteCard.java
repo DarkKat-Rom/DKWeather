@@ -18,8 +18,6 @@ package net.darkkatrom.dkweather.colorpicker.model;
 
 import android.content.Context;
 
-import net.darkkatrom.dkweather.R;
-
 public class ColorPickerFavoriteCard extends ColorPickerCard {
 
     public ColorPickerFavoriteCard(Context context) {
@@ -28,10 +26,6 @@ public class ColorPickerFavoriteCard extends ColorPickerCard {
 
     public ColorPickerFavoriteCard(Context context, String title, String subtitle, int color,
             String paletteTitle) {
-        super(context);
-        mTitle = color != 0 ? paletteTitle + ":\n" + title : title + " (" + paletteTitle + ")";
-        mSubtitle = subtitle;
-        mColor = color;
-        mPaletteTitle = paletteTitle;
+        super(context, title, subtitle, color, paletteTitle);
     }
 }

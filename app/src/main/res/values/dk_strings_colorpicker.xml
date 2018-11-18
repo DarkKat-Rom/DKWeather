@@ -16,13 +16,13 @@
 <resources>
 
     <!-- Activity title -->
-    <string name="pick_color_title">Pick color</string>
+    <string name="pick_color_title">Color picker</string>
 
     <!-- General -->
     <string name="empty_title">Empty</string>
 
     <!-- Chip titles -->
-    <string name="chip_pick_title">Pick color</string>
+    <string name="chip_pick_title">Select color</string>
     <string name="chip_favorites_title">Favorites</string>
     <string name="chip_darkkat_title">DarkKat colors</string>
     <string name="chip_material_title">Material colors</string>
@@ -89,7 +89,7 @@
     <string name="show_help_title">Show help</string>
 
     <!-- Color picker help screen -->
-    <string name="color_picker_help_screen_title">Color Picker help</string>
+    <string name="color_picker_help_screen_title">Color picker help</string>
     <string name="color_picker_help_do_not_show_title">Don\'t show again</string>
     <string name="color_picker_help_button_ok_title">OK</string>
 

@@ -44,7 +44,7 @@ public class BaseItemAnimator extends SimpleItemAnimator {
     private ArrayList<ViewHolder> mPendingRemovals = new ArrayList<>();
     private ArrayList<ViewHolder> mPendingAdditions = new ArrayList<>();
     private ArrayList<MoveInfo> mPendingMoves = new ArrayList<>();
-    private ArrayList<ChangeInfo> mPendingChanges = new ArrayList<>();
+    protected ArrayList<ChangeInfo> mPendingChanges = new ArrayList<>();
 
     ArrayList<ArrayList<ViewHolder>> mAdditionsList = new ArrayList<>();
     ArrayList<ArrayList<MoveInfo>> mMovesList = new ArrayList<>();
@@ -68,7 +68,7 @@ public class BaseItemAnimator extends SimpleItemAnimator {
         }
     }
 
-    private static class ChangeInfo {
+    protected static class ChangeInfo {
         public ViewHolder oldHolder, newHolder;
         public int fromX, fromY, toX, toY;
         private ChangeInfo(ViewHolder oldHolder, ViewHolder newHolder) {
@@ -522,7 +522,7 @@ public class BaseItemAnimator extends SimpleItemAnimator {
         dispatchFinishedWhenDone();
     }
 
-    private void resetAnimation(ViewHolder holder) {
+    protected void resetAnimation(ViewHolder holder) {
         if (sDefaultInterpolator == null) {
             sDefaultInterpolator = new ValueAnimator().getInterpolator();
         }

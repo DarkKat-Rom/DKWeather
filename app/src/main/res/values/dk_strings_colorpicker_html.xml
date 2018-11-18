@@ -70,16 +70,16 @@
                 </p>
 
                 <h2>
-                    Pick color:
+                    Color picker:
                 </h2>
                 <h3>
-                    Pick color type buttons:
+                    Color picker type buttons:
                 </h3>
                 <p>
-                    Use this button to change the Pick color type:
+                    Use this button to change the Color picker type:
                 </p>
                 <ul>
-                    <li>Color picker</li>
+                    <li>Select color</li>
                     <li>Favorites (Favorite card)</li>
                     <li>DarkKat colors (color card)</li>
                     <li>Material colors (color card)</li>
@@ -88,7 +88,7 @@
                 </ul>
 
                 <h2>
-                    Color picker:
+                    Select color:
                 </h2>
                 <h3>
                     Color panel:
@@ -116,7 +116,16 @@
                 </p>
                 <ul>
                     <li>
-                        Background: Colorized using the card color
+                        Card:
+                        <ul>
+                            <li>
+                                Primäry action: &#39;Set color&#39;,<br>
+                                Sets the card color as new color without applying the new color.
+                            </li>
+                            <li>
+                                Background: Colorized using the card color
+                            </li>
+                        </ul>
                     </li>
                     <li>
                         Header (text):
@@ -130,10 +139,11 @@
                         </ul>
                     </li>
                     <li>
-                        Footer (actions):
+                        Footer (secondary actions):
                         <ul>
                             <li>
-                                Left: &#39;Set color&#39;
+                                Left: &#39;Apply color&#39;,<br>
+                                The card color will be applied and the Color picker will be closed.
                             </li>
                             <li>
                                 Right: &#39;Add/remove favorite&#39;
@@ -150,13 +160,8 @@
                 </p>
                 <ul>
                     <li>
-                        Title: &#39;Favorite &#39; + Favoritenumber
-                    </li>
-                    <li>
-                        Subtitle: color name or &#39;Empty&#39;
-                    </li>
-                    <li>
-                        Action &#39;Set color&#39; (is disabled):
+                        Primary action: &#34;Set color&#34;,<br>
+                        (is disabled):
                         <ul>
                             <li>
                                  On empty favorite
@@ -167,7 +172,45 @@
                         </ul>
                     </li>
                     <li>
-                        Action &#34;Add favorite&#39; (is available):
+                        Title:
+                        <ul>
+                            <li>
+                                Empty: &#39;Favorite &#39; + Favoritenumber + (Empty)
+                            </li>
+                            <li>
+                                Own color: &#39;Favorite &#39; + Favoritenumber
+                            </li>
+                            <li>
+                                From Color card: palette name + color name
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        Subtitle:
+                        <ul>
+                            <li>
+                                Empty: &#34;0&#34;
+                            </li>
+                            <li>
+                                None empty: Color hex value
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        Secondary action &#39;Apply color&#39;,<br>
+                        (is disabled):
+                        <ul>
+                            <li>
+                                 On empty favorite
+                            </li>
+                            <li>
+                                 Favorite color equals the old color
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        Secondary action &#34;Add favorite&#39;,<br>
+                        (is available):
                         <ul>
                             <li>
                                  On empty favorite
@@ -175,7 +218,8 @@
                         </ul>
                     </li>
                     <li>
-                        Action &#34;Remove favorite&#39; (is available):
+                        Secondary action &#34;Remove favorite&#39;,<br>
+                        (is available):
                         <ul>
                             <li>
                                  Never
@@ -192,13 +236,8 @@
                 </p>
                 <ul>
                     <li>
-                        Title: Color name
-                    </li>
-                    <li>
-                        Subtitle: Color hex value
-                    </li>
-                    <li>
-                       Action &#39;Set color&#39; (is disabled):
+                        Primary action: &#34;Set color&#34;,<br>
+                        (is disabled):
                         <ul>
                             <li>
                                  Card color equals the new color
@@ -206,7 +245,22 @@
                         </ul>
                     </li>
                     <li>
-                        Action &#39;Add/remove favorite&#39;:
+                        Title: Color name
+                    </li>
+                    <li>
+                        Subtitle: Color hex value
+                    </li>
+                    <li>
+                       Secondary action &#39;Apply color&#39;,<br>
+                        (is disabled):
+                        <ul>
+                            <li>
+                                 Card color equals the old color
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        Secondary action &#39;Add/remove favorite&#39;:
                         <ul>
                             <li>
                                  The icon will equals the action
@@ -214,7 +268,7 @@
                         </ul>
                     </li>
                     <li>
-                        Action &#34;Add favorite&#39;:
+                        Secondary action &#34;Add favorite&#39;:
                         <ul>
                             <li>
                                  Available if no favorite equals the card color
@@ -222,13 +276,10 @@
                             <li>
                                  Will be saved to the first empty favorite
                             </li>
-                            <li>
-                                 The color name will be shown as subtitle on the favorite card
-                            </li>
                         </ul>
                     </li>
                     <li>
-                        Action &#34;Remove favorite&#39;:
+                        Secondary action &#34;Remove favorite&#39;:
                         <ul>
                             <li>
                                  Available if at least one favorite equals the card color

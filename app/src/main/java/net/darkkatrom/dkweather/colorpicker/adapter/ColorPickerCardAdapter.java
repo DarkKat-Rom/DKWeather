@@ -16,8 +16,9 @@
 
 package net.darkkatrom.dkweather.colorpicker.adapter;
 
-import android.view.ContextThemeWrapper;
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.drawable.RippleDrawable;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -37,7 +38,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ColorPickerCardAdapter extends
-        RecyclerView.Adapter<ColorPickerCardAdapter.ViewHolder> {
+        RecyclerView.Adapter<ColorPickerCardAdapter.CardViewHolder> {
 
     private static final int VIEW_TYPE_LIGHT_THEME = 0;
     private static final int VIEW_TYPE_DARK_THEME  = 1;
@@ -73,48 +74,59 @@ public class ColorPickerCardAdapter extends
     }
 
     @Override
-    public ColorPickerCardAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
+    public ColorPickerCardAdapter.CardViewHolder onCreateViewHolder(ViewGroup parent,
             int viewType) {
 
-        ContextThemeWrapper ctw = new ContextThemeWrapper(mContext, viewType == VIEW_TYPE_LIGHT_THEME
-                ? R.style.AppThemeLight : R.style.AppThemeDark);
-        View v = LayoutInflater.from(ctw).inflate(
+        View v = LayoutInflater.from(mContext).inflate(
                 R.layout.color_picker_color_card, parent, false);
-        ViewHolder vh = new ViewHolder(v);
+        CardViewHolder vh = new CardViewHolder(v);
         return vh;
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
+    public void onBindViewHolder(CardViewHolder holder, final int position) {
         final ColorPickerCard card = mColorPickerCards.get(position);
         final boolean isFavoriteCard = card instanceof ColorPickerFavoriteCard;
+
         final int color = card.getColor();
         int cardBackgroundColor = isFavoriteCard && color == 0
                 ? resolveDefaultCardBackgroundColor() : color;
-        String subtitle = card.getSubtitle();
+        ColorStateList primaryTextColor = mContext.getColorStateList(card.needLightTheme()
+                ? R.color.primary_text_light_black : R.color.primary_text_dark_white);
+        ColorStateList secondaryTextColor = mContext.getColorStateList(card.needLightTheme()
+                ? R.color.secondary_text_light_black : R.color.secondary_text_dark_white);
+        ColorStateList rippleColor = mContext.getColorStateList(card.needLightTheme()
+                ? R.color.ripple_black : R.color.ripple_white);
+        ColorStateList rippleColorRectangleMask = ColorStateList.valueOf(mContext.getColor(card.needLightTheme()
+                ? R.color.ripple_rectangle_mask_light : R.color.ripple_rectangle_mask_dark));
+
         final boolean isFavorite = isFavorite(color);
         boolean disableCardClick = color == mNewColor || (isFavoriteCard && color == 0);
         boolean disableActionApply = color == 0 || color == mInitialColor;
         boolean hideActionFavorite = isFavoriteCard && color != 0;
         String statusText = "";
-        int favoriteIconResId = -1;
-
-        if (isFavoriteCard) {
-            if (color == 0) {
-                favoriteIconResId = R.drawable.ic_action_add_favorite;
-            }
-        } else {
-            favoriteIconResId = isFavorite
-                    ? R.drawable.ic_action_remove_favorite : R.drawable.ic_action_add_favorite;
+        boolean showAddFavorite = true;
+        if (!isFavoriteCard) {
+            showAddFavorite = isFavorite ? false : true;
         }
 
         holder.mTitle.setText(card.getTitle());
         holder.mSubtitle.setText(card.getSubtitle());
+
         holder.mCardView.setCardBackgroundColor(cardBackgroundColor);
+        holder.mTitle.setTextColor(primaryTextColor);
+        holder.mSubtitle.setTextColor(secondaryTextColor);
+        holder.mActionApply.setTextColor(primaryTextColor);
+        holder.mIconAddFavorite.setImageTintList(primaryTextColor);
+        holder.mIconRemoveFavorite.setImageTintList(primaryTextColor);
+        ((RippleDrawable) holder.mCardLayout.getBackground()).setColor(rippleColorRectangleMask);
+        ((RippleDrawable) holder.mActionApply.getBackground()).setColor(rippleColorRectangleMask);
+        ((RippleDrawable) holder.mActionFavorite.getBackground()).setColor(rippleColor);
 
         if (!hideActionFavorite) {
-            holder.mActionFavorite.setImageResource(favoriteIconResId);
             holder.mActionFavorite.setVisibility(View.VISIBLE);
+            holder.mIconAddFavorite.setVisibility(showAddFavorite ? View.VISIBLE : View.GONE);
+            holder.mIconRemoveFavorite.setVisibility(showAddFavorite ? View.GONE : View.VISIBLE);
             holder.mActionFavorite.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -129,6 +141,8 @@ public class ColorPickerCardAdapter extends
             });
         } else {
             holder.mActionFavorite.setVisibility(View.GONE);
+            holder.mIconAddFavorite.setVisibility(View.GONE);
+            holder.mIconRemoveFavorite.setVisibility(View.GONE);
             holder.mActionFavorite.setOnClickListener(null);
         }
         if (disableCardClick) {
@@ -205,18 +219,6 @@ public class ColorPickerCardAdapter extends
         return mColorPickerCards.size();
     }
 
-    @Override
-    public int getItemViewType(int position) {
-        boolean useLightTheme = false;
-        ColorPickerCard card = mColorPickerCards.get(position);
-        if (card instanceof ColorPickerFavoriteCard && card.getColor() == 0) {
-            useLightTheme = Config.getThemeUseDarkTheme(mContext) ? false : true;
-        } else {
-            useLightTheme = card.needLightTheme();
-        }
-        return useLightTheme ? VIEW_TYPE_LIGHT_THEME : VIEW_TYPE_DARK_THEME;
-    }
-
     private boolean isFavorite(int color) {
         boolean isFavorite = false;
         for (int i = 0; i < ColorPickerFragment.NUM_MAX_FAVORITES; i++) {
@@ -236,7 +238,7 @@ public class ColorPickerCardAdapter extends
         mNewColor = newColor;
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class CardViewHolder extends RecyclerView.ViewHolder {
         public View mView;
         public CardView mCardView;
         public View mCardLayout;
@@ -244,9 +246,11 @@ public class ColorPickerCardAdapter extends
         public TextView mSubtitle;
         public TextView mStatusText;
         public TextView mActionApply;
-        public ImageView mActionFavorite;
+        public View mActionFavorite;
+        public ImageView mIconAddFavorite;
+        public ImageView mIconRemoveFavorite;
 
-        public ViewHolder(View v) {
+        public CardViewHolder(View v) {
             super(v);
 
             mView = v;
@@ -256,7 +260,9 @@ public class ColorPickerCardAdapter extends
             mSubtitle = (TextView) v.findViewById(R.id.color_picker_color_card_header_subtitle);
             mStatusText = (TextView) v.findViewById(R.id.color_picker_color_card_status_text);
             mActionApply = (TextView) v.findViewById(R.id.color_picker_color_card_action_apply_color);
-            mActionFavorite = (ImageView) v.findViewById(R.id.color_picker_color_card_icon_favorite);
+            mActionFavorite = v.findViewById(R.id.color_picker_color_card_button_favorite);
+            mIconAddFavorite = (ImageView) v.findViewById(R.id.color_picker_color_card_icon_add_favorite);
+            mIconRemoveFavorite = (ImageView) v.findViewById(R.id.color_picker_color_card_icon_remove_favorite);
         }
     }
 

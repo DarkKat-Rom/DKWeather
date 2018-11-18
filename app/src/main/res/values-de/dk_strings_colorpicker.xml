@@ -16,7 +16,7 @@
 <resources>
 
     <!-- Activity title -->
-    <string name="pick_color_title">Farbe wählen</string>
+    <string name="pick_color_title">Farbauswahl</string>
 
     <!-- General -->
     <string name="empty_title">Leer</string>

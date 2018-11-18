@@ -79,7 +79,7 @@
                     Mit diesen Schaltflächen kann zwischen den Typen der Farbauswahl gewechselt werden:
                 </p>
                 <ul>
-                    <li>Farbwähler</li>
+                    <li>Farbe wählen</li>
                     <li>Favoriten (Favoritkarte)</li>
                     <li>DarkKat Farben (Farbkarte)</li>
                     <li>Material Farben (Farbkarte)</li>
@@ -88,7 +88,7 @@
                 </ul>
 
                 <h2>
-                    Farbwähler:
+                    Farbe wählen:
                 </h2>
                 <h3>
                     Farbfeld:
@@ -116,7 +116,16 @@
                 </p>
                 <ul>
                     <li>
-                        Hintergrund: Eingefärbt mit der Kartenfarbe
+                        Karte:
+                        <ul>
+                            <li>
+                                Primäre Aktion: &#34;Farbe setzen&#34;,<br>
+                                Setzt die Kartenfarbe als neue Farbe ohne die neue Farbe anzuwenden.
+                            </li>
+                            <li>
+                                Hintergrund: Eingefärbt mit der Kartenfarbe
+                            </li>
+                        </ul>
                     </li>
                     <li>
                         Kopfzeile (Text):
@@ -130,10 +139,11 @@
                         </ul>
                     </li>
                     <li>
-                        Fußzeile (Aktionen):
+                        Fußzeile (Sekundäre Aktionen):
                         <ul>
                             <li>
-                                Links: &#34;Farbe Setzen&#34;
+                                Links: &#34;Farbe Übernehmen&#34;,<br>
+                                Die Kartenfarbe wird angewendet und die Farbauswahl geschlossen.
                             </li>
                             <li>
                                 Rechts: &#34;Favorit hinzufügen/entfernen&#34;
@@ -150,13 +160,8 @@
                 </p>
                 <ul>
                     <li>
-                        Titel: &#34;Favorit &#34; + Favoritennummer
-                    </li>
-                    <li>
-                        Untertitel: Farbname oder &#34;Leer&#34;
-                    </li>
-                    <li>
-                        Aktion &#34;Farbe Setzen&#34; (ist deaktiviert):
+                        Primäre Aktion: &#34;Farbe setzen&#34;,<br>
+                        (ist deaktiviert):
                         <ul>
                             <li>
                                  Bei leerem Favoriten
@@ -167,7 +172,45 @@
                         </ul>
                     </li>
                     <li>
-                        Aktion &#34;Favorit hinzufügen&#34; (ist verfügbar):
+                        Titel:
+                        <ul>
+                            <li>
+                                Leer: &#34;Favorit &#34; + Favoritennummer + (Leer)
+                            </li>
+                            <li>
+                                Eigene Farbe: &#34;Favorit &#34; + Favoritennummer
+                            </li>
+                            <li>
+                                Aus Farbkarte: Palettenname + Farbname
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        Untertitel:
+                        <ul>
+                            <li>
+                                Leer: &#34;0&#34;
+                            </li>
+                            <li>
+                                Nicht leer: Farb Hex Wert
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        Sekundäre Aktion &#34;Farbe Übernehmen&#34;,<br>
+                        (ist deaktiviert):
+                        <ul>
+                            <li>
+                                 Bei leerem Favoriten
+                            </li>
+                            <li>
+                                 Favoritenfarbe entspricht der alten Farbe
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        Sekundäre Aktion &#34;Favorit hinzufügen&#34;,<br>
+                        (ist verfügbar):
                         <ul>
                             <li>
                                  Bei leerem Favoriten
@@ -175,7 +218,8 @@
                         </ul>
                     </li>
                     <li>
-                        Aktion &#34;Favorit entfernen&#34; (ist verfügbar):
+                        Sekundäre Aktion &#34;Favorit entfernen&#34;,<br>
+                        (ist verfügbar):
                         <ul>
                             <li>
                                  Nie
@@ -192,13 +236,8 @@
                 </p>
                 <ul>
                     <li>
-                        Titel: Farbname
-                    </li>
-                    <li>
-                        Untertitel: Farb Hex Wert
-                    </li>
-                    <li>
-                        Aktion &#34;Farbe Setzen&#34; (ist deaktiviert):
+                        Primäre Aktion: &#34;Farbe setzen&#34;,<br>
+                        (ist deaktiviert):
                         <ul>
                             <li>
                                  Kartenfarbe entspricht der neuen Farbe
@@ -206,7 +245,22 @@
                         </ul>
                     </li>
                     <li>
-                        Aktion &#34;Favorit hinzufügen/entfernen&#34;:
+                        Titel: Farbname
+                    </li>
+                    <li>
+                        Untertitel: Farb Hex Wert
+                    </li>
+                    <li>
+                        Sekundäre Aktion &#34;Farbe Übernehmen&#34;,<br>
+                        (ist deaktiviert):
+                        <ul>
+                            <li>
+                                 Kartenfarbe entspricht der alten Farbe
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        Sekundäre Aktion &#34;Favorit hinzufügen/entfernen&#34;:
                         <ul>
                             <li>
                                  Das entsprechende Symbol wird angezeigt
@@ -214,7 +268,7 @@
                         </ul>
                     </li>
                     <li>
-                        Aktion &#34;Favorit hinzufügen&#34;:
+                        Sekundäre Aktion &#34;Favorit hinzufügen&#34;:
                         <ul>
                             <li>
                                  Verfügbar wenn kein Favorit der Kartenfarbe entspricht
@@ -222,13 +276,10 @@
                             <li>
                                  Wird in der 1. leeren Favoritenkarte gespeichert
                             </li>
-                            <li>
-                                 Auf der Favoritenkarte wird der Farbname als Untertitel angezeigt
-                            </li>
                         </ul>
                     </li>
                     <li>
-                        Aktion &#34;Favorit entfernen&#34;:
+                        Sekundäre Aktion &#34;Favorit entfernen&#34;:
                         <ul>
                             <li>
                                  Verfügbar wenn mindestens ein Favorit der Kartenfarbe entspricht

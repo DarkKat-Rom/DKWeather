@@ -69,4 +69,8 @@
     <!-- Text and icon colors -->
     <color name="text_primary_dark">@color/white</color>
     <color name="text_secondary_light">#8a000000</color>  <!-- 54% black -->
+
+    <!-- Ripple effect colors -->
+    <color name="ripple_rectangle_mask_dark">#66ffffff</color>  <!-- 41% white -->
+    <color name="ripple_rectangle_mask_light">#3d000000</color>  <!-- 24% black -->
 </resources>
