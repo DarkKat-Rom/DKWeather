@@ -161,6 +161,12 @@ public class ColorPickerCardAnimator extends BaseItemAnimator {
             }
             @Override
             public void onAnimationEnd(Animator animation) {
+                if (setTitle) {
+                    mTitleSet = false;
+                }
+                if (setSubtitle) {
+                    mSubtitleSet = false;
+                }
                 if (animatePrimaryTextColor) {
                     holder.mTitle.setTextColor(postColorInfo.primaryTextColors);
                     holder.mIconAddFavorite.setImageTintList(postColorInfo.primaryTextColors);

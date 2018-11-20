@@ -735,27 +735,29 @@ public class ColorPickerFragment extends Fragment implements
     }
 
     @Override
-    public void onFavoriteCardActionFavoriteClicked(int position) {
+    public void onFavoriteCardActionFavoriteClicked(ColorPickerCard oldCard, int position, boolean addFavorite) {
         if (!(mContentList.getItemAnimator() instanceof ColorPickerCardAnimator)) {
             mContentList.setItemAnimator(new ColorPickerCardAnimator());
         }
         int favoriteNumber = position + 1;
-        String colorTitle = mNewColorValue == 0
+        int color = addFavorite ? mNewColorValue : 0;
+        String title = !addFavorite
                 ? (getActivity().getResources().getString(R.string.favorite_title) + " " + favoriteNumber)
-                : ColorPickerHelper.getColorTitle(getActivity(), mNewColorValue);
-        String paletteTitle = mNewColorValue == 0
-                ? getActivity().getResources().getString(R.string.empty_title)
-                : ColorPickerHelper.getPaletteTitle(getActivity(), mNewColorValue);
-        String title = mNewColorValue != 0 ? paletteTitle + ":\n" + colorTitle : colorTitle + " (" + paletteTitle + ")";
-        String subtitle = mNewColorValue == 0
+                : ColorPickerHelper.getColorTitle(getActivity(), color);
+        String subtitle = !addFavorite
                 ? "0"
-                : ColorPickerHelper.convertToARGB(mNewColorValue);
-        setFavoriteColor(favoriteNumber, mNewColorValue);
+                : ColorPickerHelper.convertToARGB(color);
+        String paletteTitle = !addFavorite
+                ? getActivity().getResources().getString(R.string.empty_title)
+                : ColorPickerHelper.getPaletteTitle(getActivity(), color);
+
+        ColorPickerCard newCard = new ColorPickerFavoriteCard(getActivity(), title, subtitle, color, paletteTitle);
+
+        setFavoriteColor(favoriteNumber, color);
         setFavoriteSubtitle(favoriteNumber, subtitle);
-        mColorPickerCards.get(position).setTitle(title);
-        mColorPickerCards.get(position).setSubtitle(subtitle);
-        mColorPickerCards.get(position).setColor(getFavoriteColor(favoriteNumber));
-        mFavoriteColors[position] = mNewColorValue;
+        mColorPickerCards.remove(position);
+        mColorPickerCards.add(position, newCard);
+        mFavoriteColors[position] = color;
         mCardAdapter.notifyItemChanged(position);
     }
 

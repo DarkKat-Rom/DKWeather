@@ -55,7 +55,7 @@ public class ColorPickerCardAdapter extends
         public void onCardClicked(int color, int position);
         public void onCardActionApplyClicked(int color);
         public void onColorCardActionFavoriteClicked(ColorPickerCard card, int position, boolean isFavorite);
-        public void onFavoriteCardActionFavoriteClicked(int position);
+        public void onFavoriteCardActionFavoriteClicked(ColorPickerCard card, int position, boolean addFavorite);
     }
 
     public ColorPickerCardAdapter(Context context, List<ColorPickerCard> items, int initialColor,
@@ -103,12 +103,16 @@ public class ColorPickerCardAdapter extends
         final boolean isFavorite = isFavorite(color);
         boolean disableCardClick = color == mNewColor || (isFavoriteCard && color == 0);
         boolean disableActionApply = color == 0 || color == mInitialColor;
-        boolean hideActionFavorite = isFavoriteCard && color != 0;
+        // Temporary don't hide action favorite
+        boolean hideActionFavorite = false;
         String statusText = "";
         boolean showAddFavorite = true;
         if (!isFavoriteCard) {
             showAddFavorite = isFavorite ? false : true;
+        } else {
+            showAddFavorite = color == 0;
         }
+        final boolean addFavorite = showAddFavorite;
 
         holder.mTitle.setText(card.getTitle());
         holder.mSubtitle.setText(card.getSubtitle());
@@ -132,7 +136,7 @@ public class ColorPickerCardAdapter extends
                 public void onClick(View v) {
                     if (mOnCardClickedListener != null) {
                         if (isFavoriteCard) {
-                            mOnCardClickedListener.onFavoriteCardActionFavoriteClicked(position);
+                            mOnCardClickedListener.onFavoriteCardActionFavoriteClicked(card, position, addFavorite);
                         } else {
                             mOnCardClickedListener.onColorCardActionFavoriteClicked(card, position, isFavorite);
                         }
