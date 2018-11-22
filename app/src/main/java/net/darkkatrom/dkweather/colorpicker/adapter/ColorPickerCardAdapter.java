@@ -33,6 +33,7 @@ import net.darkkatrom.dkweather.colorpicker.model.ColorPickerCard;
 import net.darkkatrom.dkweather.colorpicker.model.ColorPickerFavoriteCard;
 import net.darkkatrom.dkweather.colorpicker.util.ColorPickerHelper;
 import net.darkkatrom.dkweather.colorpicker.util.ConfigColorPicker;
+import net.darkkatrom.dkweather.utils.ColorUtil;
 import net.darkkatrom.dkweather.utils.Config;
 import net.darkkatrom.dkweather.utils.ThemeUtil;
 
@@ -93,13 +94,14 @@ public class ColorPickerCardAdapter extends
         final int color = card.getColor();
         int cardBackgroundColor = isFavoriteCard && color == 0
                 ? resolveDefaultCardBackgroundColor() : color;
-        ColorStateList primaryTextColor = mContext.getColorStateList(card.needLightTheme()
+        boolean needLightTheme = !ColorUtil.isColorDark(cardBackgroundColor);
+        ColorStateList primaryTextColor = mContext.getColorStateList(needLightTheme
                 ? R.color.primary_text_light_black : R.color.primary_text_dark_white);
-        ColorStateList secondaryTextColor = mContext.getColorStateList(card.needLightTheme()
+        ColorStateList secondaryTextColor = mContext.getColorStateList(needLightTheme
                 ? R.color.secondary_text_light_black : R.color.secondary_text_dark_white);
-        ColorStateList rippleColor = mContext.getColorStateList(card.needLightTheme()
+        ColorStateList rippleColor = mContext.getColorStateList(needLightTheme
                 ? R.color.ripple_black : R.color.ripple_white);
-        ColorStateList rippleColorRectangleMask = ColorStateList.valueOf(mContext.getColor(card.needLightTheme()
+        ColorStateList rippleColorRectangleMask = ColorStateList.valueOf(mContext.getColor(needLightTheme
                 ? R.color.ripple_rectangle_mask_light : R.color.ripple_rectangle_mask_dark));
 
         final boolean isFavorite = isFavorite(color);

@@ -20,7 +20,6 @@ import android.content.Context;
 import android.content.res.Resources;
 
 import net.darkkatrom.dkweather.colorpicker.util.ColorPickerHelper;
-import net.darkkatrom.dkweather.utils.ColorUtil;
 
 public class ColorPickerCard {
     protected Context mContext;
@@ -123,9 +122,5 @@ public class ColorPickerCard {
 
     public void setPaletteTitle(String paletteTitle) {
         mPaletteTitle = paletteTitle;
-    }
-
-    public boolean needLightTheme() {
-        return !ColorUtil.isColorDark(getColor());
     }
 }
