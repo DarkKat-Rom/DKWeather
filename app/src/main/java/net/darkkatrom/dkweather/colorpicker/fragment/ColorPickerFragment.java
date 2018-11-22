@@ -541,18 +541,8 @@ public class ColorPickerFragment extends Fragment implements
         for (int i = 0; i < NUM_MAX_FAVORITES; i++) {
             int favoriteNumber = i + 1;
             int color = getFavoriteColor(favoriteNumber);
-            String title = color == 0
-                    ? (getActivity().getResources().getString(R.string.favorite_title) + " " + favoriteNumber)
-                    : ColorPickerHelper.getColorTitle(getActivity(), color);
-            String subtitle = color == 0
-                    ? "0"
-                    : ColorPickerHelper.convertToARGB(color);
 
-            String paletteTitle = color == 0
-                    ? getActivity().getResources().getString(R.string.empty_title)
-                    : ColorPickerHelper.getPaletteTitle(getActivity(), color);
-
-            ColorPickerCard card = new ColorPickerFavoriteCard(getActivity(), title, subtitle, color, paletteTitle);
+            ColorPickerCard card = new ColorPickerFavoriteCard(getActivity(), favoriteNumber, color);
             mColorPickerCards.add(card);
         }
         mItemCount = NUM_MAX_FAVORITES;
@@ -564,7 +554,7 @@ public class ColorPickerFragment extends Fragment implements
         TypedArray colors = mResources.obtainTypedArray(R.array.color_picker_darkkat_palette);
         for (int i = 0; i < 8; i++) {
             ColorPickerCard card = new ColorPickerColorCard(getActivity(),
-                    titles.getResourceId(i, 0), colors.getResourceId(i, 0));
+                    colors.getResourceId(i, 0), titles.getResourceId(i, 0));
             mColorPickerCards.add(card);
         }
         titles.recycle();
@@ -578,7 +568,7 @@ public class ColorPickerFragment extends Fragment implements
         TypedArray colors = mResources.obtainTypedArray(R.array.color_picker_material_palette);
         for (int i = 0; i < 17; i++) {
             ColorPickerCard card = new ColorPickerColorCard(getActivity(),
-                    titles.getResourceId(i, 0), colors.getResourceId(i, 0));
+                    colors.getResourceId(i, 0), titles.getResourceId(i, 0));
             mColorPickerCards.add(card);
         }
         titles.recycle();
@@ -592,7 +582,7 @@ public class ColorPickerFragment extends Fragment implements
         TypedArray colors = mResources.obtainTypedArray(R.array.color_picker_holo_palette);
         for (int i = 0; i < 10; i++) {
             ColorPickerCard card = new ColorPickerColorCard(getActivity(),
-                    titles.getResourceId(i, 0), colors.getResourceId(i, 0));
+                    colors.getResourceId(i, 0), titles.getResourceId(i, 0));
             mColorPickerCards.add(card);
         }
         titles.recycle();
@@ -606,7 +596,7 @@ public class ColorPickerFragment extends Fragment implements
         TypedArray colors = mResources.obtainTypedArray(R.array.color_picker_rgb_palette);
         for (int i = 0; i < 8; i++) {
             ColorPickerCard card = new ColorPickerColorCard(getActivity(),
-                    titles.getResourceId(i, 0), colors.getResourceId(i, 0));
+                    colors.getResourceId(i, 0), titles.getResourceId(i, 0));
             mColorPickerCards.add(card);
         }
         titles.recycle();
@@ -764,22 +754,12 @@ public class ColorPickerFragment extends Fragment implements
         }
         int favoriteNumber = position + 1;
         int color = addFavorite ? mNewColorValue : 0;
-        String title = !addFavorite
-                ? (getActivity().getResources().getString(R.string.favorite_title) + " " + favoriteNumber)
-                : ColorPickerHelper.getColorTitle(getActivity(), color);
-        String subtitle = !addFavorite
-                ? "0"
-                : ColorPickerHelper.convertToARGB(color);
-        String paletteTitle = !addFavorite
-                ? getActivity().getResources().getString(R.string.empty_title)
-                : ColorPickerHelper.getPaletteTitle(getActivity(), color);
 
-        ColorPickerCard newCard = new ColorPickerFavoriteCard(getActivity(), title, subtitle, color, paletteTitle);
+        mColorPickerCards.get(position).setColor(color);
+        String subtitle = mColorPickerCards.get(position).getSubtitle();
 
         setFavoriteColor(favoriteNumber, color);
         setFavoriteSubtitle(favoriteNumber, subtitle);
-        mColorPickerCards.remove(position);
-        mColorPickerCards.add(position, newCard);
         mFavoriteColors[position] = color;
         mCardAdapter.notifyItemChanged(position);
     }
