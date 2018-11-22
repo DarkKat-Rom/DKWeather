@@ -92,4 +92,14 @@
     <string name="color_picker_help_screen_title">Farbauswahl Hilfe</string>
     <string name="color_picker_help_do_not_show_title">Nicht erneut anzeigen</string>
     <string name="color_picker_help_button_ok_title">OK</string>
+
+   <!-- Settings -->
+    <string name="color_picker_settings_cat_favorite_card">Favoriten Karten</string>
+    <string name="color_picker_settings_default_view_title">Standard Ansicht</string>
+    <string name="color_picker_settings_default_view_current_view_title">Aktuelle Ansicht merken</string>
+    <string name="color_picker_settings_favorite_card_allow_delete_type_title">Favoriten löschen erlauben</string>
+    <string name="color_picker_settings_favorite_card_allow_delete_type_all_title">Alle Favoriten</string>
+    <string name="color_picker_settings_favorite_card_allow_delete_type_palette_title">Alle Favoriten außer eigenen Farben</string>
+    <string name="color_picker_settings_favorite_card_allow_delete_type_never_title">Keine Favoriten</string>
+
 </resources>

@@ -93,4 +93,13 @@
     <string name="color_picker_help_do_not_show_title">Don\'t show again</string>
     <string name="color_picker_help_button_ok_title">OK</string>
 
+   <!-- Settings -->
+    <string name="color_picker_settings_cat_favorite_card">Favorite Cards</string>
+    <string name="color_picker_settings_default_view_title">Default view</string>
+    <string name="color_picker_settings_default_view_current_view_title">Remember current view</string>
+    <string name="color_picker_settings_favorite_card_allow_delete_type_title">Allow deleting favorite</string>
+    <string name="color_picker_settings_favorite_card_allow_delete_type_all_title">All favorites</string>
+    <string name="color_picker_settings_favorite_card_allow_delete_type_palette_title">All favorites except own colors</string>
+    <string name="color_picker_settings_favorite_card_allow_delete_type_never_title">No favorites</string>
+
 </resources>

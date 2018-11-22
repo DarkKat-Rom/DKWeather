@@ -13,33 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package net.darkkatrom.dkweather.colorpicker;
 
-package net.darkkatrom.dkweather.fragments;
-
+import android.os.Bundle;
 import android.preference.Preference;
-import android.preference.PreferenceFragment;
 
+import net.darkkatrom.dkweather.R;
 import net.darkkatrom.dkweather.activities.BaseActivity;
+import net.darkkatrom.dkweather.colorpicker.fragment.ColorPickerSettingsFragment;
 
-public class SettingsBaseFragment extends PreferenceFragment {
+public class ColorPickerSettingsActivity extends BaseActivity {
 
     @Override
-    public void onResume() {
-        super.onResume();
-        BaseActivity activity = (BaseActivity) getActivity();
-        if (activity.getSupportActionBar() != null && getSubtitleResId() > 0) {
-            activity.getSupportActionBar().setSubtitle(getSubtitleResId());
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        if (savedInstanceState == null) {
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_content, new ColorPickerSettingsFragment())
+                    .commit();
         }
     }
 
-    protected int getSubtitleResId() {
-        return 0;
-    }
-
-    protected void removePreference(String key) {
-        Preference pref = findPreference(key);
-        if (pref != null) {
-            getPreferenceScreen().removePreference(pref);
-        }
+    @Override
+    protected int getLayoutResId() {
+        return R.layout.settings;
     }
 }

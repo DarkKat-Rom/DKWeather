@@ -25,6 +25,10 @@ public class ConfigColorPicker {
     public static final String COLOR_PICKER_SHOW_FAVORITES   = "color_picker_show_favorites";
     public static final String COLOR_PICKER_SHOW_HELP_SCREEN = "color_picker_show_help_screen";
 
+    public static final String COLOR_PICKER_DEFAULT_VIEW = "color_picker_settings_default_view";
+    public static final String COLOR_PICKER_FAVORITE_CARD_ALLOW_DELETE_TYPE =
+            "color_picker_settings_favorite_card_allow_delete_type";
+
     public static final String COLOR_PICKER_CHIP_CHECKED_ID = "color_picker_main_buttons_checked_id";
 
     public static final int COLOR_PICKER_CHIP_DEFAULT_CHECKED_ID = R.id.color_picker_chip_pick;
@@ -100,12 +104,32 @@ public class ConfigColorPicker {
         prefs.edit().putString(key, subtitle).commit();
     }
 
-
-    public static int getChipChededId(Context context) {
-        SharedPreferences prefs = PreferenceManager
-                .getDefaultSharedPreferences(context);
-
-        return prefs.getInt(COLOR_PICKER_CHIP_CHECKED_ID, COLOR_PICKER_CHIP_DEFAULT_CHECKED_ID);
+    public static int getChipChededId(Context context, boolean isSavedState) {
+        if (isSavedState) {
+            SharedPreferences prefs = PreferenceManager
+                    .getDefaultSharedPreferences(context);
+            return prefs.getInt(COLOR_PICKER_CHIP_CHECKED_ID, COLOR_PICKER_CHIP_DEFAULT_CHECKED_ID);
+        }
+        int defaultView = ConfigColorPicker.getDefaultView(context);
+        int chipChededId = COLOR_PICKER_CHIP_DEFAULT_CHECKED_ID;
+        if (defaultView == 0) {
+            SharedPreferences prefs = PreferenceManager
+                    .getDefaultSharedPreferences(context);
+            chipChededId = prefs.getInt(COLOR_PICKER_CHIP_CHECKED_ID, COLOR_PICKER_CHIP_DEFAULT_CHECKED_ID);
+        } else if (defaultView == 1) {
+            chipChededId = R.id.color_picker_chip_pick;
+        } else if (defaultView == 2) {
+            chipChededId =  R.id.color_picker_chip_favorites;
+        } else if (defaultView == 3) {
+            chipChededId =  R.id.color_picker_chip_darkkat;
+        } else if (defaultView == 4) {
+            chipChededId =  R.id.color_picker_chip_material;
+        } else if (defaultView == 5) {
+            chipChededId =  R.id.color_picker_chip_holo;
+        } else if (defaultView == 5) {
+            chipChededId =  R.id.color_picker_chip_rgb;
+        }
+        return chipChededId;
     }
 
     public static void setChipChededId(Context context, int checkedId) {
@@ -113,5 +137,21 @@ public class ConfigColorPicker {
                 .getDefaultSharedPreferences(context);
 
         prefs.edit().putInt(COLOR_PICKER_CHIP_CHECKED_ID, checkedId).commit();
+    }
+
+    public static int getDefaultView(Context context) {
+        SharedPreferences prefs = PreferenceManager
+                .getDefaultSharedPreferences(context);
+
+        String valueString = prefs.getString(COLOR_PICKER_DEFAULT_VIEW, "0");
+        return Integer.valueOf(valueString);
+    }
+
+    public static int getAllowDeleteType(Context context) {
+        SharedPreferences prefs = PreferenceManager
+                .getDefaultSharedPreferences(context);
+
+        String valueString = prefs.getString(COLOR_PICKER_FAVORITE_CARD_ALLOW_DELETE_TYPE, "2");
+        return Integer.valueOf(valueString);
     }
 }

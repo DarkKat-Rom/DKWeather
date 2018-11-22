@@ -207,4 +207,36 @@
         <item>@color/yellow</item>>
         <item>@color/orange</item>
     </array>
+
+    <string-array name="color_picker_settings_default_view_entries">
+        <item>@string/color_picker_settings_default_view_current_view_title</item>
+        <item>@string/chip_pick_title</item>
+        <item>@string/chip_favorites_title</item>
+        <item>@string/chip_darkkat_title</item>
+        <item>@string/chip_material_title</item>
+        <item>@string/chip_holo_title</item>
+        <item>@string/chip_rgb_title</item>
+        </string-array>
+
+    <string-array name="color_picker_settings_default_view_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+    </string-array>
+
+    <string-array name="color_picker_settings_favorite_card_allow_delete_type_entries">
+        <item>@string/color_picker_settings_favorite_card_allow_delete_type_all_title</item>
+        <item>@string/color_picker_settings_favorite_card_allow_delete_type_palette_title</item>
+        <item>@string/color_picker_settings_favorite_card_allow_delete_type_never_title</item>
+        </string-array>
+
+    <string-array name="color_picker_settings_favorite_card_allow_delete_type_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
 </resources>

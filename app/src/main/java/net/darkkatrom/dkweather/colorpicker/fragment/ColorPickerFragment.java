@@ -52,6 +52,7 @@ import net.darkkatrom.dkweather.utils.ColorUtil;
 import net.darkkatrom.dkweather.utils.Config;
 import net.darkkatrom.dkweather.utils.ThemeUtil;
 import net.darkkatrom.dkweather.colorpicker.ColorPickerActivity;
+import net.darkkatrom.dkweather.colorpicker.ColorPickerSettingsActivity;
 import net.darkkatrom.dkweather.colorpicker.adapter.ColorPickerCardAdapter;
 import net.darkkatrom.dkweather.colorpicker.animator.BaseItemAnimator;
 import net.darkkatrom.dkweather.colorpicker.animator.ColorPickerCardAnimator;
@@ -143,6 +144,7 @@ public class ColorPickerFragment extends Fragment implements
     private int[] mFavoriteColors;
     private int mItemCount = 0;
     private int mDisabledCardClickedItem = -1;
+    private int mAllowDeleteType;
 
     private OnColorChangedListener mListener;
 
@@ -240,12 +242,15 @@ public class ColorPickerFragment extends Fragment implements
         setAllFavoriteColors();
         setUpResetMenuAppearience();
 
+        mAllowDeleteType = ConfigColorPicker.getAllowDeleteType(getActivity());
+
         return mColorPickerView;
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        final boolean isSavedState = savedInstanceState != null;
         view.post(new Runnable() {
             @Override
             public void run() {
@@ -258,9 +263,23 @@ public class ColorPickerFragment extends Fragment implements
                 mContentList.setTranslationX(mColorPickerView.findViewById(R.id.color_picker_content).getWidth());
 
                 setUpHelpScreen();
-                setUpMainContent();
+                setUpMainContent(isSavedState);
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mAllowDeleteType != ConfigColorPicker.getAllowDeleteType(getActivity())) {
+            mAllowDeleteType = ConfigColorPicker.getAllowDeleteType(getActivity());
+            if (mMainButtonsCheckedId == R.id.color_picker_chip_favorites) {
+                if (!(mContentList.getItemAnimator() instanceof ColorPickerCardAnimator)) {
+                    mContentList.setItemAnimator(new ColorPickerCardAnimator());
+                }
+                mCardAdapter.notifyItemRangeChanged(0, mItemCount);
+            }
+        }
     }
 
     private void inflateHelpScreen() {
@@ -386,9 +405,9 @@ public class ColorPickerFragment extends Fragment implements
         });
     }
 
-    private void setUpMainContent() {
+    private void setUpMainContent(boolean isSavedState) {
         if (mChipsGroup != null) {
-            mChipsGroup.check(ConfigColorPicker.getChipChededId(getActivity()));
+            mChipsGroup.check(ConfigColorPicker.getChipChededId(getActivity(), isSavedState));
             final HorizontalScrollView scroller =
                     (HorizontalScrollView) mColorPickerView.findViewById(R.id.color_picker_chips_scroller);
             final View checkedView = mColorPickerView.findViewById(mMainButtonsCheckedId);
@@ -400,7 +419,7 @@ public class ColorPickerFragment extends Fragment implements
             });
         }
         if (mChipsGroupsGroup != null) {
-            mChipsGroupsGroup.check(ConfigColorPicker.getChipChededId(getActivity()));
+            mChipsGroupsGroup.check(ConfigColorPicker.getChipChededId(getActivity(), isSavedState));
         }
     }
 
@@ -649,6 +668,10 @@ public class ColorPickerFragment extends Fragment implements
             return true;
         } else if (item.getItemId() == R.id.show_hide_help) {
             showHideHelpScreen();
+            return true;
+        } else if (item.getItemId() == R.id.color_picker_settings) {
+            Intent intent = new Intent(getActivity(), ColorPickerSettingsActivity.class);
+            startActivity(intent);
             return true;
         } else {
             return super.onOptionsItemSelected(item);

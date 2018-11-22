@@ -31,6 +31,8 @@ import net.darkkatrom.dkweather.R;
 import net.darkkatrom.dkweather.colorpicker.fragment.ColorPickerFragment;
 import net.darkkatrom.dkweather.colorpicker.model.ColorPickerCard;
 import net.darkkatrom.dkweather.colorpicker.model.ColorPickerFavoriteCard;
+import net.darkkatrom.dkweather.colorpicker.util.ColorPickerHelper;
+import net.darkkatrom.dkweather.colorpicker.util.ConfigColorPicker;
 import net.darkkatrom.dkweather.utils.Config;
 import net.darkkatrom.dkweather.utils.ThemeUtil;
 
@@ -103,8 +105,6 @@ public class ColorPickerCardAdapter extends
         final boolean isFavorite = isFavorite(color);
         boolean disableCardClick = color == mNewColor || (isFavoriteCard && color == 0);
         boolean disableActionApply = color == 0 || color == mInitialColor;
-        // Temporary don't hide action favorite
-        boolean hideActionFavorite = false;
         String statusText = "";
         boolean showAddFavorite = true;
         if (!isFavoriteCard) {
@@ -113,6 +113,7 @@ public class ColorPickerCardAdapter extends
             showAddFavorite = color == 0;
         }
         final boolean addFavorite = showAddFavorite;
+        boolean hideActionFavorite = isFavoriteCard && !addFavorite && hideActionFavorite(color);
 
         holder.mTitle.setText(card.getTitle());
         holder.mSubtitle.setText(card.getSubtitle());
@@ -232,6 +233,17 @@ public class ColorPickerCardAdapter extends
             }
         }
         return isFavorite;
+    }
+
+    private boolean hideActionFavorite(int color) {
+        int allowDeleteType = ConfigColorPicker.getAllowDeleteType(mContext);
+        if (allowDeleteType == 0) {
+            return false;
+        } else if (allowDeleteType == 1) {
+            return ColorPickerHelper.getColorTitle(mContext, color).isEmpty();
+        } else {
+            return true;
+        }
     }
 
     private int resolveDefaultCardBackgroundColor() {
