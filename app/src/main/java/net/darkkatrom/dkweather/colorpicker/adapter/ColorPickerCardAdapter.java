@@ -81,7 +81,7 @@ public class ColorPickerCardAdapter extends
             int viewType) {
 
         View v = LayoutInflater.from(mContext).inflate(
-                R.layout.color_picker_color_card, parent, false);
+                R.layout.color_picker_card, parent, false);
         CardViewHolder vh = new CardViewHolder(v);
         return vh;
     }
@@ -107,7 +107,6 @@ public class ColorPickerCardAdapter extends
         final boolean isFavorite = isFavorite(color);
         boolean disableCardClick = color == mNewColor || (isFavoriteCard && color == 0);
         boolean disableActionApply = color == 0 || color == mInitialColor;
-        String statusText = "";
         boolean showAddFavorite = true;
         if (!isFavoriteCard) {
             showAddFavorite = isFavorite ? false : true;
@@ -179,46 +178,6 @@ public class ColorPickerCardAdapter extends
             });
             holder.mActionApply.setEnabled(true);
         }
-        if (isFavoriteCard) {
-            if (disableCardClick) {
-                statusText = mContext.getResources().getString(color == 0
-                        ? R.string.color_picker_favorite_card_status_empty
-                        : R.string.color_picker_favorite_card_status_card_click_disabled);
-            }
-            if (disableActionApply) {
-                if (statusText.isEmpty()) {
-                    statusText = mContext.getResources().getString(color == mInitialColor
-                            ? R.string.color_picker_favorite_card_status_action_apply_disabled_initial_color
-                            : R.string.color_picker_favorite_card_status_action_apply_disabled);
-                } else {
-                    statusText += "\n" + mContext.getResources().getString(color == mInitialColor
-                            ? R.string.color_picker_favorite_card_status_action_apply_disabled_initial_color
-                            : R.string.color_picker_favorite_card_status_action_apply_disabled);
-                }
-            }
-        } else {
-            if (disableCardClick) {
-                statusText = mContext.getResources().getString(
-                        R.string.color_picker_color_card_status_card_click_disabled);
-            }
-            if (disableActionApply) {
-                if (statusText.isEmpty()) {
-                    statusText = mContext.getResources().getString(color == mInitialColor
-                            ? R.string.color_picker_color_card_status_action_apply_disabled_initial_color
-                            : R.string.color_picker_color_card_status_action_apply_disabled);
-                } else {
-                    statusText += "\n" + mContext.getResources().getString(color == mInitialColor
-                            ? R.string.color_picker_color_card_status_action_apply_disabled_initial_color
-                            : R.string.color_picker_color_card_status_action_apply_disabled);
-                }
-            }
-        }
-        if (statusText.isEmpty()) {
-//            holder.mStatusText.setVisibility(View.INVISIBLE);
-        } else {
-//            holder.mStatusText.setVisibility(View.VISIBLE);
-        }
-//        holder.mStatusText.setText(statusText);
     }
 
     @Override
@@ -262,7 +221,6 @@ public class ColorPickerCardAdapter extends
         public View mCardLayout;
         public TextView mTitle;
         public TextView mSubtitle;
-        public TextView mStatusText;
         public TextView mActionApply;
         public View mActionFavorite;
         public ImageView mIconAddFavorite;
@@ -272,15 +230,16 @@ public class ColorPickerCardAdapter extends
             super(v);
 
             mView = v;
-            mCardView = (CardView) v.findViewById(R.id.color_picker_color_card);
-            mCardLayout = v.findViewById(R.id.color_picker_color_card_content_layout);
-            mTitle = (TextView) v.findViewById(R.id.color_picker_color_card_header_title);
-            mSubtitle = (TextView) v.findViewById(R.id.color_picker_color_card_header_subtitle);
-            mStatusText = (TextView) v.findViewById(R.id.color_picker_color_card_status_text);
-            mActionApply = (TextView) v.findViewById(R.id.color_picker_color_card_action_apply_color);
-            mActionFavorite = v.findViewById(R.id.color_picker_color_card_button_favorite);
-            mIconAddFavorite = (ImageView) v.findViewById(R.id.color_picker_color_card_icon_add_favorite);
-            mIconRemoveFavorite = (ImageView) v.findViewById(R.id.color_picker_color_card_icon_remove_favorite);
+            mCardView = (CardView) v.findViewById(R.id.color_picker_card);
+            mCardLayout = v.findViewById(R.id.color_picker_card_content_layout);
+            mTitle = (TextView) v.findViewById(R.id.color_picker_card_header_title);
+            mSubtitle = (TextView) v.findViewById(R.id.color_picker_card_header_subtitle);
+            mActionApply = (TextView) v.findViewById(R.id.color_picker_card_footer_action_apply_color);
+            mActionFavorite = v.findViewById(R.id.color_picker_card_footer_action_favorite);
+            mIconAddFavorite =
+                    (ImageView) v.findViewById(R.id.color_picker_card_footer_action_icon_add_favorite);
+            mIconRemoveFavorite =
+                    (ImageView) v.findViewById(R.id.color_picker_card_footer_action_icon_remove_favorite);
         }
     }
 
