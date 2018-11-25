@@ -68,6 +68,13 @@
                 <p>
                     Shows/hides this help screen.
                 </p>
+                <h3>
+                    Settings:
+                </h3>
+                <p>
+                    Show color picker settings.<br>
+                    (Color picker settings are also available from &#39;Main settings&#39;)
+                </p>
 
                 <h2>
                     Color picker:
