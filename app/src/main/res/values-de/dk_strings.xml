@@ -103,6 +103,7 @@
     <string name="settings_widget_summary">Wähle wie das Widget dargestellt werden soll</string>
     <string name="settings_theme_colors_title">Theme &amp; Farben</string>
     <string name="settings_theme_colors_summary">Wähle wie die App-Benutzeroberfläche und das Widget dargestellt werden sollen</string>
+    <string name="settings_pick_color_summary">Wähle wie die Farbauswahl dargestellt werden soll</string>
 
     <!-- Weather setup -->
     <string name="enable_summary">Wetter aktivieren</string>

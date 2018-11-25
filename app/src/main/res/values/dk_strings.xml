@@ -103,6 +103,7 @@
     <string name="settings_widget_summary">Choose how to display the widget</string>
     <string name="settings_theme_colors_title">Theme &amp; colors</string>
     <string name="settings_theme_colors_summary">Choose how to display the app ui and widget</string>
+    <string name="settings_pick_color_summary">Choose how to display the color picker</string>
 
     <!-- Weather setup -->
     <string name="enable_summary">Enable the weather</string>

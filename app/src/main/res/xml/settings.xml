@@ -39,4 +39,12 @@ limitations under the License.
         android:summary="@string/settings_theme_colors_summary"
         android:fragment="net.darkkatrom.dkweather.fragments.ThemeColorsSettings" />
 
+    <Preference
+        android:key="settings_pick_color"
+        android:title="@string/pick_color_title"
+        android:summary="@string/settings_pick_color_summary">
+        <intent
+            android:targetPackage="net.darkkatrom.dkweather"
+            android:targetClass="net.darkkatrom.dkweather.colorpicker.ColorPickerSettingsActivity"/>
+    </Preference>
 </PreferenceScreen>
