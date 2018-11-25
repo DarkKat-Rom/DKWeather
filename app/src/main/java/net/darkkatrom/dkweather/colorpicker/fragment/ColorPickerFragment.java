@@ -494,7 +494,7 @@ public class ColorPickerFragment extends Fragment implements
         }
         if (mMainButtonsCheckedId != checkedId) {
             mMainButtonsCheckedId = checkedId;
-            ConfigColorPicker.setChipChededId(getActivity(), mMainButtonsCheckedId);
+            ConfigColorPicker.setChipChededIdValue(getActivity(), mMainButtonsCheckedId);
             if (mMainButtonsCheckedId != mOldMainButtonsCheckedId) {
                 Boolean animate = mMainButtonsCheckedId == R.id.color_picker_chip_pick
                         || mOldMainButtonsCheckedId == R.id.color_picker_chip_pick
