@@ -13,31 +13,57 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/weather_fragment_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:background="?android:attr/colorBackground"
-    android:gravity="center"
-    android:orientation="vertical">
+    android:background="?android:attr/colorBackground">
 
-    <TextView
-        android:id="@+id/weather_fragment_current_temp"
+    <LinearLayout
+        android:id="@+id/weather_fragment_text_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="?android:attr/textColorPrimary" />
+        android:layout_centerInParent="true"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/weather_fragment_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_gravity="center"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="?android:attr/textColorPrimary" />
+        <TextView
+            android:id="@+id/weather_fragment_current_temp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="?android:attr/textColorPrimary" />
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/weather_fragment_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="?android:attr/textColorPrimary" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/bottom_navigation_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bottom_navigation_bar_height"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="4dp"
+        android:layout_alignParentBottom="true"
+        android:background="?android:attr/colorBackground"
+        android:elevation="@dimen/bottom_navigation_bar_elevation">
+
+        <include layout="@layout/bottom_navigation_item"
+            android:id="@+id/bottom_navigation_item_previous_day" />
+
+        <include layout="@layout/bottom_navigation_item"
+            android:id="@+id/bottom_navigation_item_settings" />
+
+        <include layout="@layout/bottom_navigation_item"
+            android:id="@+id/bottom_navigation_item_next_day" />
+
+    </LinearLayout>
+</RelativeLayout>
