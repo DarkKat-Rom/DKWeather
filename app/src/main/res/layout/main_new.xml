@@ -50,4 +50,27 @@
             android:layout_height="match_parent" />
 
     </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/bottom_navigation_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bottom_navigation_bar_height"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="4dp"
+        android:layout_gravity="bottom"
+        android:background="?android:attr/colorBackground"
+        android:elevation="@dimen/bottom_navigation_bar_elevation">
+
+        <include layout="@layout/bottom_navigation_item"
+            android:id="@+id/bottom_navigation_item_previous_day" />
+
+        <include layout="@layout/bottom_navigation_item"
+            android:id="@+id/bottom_navigation_item_settings" />
+
+        <include layout="@layout/bottom_navigation_item"
+            android:id="@+id/bottom_navigation_item_next_day" />
+
+    </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>

@@ -17,6 +17,7 @@ package net.darkkatrom.dkweather.activities;
 
 import android.app.Fragment;
 import android.content.ContentResolver;
+import android.content.Intent;
 import android.database.ContentObserver;
 import android.net.Uri;
 import android.os.Bundle;
@@ -34,6 +35,7 @@ import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import net.darkkatrom.dkweather.R;
@@ -62,6 +64,8 @@ public class MainActivityNew extends BaseActivity implements OnClickListener, On
 
     private ImageView mUpdateButton;
 
+    private View mNavigationButtonSettings;
+
     private WeatherFragmentNew mFragment = null;
 
     @Override
@@ -78,6 +82,7 @@ public class MainActivityNew extends BaseActivity implements OnClickListener, On
         getFragmentManager().beginTransaction()
                 .replace(R.id.fragment_content, mFragment)
                 .commit();
+        setupBottomNavigation();
     }
 
     @Override
@@ -183,6 +188,30 @@ public class MainActivityNew extends BaseActivity implements OnClickListener, On
 
     private void updateContent() {
         mFragment.updateContent(mWeatherInfo);
+    }
+
+    private void setupBottomNavigation() {
+        findViewById(R.id.bottom_navigation_item_previous_day).setVisibility(View.INVISIBLE);
+        mNavigationButtonSettings = findViewById(R.id.bottom_navigation_item_settings);
+        findViewById(R.id.bottom_navigation_item_next_day).setVisibility(View.INVISIBLE);
+
+        ImageView iv =
+                (ImageView) mNavigationButtonSettings.findViewById(R.id.bottom_navigation_item_icon);
+        TextView tv =
+                (TextView) mNavigationButtonSettings.findViewById(R.id.bottom_navigation_item_text);
+        iv.setImageResource(R.drawable.ic_action_settings);
+        iv.setImageTintList(getColorStateList(
+                R.color.bottom_navigation_selectable_item_text_icon_color));
+        tv.setText(R.string.settings_title);
+        tv.setTextColor(getColorStateList(
+                R.color.bottom_navigation_selectable_item_text_icon_color));
+    }
+
+    public void onBottomNavigationItemClick(View v) {
+        if (v == mNavigationButtonSettings) {
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
+        }
     }
 
     class WeatherObserver extends ContentObserver {
