@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 DarkKat
+ * Copyright (C) 2018 DarkKat
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,27 +23,24 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-import android.view.animation.Animation;
-import android.view.animation.Animation.AnimationListener;
-import android.view.animation.LinearInterpolator;
-import android.view.animation.RotateAnimation;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.Animation.AnimationListener;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import net.darkkatrom.dkweather.R;
 import net.darkkatrom.dkweather.WeatherInfo;
 import net.darkkatrom.dkweather.fragments.WeatherFragment;
-import net.darkkatrom.dkweather.fragments.CurrentWeatherFragment;
-import net.darkkatrom.dkweather.fragments.ForecastWeatherFragment;
-import net.darkkatrom.dkweather.fragments.NoWeatherDataFragment;
 import net.darkkatrom.dkweather.utils.Config;
 import net.darkkatrom.dkweather.utils.JobUtil;
 import net.darkkatrom.dkweather.utils.NotificationUtil;
@@ -54,17 +51,17 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 public class MainActivity extends BaseActivity implements OnClickListener, OnLongClickListener {
-
-    private static final String TAG = "DKWeather:MainActivity";
+    private static final String ACTIVITY_TAG = "DKWeather:MainActivity";
+    private static final String FRAGMENT_TAG = "weather_fragment";
 
     private static final Uri WEATHER_URI =
             Uri.parse("content://net.darkkatrom.dkweather.provider/weather");
 
-    public static final String KEY_VISIBLE_SCREEN  = "visible_screen";
-
-    public static final int TODAY     = 0;
+    public static final String KEY_VISIBLE_DAY  = "visible_day";
 
     private static final int TOAST_SPACE_TOP = 24;
+
+    public static final int TODAY = 0;
 
     private Handler mHandler;
     private ContentResolver mResolver;
@@ -75,46 +72,18 @@ public class MainActivity extends BaseActivity implements OnClickListener, OnLon
 
     private CharSequence[] mActionBarSubTitles;
 
+    private boolean mUpdateRequested = false;
+
     private ImageView mUpdateButton;
 
     private View mNavigationButtonPreviousDay;
     private View mNavigationButtonSettings;
     private View mNavigationButtonNextDay;
 
-    private int mVisibleScreen = TODAY;
+    private WeatherFragment mFragment = null;
+
+    private int mVisibleDay = TODAY;
     private int mNumForecastDays = 1;
-
-    private boolean mUpdateRequested = false;
-
-    class WeatherObserver extends ContentObserver {
-        WeatherObserver(Handler handler) {
-            super(handler);
-        }
-
-        void observe() {
-            mResolver.registerContentObserver(WEATHER_URI, false, this);
-        }
-
-        void unobserve() {
-            mResolver.unregisterContentObserver(this);
-        }
-
-        @Override
-        public void onChange(boolean selfChange) {
-            updateWeather();
-            if (mWeatherInfo == null) {
-                Log.e(TAG, "Error retrieving weather data");
-                if (mUpdateRequested) {
-                    mUpdateRequested = false;
-                }
-            } else {
-                if (mUpdateRequested) {
-                    showToast(R.string.weather_updated);
-                    mUpdateRequested = false;
-                }
-            }
-        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,8 +98,13 @@ public class MainActivity extends BaseActivity implements OnClickListener, OnLon
 
         if (savedInstanceState == null) {
             createOrRestoreState(getIntent().getExtras());
+            mFragment = new WeatherFragment();
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_content, mFragment, FRAGMENT_TAG)
+                    .commit();
         } else {
             createOrRestoreState(savedInstanceState);
+            mFragment = (WeatherFragment) getFragmentManager().findFragmentByTag(FRAGMENT_TAG);
         }
         setupBottomNavigation();
     }
@@ -145,142 +119,18 @@ public class MainActivity extends BaseActivity implements OnClickListener, OnLon
         return true;
     }
 
-    private void createOrRestoreState(Bundle b) {
-        if (b == null) {
-            mVisibleScreen = TODAY;
-        } else {
-            mVisibleScreen = b.getInt(KEY_VISIBLE_SCREEN);
-        }
-    }
-
-    private void updateActionBar() {
-        TimeZone myTimezone = TimeZone.getDefault();
-        Calendar calendar = new GregorianCalendar(myTimezone);
-        mActionBarSubTitles = new String[mNumForecastDays];
-
-        for (int i = 0; i <mActionBarSubTitles.length; i++) {
-            if (i == 0) {
-                mActionBarSubTitles[i] = getResources().getString(R.string.today_title);
-            } else {
-                calendar.add(Calendar.DAY_OF_YEAR, 1);
-                mActionBarSubTitles[i] = WeatherInfo.getFormattedDate(calendar.getTime(), false);
-            }
-        }
-        String noWeatherDataPart = mWeatherInfo == null
-                ? getResources().getString(R.string.action_bar_no_weather_data_part) : "";
-        getSupportActionBar().setSubtitle(mActionBarSubTitles[mVisibleScreen] + noWeatherDataPart);
-    }
-
-    private void setupBottomNavigation() {
-        mNavigationButtonPreviousDay = findViewById(R.id.bottom_navigation_item_previous_day);
-        mNavigationButtonSettings = findViewById(R.id.bottom_navigation_item_settings);
-        mNavigationButtonNextDay = findViewById(R.id.bottom_navigation_item_next_day);
-
-        ImageView iv = (ImageView) mNavigationButtonPreviousDay.findViewById(R.id.bottom_navigation_item_icon);
-        TextView tv = (TextView) mNavigationButtonPreviousDay.findViewById(R.id.bottom_navigation_item_text);
-        iv.setImageResource(R.drawable.ic_action_previous_day);
-        tv.setText(R.string.action_previous_day_title);
-
-        iv = (ImageView) mNavigationButtonSettings.findViewById(R.id.bottom_navigation_item_icon);
-        tv = (TextView) mNavigationButtonSettings.findViewById(R.id.bottom_navigation_item_text);
-        iv.setImageResource(R.drawable.ic_action_settings);
-        iv.setImageTintList(getColorStateList(R.color.bottom_navigation_selectable_item_text_icon_color));
-        tv.setText(R.string.settings_title);
-        tv.setTextColor(getColorStateList(R.color.bottom_navigation_selectable_item_text_icon_color));
-
-        iv = (ImageView) mNavigationButtonNextDay.findViewById(R.id.bottom_navigation_item_icon);
-        tv = (TextView) mNavigationButtonNextDay.findViewById(R.id.bottom_navigation_item_text);
-        iv.setImageResource(R.drawable.ic_action_next_day);
-        tv.setText(R.string.action_next_day_title);
-
-    }
-
-    private void updateBottomNavigationItemState() {
-        mNavigationButtonPreviousDay.setEnabled(mVisibleScreen > TODAY && mWeatherInfo != null);
-        mNavigationButtonNextDay.setEnabled(
-                mVisibleScreen < (mNumForecastDays - 1) && mWeatherInfo != null);
-    }
-
     @Override
     protected void onResume() {
         super.onResume();
 
         mWeatherObserver.observe();
-        long newTimestamp = 0;
-        WeatherInfo newWeatherInfo = Config.getWeatherData(this);
-        if (newWeatherInfo != null) {
-            newTimestamp = newWeatherInfo.getTimestamp();
-        }
-        if (mTimestamp != newTimestamp) {
-            updateWeather();
-        }
+        updateWeather();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         mWeatherObserver.unobserve();
-    }
-
-    public void onFragmentResume(WeatherFragment f) {
-        f.updateContent(mWeatherInfo);
-    }
-
-    public void updateWeather() {
-        mWeatherInfo = Config.getWeatherData(this);
-        if (mWeatherInfo == null) {
-            mVisibleScreen = TODAY;
-            mNumForecastDays = 1;
-            mTimestamp = 0;
-        } else {
-            if (mWeatherInfo.getHourForecastDays().size() > 0) {
-                mNumForecastDays = mWeatherInfo.getHourForecastDays().size();
-            } else {
-                mNumForecastDays = 1;
-            }
-            mTimestamp = mWeatherInfo.getTimestamp();
-        }
-        updateContent();
-    }
-
-    private String getForecastDay() {
-        return mWeatherInfo.getHourForecastDays().get(mVisibleScreen);
-    }
-
-    private Fragment getFragmentForVisibleScreen() {
-        if (mWeatherInfo == null) { 
-            return new NoWeatherDataFragment();
-        } else {
-            if (mVisibleScreen == TODAY) {
-                return getCurrentWeatherFragment();
-            } else {
-                return getForecastWeatherFragment();
-            }
-        }
-    }
-
-    private void replaceFragment() {
-        getFragmentManager().beginTransaction()
-                .replace(R.id.fragment_content, getFragmentForVisibleScreen())
-                .commit();
-    }
-
-    private Fragment getCurrentWeatherFragment() {
-        WeatherFragment wf = new CurrentWeatherFragment();
-        wf.setForecastDay(getForecastDay());
-        return wf;
-    }
-
-    private Fragment getForecastWeatherFragment() {
-        WeatherFragment wf = new ForecastWeatherFragment();
-        wf.setForecastDay(getForecastDay());
-        return wf;
-    }
-
-    private void updateContent() {
-        updateActionBar();
-        replaceFragment();
-        updateBottomNavigationItemState();
     }
 
     @Override
@@ -293,19 +143,6 @@ public class MainActivity extends BaseActivity implements OnClickListener, OnLon
         updateButtonLayout.setOnClickListener(this);
         updateButtonLayout.setOnLongClickListener(this);
         return true;
-    }
-
-    public void onBottomNavigationItemClick(View v) {
-        if (v == mNavigationButtonPreviousDay) {
-            mVisibleScreen--;
-            updateContent();
-        } else if (v == mNavigationButtonSettings) {
-            Intent intent = new Intent(this, SettingsActivity.class);
-            startActivity(intent);
-        } else {
-            mVisibleScreen++;
-            updateContent();
-        }
     }
 
     @Override
@@ -356,11 +193,115 @@ public class MainActivity extends BaseActivity implements OnClickListener, OnLon
         toast.show();
     }
 
+    private void createOrRestoreState(Bundle b) {
+        if (b == null) {
+            mVisibleDay = TODAY;
+        } else {
+            mVisibleDay = b.getInt(KEY_VISIBLE_DAY);
+        }
+    }
+
+    public void updateWeather() {
+        long newTimestamp = 0;
+        WeatherInfo newInfo = Config.getWeatherData(this);
+
+
+        if (newInfo == null) {
+            newTimestamp = 0;
+            mVisibleDay = TODAY;
+            mNumForecastDays = 1;
+        } else {
+            newTimestamp = newInfo.getTimestamp();
+            if (newInfo.getHourForecastDays().size() > 0) {
+                mNumForecastDays = newInfo.getHourForecastDays().size();
+            } else {
+                mNumForecastDays = 1;
+            }
+        }
+
+        boolean animate = (newInfo != null && mWeatherInfo == null)
+                || (newInfo == null && mWeatherInfo != null)
+                || (newInfo == null && mWeatherInfo == null);
+        mWeatherInfo = newInfo;
+
+        if (mTimestamp != newTimestamp) {
+            mTimestamp = newTimestamp;
+            updateContent(animate ? WeatherFragment.ANIMATE_LAYOUT_SWITCH : WeatherFragment.NO_ANIMATION);
+        }
+    }
+
+    private void updateContent(int animationType) {
+        mFragment.setVisibleDay(mVisibleDay);
+        mFragment.updateContent(mWeatherInfo, animationType);
+        updateActionBar();
+        updateBottomNavigationItemState();
+    }
+
+    private void setupBottomNavigation() {
+        mNavigationButtonPreviousDay = findViewById(R.id.bottom_navigation_item_previous_day);
+        mNavigationButtonSettings = findViewById(R.id.bottom_navigation_item_settings);
+        mNavigationButtonNextDay = findViewById(R.id.bottom_navigation_item_next_day);
+
+        ImageView iv = (ImageView) mNavigationButtonPreviousDay.findViewById(R.id.bottom_navigation_item_icon);
+        TextView tv = (TextView) mNavigationButtonPreviousDay.findViewById(R.id.bottom_navigation_item_text);
+        iv.setImageResource(R.drawable.ic_action_previous_day);
+        tv.setText(R.string.action_previous_day_title);
+
+        iv = (ImageView) mNavigationButtonSettings.findViewById(R.id.bottom_navigation_item_icon);
+        tv = (TextView) mNavigationButtonSettings.findViewById(R.id.bottom_navigation_item_text);
+        iv.setImageResource(R.drawable.ic_action_settings);
+        iv.setImageTintList(getColorStateList(R.color.bottom_navigation_selectable_item_text_icon_color));
+        tv.setText(R.string.settings_title);
+        tv.setTextColor(getColorStateList(R.color.bottom_navigation_selectable_item_text_icon_color));
+
+        iv = (ImageView) mNavigationButtonNextDay.findViewById(R.id.bottom_navigation_item_icon);
+        tv = (TextView) mNavigationButtonNextDay.findViewById(R.id.bottom_navigation_item_text);
+        iv.setImageResource(R.drawable.ic_action_next_day);
+        tv.setText(R.string.action_next_day_title);
+    }
+
+    private void updateActionBar() {
+        TimeZone myTimezone = TimeZone.getDefault();
+        Calendar calendar = new GregorianCalendar(myTimezone);
+        mActionBarSubTitles = new String[mNumForecastDays];
+
+        for (int i = 0; i <mActionBarSubTitles.length; i++) {
+            if (i == 0) {
+                mActionBarSubTitles[i] = getResources().getString(R.string.today_title);
+            } else {
+                calendar.add(Calendar.DAY_OF_YEAR, 1);
+                mActionBarSubTitles[i] = WeatherInfo.getFormattedDate(calendar.getTime(), false);
+            }
+        }
+        String noWeatherDataPart = mWeatherInfo == null
+                ? getResources().getString(R.string.action_bar_no_weather_data_part) : "";
+        getSupportActionBar().setSubtitle(mActionBarSubTitles[mVisibleDay] + noWeatherDataPart);
+    }
+
+    private void updateBottomNavigationItemState() {
+        mNavigationButtonPreviousDay.setEnabled(mVisibleDay > TODAY && mWeatherInfo != null);
+        mNavigationButtonNextDay.setEnabled(
+                mVisibleDay < (mNumForecastDays - 1) && mWeatherInfo != null);
+    }
+
+    public void onBottomNavigationItemClick(View v) {
+        if (v == mNavigationButtonPreviousDay) {
+            mVisibleDay--;
+            updateContent(WeatherFragment.ANIMATE_CARDS_SWITCH);
+        } else if (v == mNavigationButtonSettings) {
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
+        } else {
+            mVisibleDay++;
+            updateContent(WeatherFragment.ANIMATE_CARDS_SWITCH);
+        }
+    }
+
     @Override
     public void onBackPressed() {
-        if (mVisibleScreen > TODAY) {
-            mVisibleScreen = TODAY;
-            updateContent();
+        if (mVisibleDay > TODAY) {
+            mVisibleDay = TODAY;
+            updateContent(WeatherFragment.ANIMATE_CARDS_SWITCH);
         } else {
             finish();
         }
@@ -368,11 +309,37 @@ public class MainActivity extends BaseActivity implements OnClickListener, OnLon
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        outState.putInt(KEY_VISIBLE_SCREEN, mVisibleScreen);
+        outState.putInt(KEY_VISIBLE_DAY, mVisibleDay);
         super.onSaveInstanceState(outState);
     }
 
-    public void recreateForThemeChange() {
-        recreate();
+    class WeatherObserver extends ContentObserver {
+        WeatherObserver(Handler handler) {
+            super(handler);
+        }
+
+        void observe() {
+            mResolver.registerContentObserver(WEATHER_URI, false, this);
+        }
+
+        void unobserve() {
+            mResolver.unregisterContentObserver(this);
+        }
+
+        @Override
+        public void onChange(boolean selfChange) {
+            updateWeather();
+            if (mWeatherInfo == null) {
+                Log.e(ACTIVITY_TAG, "Error retrieving weather data");
+                if (mUpdateRequested) {
+                    mUpdateRequested = false;
+                }
+            } else {
+                if (mUpdateRequested) {
+                    showToast(R.string.weather_updated);
+                    mUpdateRequested = false;
+                }
+            }
+        }
     }
 }

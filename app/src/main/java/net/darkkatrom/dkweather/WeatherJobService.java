@@ -191,7 +191,7 @@ public class WeatherJobService extends JobService {
 
     private PendingIntent getContentIntent(int requestCode, int day) {
         Bundle b = new Bundle();
-        b.putInt(MainActivity.KEY_VISIBLE_SCREEN, day);
+        b.putInt(MainActivity.KEY_VISIBLE_DAY, day);
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtras(b);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.darkkatrom.dkweather.colorpicker.animator;
+package net.darkkatrom.dkweather.animator;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

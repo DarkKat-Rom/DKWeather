@@ -23,6 +23,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewPropertyAnimator;
 
+import net.darkkatrom.dkweather.animator.BaseItemAnimator;
 import net.darkkatrom.dkweather.colorpicker.adapter.ColorPickerCardAdapter.CardViewHolder;
 import net.darkkatrom.dkweather.colorpicker.util.ColorPickerHelper;
 

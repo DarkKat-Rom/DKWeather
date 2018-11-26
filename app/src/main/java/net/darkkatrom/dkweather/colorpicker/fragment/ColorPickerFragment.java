@@ -48,13 +48,13 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import net.darkkatrom.dkweather.R;
+import net.darkkatrom.dkweather.animator.BaseItemAnimator;
 import net.darkkatrom.dkweather.utils.ColorUtil;
 import net.darkkatrom.dkweather.utils.Config;
 import net.darkkatrom.dkweather.utils.ThemeUtil;
 import net.darkkatrom.dkweather.colorpicker.ColorPickerActivity;
 import net.darkkatrom.dkweather.colorpicker.ColorPickerSettingsActivity;
 import net.darkkatrom.dkweather.colorpicker.adapter.ColorPickerCardAdapter;
-import net.darkkatrom.dkweather.colorpicker.animator.BaseItemAnimator;
 import net.darkkatrom.dkweather.colorpicker.animator.ColorPickerCardAnimator;
 import net.darkkatrom.dkweather.colorpicker.animator.ColorPickerFragmentAnimator;
 import net.darkkatrom.dkweather.colorpicker.model.ColorPickerCard;
