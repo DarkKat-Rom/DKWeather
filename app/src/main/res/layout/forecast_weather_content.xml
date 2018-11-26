@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) Copyright (C) 2016 DarkKat
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:visibility="gone">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/forecast_card_update_time_layout_padding"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/forecast_weather"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/forecast_title"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="?android:attr/textColorPrimary" />
+
+        <TextView
+            android:id="@+id/forecast_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/forecast_card_update_time_text_margin_top"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="?android:attr/textColorSecondary" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/forecast_card_condition_temp_layout_padding_start_end"
+        android:paddingEnd="@dimen/forecast_card_condition_temp_layout_padding_start_end"
+        android:paddingBottom="@dimen/forecast_card_condition_temp_layout_padding_bottom"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:id="@+id/forecast_condition_image"
+            android:layout_width="@dimen/forecast_card_condition_image_size"
+            android:layout_height="@dimen/forecast_card_condition_image_size"
+            android:src="@android:drawable/ic_dialog_alert"
+            android:tintMode="multiply"
+            android:scaleType="fitCenter" />
+
+        <View
+            android:id="@+id/forecast_image_divider"
+            android:layout_width="@dimen/forecast_card_condition_image_divider_width"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/forecast_card_condition_image_divider_margin_start_end"
+            android:layout_marginEnd="@dimen/forecast_card_condition_image_divider_margin_start_end"
+            android:background="@drawable/divider_background" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/forecast_temp_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="?android:attr/textColorPrimary" />
+
+            <View
+                android:id="@+id/forecast_temp_condition_divider"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/forecast_card_condition_temp_divider_height"
+                android:layout_marginTop="@dimen/forecast_card_condition_temp_divider_margin_top_bottom"
+                android:layout_marginBottom="@dimen/forecast_card_condition_temp_divider_margin_top_bottom"
+                android:background="@drawable/divider_background" />
+
+            <TextView
+                android:id="@+id/forecast_condition_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="?android:attr/textColorPrimary" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/forecast_expanded_content_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/forecast_card_expanded_content_layout_padding_start_end"
+        android:paddingTop="@dimen/forecast_card_expanded_content_layout_padding_top_bottom"
+        android:paddingEnd="@dimen/forecast_card_expanded_content_layout_padding_start_end"
+        android:paddingBottom="@dimen/forecast_card_expanded_content_layout_padding_top_bottom">
+
+        <LinearLayout
+            android:layout_width="@dimen/forecast_card_expanded_content_inner_layout_width"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="left"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/forecast_precipitation_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/precipitation_title"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="?android:attr/textColorPrimary" />
+
+            <TextView
+                android:id="@+id/forecast_precipitation_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/no_precipitation_value"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="?android:attr/textColorSecondary" />
+
+            <Space
+                android:layout_width="@dimen/forecast_card_expanded_content_space_width"
+                android:layout_height="@dimen/forecast_card_expanded_content_space_height" />
+
+            <TextView
+                android:id="@+id/forecast_wind_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/wind_title"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="?android:attr/textColorPrimary" />
+
+            <TextView
+                android:id="@+id/forecast_wind_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="?android:attr/textColorSecondary" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="@dimen/forecast_card_expanded_content_inner_layout_width"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="left"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/forecast_humidity_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/humidity_title"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="?android:attr/textColorPrimary" />
+
+            <TextView
+                android:id="@+id/forecast_humidity_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="?android:attr/textColorSecondary" />
+
+            <Space
+                android:layout_width="@dimen/forecast_card_expanded_content_space_width"
+                android:layout_height="@dimen/forecast_card_expanded_content_space_height" />
+
+            <TextView
+                android:id="@+id/forecast_pressure_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/pressure_title"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="?android:attr/textColorPrimary" />
+
+            <TextView
+                android:id="@+id/forecast_pressure_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="?android:attr/textColorSecondary" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/forecast_expand_collapse_button_divider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/forecast_card_expanded_content_expand_collapse_button_divider_height"
+        android:background="@drawable/divider_background"
+        android:alpha="0"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/forecast_expand_collapse_button"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/forecast_card_expanded_content_expand_collapse_button_height"
+        android:paddingStart="@dimen/forecast_card_expanded_content_expand_collapse_button_padding_start_end"
+        android:paddingEnd="@dimen/forecast_card_expanded_content_expand_collapse_button_padding_start_end"
+        android:layout_gravity="right"
+        android:gravity="center_vertical"
+        android:clickable="true"
+        android:background="@drawable/ripple_drawable_rectangle">
+
+        <TextView
+            android:id="@+id/forecast_expand_collapse_button_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/forecast_card_expanded_content_expand_collapse_button_text_margin_end"
+            android:paddingStart="@dimen/forecast_card_expanded_content_expand_collapse_button_text_padding_start"
+            android:text="@string/expand_card"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="?android:attr/textColorPrimary" />
+
+        <ImageView
+            android:id="@+id/forecast_expand_collapse_button_icon"
+            android:layout_width="@dimen/forecast_card_expanded_content_expand_collapse_button_icon_width"
+            android:layout_height="@dimen/forecast_card_expanded_content_expand_collapse_button_icon_height"
+            android:paddingEnd="@dimen/forecast_card_expanded_content_expand_collapse_button_icon_padding_end"
+            android:src="@drawable/ic_expand_more"
+            android:tint="?attr/colorControlNormal"
+            android:tintMode="multiply"
+            android:scaleType="centerInside" />
+
+    </LinearLayout>
+</LinearLayout>
