@@ -39,6 +39,7 @@ public class WeatherFragmentNew extends Fragment implements
         WeatherCardAdapter.OnCardClickedListener {
 
     private RecyclerView mContentList;
+    private View mNoWeatherDataLayout;
 
     private WeatherInfo mWeatherInfo;
 
@@ -52,6 +53,7 @@ public class WeatherFragmentNew extends Fragment implements
             Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.weather_fragment, container, false);
         mContentList = (RecyclerView) v.findViewById(R.id.weather_fragment_list);
+        mNoWeatherDataLayout = v.findViewById(R.id.no_weather_data_layout);
         return v;
     }
 
@@ -60,8 +62,13 @@ public class WeatherFragmentNew extends Fragment implements
     }
 
     public void updateContent(WeatherInfo weather) {
-        if (getActivity() == null || weather == null) {
+        if (weather == null) {
+            mContentList.setVisibility(View.GONE);
+            mNoWeatherDataLayout.setVisibility(View.VISIBLE);
             return;
+        } else {
+            mContentList.setVisibility(View.VISIBLE);
+            mNoWeatherDataLayout.setVisibility(View.GONE);
         }
 
         mWeatherInfo = weather;
