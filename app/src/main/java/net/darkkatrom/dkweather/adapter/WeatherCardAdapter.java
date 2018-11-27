@@ -347,21 +347,14 @@ public class WeatherCardAdapter extends
             public View mImageDivider;
             public TextView mTemp;
             public TextView mTempLowHight;
-            public View mTempDivider;
             public TextView mCondition;
             public TextView[] mDayTempsValues;
             public View mExpandedContent;
-            public TextView mPrecipitationTitle;
             public TextView mPrecipitationValue;
-            public TextView mWindTitle;
             public TextView mWindValue;
-            public TextView mSunriseTitle;
             public TextView mSunriseValue;
-            public TextView mHumidityTitle;
             public TextView mHumidityValue;
-            public TextView mPressureTitle;
             public TextView mPressureValue;
-            public TextView mSunsetTitle;
             public TextView mSunsetValue;
             private View mExpandCollapseButtonDivider;
             private TextView mProviderLink;
@@ -374,15 +367,8 @@ public class WeatherCardAdapter extends
                 mImage = (ImageView) v.findViewById(R.id.current_condition_image);
                 mImageDivider = v.findViewById(R.id.current_image_divider);
                 mTemp = (TextView) v.findViewById(R.id.current_temp);
-                mTempDivider = v.findViewById(R.id.current_temp_divider);
                 mTempLowHight = (TextView) v.findViewById(R.id.current_low_high);
                 mCondition = (TextView) v.findViewById(R.id.current_condition);
-                TextView[] dayTempsTitles = {
-                    (TextView) v.findViewById(R.id.current_temp_morning_title),
-                    (TextView) v.findViewById(R.id.current_temp_day_title),
-                    (TextView) v.findViewById(R.id.current_temp_evening_title),
-                    (TextView) v.findViewById(R.id.current_temp_night_title)
-                };
                 mDayTempsValues = new TextView[] {
                         (TextView) v.findViewById(R.id.current_temp_morning_value),
                         (TextView) v.findViewById(R.id.current_temp_day_value),
@@ -390,17 +376,11 @@ public class WeatherCardAdapter extends
                         (TextView) v.findViewById(R.id.current_temp_night_value)
                 };
                 mExpandedContent = v.findViewById(R.id.current_expanded_content_layout);
-                mPrecipitationTitle = (TextView) v.findViewById(R.id.current_precipitation_title);
                 mPrecipitationValue = (TextView) v.findViewById(R.id.current_precipitation_value);
-                mWindTitle = (TextView) v.findViewById(R.id.current_wind_title);
                 mWindValue = (TextView) v.findViewById(R.id.current_wind_value);
-                mSunriseTitle = (TextView) v.findViewById(R.id.current_sunrise_title);
                 mSunriseValue = (TextView) v.findViewById(R.id.current_sunrise_value);
-                mHumidityTitle = (TextView) v.findViewById(R.id.current_humidity_title);
                 mHumidityValue = (TextView) v.findViewById(R.id.current_humidity_value);
-                mPressureTitle = (TextView) v.findViewById(R.id.current_pressure_title);
                 mPressureValue = (TextView) v.findViewById(R.id.current_pressure_value);
-                mSunsetTitle = (TextView) v.findViewById(R.id.current_sunset_title);
                 mSunsetValue = (TextView) v.findViewById(R.id.current_sunset_value);
                 mExpandCollapseButtonDivider = 
                         v.findViewById(R.id.current_expand_collapse_button_divider);
@@ -417,11 +397,11 @@ public class WeatherCardAdapter extends
         }
 
         public static class ForecastContentViewHolder {
-            public View mExpandedContent;
             public TextView mTimeValue;
             public ImageView mImage;
             public TextView mTempValue;
             public TextView mConditionValue;
+            public View mExpandedContent;
             public TextView mPrecipitationValue;
             public TextView mWindValue;
             public TextView mHumidityValue;
@@ -432,11 +412,11 @@ public class WeatherCardAdapter extends
             public ImageView mExpandCollapseButtonIcon;
 
             public ForecastContentViewHolder(View v) {
-                mExpandedContent = v.findViewById(R.id.forecast_expanded_content_layout);
                 mTimeValue = (TextView) v.findViewById(R.id.forecast_time);
                 mImage = (ImageView) v.findViewById(R.id.forecast_condition_image);
                 mTempValue = (TextView) v.findViewById(R.id.forecast_temp_value);
                 mConditionValue = (TextView) v.findViewById(R.id.forecast_condition_value);
+                mExpandedContent = v.findViewById(R.id.forecast_expanded_content_layout);
                 mPrecipitationValue = 
                         (TextView) v.findViewById(R.id.forecast_precipitation_value);
                 mWindValue = (TextView) v.findViewById(R.id.forecast_wind_value);
