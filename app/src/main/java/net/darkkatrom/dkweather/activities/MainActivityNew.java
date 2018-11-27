@@ -45,6 +45,11 @@ import net.darkkatrom.dkweather.utils.Config;
 import net.darkkatrom.dkweather.utils.JobUtil;
 import net.darkkatrom.dkweather.utils.NotificationUtil;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.Locale;
+import java.util.TimeZone;
+
 public class MainActivityNew extends BaseActivity implements OnClickListener, OnLongClickListener {
     private static final String ACTIVITY_TAG = "DKWeather:MainActivity";
     private static final String FRAGMENT_TAG = "weather_fragment";
@@ -64,6 +69,8 @@ public class MainActivityNew extends BaseActivity implements OnClickListener, On
 
     private WeatherInfo mWeatherInfo;
     private long mTimestamp = -1;
+
+    private CharSequence[] mActionBarSubTitles;
 
     private boolean mUpdateRequested = false;
 
@@ -220,6 +227,7 @@ public class MainActivityNew extends BaseActivity implements OnClickListener, On
     private void updateContent() {
         mFragment.setVisibleDay(mVisibleDay);
         mFragment.updateContent(mWeatherInfo);
+        updateActionBar();
         updateBottomNavigationItemState();
     }
 
@@ -244,6 +252,24 @@ public class MainActivityNew extends BaseActivity implements OnClickListener, On
         tv = (TextView) mNavigationButtonNextDay.findViewById(R.id.bottom_navigation_item_text);
         iv.setImageResource(R.drawable.ic_action_next_day);
         tv.setText(R.string.action_next_day_title);
+    }
+
+    private void updateActionBar() {
+        TimeZone myTimezone = TimeZone.getDefault();
+        Calendar calendar = new GregorianCalendar(myTimezone);
+        mActionBarSubTitles = new String[mNumForecastDays];
+
+        for (int i = 0; i <mActionBarSubTitles.length; i++) {
+            if (i == 0) {
+                mActionBarSubTitles[i] = getResources().getString(R.string.today_title);
+            } else {
+                calendar.add(Calendar.DAY_OF_YEAR, 1);
+                mActionBarSubTitles[i] = WeatherInfo.getFormattedDate(calendar.getTime(), false);
+            }
+        }
+        String noWeatherDataPart = mWeatherInfo == null
+                ? getResources().getString(R.string.action_bar_no_weather_data_part) : "";
+        getSupportActionBar().setSubtitle(mActionBarSubTitles[mVisibleDay] + noWeatherDataPart);
     }
 
     private void updateBottomNavigationItemState() {
