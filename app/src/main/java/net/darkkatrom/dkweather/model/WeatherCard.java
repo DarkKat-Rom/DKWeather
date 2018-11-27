@@ -20,6 +20,10 @@ import android.content.Context;
 import android.content.res.Resources;
 
 public class WeatherCard {
+    public static final int VIEW_TYPE_CURRENT_WEATHER   = 0;
+    public static final int VIEW_TYPE_FORECAST_WEATHER  = 1;
+    public static final int VIEW_TYPE_FORECAST_DAYTEMPS = 2;
+
     private Context mContext;
     private Resources mResources;
     private int mViewType;

@@ -100,14 +100,7 @@ public class MainActivityNew extends BaseActivity implements OnClickListener, On
         super.onResume();
 
         mWeatherObserver.observe();
-        long newTimestamp = 0;
-        WeatherInfo newWeatherInfo = Config.getWeatherData(this);
-        if (newWeatherInfo != null) {
-            newTimestamp = newWeatherInfo.getTimestamp();
-        }
-        if (mTimestamp != newTimestamp) {
-            updateWeather();
-        }
+        updateWeather();
     }
 
     @Override
@@ -177,13 +170,19 @@ public class MainActivityNew extends BaseActivity implements OnClickListener, On
     }
 
     public void updateWeather() {
+        long newTimestamp = 0;
         mWeatherInfo = Config.getWeatherData(this);
+
         if (mWeatherInfo == null) {
-            mTimestamp = 0;
+            newTimestamp = 0;
         } else {
-            mTimestamp = mWeatherInfo.getTimestamp();
+            newTimestamp = mWeatherInfo.getTimestamp();
         }
-        updateContent();
+
+        if (mTimestamp != newTimestamp) {
+            mTimestamp = newTimestamp;
+            updateContent();
+        }
     }
 
     private void updateContent() {

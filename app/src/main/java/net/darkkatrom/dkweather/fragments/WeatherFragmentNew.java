@@ -27,6 +27,7 @@ import android.view.ViewGroup;
 
 import net.darkkatrom.dkweather.R;
 import net.darkkatrom.dkweather.WeatherInfo;
+import net.darkkatrom.dkweather.WeatherInfo.HourForecast;
 import net.darkkatrom.dkweather.adapter.WeatherCardAdapter;
 import net.darkkatrom.dkweather.model.WeatherCard;
 
@@ -55,19 +56,34 @@ public class WeatherFragmentNew extends Fragment implements
         if (getActivity() == null || weather == null) {
             return;
         }
+
         mWeatherInfo = weather;
+
         if (mWeatherCards == null) {
             mWeatherCards = new ArrayList<WeatherCard>();
-            mWeatherCards.add(new WeatherCard(getActivity(), 0));
+        } else {
+            int itemCount = mWeatherCards.size();
+            mWeatherCards.clear();
+            mCardAdapter.notifyItemRangeRemoved(0, itemCount);
         }
-        
+
+        mWeatherCards.add(new WeatherCard(getActivity(), WeatherCard.VIEW_TYPE_CURRENT_WEATHER));
+
+        String forecastDay = mWeatherInfo.getHourForecastDays().get(0);
+        ArrayList<HourForecast> hourForecasts = mWeatherInfo.getHourForecastsDay(forecastDay);
+        if (hourForecasts.size() != 0) {
+            for (int i = 0; i < hourForecasts.size(); i++) {
+                mWeatherCards.add(new WeatherCard(getActivity(), WeatherCard.VIEW_TYPE_FORECAST_WEATHER));
+            }
+        }
+
         if (mCardAdapter == null) {
             mCardAdapter = new WeatherCardAdapter(getActivity(), mWeatherCards, mWeatherInfo);
             mContentList.setAdapter(mCardAdapter);
             mCardAdapter.setOnCardClickedListener(this);
         } else {
             mCardAdapter.updateWeatherInfo(mWeatherInfo);
-            mCardAdapter.notifyItemChanged(0);
+            mCardAdapter.notifyItemRangeInserted(0, mWeatherCards.size());
         }
     }
 
