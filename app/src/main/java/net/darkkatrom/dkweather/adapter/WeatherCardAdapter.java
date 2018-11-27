@@ -44,6 +44,8 @@ public class WeatherCardAdapter extends
     private Context mContext;
     private List<WeatherCard> mWeatherCards;
     private WeatherInfo mWeatherInfo;
+    private int mVisibleDay = 0;
+    private boolean mForecastStartAt1 = true;
 
     private OnCardClickedListener mOnCardClickedListener;
 
@@ -145,6 +147,25 @@ public class WeatherCardAdapter extends
             }
 
             updateForecastWeather(holder.mForecastContent, position);
+        } else {
+            holder.mCurrentContentView.setVisibility(View.GONE);
+            holder.mForecastContentView.setVisibility(View.GONE);
+            holder.mForecastDaytempsContentView.setVisibility(View.VISIBLE);
+
+            if (mWeatherInfo != null) {
+                holder.mForecastDaytempsContent.mProviderLink.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {       
+                        if (mOnCardClickedListener != null) {
+                            mOnCardClickedListener.onCardProviderLinkClicked();
+                        }
+                    }
+                });
+            } else {
+                holder.mForecastDaytempsContent.mProviderLink.setOnClickListener(null);
+                holder.mForecastDaytempsContent.mProviderLink.setClickable(false);
+            }
+            updateForecastDaytemps(holder.mForecastDaytempsContent);
         }
     }
 
@@ -161,7 +182,15 @@ public class WeatherCardAdapter extends
         mWeatherInfo = weatherInfo;
     }
 
-    public void updateCurrentWeather(CardViewHolder.CurrentContentViewHolder holder) {
+    public void setVisibleDay(int visibleDay) {
+        mVisibleDay = visibleDay;
+    }
+
+    public void setForecastStartAt1(boolean startAt1) {
+        mForecastStartAt1 = startAt1;
+    }
+
+    private void updateCurrentWeather(CardViewHolder.CurrentContentViewHolder holder) {
         if (mWeatherInfo == null) {
             return;
         }
@@ -198,16 +227,16 @@ public class WeatherCardAdapter extends
         holder.mSunsetValue.setText(mWeatherInfo.getSunset());
     }
 
-    public void updateForecastWeather(CardViewHolder.ForecastContentViewHolder holder, int position) {
+    private void updateForecastWeather(CardViewHolder.ForecastContentViewHolder holder, int position) {
         if (mWeatherInfo == null) {
             return;
         }
 
-        String forecastDay = mWeatherInfo.getHourForecastDays().get(0);
+        String forecastDay = mWeatherInfo.getHourForecastDays().get(mVisibleDay);
         ArrayList<HourForecast> hourForecasts = mWeatherInfo.getHourForecastsDay(forecastDay);
         HourForecast h = null;
         if (hourForecasts.size() != 0) {
-            h = hourForecasts.get(position - 1);
+            h = hourForecasts.get(mForecastStartAt1 ? position - 1 : position);
         }
 
         if (h == null) {
@@ -242,6 +271,28 @@ public class WeatherCardAdapter extends
         holder.mWindValue.setText(h.getFormattedWind());
         holder.mHumidityValue.setText(h.getFormattedHumidity());
         holder.mPressureValue.setText(h.getFormattedPressure());
+    }
+
+    private void updateForecastDaytemps(CardViewHolder.ForecastDaytempsContentViewHolder holder) {
+        if (mWeatherInfo == null) {
+            return;
+        }
+
+        final String[] tempValues = {
+            mWeatherInfo.getForecasts().get(mVisibleDay).getFormattedMorning(),
+            mWeatherInfo.getForecasts().get(mVisibleDay).getFormattedDay(),
+            mWeatherInfo.getForecasts().get(mVisibleDay).getFormattedEvening(),
+            mWeatherInfo.getForecasts().get(mVisibleDay).getFormattedNight()
+        };
+        for (int i = 0; i < holder.mDayTempsValues.length; i++) {
+            holder.mDayTempsValues[i].setText(tempValues[i]);
+        }
+        final String min =
+                mWeatherInfo.getForecasts().get(mVisibleDay).getFormattedLow();
+        final String max =
+                mWeatherInfo.getForecasts().get(mVisibleDay).getFormattedHigh();
+        holder.mMinValue.setText(min);
+        holder.mMaxValue.setText(max);
     }
 
     private void setPrecipitation(TextView tv) {
@@ -403,9 +454,21 @@ public class WeatherCardAdapter extends
         }
 
         public static class ForecastDaytempsContentViewHolder {
+            private TextView[] mDayTempsValues;
+            private TextView mMinValue;
+            private TextView mMaxValue;
+            private TextView mProviderLink;
 
             public ForecastDaytempsContentViewHolder(View v) {
-
+                mDayTempsValues = new TextView[] {
+                        (TextView) v.findViewById(R.id.forecast_weather_temp_morning_value),
+                        (TextView) v.findViewById(R.id.forecast_weather_temp_day_value),
+                        (TextView) v.findViewById(R.id.forecast_weather_temp_evening_value),
+                        (TextView) v.findViewById(R.id.forecast_weather_temp_night_value)
+                };
+                mMinValue = (TextView) v.findViewById(R.id.forecast_weather_min_value);
+                mMaxValue = (TextView) v.findViewById(R.id.forecast_weather_max_value);
+                mProviderLink = (TextView) v.findViewById(R.id.forecast_daytemps_provider_link);
             }
         }
 

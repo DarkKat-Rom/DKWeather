@@ -28,6 +28,7 @@ import android.view.ViewGroup;
 import net.darkkatrom.dkweather.R;
 import net.darkkatrom.dkweather.WeatherInfo;
 import net.darkkatrom.dkweather.WeatherInfo.HourForecast;
+import net.darkkatrom.dkweather.activities.MainActivityNew;
 import net.darkkatrom.dkweather.adapter.WeatherCardAdapter;
 import net.darkkatrom.dkweather.model.WeatherCard;
 
@@ -44,12 +45,18 @@ public class WeatherFragmentNew extends Fragment implements
     private WeatherCardAdapter mCardAdapter = null;
     private List<WeatherCard> mWeatherCards;
 
+    private int mVisibleDay = MainActivityNew.TODAY;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.weather_fragment, container, false);
         mContentList = (RecyclerView) v.findViewById(R.id.weather_fragment_list);
         return v;
+    }
+
+    public void setVisibleDay(int visibleDay) {
+        mVisibleDay = visibleDay;
     }
 
     public void updateContent(WeatherInfo weather) {
@@ -67,9 +74,18 @@ public class WeatherFragmentNew extends Fragment implements
             mCardAdapter.notifyItemRangeRemoved(0, itemCount);
         }
 
-        mWeatherCards.add(new WeatherCard(getActivity(), WeatherCard.VIEW_TYPE_CURRENT_WEATHER));
+        boolean forecastStartAt1 = true;
+        if (mVisibleDay == MainActivityNew.TODAY) {
+            mWeatherCards.add(new WeatherCard(getActivity(), WeatherCard.VIEW_TYPE_CURRENT_WEATHER));
+        } else {
+            if (!(mWeatherInfo.getForecasts().size() < mVisibleDay + 1)) {
+                mWeatherCards.add(new WeatherCard(getActivity(), WeatherCard.VIEW_TYPE_FORECAST_DAYTEMPS));
+            } else {
+                forecastStartAt1 = false;
+            }
+        }
 
-        String forecastDay = mWeatherInfo.getHourForecastDays().get(0);
+        String forecastDay = mWeatherInfo.getHourForecastDays().get(mVisibleDay);
         ArrayList<HourForecast> hourForecasts = mWeatherInfo.getHourForecastsDay(forecastDay);
         if (hourForecasts.size() != 0) {
             for (int i = 0; i < hourForecasts.size(); i++) {
@@ -79,10 +95,14 @@ public class WeatherFragmentNew extends Fragment implements
 
         if (mCardAdapter == null) {
             mCardAdapter = new WeatherCardAdapter(getActivity(), mWeatherCards, mWeatherInfo);
+            mCardAdapter.setVisibleDay(mVisibleDay);
+            mCardAdapter.setForecastStartAt1(forecastStartAt1);
             mContentList.setAdapter(mCardAdapter);
             mCardAdapter.setOnCardClickedListener(this);
         } else {
+            mCardAdapter.setVisibleDay(mVisibleDay);
             mCardAdapter.updateWeatherInfo(mWeatherInfo);
+            mCardAdapter.setForecastStartAt1(forecastStartAt1);
             mCardAdapter.notifyItemRangeInserted(0, mWeatherCards.size());
         }
     }

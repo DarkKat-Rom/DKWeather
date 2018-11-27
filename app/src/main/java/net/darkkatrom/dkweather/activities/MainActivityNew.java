@@ -53,6 +53,8 @@ public class MainActivityNew extends BaseActivity implements OnClickListener, On
 
     private static final int TOAST_SPACE_TOP = 24;
 
+    public static final int TODAY = 0;
+
     private Handler mHandler;
     private ContentResolver mResolver;
     private WeatherObserver mWeatherObserver;
@@ -64,9 +66,14 @@ public class MainActivityNew extends BaseActivity implements OnClickListener, On
 
     private ImageView mUpdateButton;
 
+    private View mNavigationButtonPreviousDay;
     private View mNavigationButtonSettings;
+    private View mNavigationButtonNextDay;
 
     private WeatherFragmentNew mFragment = null;
+
+    private int mVisibleDay = TODAY;
+    private int mNumForecastDays = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -175,8 +182,15 @@ public class MainActivityNew extends BaseActivity implements OnClickListener, On
 
         if (mWeatherInfo == null) {
             newTimestamp = 0;
+            mVisibleDay = TODAY;
+            mNumForecastDays = 1;
         } else {
             newTimestamp = mWeatherInfo.getTimestamp();
+            if (mWeatherInfo.getHourForecastDays().size() > 0) {
+                mNumForecastDays = mWeatherInfo.getHourForecastDays().size();
+            } else {
+                mNumForecastDays = 1;
+            }
         }
 
         if (mTimestamp != newTimestamp) {
@@ -186,30 +200,60 @@ public class MainActivityNew extends BaseActivity implements OnClickListener, On
     }
 
     private void updateContent() {
+        mFragment.setVisibleDay(mVisibleDay);
         mFragment.updateContent(mWeatherInfo);
+        updateBottomNavigationItemState();
     }
 
     private void setupBottomNavigation() {
-        findViewById(R.id.bottom_navigation_item_previous_day).setVisibility(View.INVISIBLE);
+        mNavigationButtonPreviousDay = findViewById(R.id.bottom_navigation_item_previous_day);
         mNavigationButtonSettings = findViewById(R.id.bottom_navigation_item_settings);
-        findViewById(R.id.bottom_navigation_item_next_day).setVisibility(View.INVISIBLE);
+        mNavigationButtonNextDay = findViewById(R.id.bottom_navigation_item_next_day);
 
-        ImageView iv =
-                (ImageView) mNavigationButtonSettings.findViewById(R.id.bottom_navigation_item_icon);
-        TextView tv =
-                (TextView) mNavigationButtonSettings.findViewById(R.id.bottom_navigation_item_text);
+        ImageView iv = (ImageView) mNavigationButtonPreviousDay.findViewById(R.id.bottom_navigation_item_icon);
+        TextView tv = (TextView) mNavigationButtonPreviousDay.findViewById(R.id.bottom_navigation_item_text);
+        iv.setImageResource(R.drawable.ic_action_previous_day);
+        tv.setText(R.string.action_previous_day_title);
+
+        iv = (ImageView) mNavigationButtonSettings.findViewById(R.id.bottom_navigation_item_icon);
+        tv = (TextView) mNavigationButtonSettings.findViewById(R.id.bottom_navigation_item_text);
         iv.setImageResource(R.drawable.ic_action_settings);
-        iv.setImageTintList(getColorStateList(
-                R.color.bottom_navigation_selectable_item_text_icon_color));
+        iv.setImageTintList(getColorStateList(R.color.bottom_navigation_selectable_item_text_icon_color));
         tv.setText(R.string.settings_title);
-        tv.setTextColor(getColorStateList(
-                R.color.bottom_navigation_selectable_item_text_icon_color));
+        tv.setTextColor(getColorStateList(R.color.bottom_navigation_selectable_item_text_icon_color));
+
+        iv = (ImageView) mNavigationButtonNextDay.findViewById(R.id.bottom_navigation_item_icon);
+        tv = (TextView) mNavigationButtonNextDay.findViewById(R.id.bottom_navigation_item_text);
+        iv.setImageResource(R.drawable.ic_action_next_day);
+        tv.setText(R.string.action_next_day_title);
+    }
+
+    private void updateBottomNavigationItemState() {
+        mNavigationButtonPreviousDay.setEnabled(mVisibleDay > TODAY && mWeatherInfo != null);
+        mNavigationButtonNextDay.setEnabled(
+                mVisibleDay < (mNumForecastDays - 1) && mWeatherInfo != null);
     }
 
     public void onBottomNavigationItemClick(View v) {
-        if (v == mNavigationButtonSettings) {
+        if (v == mNavigationButtonPreviousDay) {
+            mVisibleDay--;
+            updateContent();
+        } else if (v == mNavigationButtonSettings) {
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
+        } else {
+            mVisibleDay++;
+            updateContent();
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (mVisibleDay > TODAY) {
+            mVisibleDay = TODAY;
+            updateContent();
+        } else {
+            finish();
         }
     }
 
