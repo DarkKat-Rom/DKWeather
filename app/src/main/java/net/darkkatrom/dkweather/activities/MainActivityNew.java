@@ -46,10 +46,13 @@ import net.darkkatrom.dkweather.utils.JobUtil;
 import net.darkkatrom.dkweather.utils.NotificationUtil;
 
 public class MainActivityNew extends BaseActivity implements OnClickListener, OnLongClickListener {
-    private static final String TAG = "DKWeather:MainActivity";
+    private static final String ACTIVITY_TAG = "DKWeather:MainActivity";
+    private static final String FRAGMENT_TAG = "weather_fragment";
 
     private static final Uri WEATHER_URI =
             Uri.parse("content://net.darkkatrom.dkweather.provider/weather");
+
+    public static final String KEY_VISIBLE_DAY  = "visible_day";
 
     private static final int TOAST_SPACE_TOP = 24;
 
@@ -85,10 +88,17 @@ public class MainActivityNew extends BaseActivity implements OnClickListener, On
 
         NotificationUtil notificationUtil = new NotificationUtil(this);
         notificationUtil.setNotificationChannels();
-        mFragment = new WeatherFragmentNew();
-        getFragmentManager().beginTransaction()
-                .replace(R.id.fragment_content, mFragment)
-                .commit();
+
+        if (savedInstanceState == null) {
+            createOrRestoreState(getIntent().getExtras());
+            mFragment = new WeatherFragmentNew();
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_content, mFragment, FRAGMENT_TAG)
+                    .commit();
+        } else {
+            createOrRestoreState(savedInstanceState);
+            mFragment = (WeatherFragmentNew) getFragmentManager().findFragmentByTag(FRAGMENT_TAG);
+        }
         setupBottomNavigation();
     }
 
@@ -176,6 +186,14 @@ public class MainActivityNew extends BaseActivity implements OnClickListener, On
         toast.show();
     }
 
+    private void createOrRestoreState(Bundle b) {
+        if (b == null) {
+            mVisibleDay = TODAY;
+        } else {
+            mVisibleDay = b.getInt(KEY_VISIBLE_DAY);
+        }
+    }
+
     public void updateWeather() {
         long newTimestamp = 0;
         mWeatherInfo = Config.getWeatherData(this);
@@ -257,6 +275,12 @@ public class MainActivityNew extends BaseActivity implements OnClickListener, On
         }
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putInt(KEY_VISIBLE_DAY, mVisibleDay);
+        super.onSaveInstanceState(outState);
+    }
+
     class WeatherObserver extends ContentObserver {
         WeatherObserver(Handler handler) {
             super(handler);
@@ -274,7 +298,7 @@ public class MainActivityNew extends BaseActivity implements OnClickListener, On
         public void onChange(boolean selfChange) {
             updateWeather();
             if (mWeatherInfo == null) {
-                Log.e(TAG, "Error retrieving weather data");
+                Log.e(ACTIVITY_TAG, "Error retrieving weather data");
                 if (mUpdateRequested) {
                     mUpdateRequested = false;
                 }
