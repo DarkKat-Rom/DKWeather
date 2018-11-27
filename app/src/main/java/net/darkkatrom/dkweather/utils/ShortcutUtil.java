@@ -76,7 +76,7 @@ public class ShortcutUtil {
             calendar.add(Calendar.DAY_OF_YEAR, 1);
 
             Bundle b = new Bundle();
-            b.putInt(MainActivity.KEY_VISIBLE_SCREEN, i + 1);
+            b.putInt(MainActivity.KEY_VISIBLE_DAY, i + 1);
             Intent intent = new Intent(mContext, MainActivity.class);
             intent.setAction(Intent.ACTION_MAIN);
             intent.putExtras(b);
