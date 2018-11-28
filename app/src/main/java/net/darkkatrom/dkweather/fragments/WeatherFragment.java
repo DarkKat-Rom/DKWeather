@@ -29,6 +29,7 @@ import net.darkkatrom.dkweather.R;
 import net.darkkatrom.dkweather.WeatherInfo;
 import net.darkkatrom.dkweather.WeatherInfo.HourForecast;
 import net.darkkatrom.dkweather.activities.MainActivity;
+import net.darkkatrom.dkweather.animator.BaseItemAnimator;
 import net.darkkatrom.dkweather.adapter.WeatherCardAdapter;
 import net.darkkatrom.dkweather.model.WeatherCard;
 
@@ -61,7 +62,7 @@ public class WeatherFragment extends Fragment implements
         mVisibleDay = visibleDay;
     }
 
-    public void updateContent(WeatherInfo weather) {
+    public void updateContent(WeatherInfo weather, boolean animate) {
         if (weather == null) {
             mContentList.setVisibility(View.GONE);
             mNoWeatherDataLayout.setVisibility(View.VISIBLE);
@@ -104,18 +105,29 @@ public class WeatherFragment extends Fragment implements
             mCardAdapter = new WeatherCardAdapter(getActivity(), mWeatherCards, mWeatherInfo);
             mCardAdapter.setVisibleDay(mVisibleDay);
             mCardAdapter.setForecastStartAt1(forecastStartAt1);
+            if (animate) {
+                mContentList.setItemAnimator(new BaseItemAnimator());
+            } else {
+                mContentList.setItemAnimator(null);
+            }
             mContentList.setAdapter(mCardAdapter);
             mCardAdapter.setOnCardClickedListener(this);
         } else {
             mCardAdapter.setVisibleDay(mVisibleDay);
             mCardAdapter.updateWeatherInfo(mWeatherInfo);
             mCardAdapter.setForecastStartAt1(forecastStartAt1);
+            if (animate) {
+                mContentList.setItemAnimator(new BaseItemAnimator());
+            } else {
+                mContentList.setItemAnimator(null);
+            }
             mCardAdapter.notifyItemRangeInserted(0, mWeatherCards.size());
         }
     }
 
     @Override
     public void onCardExpandCollapsedClicked(int position) {
+        mContentList.setItemAnimator(null);
         mWeatherCards.get(position).toggleIsExpanded();
         mCardAdapter.notifyItemChanged(position);
     }

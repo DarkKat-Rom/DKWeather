@@ -220,13 +220,13 @@ public class MainActivity extends BaseActivity implements OnClickListener, OnLon
 
         if (mTimestamp != newTimestamp) {
             mTimestamp = newTimestamp;
-            updateContent();
+            updateContent(false);
         }
     }
 
-    private void updateContent() {
+    private void updateContent(boolean animate) {
         mFragment.setVisibleDay(mVisibleDay);
-        mFragment.updateContent(mWeatherInfo);
+        mFragment.updateContent(mWeatherInfo, animate);
         updateActionBar();
         updateBottomNavigationItemState();
     }
@@ -281,13 +281,13 @@ public class MainActivity extends BaseActivity implements OnClickListener, OnLon
     public void onBottomNavigationItemClick(View v) {
         if (v == mNavigationButtonPreviousDay) {
             mVisibleDay--;
-            updateContent();
+            updateContent(true);
         } else if (v == mNavigationButtonSettings) {
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
         } else {
             mVisibleDay++;
-            updateContent();
+            updateContent(true);
         }
     }
 
@@ -295,7 +295,7 @@ public class MainActivity extends BaseActivity implements OnClickListener, OnLon
     public void onBackPressed() {
         if (mVisibleDay > TODAY) {
             mVisibleDay = TODAY;
-            updateContent();
+            updateContent(true);
         } else {
             finish();
         }

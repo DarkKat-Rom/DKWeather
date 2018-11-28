@@ -21,6 +21,7 @@ import android.graphics.drawable.Drawable;
 import android.content.res.ColorStateList;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.transition.TransitionManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,6 +48,8 @@ public class WeatherCardAdapter extends
     private int mVisibleDay = 0;
     private boolean mForecastStartAt1 = true;
 
+    RecyclerView mRecyclerView;
+
     private OnCardClickedListener mOnCardClickedListener;
 
     public interface OnCardClickedListener {
@@ -64,6 +67,11 @@ public class WeatherCardAdapter extends
             mWeatherCards = new ArrayList<WeatherCard>();
         }
         mWeatherInfo = weatherInfo;
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        mRecyclerView = recyclerView;
     }
 
     @Override
@@ -102,6 +110,7 @@ public class WeatherCardAdapter extends
                 @Override
                 public void onClick(View v) {
                     if (mOnCardClickedListener != null) {
+                        TransitionManager.beginDelayedTransition(mRecyclerView);
                         mOnCardClickedListener.onCardExpandCollapsedClicked(position);
                     }
                 }
@@ -129,6 +138,7 @@ public class WeatherCardAdapter extends
                 @Override
                 public void onClick(View v) {
                     if (mOnCardClickedListener != null) {
+                        TransitionManager.beginDelayedTransition(mRecyclerView);
                         mOnCardClickedListener.onCardExpandCollapsedClicked(position);
                     }
                 }
@@ -356,11 +366,11 @@ public class WeatherCardAdapter extends
             public TextView mHumidityValue;
             public TextView mPressureValue;
             public TextView mSunsetValue;
-            private View mExpandCollapseButtonDivider;
-            private TextView mProviderLink;
-            private LinearLayout mExpandCollapseButton;
-            private TextView mExpandCollapseButtonText;
-            private ImageView mExpandCollapseButtonIcon;
+            public View mExpandCollapseButtonDivider;
+            public TextView mProviderLink;
+            public LinearLayout mExpandCollapseButton;
+            public TextView mExpandCollapseButtonText;
+            public ImageView mExpandCollapseButtonIcon;
 
             public CurrentContentViewHolder(View v) {
                 mTime = (TextView) v.findViewById(R.id.current_time);
@@ -434,10 +444,10 @@ public class WeatherCardAdapter extends
         }
 
         public static class ForecastDaytempsContentViewHolder {
-            private TextView[] mDayTempsValues;
-            private TextView mMinValue;
-            private TextView mMaxValue;
-            private TextView mProviderLink;
+            public TextView[] mDayTempsValues;
+            public TextView mMinValue;
+            public TextView mMaxValue;
+            public TextView mProviderLink;
 
             public ForecastDaytempsContentViewHolder(View v) {
                 mDayTempsValues = new TextView[] {
