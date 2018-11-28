@@ -30,6 +30,7 @@ import net.darkkatrom.dkweather.WeatherInfo;
 import net.darkkatrom.dkweather.WeatherInfo.HourForecast;
 import net.darkkatrom.dkweather.activities.MainActivity;
 import net.darkkatrom.dkweather.animator.BaseItemAnimator;
+import net.darkkatrom.dkweather.animator.FragmentAnimator;
 import net.darkkatrom.dkweather.adapter.WeatherCardAdapter;
 import net.darkkatrom.dkweather.model.WeatherCard;
 
@@ -39,6 +40,11 @@ import java.util.List;
 public class WeatherFragment extends Fragment implements
         WeatherCardAdapter.OnCardClickedListener {
 
+    public static final int ANIMATE_CARDS_SWITCH  = 0;
+    public static final int ANIMATE_LAYOUT_SWITCH = 1;
+    public static final int NO_ANIMATION          = 2;
+
+    private View mRootView;
     private RecyclerView mContentList;
     private View mNoWeatherDataLayout;
 
@@ -47,39 +53,77 @@ public class WeatherFragment extends Fragment implements
     private WeatherCardAdapter mCardAdapter = null;
     private List<WeatherCard> mWeatherCards;
 
+    private int mItemCount = 0;
+
     private int mVisibleDay = MainActivity.TODAY;
+
+    private int mAnimationtype = -1;
+    private float mTranslationX;
+    private boolean mViewCreated = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.weather_fragment, container, false);
-        mContentList = (RecyclerView) v.findViewById(R.id.weather_fragment_list);
-        mNoWeatherDataLayout = v.findViewById(R.id.no_weather_data_layout);
-        return v;
+        mRootView = inflater.inflate(R.layout.weather_fragment, container, false);
+        mContentList = (RecyclerView) mRootView.findViewById(R.id.weather_fragment_list);
+        mNoWeatherDataLayout = mRootView.findViewById(R.id.no_weather_data_layout);
+        setupAdapterAndCardlist();
+        return mRootView;
+    }
+
+    @Override
+    public void onViewCreated(final View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        view.post(new Runnable() {
+            @Override
+            public void run() {
+                mTranslationX = view.getWidth();
+                mContentList.setTranslationX(mWeatherInfo == null ? mTranslationX : 0);
+                mNoWeatherDataLayout.setTranslationX(mWeatherInfo == null ? 0 : mTranslationX);
+                mViewCreated = true;
+                if (mAnimationtype != -1) {
+                    // There was already a canceled call to 'updateContent',
+                    // recall 'updateContent'
+                    updateContent(mWeatherInfo, mAnimationtype);
+                }
+            }
+        });
+    }
+
+    public void setupAdapterAndCardlist() {
+        mWeatherCards = new ArrayList<WeatherCard>();
+        mCardAdapter = new WeatherCardAdapter(getActivity(), mWeatherCards);
+        mCardAdapter.setOnCardClickedListener(this);
+        mContentList.setAdapter(mCardAdapter);
     }
 
     public void setVisibleDay(int visibleDay) {
         mVisibleDay = visibleDay;
     }
 
-    public void updateContent(WeatherInfo weather, boolean animate) {
-        if (weather == null) {
-            mContentList.setVisibility(View.GONE);
-            mNoWeatherDataLayout.setVisibility(View.VISIBLE);
+    public void updateContent(WeatherInfo weather, int animationType) {
+        mWeatherInfo = weather;
+        mAnimationtype = animationType;
+        if (!mViewCreated) {
+            // The view isn't created, cancel updating the content,
+            // 'updateContent' will be recalled once the view was created
             return;
-        } else {
-            mContentList.setVisibility(View.VISIBLE);
-            mNoWeatherDataLayout.setVisibility(View.GONE);
         }
 
-        mWeatherInfo = weather;
+        if (mAnimationtype == ANIMATE_LAYOUT_SWITCH) {
+            FragmentAnimator animator = new FragmentAnimator();
+            View oldView = mWeatherInfo == null ? mContentList : mNoWeatherDataLayout;
+            View view = mWeatherInfo == null ? mNoWeatherDataLayout : mContentList;
+            animator.animateSwitch(oldView, view, mTranslationX);
+        }
+        if (mWeatherInfo == null) {
+            return;
+        }
 
-        if (mWeatherCards == null) {
-            mWeatherCards = new ArrayList<WeatherCard>();
-        } else {
-            int itemCount = mWeatherCards.size();
+        if (mItemCount > 0) {
             mWeatherCards.clear();
-            mCardAdapter.notifyItemRangeRemoved(0, itemCount);
+            mCardAdapter.notifyItemRangeRemoved(0, mItemCount);
+            mItemCount = 0;
         }
 
         boolean forecastStartAt1 = true;
@@ -101,28 +145,16 @@ public class WeatherFragment extends Fragment implements
             }
         }
 
-        if (mCardAdapter == null) {
-            mCardAdapter = new WeatherCardAdapter(getActivity(), mWeatherCards, mWeatherInfo);
-            mCardAdapter.setVisibleDay(mVisibleDay);
-            mCardAdapter.setForecastStartAt1(forecastStartAt1);
-            if (animate) {
-                mContentList.setItemAnimator(new BaseItemAnimator());
-            } else {
-                mContentList.setItemAnimator(null);
-            }
-            mContentList.setAdapter(mCardAdapter);
-            mCardAdapter.setOnCardClickedListener(this);
+        mCardAdapter.setVisibleDay(mVisibleDay);
+        mCardAdapter.setForecastStartAt1(forecastStartAt1);
+        mCardAdapter.updateWeatherInfo(mWeatherInfo);
+        if (mAnimationtype == ANIMATE_CARDS_SWITCH) {
+            mContentList.setItemAnimator(new BaseItemAnimator());
         } else {
-            mCardAdapter.setVisibleDay(mVisibleDay);
-            mCardAdapter.updateWeatherInfo(mWeatherInfo);
-            mCardAdapter.setForecastStartAt1(forecastStartAt1);
-            if (animate) {
-                mContentList.setItemAnimator(new BaseItemAnimator());
-            } else {
-                mContentList.setItemAnimator(null);
-            }
-            mCardAdapter.notifyItemRangeInserted(0, mWeatherCards.size());
+            mContentList.setItemAnimator(null);
         }
+        mItemCount = mWeatherCards.size();
+        mCardAdapter.notifyItemRangeInserted(0, mItemCount);
     }
 
     @Override

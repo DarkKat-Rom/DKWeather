@@ -203,30 +203,36 @@ public class MainActivity extends BaseActivity implements OnClickListener, OnLon
 
     public void updateWeather() {
         long newTimestamp = 0;
-        mWeatherInfo = Config.getWeatherData(this);
+        WeatherInfo newInfo = Config.getWeatherData(this);
 
-        if (mWeatherInfo == null) {
+
+        if (newInfo == null) {
             newTimestamp = 0;
             mVisibleDay = TODAY;
             mNumForecastDays = 1;
         } else {
-            newTimestamp = mWeatherInfo.getTimestamp();
-            if (mWeatherInfo.getHourForecastDays().size() > 0) {
-                mNumForecastDays = mWeatherInfo.getHourForecastDays().size();
+            newTimestamp = newInfo.getTimestamp();
+            if (newInfo.getHourForecastDays().size() > 0) {
+                mNumForecastDays = newInfo.getHourForecastDays().size();
             } else {
                 mNumForecastDays = 1;
             }
         }
 
+        boolean animate = (newInfo != null && mWeatherInfo == null)
+                || (newInfo == null && mWeatherInfo != null)
+                || (newInfo == null && mWeatherInfo == null);
+        mWeatherInfo = newInfo;
+
         if (mTimestamp != newTimestamp) {
             mTimestamp = newTimestamp;
-            updateContent(false);
+            updateContent(animate ? WeatherFragment.ANIMATE_LAYOUT_SWITCH : WeatherFragment.NO_ANIMATION);
         }
     }
 
-    private void updateContent(boolean animate) {
+    private void updateContent(int animationType) {
         mFragment.setVisibleDay(mVisibleDay);
-        mFragment.updateContent(mWeatherInfo, animate);
+        mFragment.updateContent(mWeatherInfo, animationType);
         updateActionBar();
         updateBottomNavigationItemState();
     }
@@ -281,13 +287,13 @@ public class MainActivity extends BaseActivity implements OnClickListener, OnLon
     public void onBottomNavigationItemClick(View v) {
         if (v == mNavigationButtonPreviousDay) {
             mVisibleDay--;
-            updateContent(true);
+            updateContent(WeatherFragment.ANIMATE_CARDS_SWITCH);
         } else if (v == mNavigationButtonSettings) {
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
         } else {
             mVisibleDay++;
-            updateContent(true);
+            updateContent(WeatherFragment.ANIMATE_CARDS_SWITCH);
         }
     }
 
@@ -295,7 +301,7 @@ public class MainActivity extends BaseActivity implements OnClickListener, OnLon
     public void onBackPressed() {
         if (mVisibleDay > TODAY) {
             mVisibleDay = TODAY;
-            updateContent(true);
+            updateContent(WeatherFragment.ANIMATE_CARDS_SWITCH);
         } else {
             finish();
         }

@@ -57,7 +57,7 @@ public class WeatherCardAdapter extends
         public void onCardProviderLinkClicked();
     }
 
-    public WeatherCardAdapter(Context context, List<WeatherCard> cards, WeatherInfo weatherInfo) {
+    public WeatherCardAdapter(Context context, List<WeatherCard> cards) {
         super();
 
         mContext = context;
@@ -66,7 +66,6 @@ public class WeatherCardAdapter extends
         } else {
             mWeatherCards = new ArrayList<WeatherCard>();
         }
-        mWeatherInfo = weatherInfo;
     }
 
     @Override
