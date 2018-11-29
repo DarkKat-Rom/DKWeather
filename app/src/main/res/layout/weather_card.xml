@@ -29,8 +29,8 @@
 
         <include layout="@layout/current_weather_content"
             android:id="@+id/current_weather_content_layout" />
-        <include layout="@layout/forecast_daytemps_content"
-            android:id="@+id/forecast_daytemps_content_layout" />
+        <include layout="@layout/forecast_day_temps_content"
+            android:id="@+id/forecast_day_temps_content_layout" />
         <include layout="@layout/forecast_weather_content"
             android:id="@+id/forecast_weather_content_layout" />
 

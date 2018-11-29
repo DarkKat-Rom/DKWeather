@@ -55,7 +55,7 @@
     <!-- Weather fragments -->
     <string name="current_title">Current</string>
     <string name="forecast_title">Forecast</string>
-    <string name="daytemps_title">Day temps</string>
+    <string name="day_temps_title">Day temps</string>
     <string name="morning_title">Morning:</string>
     <string name="day_title">Daytime:</string>
     <string name="evening_title">Evening:</string>

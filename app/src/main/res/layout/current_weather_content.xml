@@ -26,7 +26,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/current_weather_title"
+            android:id="@id/weather_card_content_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/current_title"
@@ -34,7 +34,7 @@
             android:textColor="?android:attr/textColorPrimary" />
 
         <TextView
-            android:id="@+id/current_time_value"
+            android:id="@id/weather_card_content_subtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/weather_card_content_update_time_value_margin_top"
@@ -51,7 +51,7 @@
         android:gravity="center_vertical">
 
         <ImageView
-            android:id="@+id/current_condition_image"
+            android:id="@id/weather_card_content_condition_image"
             android:layout_width="@dimen/weather_card_content_condition_image_size"
             android:layout_height="@dimen/weather_card_content_condition_image_size"
             android:src="@android:drawable/ic_dialog_alert"
@@ -59,7 +59,7 @@
             android:scaleType="fitCenter" />
 
         <View
-            android:id="@+id/current_image_divider"
+            android:id="@id/weather_card_content_condition_image_divider"
             android:layout_width="@dimen/weather_card_content_condition_image_divider_width"
             android:layout_height="match_parent"
             android:layout_marginStart="@dimen/weather_card_content_condition_image_divider_margin_start_end"
@@ -72,14 +72,14 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/current_temp"
+                android:id="@id/weather_card_content_temp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="?android:attr/textColorPrimary" />
 
             <View
-                android:id="@+id/current_temp_divider"
+                android:id="@+id/current_content_temp_divider"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/weather_card_content_condition_temp_divider_height"
                 android:layout_marginTop="@dimen/weather_card_content_condition_temp_divider_margin_top_bottom"
@@ -87,7 +87,7 @@
                 android:background="@drawable/divider_background" />
 
             <TextView
-                android:id="@+id/current_low_high"
+                android:id="@+id/current_content_low_high"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
@@ -101,7 +101,7 @@
             android:layout_weight="1" />
 
         <TextView
-            android:id="@+id/current_condition"
+            android:id="@id/weather_card_content_condition"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|end"
@@ -111,7 +111,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/current_temps_layout"
+        android:id="@id/weather_card_content_day_temps_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingStart="@dimen/current_content_day_temps_layout_margin_start_end"
@@ -127,7 +127,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/current_temp_morning_title"
+                android:id="@id/weather_card_content_day_temps_morning_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/morning_title"
@@ -135,7 +135,7 @@
                 android:textColor="?android:attr/textColorPrimary" />
 
             <TextView
-                android:id="@+id/current_temp_morning_value"
+                android:id="@id/weather_card_content_day_temps_morning_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
@@ -152,7 +152,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/current_temp_day_title"
+                android:id="@id/weather_card_content_day_temps_day_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/day_title"
@@ -160,7 +160,7 @@
                 android:textColor="?android:attr/textColorPrimary" />
 
             <TextView
-                android:id="@+id/current_temp_day_value"
+                android:id="@id/weather_card_content_day_temps_day_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
@@ -176,7 +176,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/current_temp_evening_title"
+                android:id="@id/weather_card_content_day_temps_evening_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/evening_title"
@@ -184,7 +184,7 @@
                 android:textColor="?android:attr/textColorPrimary" />
 
             <TextView
-                android:id="@+id/current_temp_evening_value"
+                android:id="@id/weather_card_content_day_temps_evening_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
@@ -200,7 +200,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/current_temp_night_title"
+                android:id="@id/weather_card_content_day_temps_night_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/night_title"
@@ -208,7 +208,7 @@
                 android:textColor="?android:attr/textColorPrimary" />
 
             <TextView
-                android:id="@+id/current_temp_night_value"
+                android:id="@id/weather_card_content_day_temps_night_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
@@ -218,7 +218,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/current_expanded_content_layout"
+        android:id="@id/weather_card_expanded_content_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingStart="@dimen/weather_card_expanded_content_layout_padding_start_end"
@@ -234,7 +234,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/current_precipitation_title"
+                android:id="@id/weather_card_expanded_content_precipitation_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/precipitation_title"
@@ -242,7 +242,7 @@
                 android:textColor="?android:attr/textColorPrimary" />
 
             <TextView
-                android:id="@+id/current_precipitation_value"
+                android:id="@id/weather_card_expanded_content_precipitation_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/no_precipitation_value"
@@ -254,7 +254,7 @@
                 android:layout_height="@dimen/weather_card_expanded_content_space_height" />
 
             <TextView
-                android:id="@+id/current_wind_title"
+                android:id="@id/weather_card_expanded_content_wind_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/wind_title"
@@ -262,7 +262,7 @@
                 android:textColor="?android:attr/textColorPrimary" />
 
             <TextView
-                android:id="@+id/current_wind_value"
+                android:id="@id/weather_card_expanded_content_wind_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
@@ -273,7 +273,7 @@
                 android:layout_height="@dimen/weather_card_expanded_content_space_height" />
 
             <TextView
-                android:id="@+id/current_sunrise_title"
+                android:id="@+id/current_content_sunrise_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/sunrise_title"
@@ -281,7 +281,7 @@
                 android:textColor="?android:attr/textColorPrimary" />
 
             <TextView
-                android:id="@+id/current_sunrise_value"
+                android:id="@+id/current_content_sunrise_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
@@ -297,7 +297,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/current_humidity_title"
+                android:id="@id/weather_card_expanded_content_humidity_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/humidity_title"
@@ -305,7 +305,7 @@
                 android:textColor="?android:attr/textColorPrimary" />
 
             <TextView
-                android:id="@+id/current_humidity_value"
+                android:id="@id/weather_card_expanded_content_humidity_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
@@ -316,7 +316,7 @@
                 android:layout_height="@dimen/weather_card_expanded_content_space_height" />
 
             <TextView
-                android:id="@+id/current_pressure_title"
+                android:id="@id/weather_card_expanded_content_pressure_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/pressure_title"
@@ -324,7 +324,7 @@
                 android:textColor="?android:attr/textColorPrimary" />
 
             <TextView
-                android:id="@+id/current_pressure_value"
+                android:id="@id/weather_card_expanded_content_pressure_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
@@ -335,7 +335,7 @@
                 android:layout_height="@dimen/weather_card_expanded_content_space_height" />
 
             <TextView
-                android:id="@+id/current_sunset_title"
+                android:id="@+id/current_content_sunset_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/sunset_title"
@@ -343,7 +343,7 @@
                 android:textColor="?android:attr/textColorPrimary" />
 
             <TextView
-                android:id="@+id/current_sunset_value"
+                android:id="@+id/current_content_sunset_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
@@ -353,7 +353,7 @@
     </LinearLayout>
 
     <View
-        android:id="@+id/current_expand_collapse_button_divider"
+        android:id="@id/weather_card_content_expand_collapse_button_divider"
         android:layout_width="match_parent"
         android:layout_height="@dimen/weather_card_content_expand_collapse_button_divider_height"
         android:background="@drawable/divider_background"
@@ -361,12 +361,12 @@
         android:visibility="gone" />
 
     <LinearLayout
-        android:id="@+id/current_bottom_bar"
+        android:id="@+id/current_content_bottom_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/current_content_bottom_bar_height">
 
         <TextView
-            android:id="@+id/current_provider_link"
+            android:id="@id/weather_card_content_provider_link"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
@@ -384,7 +384,7 @@
             android:layout_weight="0.5" />
 
         <LinearLayout
-            android:id="@+id/current_expand_collapse_button"
+            android:id="@id/weather_card_content_expand_collapse_button"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:paddingStart="@dimen/weather_card_content_expand_collapse_button_padding_start_end"
@@ -395,7 +395,7 @@
             android:background="@drawable/ripple_drawable_rectangle">
 
             <TextView
-                android:id="@+id/current_expand_collapse_button_text"
+                android:id="@id/weather_card_content_expand_collapse_button_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/weather_card_content_expand_collapse_button_text_margin_end"
@@ -405,7 +405,7 @@
                 android:textColor="?android:attr/textColorPrimary" />
 
             <ImageView
-                android:id="@+id/current_expand_collapse_button_icon"
+                android:id="@id/weather_card_content_expand_collapse_button_icon"
                 android:layout_width="@dimen/weather_card_content_expand_collapse_button_icon_width"
                 android:layout_height="@dimen/weather_card_content_expand_collapse_button_icon_height"
                 android:paddingEnd="@dimen/weather_card_content_expand_collapse_button_icon_padding_end"

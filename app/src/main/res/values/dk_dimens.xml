@@ -81,13 +81,13 @@
     <dimen name="forecast_content_expand_collapse_button_height">48dp</dimen>
 
     <!-- Weather card forecast day temps content -->
-    <dimen name="forecast_daytemps_content_daytemps_padding">16dp</dimen>
-    <dimen name="forecast_daytemps_content_daytemps_layout_margin_start_end">16dp</dimen>
+    <dimen name="forecast_day_temps_content_day_temps_padding">16dp</dimen>
+    <dimen name="forecast_day_temps_content_day_temps_layout_margin_start_end">16dp</dimen>
 
-    <dimen name="forecast_daytemps_content_min_max_layout_margin_start_end">16dp</dimen>
-    <dimen name="forecast_daytemps_content_min_max_layout_margin_top">16dp</dimen>
+    <dimen name="forecast_day_temps_content_min_max_layout_margin_start_end">16dp</dimen>
+    <dimen name="forecast_day_temps_content_min_max_layout_margin_top">16dp</dimen>
 
-    <dimen name="forecast_daytemps_content_provider_link_height">48dp</dimen>
+    <dimen name="forecast_day_temps_content_provider_link_height">48dp</dimen>
     <!-- Weather card end -->
     <!-- Weather fragment end -->
 
