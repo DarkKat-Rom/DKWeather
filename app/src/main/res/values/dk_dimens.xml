@@ -30,99 +30,66 @@
     <dimen name="no_weather_data_scroll_view_landscape_margin_top">8dp</dimen>
     <dimen name="no_weather_data_fading_edge_landscape_length">12dp</dimen>
 
+    <!-- Weather fragment -->
+    <dimen name="weather_fragment_list_padding">4dp</dimen>
 
-    <!-- Weather fragments -->
-    <dimen name="detailed_weather_fading_edge_length">12dp</dimen>
-    <dimen name="detailed_weather_cards_layout_padding_top_bottom">4dp</dimen>
+    <!-- Weather card -->
+    <dimen name="weather_card_margin">4dp</dimen>
+    <dimen name="weather_card_elevation">4dp</dimen>
 
-    <!-- Current weather card -->
-    <dimen name="current_card_margin_start_end">8dp</dimen>
-    <dimen name="current_card_margin_top_bottom">4dp</dimen>
-    <dimen name="current_card_elevation">2dp</dimen>
+    <!-- Weather card content general -->
+    <dimen name="weather_card_content_update_time_layout_padding">16dp</dimen>
+    <dimen name="weather_card_content_update_time_value_margin_top">4dp</dimen>
+    <dimen name="weather_card_content_condition_temp_layout_padding_start_end">16dp</dimen>
+    <dimen name="weather_card_content_condition_image_size">72dp</dimen>
+    <dimen name="weather_card_content_condition_image_divider_width">1dp</dimen>
+    <dimen name="weather_card_content_condition_image_divider_margin_start_end">8dp</dimen>
+    <dimen name="weather_card_content_condition_temp_divider_height">1dp</dimen>
+    <dimen name="weather_card_content_condition_temp_divider_margin_top_bottom">8dp</dimen>
 
-    <dimen name="current_card_update_time_layout_padding">16dp</dimen>
-    <dimen name="current_card_update_time_text_margin_top">4dp</dimen>
+    <dimen name="weather_card_expanded_content_layout_padding_start_end">16dp</dimen>
+    <dimen name="weather_card_expanded_content_layout_padding_top_bottom">8dp</dimen>
+    <dimen name="weather_card_expanded_content_inner_layout_width">0dp</dimen>
+    <dimen name="weather_card_expanded_content_space_width">1dp</dimen>
+    <dimen name="weather_card_expanded_content_space_height">4dp</dimen>
 
-    <dimen name="current_card_condition_temp_layout_padding_start_end">16dp</dimen>
-    <dimen name="current_card_condition_image_size">72dp</dimen>
-    <dimen name="current_card_condition_image_divider_width">1dp</dimen>
-    <dimen name="current_card_condition_image_divider_margin_start_end">8dp</dimen>
-    <dimen name="current_card_condition_temp_divider_height">1dp</dimen>
-    <dimen name="current_card_condition_temp_divider_margin_top_bottom">8dp</dimen>
-    <dimen name="current_card_condition_temp_space_width">0dp</dimen>
-    <dimen name="current_card_condition_temp_space_height">1dp</dimen>
+    <dimen name="weather_card_content_expand_collapse_button_divider_height">1dp</dimen>
+    <dimen name="weather_card_content_expand_collapse_button_padding_start_end">8dp</dimen>
+    <dimen name="weather_card_content_provider_link_padding_start_end">16dp</dimen>
+    <dimen name="weather_card_content_expand_collapse_button_text_margin_end">8dp</dimen>
+    <dimen name="weather_card_content_expand_collapse_button_text_padding_start">8dp</dimen>
+    <dimen name="weather_card_content_expand_collapse_button_icon_width">32dp</dimen>
+    <dimen name="weather_card_content_expand_collapse_button_icon_height">24dp</dimen>
+    <dimen name="weather_card_content_expand_collapse_button_icon_padding_end">8dp</dimen>
 
-    <dimen name="current_card_day_temps_layout_margin_start_end">16dp</dimen>
-    <dimen name="current_card_day_temps_layout_margin_top">16dp</dimen>
-    <dimen name="current_card_day_temps_layout_margin_bottom">8dp</dimen>
-    <dimen name="current_card_day_temps_temps_layout_width">0dp</dimen>
-    <dimen name="current_card_day_temps_day_layout_margin_start">12dp</dimen>
+    <!-- Weather card current content -->
+    <dimen name="current_content_condition_temp_space_width">0dp</dimen>
+    <dimen name="current_content_condition_temp_space_height">1dp</dimen>
 
-    <dimen name="current_card_expanded_content_layout_padding_start_end">16dp</dimen>
-    <dimen name="current_card_expanded_content_layout_padding_top_bottom">8dp</dimen>
-    <dimen name="current_card_expanded_content_inner_layout_width">0dp</dimen>
-    <dimen name="current_card_expanded_content_space_width">1dp</dimen>
-    <dimen name="current_card_expanded_content_space_height">4dp</dimen>
+    <dimen name="current_content_day_temps_layout_margin_start_end">16dp</dimen>
+    <dimen name="current_content_day_temps_layout_margin_top">16dp</dimen>
+    <dimen name="current_content_day_temps_layout_margin_bottom">8dp</dimen>
+    <dimen name="current_content_day_temps_temps_layout_width">0dp</dimen>
+    <dimen name="current_content_day_temps_day_layout_margin_start">12dp</dimen>
 
-    <dimen name="current_card_expanded_content_expand_collapse_button_divider_height">1dp</dimen>
+    <dimen name="current_content_bottom_bar_height">48dp</dimen>
+    <dimen name="current_content_bottom_bar_provider_link_space_width">0dp</dimen>
+    <dimen name="current_content_bottom_bar_provider_link_space_height">1dp</dimen>
 
-    <dimen name="current_card_expanded_content_bottom_bar_height">48dp</dimen>
-    <dimen name="current_card_expanded_content_bottom_bar_provider_link_padding_start_end">16dp</dimen>
-    <dimen name="current_card_expanded_content_bottom_bar_provider_link_space_width">0dp</dimen>
-    <dimen name="current_card_expanded_content_bottom_bar_provider_link_space_height">1dp</dimen>
-    <dimen name="current_card_expanded_content_expand_collapse_button_padding_start_end">8dp</dimen>
-    <dimen name="current_card_expanded_content_bottom_bar_expand_collapse_button_text_margin_end">8dp</dimen>
-    <dimen name="current_card_expanded_content_bottom_bar_expand_collapse_button_text_padding_start">8dp</dimen>
-    <dimen name="current_card_expanded_content_bottom_bar_expand_collapse_button_icon_width">32dp</dimen>
-    <dimen name="current_card_expanded_content_bottom_bar_expand_collapse_button_icon_height">24dp</dimen>
-    <dimen name="current_card_expanded_content_bottom_bar_expand_collapse_button_icon_padding_end">8dp</dimen>
+    <!-- Weather card forecast content -->
+    <dimen name="forecast_content_condition_temp_layout_padding_bottom">8dp</dimen>
+    <dimen name="forecast_content_expand_collapse_button_height">48dp</dimen>
 
-    <!-- Forecast weather card -->
-    <dimen name="forecast_card_margin_start_end">8dp</dimen>
-    <dimen name="forecast_card_margin_top_bottom">4dp</dimen>
-    <dimen name="forecast_card_elevation">2dp</dimen>
+    <!-- Weather card forecast day temps content -->
+    <dimen name="forecast_daytemps_content_daytemps_padding">16dp</dimen>
+    <dimen name="forecast_daytemps_content_daytemps_layout_margin_start_end">16dp</dimen>
 
-    <dimen name="forecast_card_update_time_layout_padding">16dp</dimen>
-    <dimen name="forecast_card_update_time_text_margin_top">4dp</dimen>
+    <dimen name="forecast_daytemps_content_min_max_layout_margin_start_end">16dp</dimen>
+    <dimen name="forecast_daytemps_content_min_max_layout_margin_top">16dp</dimen>
 
-    <dimen name="forecast_card_condition_temp_layout_padding_start_end">16dp</dimen>
-    <dimen name="forecast_card_condition_temp_layout_padding_bottom">8dp</dimen>
-    <dimen name="forecast_card_condition_image_size">72dp</dimen>
-    <dimen name="forecast_card_condition_image_divider_width">1dp</dimen>
-    <dimen name="forecast_card_condition_image_divider_margin_start_end">8dp</dimen>
-    <dimen name="forecast_card_condition_temp_divider_height">1dp</dimen>
-    <dimen name="forecast_card_condition_temp_divider_margin_top_bottom">8dp</dimen>
-
-    <dimen name="forecast_card_expanded_content_layout_padding_start_end">16dp</dimen>
-    <dimen name="forecast_card_expanded_content_layout_padding_top_bottom">8dp</dimen>
-    <dimen name="forecast_card_expanded_content_inner_layout_width">0dp</dimen>
-    <dimen name="forecast_card_expanded_content_space_width">1dp</dimen>
-    <dimen name="forecast_card_expanded_content_space_height">4dp</dimen>
-
-    <dimen name="forecast_card_expanded_content_expand_collapse_button_divider_height">1dp</dimen>
-
-    <dimen name="forecast_card_expanded_content_expand_collapse_button_height">48dp</dimen>
-    <dimen name="forecast_card_expanded_content_expand_collapse_button_padding_start_end">8dp</dimen>
-    <dimen name="forecast_card_expanded_content_expand_collapse_button_text_margin_end">8dp</dimen>
-    <dimen name="forecast_card_expanded_content_expand_collapse_button_text_padding_start">8dp</dimen>
-    <dimen name="forecast_card_expanded_content_expand_collapse_button_icon_width">32dp</dimen>
-    <dimen name="forecast_card_expanded_content_expand_collapse_button_icon_height">24dp</dimen>
-    <dimen name="forecast_card_expanded_content_expand_collapse_button_icon_padding_end">8dp</dimen>
-
-    <!-- Forecast day temps card -->
-    <dimen name="forecast_daytemps_card_margin_start_end">8dp</dimen>
-    <dimen name="forecast_daytemps_card_margin_top_bottom">4dp</dimen>
-    <dimen name="forecast_daytemps_card_elevation">2dp</dimen>
-
-    <dimen name="forecast_daytemps_card_daytemps_padding">16dp</dimen>
-    <dimen name="forecast_daytemps_card_daytemps_layout_margin_start_end">16dp</dimen>
-
-    <dimen name="forecast_daytemps_card_min_max_layout_margin_start_end">16dp</dimen>
-    <dimen name="forecast_daytemps_card_min_max_layout_margin_top">16dp</dimen>
-
-    <dimen name="forecast_daytemps_card_provider_link_height">48dp</dimen>
-    <dimen name="forecast_daytemps_card_provider_link_padding_start_end">16dp</dimen>
-    <!-- Weather fragments end -->
+    <dimen name="forecast_daytemps_content_provider_link_height">48dp</dimen>
+    <!-- Weather card end -->
+    <!-- Weather fragment end -->
 
     <!-- Bottom navigation bar -->
     <dimen name="bottom_navigation_bar_height">56dp</dimen>

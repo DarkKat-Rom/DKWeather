@@ -24,16 +24,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/daytemps_title"
-        android:padding="@dimen/forecast_daytemps_card_daytemps_padding"
+        android:padding="@dimen/forecast_daytemps_content_daytemps_padding"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="?android:attr/textColorPrimary" />
 
     <LinearLayout
-        android:id="@+id/forecast_weather_temps_layout"
+        android:id="@+id/forecast_daytemps_content_daytemps_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/forecast_daytemps_card_daytemps_layout_margin_start_end"
-        android:layout_marginEnd="@dimen/forecast_daytemps_card_daytemps_layout_margin_start_end">
+        android:layout_marginStart="@dimen/forecast_daytemps_content_daytemps_layout_margin_start_end"
+        android:layout_marginEnd="@dimen/forecast_daytemps_content_daytemps_layout_margin_start_end">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -43,7 +43,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/forecast_weather_temp_morning_title"
+                android:id="@+id/forecast_daytemps_morning_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/morning_title"
@@ -51,7 +51,7 @@
                 android:textColor="?android:attr/textColorPrimary" />
 
             <TextView
-                android:id="@+id/forecast_weather_temp_morning_value"
+                android:id="@+id/forecast_daytemps_morning_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
@@ -67,7 +67,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/forecast_weather_temp_day_title"
+                android:id="@+id/forecast_daytemps_day_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/day_title"
@@ -75,7 +75,7 @@
                 android:textColor="?android:attr/textColorPrimary" />
 
             <TextView
-                android:id="@+id/forecast_weather_temp_day_value"
+                android:id="@+id/forecast_daytemps_day_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
@@ -91,7 +91,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/forecast_weather_temp_evening_title"
+                android:id="@+id/forecast_daytemps_evening_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/evening_title"
@@ -99,7 +99,7 @@
                 android:textColor="?android:attr/textColorPrimary" />
 
             <TextView
-                android:id="@+id/forecast_weather_temp_evening_value"
+                android:id="@+id/forecast_daytemps_evening_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
@@ -115,7 +115,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/forecast_weather_temp_night_title"
+                android:id="@+id/forecast_daytemps_night_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/night_title"
@@ -123,7 +123,7 @@
                 android:textColor="?android:attr/textColorPrimary" />
 
             <TextView
-                android:id="@+id/forecast_weather_temp_night_value"
+                android:id="@+id/forecast_daytemps_night_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
@@ -134,12 +134,12 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/forecast_weather_min_max_layout"
+        android:id="@+id/forecast_daytemps_content_min_max_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/forecast_daytemps_card_min_max_layout_margin_start_end"
-        android:layout_marginTop="@dimen/forecast_daytemps_card_min_max_layout_margin_top"
-        android:layout_marginEnd="@dimen/forecast_daytemps_card_min_max_layout_margin_start_end">
+        android:layout_marginStart="@dimen/forecast_daytemps_content_min_max_layout_margin_start_end"
+        android:layout_marginTop="@dimen/forecast_daytemps_content_min_max_layout_margin_top"
+        android:layout_marginEnd="@dimen/forecast_daytemps_content_min_max_layout_margin_start_end">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -149,7 +149,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/forecast_weather_min_title"
+                android:id="@+id/forecast_daytemps_min_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/min_title"
@@ -157,7 +157,7 @@
                 android:textColor="?android:attr/textColorPrimary" />
 
             <TextView
-                android:id="@+id/forecast_weather_min_value"
+                android:id="@+id/forecast_daytemps_min_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
@@ -173,7 +173,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/forecast_weather_max_title"
+                android:id="@+id/forecast_daytemps_max_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/max_title"
@@ -181,7 +181,7 @@
                 android:textColor="?android:attr/textColorPrimary" />
 
             <TextView
-                android:id="@+id/forecast_weather_max_value"
+                android:id="@+id/forecast_daytemps_max_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
@@ -194,10 +194,10 @@
     <TextView
         android:id="@+id/forecast_daytemps_provider_link"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/forecast_daytemps_card_provider_link_height"
+        android:layout_height="@dimen/forecast_daytemps_content_provider_link_height"
         android:gravity="center_vertical"
-        android:paddingStart="@dimen/forecast_daytemps_card_provider_link_padding_start_end"
-        android:paddingEnd="@dimen/forecast_daytemps_card_provider_link_padding_start_end"
+        android:paddingStart="@dimen/weather_card_content_provider_link_padding_start_end"
+        android:paddingEnd="@dimen/weather_card_content_provider_link_padding_start_end"
         android:text="@string/provider_openweathermap"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="?attr/colorAccent"

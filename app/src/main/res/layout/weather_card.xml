@@ -24,8 +24,8 @@
         android:id="@+id/weather_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="4dp"
-        app:cardElevation="4dp">
+        android:layout_margin="@dimen/weather_card_margin"
+        app:cardElevation="@dimen/weather_card_elevation">
 
         <include layout="@layout/current_weather_content"
             android:id="@+id/current_weather_content_layout" />

@@ -372,7 +372,7 @@ public class WeatherCardAdapter extends
             public ImageView mExpandCollapseButtonIcon;
 
             public CurrentContentViewHolder(View v) {
-                mTime = (TextView) v.findViewById(R.id.current_time);
+                mTime = (TextView) v.findViewById(R.id.current_time_value);
                 mImage = (ImageView) v.findViewById(R.id.current_condition_image);
                 mImageDivider = v.findViewById(R.id.current_image_divider);
                 mTemp = (TextView) v.findViewById(R.id.current_temp);
@@ -421,7 +421,7 @@ public class WeatherCardAdapter extends
             public ImageView mExpandCollapseButtonIcon;
 
             public ForecastContentViewHolder(View v) {
-                mTimeValue = (TextView) v.findViewById(R.id.forecast_time);
+                mTimeValue = (TextView) v.findViewById(R.id.forecast_time_value);
                 mImage = (ImageView) v.findViewById(R.id.forecast_condition_image);
                 mTempValue = (TextView) v.findViewById(R.id.forecast_temp_value);
                 mConditionValue = (TextView) v.findViewById(R.id.forecast_condition_value);
@@ -450,13 +450,13 @@ public class WeatherCardAdapter extends
 
             public ForecastDaytempsContentViewHolder(View v) {
                 mDayTempsValues = new TextView[] {
-                        (TextView) v.findViewById(R.id.forecast_weather_temp_morning_value),
-                        (TextView) v.findViewById(R.id.forecast_weather_temp_day_value),
-                        (TextView) v.findViewById(R.id.forecast_weather_temp_evening_value),
-                        (TextView) v.findViewById(R.id.forecast_weather_temp_night_value)
+                        (TextView) v.findViewById(R.id.forecast_daytemps_morning_value),
+                        (TextView) v.findViewById(R.id.forecast_daytemps_day_value),
+                        (TextView) v.findViewById(R.id.forecast_daytemps_evening_value),
+                        (TextView) v.findViewById(R.id.forecast_daytemps_night_value)
                 };
-                mMinValue = (TextView) v.findViewById(R.id.forecast_weather_min_value);
-                mMaxValue = (TextView) v.findViewById(R.id.forecast_weather_max_value);
+                mMinValue = (TextView) v.findViewById(R.id.forecast_daytemps_min_value);
+                mMaxValue = (TextView) v.findViewById(R.id.forecast_daytemps_max_value);
                 mProviderLink = (TextView) v.findViewById(R.id.forecast_daytemps_provider_link);
             }
         }

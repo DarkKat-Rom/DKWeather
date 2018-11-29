@@ -22,7 +22,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/forecast_card_update_time_layout_padding"
+        android:padding="@dimen/weather_card_content_update_time_layout_padding"
         android:orientation="vertical">
 
         <TextView
@@ -34,10 +34,10 @@
             android:textColor="?android:attr/textColorPrimary" />
 
         <TextView
-            android:id="@+id/forecast_time"
+            android:id="@+id/forecast_time_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/forecast_card_update_time_text_margin_top"
+            android:layout_marginTop="@dimen/weather_card_content_update_time_value_margin_top"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="?android:attr/textColorSecondary" />
 
@@ -46,25 +46,25 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingStart="@dimen/forecast_card_condition_temp_layout_padding_start_end"
-        android:paddingEnd="@dimen/forecast_card_condition_temp_layout_padding_start_end"
-        android:paddingBottom="@dimen/forecast_card_condition_temp_layout_padding_bottom"
+        android:paddingStart="@dimen/weather_card_content_condition_temp_layout_padding_start_end"
+        android:paddingEnd="@dimen/weather_card_content_condition_temp_layout_padding_start_end"
+        android:paddingBottom="@dimen/forecast_content_condition_temp_layout_padding_bottom"
         android:gravity="center_vertical">
 
         <ImageView
             android:id="@+id/forecast_condition_image"
-            android:layout_width="@dimen/forecast_card_condition_image_size"
-            android:layout_height="@dimen/forecast_card_condition_image_size"
+            android:layout_width="@dimen/weather_card_content_condition_image_size"
+            android:layout_height="@dimen/weather_card_content_condition_image_size"
             android:src="@android:drawable/ic_dialog_alert"
             android:tintMode="multiply"
             android:scaleType="fitCenter" />
 
         <View
             android:id="@+id/forecast_image_divider"
-            android:layout_width="@dimen/forecast_card_condition_image_divider_width"
+            android:layout_width="@dimen/weather_card_content_condition_image_divider_width"
             android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/forecast_card_condition_image_divider_margin_start_end"
-            android:layout_marginEnd="@dimen/forecast_card_condition_image_divider_margin_start_end"
+            android:layout_marginStart="@dimen/weather_card_content_condition_image_divider_margin_start_end"
+            android:layout_marginEnd="@dimen/weather_card_content_condition_image_divider_margin_start_end"
             android:background="@drawable/divider_background" />
 
         <LinearLayout
@@ -82,9 +82,9 @@
             <View
                 android:id="@+id/forecast_temp_condition_divider"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/forecast_card_condition_temp_divider_height"
-                android:layout_marginTop="@dimen/forecast_card_condition_temp_divider_margin_top_bottom"
-                android:layout_marginBottom="@dimen/forecast_card_condition_temp_divider_margin_top_bottom"
+                android:layout_height="@dimen/weather_card_content_condition_temp_divider_height"
+                android:layout_marginTop="@dimen/weather_card_content_condition_temp_divider_margin_top_bottom"
+                android:layout_marginBottom="@dimen/weather_card_content_condition_temp_divider_margin_top_bottom"
                 android:background="@drawable/divider_background" />
 
             <TextView
@@ -101,13 +101,13 @@
         android:id="@+id/forecast_expanded_content_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="@dimen/forecast_card_expanded_content_layout_padding_start_end"
-        android:paddingTop="@dimen/forecast_card_expanded_content_layout_padding_top_bottom"
-        android:paddingEnd="@dimen/forecast_card_expanded_content_layout_padding_start_end"
-        android:paddingBottom="@dimen/forecast_card_expanded_content_layout_padding_top_bottom">
+        android:paddingStart="@dimen/weather_card_expanded_content_layout_padding_start_end"
+        android:paddingTop="@dimen/weather_card_expanded_content_layout_padding_top_bottom"
+        android:paddingEnd="@dimen/weather_card_expanded_content_layout_padding_start_end"
+        android:paddingBottom="@dimen/weather_card_expanded_content_layout_padding_top_bottom">
 
         <LinearLayout
-            android:layout_width="@dimen/forecast_card_expanded_content_inner_layout_width"
+            android:layout_width="@dimen/weather_card_expanded_content_inner_layout_width"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="left"
@@ -130,8 +130,8 @@
                 android:textColor="?android:attr/textColorSecondary" />
 
             <Space
-                android:layout_width="@dimen/forecast_card_expanded_content_space_width"
-                android:layout_height="@dimen/forecast_card_expanded_content_space_height" />
+                android:layout_width="@dimen/weather_card_expanded_content_space_width"
+                android:layout_height="@dimen/weather_card_expanded_content_space_height" />
 
             <TextView
                 android:id="@+id/forecast_wind_title"
@@ -151,7 +151,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="@dimen/forecast_card_expanded_content_inner_layout_width"
+            android:layout_width="@dimen/weather_card_expanded_content_inner_layout_width"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="left"
@@ -173,8 +173,8 @@
                 android:textColor="?android:attr/textColorSecondary" />
 
             <Space
-                android:layout_width="@dimen/forecast_card_expanded_content_space_width"
-                android:layout_height="@dimen/forecast_card_expanded_content_space_height" />
+                android:layout_width="@dimen/weather_card_expanded_content_space_width"
+                android:layout_height="@dimen/weather_card_expanded_content_space_height" />
 
             <TextView
                 android:id="@+id/forecast_pressure_title"
@@ -197,7 +197,7 @@
     <View
         android:id="@+id/forecast_expand_collapse_button_divider"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/forecast_card_expanded_content_expand_collapse_button_divider_height"
+        android:layout_height="@dimen/weather_card_content_expand_collapse_button_divider_height"
         android:background="@drawable/divider_background"
         android:alpha="0"
         android:visibility="gone" />
@@ -205,9 +205,9 @@
     <LinearLayout
         android:id="@+id/forecast_expand_collapse_button"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/forecast_card_expanded_content_expand_collapse_button_height"
-        android:paddingStart="@dimen/forecast_card_expanded_content_expand_collapse_button_padding_start_end"
-        android:paddingEnd="@dimen/forecast_card_expanded_content_expand_collapse_button_padding_start_end"
+        android:layout_height="@dimen/forecast_content_expand_collapse_button_height"
+        android:paddingStart="@dimen/weather_card_content_expand_collapse_button_padding_start_end"
+        android:paddingEnd="@dimen/weather_card_content_expand_collapse_button_padding_start_end"
         android:layout_gravity="right"
         android:gravity="center_vertical"
         android:clickable="true"
@@ -217,17 +217,17 @@
             android:id="@+id/forecast_expand_collapse_button_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/forecast_card_expanded_content_expand_collapse_button_text_margin_end"
-            android:paddingStart="@dimen/forecast_card_expanded_content_expand_collapse_button_text_padding_start"
+            android:layout_marginEnd="@dimen/weather_card_content_expand_collapse_button_text_margin_end"
+            android:paddingStart="@dimen/weather_card_content_expand_collapse_button_text_padding_start"
             android:text="@string/expand_card"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="?android:attr/textColorPrimary" />
 
         <ImageView
             android:id="@+id/forecast_expand_collapse_button_icon"
-            android:layout_width="@dimen/forecast_card_expanded_content_expand_collapse_button_icon_width"
-            android:layout_height="@dimen/forecast_card_expanded_content_expand_collapse_button_icon_height"
-            android:paddingEnd="@dimen/forecast_card_expanded_content_expand_collapse_button_icon_padding_end"
+            android:layout_width="@dimen/weather_card_content_expand_collapse_button_icon_width"
+            android:layout_height="@dimen/weather_card_content_expand_collapse_button_icon_height"
+            android:paddingEnd="@dimen/weather_card_content_expand_collapse_button_icon_padding_end"
             android:src="@drawable/ic_expand_more"
             android:tint="?attr/colorControlNormal"
             android:tintMode="multiply"
