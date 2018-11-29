@@ -36,6 +36,7 @@
     <string name="today_title">Heute</string>
     <string name="menu_item_update_weather_title">Wetter aktuallisieren</string>
     <string name="weather_updated">Wetterdaten wurden aktuallisiert</string>
+    <string name="weather_updated_same_timestamp">Wetterdaten wurden aktuallisiert,\naber die alten Daten ensprechen den neuen Daten</string>
     <string name="action_bar_no_weather_data_part">, (keine Wetterdaten)</string>
     <string name="action_bar_subtitle_settings_weather">Einstellungen -> \"Wetter konfigurieren\"</string>
     <string name="action_bar_subtitle_settings_notification">Einstellungen -> \"Benachrichtigung\"</string>

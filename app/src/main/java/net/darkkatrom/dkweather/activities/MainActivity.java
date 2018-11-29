@@ -124,7 +124,7 @@ public class MainActivity extends BaseActivity implements OnClickListener, OnLon
         super.onResume();
 
         mWeatherObserver.observe();
-        updateWeather();
+        updateWeather(false);
     }
 
     @Override
@@ -201,7 +201,7 @@ public class MainActivity extends BaseActivity implements OnClickListener, OnLon
         }
     }
 
-    public void updateWeather() {
+    public void updateWeather(boolean showToast) {
         long newTimestamp = 0;
         WeatherInfo newInfo = Config.getWeatherData(this);
 
@@ -224,9 +224,19 @@ public class MainActivity extends BaseActivity implements OnClickListener, OnLon
                 || (newInfo == null && mWeatherInfo == null);
         mWeatherInfo = newInfo;
 
-        if (mTimestamp != newTimestamp) {
+        if (mTimestamp != newTimestamp || mUpdateRequested) {
+            if (showToast) {
+                if (mTimestamp == newTimestamp) {
+                    showToast(R.string.weather_updated_same_timestamp);
+                } else {
+                    showToast(R.string.weather_updated);
+                }
+            }
             mTimestamp = newTimestamp;
             updateContent(animate ? WeatherFragment.ANIMATE_LAYOUT_SWITCH : WeatherFragment.NO_ANIMATION);
+        }
+        if (mUpdateRequested) {
+            mUpdateRequested = false;
         }
     }
 
@@ -328,17 +338,9 @@ public class MainActivity extends BaseActivity implements OnClickListener, OnLon
 
         @Override
         public void onChange(boolean selfChange) {
-            updateWeather();
+            updateWeather(true);
             if (mWeatherInfo == null) {
                 Log.e(ACTIVITY_TAG, "Error retrieving weather data");
-                if (mUpdateRequested) {
-                    mUpdateRequested = false;
-                }
-            } else {
-                if (mUpdateRequested) {
-                    showToast(R.string.weather_updated);
-                    mUpdateRequested = false;
-                }
             }
         }
     }

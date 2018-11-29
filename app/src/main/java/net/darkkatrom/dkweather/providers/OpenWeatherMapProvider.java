@@ -159,7 +159,7 @@ public class OpenWeatherMapProvider extends AbstractWeatherProvider {
                     /* snow3h */ snowData == null ? 0 : snowData.has("3h") ? (float) snowData.getDouble("3h") : 0,
                     forecasts,
                     hourForecasts,
-                    System.currentTimeMillis(),
+                    /* timestamp */ conditions.getLong("dt"),
                     /* sunrise */ sysData.getLong("sunrise"),
                     /* sunset */ sysData.getLong("sunset"));
 

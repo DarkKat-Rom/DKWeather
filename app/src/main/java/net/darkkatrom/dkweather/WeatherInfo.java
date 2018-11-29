@@ -388,7 +388,7 @@ public class WeatherInfo {
     }
 
     public String getTime() {
-        return getTime(getDate(), false);
+        return getTime(getDate(), true);
     }
 
     public String getFormattedDate() {
