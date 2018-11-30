@@ -24,9 +24,7 @@ import net.darkkatrom.dkweather.utils.Config;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.TimeZone;
 import java.text.DecimalFormat;
@@ -242,7 +240,7 @@ public class WeatherInfo {
         }
 
         public Date getDate() {
-            return new Date(timestamp * 1000);
+            return new Date(timestamp);
         }
 
         public String getFormattedDate() {
@@ -250,15 +248,16 @@ public class WeatherInfo {
         }
 
         public String getDay() {
-            Calendar calendar = new GregorianCalendar(TimeZone.getTimeZone("UTC"));
-            calendar.setTime(getDate());
-            String day = calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT,
-                    Locale.getDefault());
-            return day;
+            SimpleDateFormat sdf = new SimpleDateFormat("EEEE", Locale.getDefault());
+            return sdf.format(getDate());
         }
 
         public String getTime() {
-            return WeatherInfo.getTime(getDate(), true);
+            return getTime(true);
+        }
+
+        public String getTime(boolean useLocaleTimeZone) {
+            return WeatherInfo.getTime(getDate(), useLocaleTimeZone);
         }
     }
 
@@ -388,19 +387,23 @@ public class WeatherInfo {
     }
 
     public String getTime() {
-        return getTime(getDate(), true);
+        return getTime(true);
+    }
+
+    public String getTime(boolean useLocaleTimeZone) {
+        return getTime(getDate(), useLocaleTimeZone);
     }
 
     public String getFormattedDate() {
-        return getFormattedDate(getDate(), false);
+        return getFormattedDate(getDate(), true);
     }
 
     public String getSunrise() {
-        return getTime(new Date(mSunrise * 1000), false);
+        return getTime(new Date(mSunrise), true);
     }
 
     public String getSunset() {
-        return getTime(new Date(mSunset * 1000) , false);
+        return getTime(new Date(mSunset), true);
     }
 
     private static String getCondition(Context context, int conditionCode, String condition) {
@@ -516,17 +519,17 @@ public class WeatherInfo {
         }
     }
 
-    private static String getTime(Date date, boolean isUTC) {
-        SimpleDateFormat sdf = new SimpleDateFormat("H:mm", Locale.US);
-        if (isUTC) {
+    private static String getTime(Date date, boolean useLocaleTimeZone) {
+        SimpleDateFormat sdf = new SimpleDateFormat("H:mm", Locale.getDefault());
+        if (!useLocaleTimeZone) {
             sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
         }
         return sdf.format(date);
     }
 
-    public static String getFormattedDate(Date date, boolean isUTC) {
+    public static String getFormattedDate(Date date, boolean useLocaleTimeZone) {
         SimpleDateFormat sdf = new SimpleDateFormat("EEEE, dd. MMMM yyyy", Locale.getDefault());
-        if (isUTC) {
+        if (!useLocaleTimeZone) {
             sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
         }
         return sdf.format(date);

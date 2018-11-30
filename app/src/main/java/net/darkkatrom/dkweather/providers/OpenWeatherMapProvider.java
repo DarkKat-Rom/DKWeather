@@ -159,9 +159,9 @@ public class OpenWeatherMapProvider extends AbstractWeatherProvider {
                     /* snow3h */ snowData == null ? 0 : snowData.has("3h") ? (float) snowData.getDouble("3h") : 0,
                     forecasts,
                     hourForecasts,
-                    /* timestamp */ conditions.getLong("dt"),
-                    /* sunrise */ sysData.getLong("sunrise"),
-                    /* sunset */ sysData.getLong("sunset"));
+                    /* timestamp */ conditions.getLong("dt") * 1000,
+                    /* sunrise */ sysData.getLong("sunrise") * 1000,
+                    /* sunset */ sysData.getLong("sunset") * 1000);
 
             log(TAG, "Weather updated: " + w);
             return w;
@@ -248,7 +248,7 @@ public class OpenWeatherMapProvider extends AbstractWeatherProvider {
                         /* pressure */ (float) conditionData.getDouble("pressure"),
                         /* rain3h */ rainData == null ? 0 : rainData.has("3h") ? (float) rainData.getDouble("3h") : 0,
                         /* snow3h */ snowData == null ? 0 : snowData.has("3h") ? (float) snowData.getDouble("3h") : 0,
-                        /* timestamp */ hourForecast.getLong("dt"));
+                        /* timestamp */ hourForecast.getLong("dt") * 1000);
             } catch (JSONException e) {
                 Log.w(TAG, "Invalid hourForecast time " + i + " creating dummy", e);
                 item = new HourForecast(

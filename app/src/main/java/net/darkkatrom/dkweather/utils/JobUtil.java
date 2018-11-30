@@ -58,8 +58,9 @@ public class JobUtil {
         JobUtil.getScheduler(context).schedule(jobInfo);
     }
 
-    public static void disableService(Context context) {
+    public static void disableWeather(Context context) {
         JobUtil.getScheduler(context).cancelAll();
+        JobUtil.startWidgetUpdate(context);
         NotificationUtil.removeNotification(context);
         ShortcutUtil.removeShortcuts(context);
     }

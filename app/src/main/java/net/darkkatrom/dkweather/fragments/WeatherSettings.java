@@ -40,6 +40,7 @@ import net.darkkatrom.dkweather.WeatherLocationTask;
 import net.darkkatrom.dkweather.WeatherInfo;
 import net.darkkatrom.dkweather.activities.SettingsActivity;
 import net.darkkatrom.dkweather.preferences.CustomLocationPreference;
+import net.darkkatrom.dkweather.providers.WeatherContentProvider;
 import net.darkkatrom.dkweather.utils.Config;
 import net.darkkatrom.dkweather.utils.JobUtil;
 
@@ -133,7 +134,7 @@ public class WeatherSettings extends PreferenceFragment implements
                     JobUtil.scheduleUpdate(getActivity());
                 }
             } else {
-                disableService();
+                disableWeather();
             }
             return true;
         } else if (preference == mUpdateInterval) {
@@ -168,7 +169,7 @@ public class WeatherSettings extends PreferenceFragment implements
                     new WeatherLocationTask(getActivity(), Config.getLocationName(getActivity()),
                             this).execute();
                 } else {
-                    disableService();
+                    disableWeather();
                 }
             }
             return true;
@@ -194,7 +195,12 @@ public class WeatherSettings extends PreferenceFragment implements
                         startActivity(intent);
                     }
                 });
-        builder.setNegativeButton(android.R.string.cancel, null);
+        builder.setNegativeButton(android.R.string.cancel, 
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+//                        disableWeather();
+                    }
+                });
         dialog = builder.create();
         dialog.show();
     }
@@ -234,15 +240,19 @@ public class WeatherSettings extends PreferenceFragment implements
                         JobUtil.scheduleUpdate(getActivity());
                         mTriggerUpdate = false;
                     }
+                } else {
+//                    disableWeather();
                 }
                 break;
             }
         }
     }
 
-    private void disableService() {
+    private void disableWeather() {
         // stop any pending
-        JobUtil.disableService(getActivity());
+        JobUtil.disableWeather(getActivity());
+        Config.clearWeatherData(getActivity());
+        WeatherContentProvider.updateCachedWeatherInfo(getActivity());
     }
 
     @Override

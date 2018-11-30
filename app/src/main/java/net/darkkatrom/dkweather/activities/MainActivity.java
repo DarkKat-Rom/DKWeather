@@ -47,7 +47,6 @@ import net.darkkatrom.dkweather.utils.NotificationUtil;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.Locale;
 import java.util.TimeZone;
 
 public class MainActivity extends BaseActivity implements OnClickListener, OnLongClickListener {
@@ -204,7 +203,6 @@ public class MainActivity extends BaseActivity implements OnClickListener, OnLon
     public void updateWeather(boolean showToast) {
         long newTimestamp = 0;
         WeatherInfo newInfo = Config.getWeatherData(this);
-
 
         if (newInfo == null) {
             newTimestamp = 0;
