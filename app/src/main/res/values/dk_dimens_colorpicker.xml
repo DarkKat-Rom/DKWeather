@@ -58,8 +58,11 @@
     <!-- Text size of the color picker preference widget text -->
     <dimen name="color_picker_preference_widget_text_size">10sp</dimen>
 
-    <!-- Top padding of the color picker dialog list -->
-    <dimen name="color_picker_dialog_list_padding_top">7dp</dimen>
+    <!-- Top padding of the color picker dialog list title -->
+    <dimen name="color_picker_dialog_list_title_padding_top">18dp</dimen>
+
+    <!-- Bottom padding of the color picker dialog list title -->
+    <dimen name="color_picker_dialog_list_title_padding_bottom">7dp</dimen>
 
     <!-- Top and bottom padding of the color picker dialog list item preview -->
     <dimen name="color_picker_dialog_list_item_preview_padding_top_bottom">8dp</dimen>

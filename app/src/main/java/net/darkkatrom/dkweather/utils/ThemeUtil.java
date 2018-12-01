@@ -395,6 +395,32 @@ public class ThemeUtil {
         return resId;
     }
 
+    public static int getPickColorListDlgTitleBgColor(Context context, int selectedColor) {
+        int bg = Config.getPickColorListDlgTitleBg(context);
+        int bgColor = getColorFromThemeAttribute(context, android.R.attr.colorBackgroundFloating);
+        if (bg == Config.PICK_COLOR_LIST_DLG_TITLE_BG_PRIMARY) {
+            bgColor = Config.getThemePrimaryColor(context);
+        } else if (bg == Config.PICK_COLOR_LIST_DLG_TITLE_BG_SELECTED) {
+            bgColor = selectedColor;
+        } else if (bg == Config.PICK_COLOR_LIST_DLG_TITLE_BG_PICK_COLOR) {
+            bgColor = Config.getPickColorListDlgTitleBgCustomColor(context);
+        }
+        return bgColor;
+    }
+
+    public static int getPickColorListDlgTitleTextColor(Context context, int selectedColor) {
+        int bg = Config.getPickColorListDlgTitleBg(context);
+        int bgColor = getPickColorListDlgTitleBgColor(context, selectedColor);
+        int textColor = 0;
+        if (bg == Config.PICK_COLOR_LIST_DLG_TITLE_BG_NONE) {
+            textColor = getColorFromThemeAttribute(context, android.R.attr.textColorPrimary);
+        } else {
+            textColor = context.getColor(ColorUtil.isColorDark(bgColor)
+                    ? R.color.primary_text_dark_white : R.color.primary_text_light_black);
+        }
+        return textColor;
+    }
+
     public static int getColorFromThemeAttribute(Context context, int resId) {
         TypedValue tv = new TypedValue();
         int color = 0;

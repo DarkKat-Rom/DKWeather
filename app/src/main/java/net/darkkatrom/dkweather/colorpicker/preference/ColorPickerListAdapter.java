@@ -48,7 +48,7 @@ public class ColorPickerListAdapter extends RecyclerView.Adapter<ColorPickerList
     private OnItemClickedListener mOnItemClickedListener;
 
     public interface OnItemClickedListener {
-        public void onItemClicked(int position);
+        public void onItemClicked(int position, int color);
     }
 
     public ColorPickerListAdapter(Context context, View dividerTop, View dividerBottom,
@@ -78,7 +78,7 @@ public class ColorPickerListAdapter extends RecyclerView.Adapter<ColorPickerList
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        ColorPickerListItem item = mColorPickerListItems.get(position);
+        final ColorPickerListItem item = mColorPickerListItems.get(position);
         if (position == 0) {
             int paddingStart = holder.mView.getPaddingStart();
             int paddingTop = mContext.getResources().getDimensionPixelOffset(
@@ -93,7 +93,7 @@ public class ColorPickerListAdapter extends RecyclerView.Adapter<ColorPickerList
                 mColorPickerListItems.get(position).setChecked(true);
                 mSelectedItem = position;
                 if (mOnItemClickedListener != null) {
-                    mOnItemClickedListener.onItemClicked(mSelectedItem);
+                    mOnItemClickedListener.onItemClicked(mSelectedItem, item.getColor());
                 }
                 notifyDataSetChanged();
             }

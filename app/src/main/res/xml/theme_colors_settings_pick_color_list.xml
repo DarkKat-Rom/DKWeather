@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2018 DarkKat
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<PreferenceScreen
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        android:key="theme_pick_color_list_cat_dialog_title_background"
+        android:title="@string/theme_pick_color_list_cat_dialog_title_background_title">
+
+        <ListPreference
+            android:key="theme_pick_color_list_dialog_title_background"
+            android:title="@string/theme_pick_color_list_dialog_title_background_title"
+            android:summary="@string/list_preference_default_summary"
+            android:entries="@array/theme_pick_color_list_dialog_title_background_entries"
+            android:entryValues="@array/theme_pick_color_list_dialog_title_background_values"
+            android:defaultValue="0" />
+
+        <net.darkkatrom.dkweather.colorpicker.preference.ColorPickerPreference
+            android:key="theme_pick_color_list_dialog_title_custom_background_color"
+            android:title="@string/theme_pick_color_list_dialog_title_background_color_title"
+            app:pickerSubtitle="@string/action_bar_picker_subtitle_settings_theme_colors"
+            app:pickerAdditionalSubtitle="@string/picker_fragment_additional_subtitle_pick_color_list_dialog_title_background"
+            app:resetColor1="@color/primary_darkkat"
+            app:defaultColor="@color/primary_darkkat" />
+
+	</PreferenceCategory>
+</PreferenceScreen>

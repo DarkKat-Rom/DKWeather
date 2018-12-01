@@ -27,4 +27,10 @@ limitations under the License.
         android:summary="@string/theme_colors_widget_summary"
         android:fragment="net.darkkatrom.dkweather.fragments.themecolors.ThemeColorsWidget" />
 
+    <PreferenceScreen
+        android:key="theme_colors_pick_color_list"
+        android:title="@string/theme_colors_pick_color_list_title"
+        android:summary="@string/theme_colors_pick_color_list_summary"
+        android:fragment="net.darkkatrom.dkweather.fragments.themecolors.ThemeColorsPickColorList" />
+
 </PreferenceScreen>

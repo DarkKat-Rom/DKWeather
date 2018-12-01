@@ -36,7 +36,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import net.darkkatrom.dkweather.R;
+import net.darkkatrom.dkweather.colorpicker.animator.ColorPickerListAnimator;
 import net.darkkatrom.dkweather.colorpicker.util.ColorPickerHelper;
+import net.darkkatrom.dkweather.utils.ThemeUtil;
 
 public class ColorPickerListPreference extends ListPreference implements
         ColorPickerListAdapter.OnItemClickedListener {
@@ -46,6 +48,13 @@ public class ColorPickerListPreference extends ListPreference implements
 
     private RecyclerView mRecyclerView = null;
     private int mClickedDialogItem = -1;
+
+    private View mCustomTitleLayout = null;
+    private TextView mCustomTitleText = null;
+
+    private int mSelectedColor = 0;
+    private int mDialogTitleBgColor = 0;
+    private int mDialogTitleTextColor = 0;
 
     public ColorPickerListPreference(Context context) {
         this(context, null);
@@ -103,20 +112,28 @@ public class ColorPickerListPreference extends ListPreference implements
                     "ListPreference requires an entries array and an entryValues array.");
         }
 
-        View view = LayoutInflater.from(builder.getContext()).inflate(
-                R.layout.color_picker_dialog_list, null, false);
-        View dividerTop = view.findViewById(R.id.color_picker_dialog_list_divider_top);
-        View dividerBottom = view.findViewById(R.id.color_picker_dialog_list_divider_bottom);
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.color_picker_dialog_list);
         if (mClickedDialogItem == -1) {
+            mSelectedColor = convertToColorInt((String) getEntryColor());
             mClickedDialogItem = findIndexOfValue(getValue());
         }
+
+        mCustomTitleLayout = LayoutInflater.from(builder.getContext()).inflate(
+                R.layout.color_picker_dialog_list_title, null, false);
+        mCustomTitleText = (TextView) mCustomTitleLayout.findViewById(R.id.title);
+        View customContent = LayoutInflater.from(builder.getContext()).inflate(
+                R.layout.color_picker_dialog_list, null, false);
+        View dividerTop = customContent.findViewById(R.id.color_picker_dialog_list_divider_top);
+        View dividerBottom = customContent.findViewById(R.id.color_picker_dialog_list_divider_bottom);
+        mRecyclerView = (RecyclerView) customContent.findViewById(R.id.color_picker_dialog_list);
         ColorPickerListAdapter adapter = new ColorPickerListAdapter(getContext(), dividerTop,
                 dividerBottom, getEntries(), getEntryColors(), mClickedDialogItem);
+
+        mCustomTitleText.setText(getDialogTitle());
         adapter.setOnItemClickedListener(this);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setAdapter(adapter);
-        builder.setView(view);
+        builder.setCustomTitle(mCustomTitleLayout);
+        builder.setView(customContent);
     }
 
     @Override
@@ -125,13 +142,21 @@ public class ColorPickerListPreference extends ListPreference implements
         ((AlertDialog) getDialog()).getButton(
                 AlertDialog.BUTTON_POSITIVE).setEnabled(findIndexOfValue(getValue()) != mClickedDialogItem);
         mRecyclerView.getLayoutManager().scrollToPosition(mClickedDialogItem);
+        mDialogTitleBgColor = ThemeUtil.getPickColorListDlgTitleBgColor(getContext(),
+                mSelectedColor);
+        mDialogTitleTextColor = ThemeUtil.getPickColorListDlgTitleTextColor(getContext(),
+                mSelectedColor);
+        updateDialogTitleColors(false);
     }
 
     @Override
-    public void onItemClicked(int position) {
+    public void onItemClicked(int position, int color) {
         mClickedDialogItem = position;
         ((AlertDialog) getDialog()).getButton(
                 AlertDialog.BUTTON_POSITIVE).setEnabled(findIndexOfValue(getValue()) != mClickedDialogItem);
+
+        mSelectedColor = color;
+        updateDialogTitleColors(true);
     }
 
     @Override
@@ -168,6 +193,35 @@ public class ColorPickerListPreference extends ListPreference implements
     public CharSequence getEntryColor() {
         int index = findIndexOfValue(getValue());
         return index >= 0 && mEntryColors != null ? mEntryColors[index] : null;
+    }
+
+    private void updateDialogTitleColors(boolean animate) {
+        int newBgColor = ThemeUtil.getPickColorListDlgTitleBgColor(getContext(),
+                mSelectedColor);
+        int newTextColor = ThemeUtil.getPickColorListDlgTitleTextColor(getContext(),
+                mSelectedColor);
+
+        if (animate) {
+            if (mDialogTitleBgColor != newBgColor) {
+                boolean animateTextColor = mDialogTitleTextColor != newTextColor;
+                ColorPickerListAnimator.animateColorTransition(mDialogTitleBgColor, newBgColor,
+                        mDialogTitleTextColor, newTextColor, mCustomTitleLayout,
+                        animateTextColor ? mCustomTitleText : null);
+                mDialogTitleBgColor = newBgColor;
+                mDialogTitleTextColor = newTextColor;
+            } else {
+                mDialogTitleBgColor = newBgColor;
+                mDialogTitleTextColor = newTextColor;
+                mCustomTitleLayout.setBackgroundColor(mDialogTitleBgColor);
+                mCustomTitleText.setTextColor(mDialogTitleTextColor);
+            }
+        } else {
+            mDialogTitleBgColor = newBgColor;
+            mDialogTitleTextColor = newTextColor;
+            mCustomTitleLayout.setBackgroundColor(mDialogTitleBgColor);
+            mCustomTitleText.setTextColor(mDialogTitleTextColor);
+        }
+
     }
 
     /**

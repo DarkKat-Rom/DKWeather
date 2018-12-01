@@ -87,6 +87,13 @@ public class Config {
     public static final String PREF_KEY_WIDGET_TEXT_COLOR       = "widget_text_color";
     public static final String PREF_KEY_WIDGET_ICON_COLOR       = "widget_icon_color";
 
+    public static final String PREF_KEY_PICK_COLOR_LIST_CAT_DLG_TITLE_BG =
+            "theme_pick_color_list_cat_dialog_title_background";
+    public static final String PREF_KEY_PICK_COLOR_LIST_DLG_TITLE_BG =
+            "theme_pick_color_list_dialog_title_background";
+    public static final String PREF_KEY_PICK_COLOR_LIST_DLG_TITLE_BG_CUSTOM_COLOR =
+            "theme_pick_color_list_dialog_title_custom_background_color";
+
     public static final String PREF_KEY_LOCATION_ID   = "location_id";
     public static final String PREF_KEY_LOCATION_NAME = "location_name";
     public static final String PREF_KEY_WEATHER_DATA  = "weather_data";
@@ -105,6 +112,11 @@ public class Config {
     private static final int WIDGET_TEXT_SECONDARY_ALPHA = 179;
     private static final int WIDGET_ICON_ALPHA           = WIDGET_TEXT_SECONDARY_ALPHA;
     private static final int WIDGET_DIVIDER_ALPHA        = 51;
+
+    public static final int PICK_COLOR_LIST_DLG_TITLE_BG_NONE       = 0;
+    public static final int PICK_COLOR_LIST_DLG_TITLE_BG_PRIMARY    = 1;
+    public static final int PICK_COLOR_LIST_DLG_TITLE_BG_SELECTED   = 2;
+    public static final int PICK_COLOR_LIST_DLG_TITLE_BG_PICK_COLOR = 3;
 
     public static boolean isEnabled(Context context) {
         SharedPreferences prefs = PreferenceManager
@@ -461,6 +473,24 @@ public class Config {
                 .putInt(PREF_KEY_WIDGET_TEXT_COLOR, defaultTextColor)
                 .putInt(PREF_KEY_WIDGET_ICON_COLOR, defaultIconColor)
                 .commit();
+    }
+
+    public static int getPickColorListDlgTitleBg(Context context) {
+        SharedPreferences prefs = PreferenceManager
+                .getDefaultSharedPreferences(context);
+
+        String defaultValueString = String.valueOf(PICK_COLOR_LIST_DLG_TITLE_BG_NONE);
+        String valueString = prefs.getString(PREF_KEY_PICK_COLOR_LIST_DLG_TITLE_BG,
+                defaultValueString);
+        return Integer.valueOf(valueString);
+    }
+
+    public static int getPickColorListDlgTitleBgCustomColor(Context context) {
+        SharedPreferences prefs = PreferenceManager
+                .getDefaultSharedPreferences(context);
+
+        int defaultColor = context.getColor(R.color.primary_darkkat);
+        return prefs.getInt(PREF_KEY_PICK_COLOR_LIST_DLG_TITLE_BG_CUSTOM_COLOR, defaultColor);
     }
 
     public static AbstractWeatherProvider getProvider(Context context) {

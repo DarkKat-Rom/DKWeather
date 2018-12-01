@@ -166,4 +166,17 @@
         <item>2</item>
         <item>3</item>
     </string-array>
+
+    <string-array name="theme_pick_color_list_dialog_title_background_entries" translatable="false">
+        <item>@string/theme_pick_color_list_dialog_title_background_none</item>
+        <item>@string/theme_primary_color_title</item>
+        <item>@string/theme_pick_color_list_dialog_title_background_selected_color</item>
+        <item>@string/theme_pick_color_list_dialog_title_background_pick_color</item>
+        </string-array>
+    <string-array name="theme_pick_color_list_dialog_title_background_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
 </resources>
