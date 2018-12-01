@@ -254,6 +254,7 @@ public class ColorPickerListPreference extends ListPreference implements
         final Parcelable superState = super.onSaveInstanceState();
         final SavedState myState = new SavedState(superState);
         myState.clickedDialogItem = mClickedDialogItem;
+        myState.selectedColor = mSelectedColor;
         return myState;
     }
 
@@ -266,21 +267,25 @@ public class ColorPickerListPreference extends ListPreference implements
          
         SavedState myState = (SavedState) state;
         mClickedDialogItem = myState.clickedDialogItem;
+        mSelectedColor = myState.selectedColor;
         super.onRestoreInstanceState(myState.getSuperState());
     }
     
     private static class SavedState extends BaseSavedState {
         int clickedDialogItem;
+        int selectedColor;
 
         public SavedState(Parcel source) {
             super(source);
             clickedDialogItem = source.readInt();
+            selectedColor = source.readInt();
         }
 
         @Override
         public void writeToParcel(Parcel dest, int flags) {
             super.writeToParcel(dest, flags);
             dest.writeInt(clickedDialogItem);
+            dest.writeInt(selectedColor);
         }
 
         public SavedState(Parcelable superState) {
