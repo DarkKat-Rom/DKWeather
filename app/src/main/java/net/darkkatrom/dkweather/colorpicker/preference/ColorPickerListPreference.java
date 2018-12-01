@@ -170,6 +170,10 @@ public class ColorPickerListPreference extends ListPreference implements
                 setValue(value);
             }
         }
+        if (!positiveResult) {
+            mSelectedColor = convertToColorInt((String) getEntryColor());
+            mClickedDialogItem = findIndexOfValue(getValue());
+        }
     }
 
     public void setNeedEntryColors(boolean needEntryColors) {
