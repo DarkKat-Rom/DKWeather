@@ -22,6 +22,7 @@ import android.content.res.ColorStateList;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewPropertyAnimator;
+import android.view.animation.LinearInterpolator;
 
 import net.darkkatrom.dkweather.animator.BaseItemAnimator;
 import net.darkkatrom.dkweather.colorpicker.adapter.ColorPickerCardAdapter.CardViewHolder;
@@ -30,6 +31,7 @@ import net.darkkatrom.dkweather.colorpicker.util.ColorPickerHelper;
 import java.util.List;
 
 public class ColorPickerCardAnimator extends BaseItemAnimator {
+    public static final long COLOR_TRANSITION_DURATION = 300;
 
     private boolean mTitleSet = false;
     private boolean mSubtitleSet = false;
@@ -81,7 +83,8 @@ public class ColorPickerCardAnimator extends BaseItemAnimator {
                 preColorInfo.iconRemoveFavoriteVisible != postColorInfo.iconRemoveFavoriteVisible;
 
         ValueAnimator animator = ValueAnimator.ofFloat(0f, 1f);
-        animator.setDuration(350);
+        animator.setDuration(COLOR_TRANSITION_DURATION);
+        animator.setInterpolator(new LinearInterpolator());
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {

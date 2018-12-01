@@ -23,6 +23,7 @@ import android.content.Context;
 import android.support.v4.view.ViewCompat;
 import android.view.View;
 import android.view.ViewPropertyAnimator;
+import android.view.animation.LinearInterpolator;
 
 import net.darkkatrom.dkweather.R;
 import net.darkkatrom.dkweather.colorpicker.fragment.ColorPickerFragment;
@@ -30,9 +31,10 @@ import net.darkkatrom.dkweather.colorpicker.util.ColorPickerHelper;
 import net.darkkatrom.dkweather.colorpicker.widget.ApplyColorView;
 
 public class ColorPickerFragmentAnimator {
-    public static final long ADD_DURATION    = 225;
-    public static final long REMOVE_DURATION = 195;
-    public static final long CHANGE_DURATION = 250;
+    public static final long ADD_DURATION              = 225;
+    public static final long REMOVE_DURATION           = 195;
+    public static final long CHANGE_DURATION           = 250;
+    public static final long COLOR_TRANSITION_DURATION = 300;
 
     public static final int ANIMATE_TO_SHOW = 0;
     public static final int ANIMATE_TO_HIDE = 1;
@@ -132,7 +134,8 @@ public class ColorPickerFragmentAnimator {
     public void animateColorTransition(final int oldColor, final int newColor, final int animationType,
             final ApplyColorView applyColorAction) {
         ValueAnimator animator = ValueAnimator.ofFloat(0f, 1f);
-        animator.setDuration(CHANGE_DURATION);
+        animator.setDuration(COLOR_TRANSITION_DURATION);
+        animator.setInterpolator(new LinearInterpolator());
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
@@ -186,8 +189,6 @@ public class ColorPickerFragmentAnimator {
         });
         animator.start();
     }
-
-
 
     public void animateShowHelpScreen(final View view) {
         view.setVisibility(View.VISIBLE);

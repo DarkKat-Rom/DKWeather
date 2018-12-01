@@ -18,18 +18,20 @@ package net.darkkatrom.dkweather.colorpicker.animator;
 
 import android.animation.ValueAnimator;
 import android.view.View;
+import android.view.animation.LinearInterpolator;
 import android.widget.TextView;
 
 import net.darkkatrom.dkweather.colorpicker.util.ColorPickerHelper;
 
 public class ColorPickerListAnimator {
-    public static final long CHANGE_DURATION = 350;
+    public static final long COLOR_TRANSITION_DURATION = 300;
 
     public static void animateColorTransition(final int oldBgColor, final int newBgColor,
             final int oldTextColor, final int newTextColor, final View v, final TextView tv) {
         final boolean animateTextColor = tv != null;
         ValueAnimator animator = ValueAnimator.ofFloat(0f, 1f);
-        animator.setDuration(CHANGE_DURATION);
+        animator.setDuration(COLOR_TRANSITION_DURATION);
+        animator.setInterpolator(new LinearInterpolator());
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
