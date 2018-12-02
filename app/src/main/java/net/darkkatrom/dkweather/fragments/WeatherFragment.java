@@ -20,6 +20,7 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -155,6 +156,7 @@ public class WeatherFragment extends Fragment implements
         }
         mItemCount = mWeatherCards.size();
         mCardAdapter.notifyItemRangeInserted(0, mItemCount);
+        mContentList.getLayoutManager().scrollToPosition(0);
     }
 
     @Override
@@ -162,6 +164,9 @@ public class WeatherFragment extends Fragment implements
         mContentList.setItemAnimator(null);
         mWeatherCards.get(position).toggleIsExpanded();
         mCardAdapter.notifyItemChanged(position);
+        if (mWeatherCards.get(position).isExpanded()) {
+            ((LinearLayoutManager) mContentList.getLayoutManager()).scrollToPositionWithOffset(position, 0);
+        }
     }
 
     @Override

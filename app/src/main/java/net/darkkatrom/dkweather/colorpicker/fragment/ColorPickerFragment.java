@@ -24,6 +24,7 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -642,6 +643,7 @@ public class ColorPickerFragment extends Fragment implements
         }
         if (mItemCount > 0) {
             mCardAdapter.notifyItemRangeInserted(0, mItemCount);
+            ((GridLayoutManager) mContentList.getLayoutManager()).scrollToPositionWithOffset(0, 0);
         }
     }
 

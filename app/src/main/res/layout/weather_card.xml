@@ -28,11 +28,14 @@
         app:cardElevation="@dimen/weather_card_elevation">
 
         <include layout="@layout/current_weather_content"
-            android:id="@+id/current_weather_content_layout" />
+            android:id="@+id/current_weather_content_layout"
+            android:visibility="gone" />
         <include layout="@layout/forecast_day_temps_content"
-            android:id="@+id/forecast_day_temps_content_layout" />
+            android:id="@+id/forecast_day_temps_content_layout"
+            android:visibility="gone" />
         <include layout="@layout/forecast_weather_content"
-            android:id="@+id/forecast_weather_content_layout" />
+            android:id="@+id/forecast_weather_content_layout"
+            android:visibility="gone" />
 
     </android.support.v7.widget.CardView>
 </FrameLayout>

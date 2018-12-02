@@ -79,103 +79,41 @@ public class WeatherCardAdapter extends
 
         View v = LayoutInflater.from(mContext).inflate(
                 R.layout.weather_card, parent, false);
-        CardViewHolder vh = new CardViewHolder(v);
+        CardViewHolder vh = null;
+        if (viewType == WeatherCard.VIEW_TYPE_CURRENT_WEATHER) {
+            vh = new CurrentContentViewHolder(v);
+        } else if (viewType == WeatherCard.VIEW_TYPE_FORECAST_WEATHER) {
+            vh = new ForecastContentViewHolder(v);
+        } else {
+            vh = new ForecastDayTempsContentViewHolder(v);
+        }
         return vh;
     }
 
     @Override
     public void onBindViewHolder(CardViewHolder holder, final int position) {
         final WeatherCard card = mWeatherCards.get(position);
-        if (card.getViewType() == WeatherCard.VIEW_TYPE_CURRENT_WEATHER) {
-            holder.mCurrentContentView.setVisibility(View.VISIBLE);
-            holder.mForecastContentView.setVisibility(View.GONE);
-            holder.mForecastDayTempsContentView.setVisibility(View.GONE);
+        int viewType = card.getViewType();
 
-            if (mWeatherInfo != null) {
-                holder.mCurrentContent.mProviderLink.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {       
-                        if (mOnCardClickedListener != null) {
-                            mOnCardClickedListener.onCardProviderLinkClicked();
-                        }
-                    }
-                });
-            } else {
-                holder.mCurrentContent.mProviderLink.setOnClickListener(null);
-                holder.mCurrentContent.mProviderLink.setClickable(false);
-            }
+        holder.mCurrentContentView.setVisibility(
+                viewType == WeatherCard.VIEW_TYPE_CURRENT_WEATHER ? View.VISIBLE : View.GONE);
+        holder.mForecastContentView.setVisibility(
+                viewType == WeatherCard.VIEW_TYPE_FORECAST_WEATHER ? View.VISIBLE : View.GONE);
+        holder.mForecastDayTempsContentView.setVisibility(
+                viewType == WeatherCard.VIEW_TYPE_FORECAST_DAYTEMPS ? View.VISIBLE : View.GONE);
 
-            holder.mCurrentContent.mExpandCollapseButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (mOnCardClickedListener != null) {
-                        TransitionManager.beginDelayedTransition(mRecyclerView);
-                        mOnCardClickedListener.onCardExpandCollapsedClicked(position);
-                    }
-                }
-            });
-
-            if (card.isExpanded()) {
-                holder.mCurrentContent.mExpandedContent.setVisibility(View.VISIBLE);
-                holder.mCurrentContent.mExpandCollapseButtonDivider.setVisibility(View.VISIBLE);
-                holder.mCurrentContent.mExpandCollapseButtonIcon.setImageResource(R.drawable.ic_expand_less);
-                holder.mCurrentContent.mExpandCollapseButtonText.setText(R.string.collapse_card);
-            } else {
-                holder.mCurrentContent.mExpandedContent.setVisibility(View.GONE);
-                holder.mCurrentContent.mExpandCollapseButtonDivider.setVisibility(View.GONE);
-                holder.mCurrentContent.mExpandCollapseButtonIcon.setImageResource(R.drawable.ic_expand_more);
-                holder.mCurrentContent.mExpandCollapseButtonText.setText(R.string.expand_card);
-            }
-
-            updateCurrentWeather(holder.mCurrentContent);
+        if (viewType == WeatherCard.VIEW_TYPE_CURRENT_WEATHER) {
+            updateCurrentWeather((CurrentContentViewHolder) holder, position, card.isExpanded());
         } else if (card.getViewType() == WeatherCard.VIEW_TYPE_FORECAST_WEATHER) {
-            holder.mCurrentContentView.setVisibility(View.GONE);
-            holder.mForecastContentView.setVisibility(View.VISIBLE);
-            holder.mForecastDayTempsContentView.setVisibility(View.GONE);
-
-            holder.mForecastContent.mExpandCollapseButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (mOnCardClickedListener != null) {
-                        TransitionManager.beginDelayedTransition(mRecyclerView);
-                        mOnCardClickedListener.onCardExpandCollapsedClicked(position);
-                    }
-                }
-            });
-
-            if (card.isExpanded()) {
-                holder.mForecastContent.mExpandedContent.setVisibility(View.VISIBLE);
-                holder.mForecastContent.mExpandCollapseButtonDivider.setVisibility(View.VISIBLE);
-                holder.mForecastContent.mExpandCollapseButtonIcon.setImageResource(R.drawable.ic_expand_less);
-                holder.mForecastContent.mExpandCollapseButtonText.setText(R.string.collapse_card);
-            } else {
-                holder.mForecastContent.mExpandedContent.setVisibility(View.GONE);
-                holder.mForecastContent.mExpandCollapseButtonDivider.setVisibility(View.GONE);
-                holder.mForecastContent.mExpandCollapseButtonIcon.setImageResource(R.drawable.ic_expand_more);
-                holder.mForecastContent.mExpandCollapseButtonText.setText(R.string.expand_card);
-            }
-
-            updateForecastWeather(holder.mForecastContent, position);
+            updateForecastWeather((ForecastContentViewHolder) holder, position, card.isExpanded());
         } else {
-            holder.mCurrentContentView.setVisibility(View.GONE);
-            holder.mForecastContentView.setVisibility(View.GONE);
-            holder.mForecastDayTempsContentView.setVisibility(View.VISIBLE);
-
-            if (mWeatherInfo != null) {
-                holder.mForecastDayTempsContent.mProviderLink.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {       
-                        if (mOnCardClickedListener != null) {
-                            mOnCardClickedListener.onCardProviderLinkClicked();
-                        }
-                    }
-                });
-            } else {
-                holder.mForecastDayTempsContent.mProviderLink.setOnClickListener(null);
-                holder.mForecastDayTempsContent.mProviderLink.setClickable(false);
-            }
-            updateForecastDayTemps(holder.mForecastDayTempsContent);
+            updateForecastDayTemps((ForecastDayTempsContentViewHolder) holder);
         }
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return mWeatherCards.get(position).getViewType();
     }
 
     @Override
@@ -199,44 +137,100 @@ public class WeatherCardAdapter extends
         mForecastStartAt1 = startAt1;
     }
 
-    private void updateCurrentWeather(CardViewHolder.CurrentContentViewHolder holder) {
-        if (mWeatherInfo == null) {
-            return;
-        }
-
-        int conditionIconType = Config.getConditionIconType(mContext);
-        int conditionIconColor = ThemeUtil.getConditionIconColor(mContext, conditionIconType);
-        Drawable icon = mWeatherInfo.getConditionIcon(
-                conditionIconType, mWeatherInfo.getConditionCode());
-        final String[] tempValues = {
-            mWeatherInfo.getForecasts().get(0).getFormattedMorning(),
-            mWeatherInfo.getForecasts().get(0).getFormattedDay(),
-            mWeatherInfo.getForecasts().get(0).getFormattedEvening(),
-            mWeatherInfo.getForecasts().get(0).getFormattedNight()
-        };
-
-        holder.mSubtitle.setText(mWeatherInfo.getTime());
-        if (conditionIconColor != 0) {
-            holder.mImage.setImageTintList(ColorStateList.valueOf(conditionIconColor));
+    private void updateCurrentWeather(CurrentContentViewHolder holder, final int position,
+            boolean isExpanded) {
+        if (isExpanded) {
+            holder.mExpandedContent.setVisibility(View.VISIBLE);
+            holder.mExpandCollapseButtonDivider.setVisibility(View.VISIBLE);
+            holder.mExpandCollapseButtonIcon.setImageResource(R.drawable.ic_expand_less);
+            holder.mExpandCollapseButtonText.setText(R.string.collapse_card);
         } else {
-            holder.mImage.setImageTintList(null);
+            holder.mExpandedContent.setVisibility(View.GONE);
+            holder.mExpandCollapseButtonDivider.setVisibility(View.GONE);
+            holder.mExpandCollapseButtonIcon.setImageResource(R.drawable.ic_expand_more);
+            holder.mExpandCollapseButtonText.setText(R.string.expand_card);
         }
-        holder.mImage.setImageDrawable(icon);
-        holder.mTemp.setText(mWeatherInfo.getFormattedTemperature());
-        holder.mTempLowHight.setText(mWeatherInfo.getFormattedLow() + " | " + mWeatherInfo.getFormattedHigh());
-        holder.mCondition.setText(mWeatherInfo.getCondition());
-        for (int i = 0; i < holder.mDayTempsValues.length; i++) {
-            holder.mDayTempsValues[i].setText(tempValues[i]);
+
+        holder.mExpandCollapseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mOnCardClickedListener != null) {
+                    TransitionManager.beginDelayedTransition(mRecyclerView);
+                    mOnCardClickedListener.onCardExpandCollapsedClicked(position);
+                }
+            }
+        });
+
+        if (mWeatherInfo == null) {
+            holder.mProviderLink.setOnClickListener(null);
+            holder.mProviderLink.setClickable(false);
+        } else {
+            int conditionIconType = Config.getConditionIconType(mContext);
+            int conditionIconColor = ThemeUtil.getConditionIconColor(mContext, conditionIconType);
+            Drawable icon = mWeatherInfo.getConditionIcon(
+                    conditionIconType, mWeatherInfo.getConditionCode());
+            final String[] tempValues = {
+                mWeatherInfo.getForecasts().get(0).getFormattedMorning(),
+                mWeatherInfo.getForecasts().get(0).getFormattedDay(),
+                mWeatherInfo.getForecasts().get(0).getFormattedEvening(),
+                mWeatherInfo.getForecasts().get(0).getFormattedNight()
+            };
+
+            holder.mSubtitle.setText(mWeatherInfo.getTime());
+            if (conditionIconColor != 0) {
+                holder.mImage.setImageTintList(ColorStateList.valueOf(conditionIconColor));
+            } else {
+                holder.mImage.setImageTintList(null);
+            }
+            holder.mImage.setImageDrawable(icon);
+            holder.mTemp.setText(mWeatherInfo.getFormattedTemperature());
+            holder.mTempLowHight.setText(mWeatherInfo.getFormattedLow() + " | " + mWeatherInfo.getFormattedHigh());
+            holder.mCondition.setText(mWeatherInfo.getCondition());
+            for (int i = 0; i < holder.mDayTempsValues.length; i++) {
+                holder.mDayTempsValues[i].setText(tempValues[i]);
+            }
+            setPrecipitation(holder.mPrecipitationValue);
+            holder.mWindValue.setText(mWeatherInfo.getFormattedWind());
+            holder.mSunriseValue.setText(mWeatherInfo.getSunrise());
+            holder.mHumidityValue.setText(mWeatherInfo.getFormattedHumidity());
+            holder.mPressureValue.setText(mWeatherInfo.getFormattedPressure());
+            holder.mSunsetValue.setText(mWeatherInfo.getSunset());
+
+            holder.mProviderLink.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {       
+                    if (mOnCardClickedListener != null) {
+                        mOnCardClickedListener.onCardProviderLinkClicked();
+                    }
+                }
+            });
         }
-        setPrecipitation(holder.mPrecipitationValue);
-        holder.mWindValue.setText(mWeatherInfo.getFormattedWind());
-        holder.mSunriseValue.setText(mWeatherInfo.getSunrise());
-        holder.mHumidityValue.setText(mWeatherInfo.getFormattedHumidity());
-        holder.mPressureValue.setText(mWeatherInfo.getFormattedPressure());
-        holder.mSunsetValue.setText(mWeatherInfo.getSunset());
     }
 
-    private void updateForecastWeather(CardViewHolder.ForecastContentViewHolder holder, int position) {
+    private void updateForecastWeather(ForecastContentViewHolder holder, final int position,
+            boolean isExpanded) {
+        if (isExpanded) {
+            holder.mExpandedContent.setVisibility(View.VISIBLE);
+            holder.mExpandCollapseButtonDivider.setVisibility(View.VISIBLE);
+            holder.mExpandCollapseButtonIcon.setImageResource(R.drawable.ic_expand_less);
+            holder.mExpandCollapseButtonText.setText(R.string.collapse_card);
+        } else {
+            holder.mExpandedContent.setVisibility(View.GONE);
+            holder.mExpandCollapseButtonDivider.setVisibility(View.GONE);
+            holder.mExpandCollapseButtonIcon.setImageResource(R.drawable.ic_expand_more);
+            holder.mExpandCollapseButtonText.setText(R.string.expand_card);
+        }
+
+        holder.mExpandCollapseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mOnCardClickedListener != null) {
+                    TransitionManager.beginDelayedTransition(mRecyclerView);
+                    mOnCardClickedListener.onCardExpandCollapsedClicked(position);
+                }
+            }
+        });
+
         if (mWeatherInfo == null) {
             return;
         }
@@ -282,26 +276,36 @@ public class WeatherCardAdapter extends
         holder.mPressureValue.setText(h.getFormattedPressure());
     }
 
-    private void updateForecastDayTemps(CardViewHolder.ForecastDayTempsContentViewHolder holder) {
+    private void updateForecastDayTemps(ForecastDayTempsContentViewHolder holder) {
         if (mWeatherInfo == null) {
-            return;
-        }
+            holder.mProviderLink.setOnClickListener(null);
+            holder.mProviderLink.setClickable(false);
+        } else {
+            final String[] tempValues = {
+                mWeatherInfo.getForecasts().get(mVisibleDay).getFormattedMorning(),
+                mWeatherInfo.getForecasts().get(mVisibleDay).getFormattedDay(),
+                mWeatherInfo.getForecasts().get(mVisibleDay).getFormattedEvening(),
+                mWeatherInfo.getForecasts().get(mVisibleDay).getFormattedNight()
+            };
+            for (int i = 0; i < holder.mDayTempsValues.length; i++) {
+                holder.mDayTempsValues[i].setText(tempValues[i]);
+            }
+            final String min =
+                    mWeatherInfo.getForecasts().get(mVisibleDay).getFormattedLow();
+            final String max =
+                    mWeatherInfo.getForecasts().get(mVisibleDay).getFormattedHigh();
+            holder.mMinValue.setText(min);
+            holder.mMaxValue.setText(max);
 
-        final String[] tempValues = {
-            mWeatherInfo.getForecasts().get(mVisibleDay).getFormattedMorning(),
-            mWeatherInfo.getForecasts().get(mVisibleDay).getFormattedDay(),
-            mWeatherInfo.getForecasts().get(mVisibleDay).getFormattedEvening(),
-            mWeatherInfo.getForecasts().get(mVisibleDay).getFormattedNight()
-        };
-        for (int i = 0; i < holder.mDayTempsValues.length; i++) {
-            holder.mDayTempsValues[i].setText(tempValues[i]);
+            holder.mProviderLink.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {       
+                    if (mOnCardClickedListener != null) {
+                        mOnCardClickedListener.onCardProviderLinkClicked();
+                    }
+                }
+            });
         }
-        final String min =
-                mWeatherInfo.getForecasts().get(mVisibleDay).getFormattedLow();
-        final String max =
-                mWeatherInfo.getForecasts().get(mVisibleDay).getFormattedHigh();
-        holder.mMinValue.setText(min);
-        holder.mMaxValue.setText(max);
     }
 
     private void setPrecipitation(TextView tv) {
@@ -329,9 +333,6 @@ public class WeatherCardAdapter extends
         public View mCurrentContentView;
         public View mForecastContentView;
         public View mForecastDayTempsContentView;
-        public CurrentContentViewHolder mCurrentContent;
-        public ForecastContentViewHolder mForecastContent;
-        public ForecastDayTempsContentViewHolder mForecastDayTempsContent;
 
         public CardViewHolder(View v) {
             super(v);
@@ -341,128 +342,134 @@ public class WeatherCardAdapter extends
             mCurrentContentView = v.findViewById(R.id.current_weather_content_layout);
             mForecastContentView = v.findViewById(R.id.forecast_weather_content_layout);
             mForecastDayTempsContentView = v.findViewById(R.id.forecast_day_temps_content_layout);
+        }
+    }
 
-            mCurrentContent = new CurrentContentViewHolder(
-                    mCurrentContentView);
-            mForecastContent = new ForecastContentViewHolder(
-                    mForecastContentView);
-            mForecastDayTempsContent = new ForecastDayTempsContentViewHolder(
-                    mForecastDayTempsContentView);
+    public static class CurrentContentViewHolder extends CardViewHolder {
+        public TextView mSubtitle;
+        public ImageView mImage;
+        public TextView mTemp;
+        public TextView mTempLowHight;
+        public TextView mCondition;
+        public TextView[] mDayTempsValues;
+        public View mExpandedContent;
+        public TextView mPrecipitationValue;
+        public TextView mWindValue;
+        public TextView mSunriseValue;
+        public TextView mHumidityValue;
+        public TextView mPressureValue;
+        public TextView mSunsetValue;
+        public View mExpandCollapseButtonDivider;
+        public TextView mProviderLink;
+        public LinearLayout mExpandCollapseButton;
+        public TextView mExpandCollapseButtonText;
+        public ImageView mExpandCollapseButtonIcon;
+
+        public CurrentContentViewHolder(View v) {
+            super(v);
+            mSubtitle = (TextView) findViewById(R.id.weather_card_content_subtitle);
+            mImage = (ImageView) findViewById(R.id.weather_card_content_condition_image);
+            mTemp = (TextView) findViewById(R.id.weather_card_content_temp);
+            mTempLowHight = (TextView) findViewById(R.id.current_content_low_high);
+            mCondition = (TextView) findViewById(R.id.weather_card_content_condition);
+            mDayTempsValues = new TextView[] {
+                    (TextView) findViewById(R.id.weather_card_content_day_temps_morning_value),
+                    (TextView) findViewById(R.id.weather_card_content_day_temps_day_value),
+                    (TextView) findViewById(R.id.weather_card_content_day_temps_evening_value),
+                    (TextView) findViewById(R.id.weather_card_content_day_temps_night_value)
+            };
+            mExpandedContent = findViewById(R.id.weather_card_expanded_content_layout);
+            mPrecipitationValue =
+                    (TextView) findViewById(R.id.weather_card_expanded_content_precipitation_value);
+            mWindValue = (TextView) findViewById(R.id.weather_card_expanded_content_wind_value);
+            mSunriseValue = (TextView) findViewById(R.id.current_content_sunrise_value);
+            mHumidityValue =
+                    (TextView) findViewById(R.id.weather_card_expanded_content_humidity_value);
+            mPressureValue =
+                    (TextView) findViewById(R.id.weather_card_expanded_content_pressure_value);
+            mSunsetValue = (TextView) findViewById(R.id.current_content_sunset_value);
+            mExpandCollapseButtonDivider = 
+                    findViewById(R.id.weather_card_content_expand_collapse_button_divider);
+            mProviderLink = 
+                    (TextView) findViewById(R.id.weather_card_content_provider_link);
+            mExpandCollapseButton = 
+                    (LinearLayout) findViewById(R.id.weather_card_content_expand_collapse_button);
+            mExpandCollapseButtonText = 
+                    (TextView) findViewById(R.id.weather_card_content_expand_collapse_button_text);
+            mExpandCollapseButtonIcon = 
+                    (ImageView) findViewById(R.id.weather_card_content_expand_collapse_button_icon);
         }
 
-        public static class CurrentContentViewHolder {
-            public TextView mSubtitle;
-            public ImageView mImage;
-            public TextView mTemp;
-            public TextView mTempLowHight;
-            public TextView mCondition;
-            public TextView[] mDayTempsValues;
-            public View mExpandedContent;
-            public TextView mPrecipitationValue;
-            public TextView mWindValue;
-            public TextView mSunriseValue;
-            public TextView mHumidityValue;
-            public TextView mPressureValue;
-            public TextView mSunsetValue;
-            public View mExpandCollapseButtonDivider;
-            public TextView mProviderLink;
-            public LinearLayout mExpandCollapseButton;
-            public TextView mExpandCollapseButtonText;
-            public ImageView mExpandCollapseButtonIcon;
+        private View findViewById(int id) {
+            return mCurrentContentView.findViewById(id);
+        }
+    }
 
-            public CurrentContentViewHolder(View v) {
-                mSubtitle = (TextView) v.findViewById(R.id.weather_card_content_subtitle);
-                mImage = (ImageView) v.findViewById(R.id.weather_card_content_condition_image);
-                mTemp = (TextView) v.findViewById(R.id.weather_card_content_temp);
-                mTempLowHight = (TextView) v.findViewById(R.id.current_content_low_high);
-                mCondition = (TextView) v.findViewById(R.id.weather_card_content_condition);
-                mDayTempsValues = new TextView[] {
-                        (TextView) v.findViewById(R.id.weather_card_content_day_temps_morning_value),
-                        (TextView) v.findViewById(R.id.weather_card_content_day_temps_day_value),
-                        (TextView) v.findViewById(R.id.weather_card_content_day_temps_evening_value),
-                        (TextView) v.findViewById(R.id.weather_card_content_day_temps_night_value)
-                };
-                mExpandedContent = v.findViewById(R.id.weather_card_expanded_content_layout);
-                mPrecipitationValue =
-                        (TextView) v.findViewById(R.id.weather_card_expanded_content_precipitation_value);
-                mWindValue = (TextView) v.findViewById(R.id.weather_card_expanded_content_wind_value);
-                mSunriseValue = (TextView) v.findViewById(R.id.current_content_sunrise_value);
-                mHumidityValue =
-                        (TextView) v.findViewById(R.id.weather_card_expanded_content_humidity_value);
-                mPressureValue =
-                        (TextView) v.findViewById(R.id.weather_card_expanded_content_pressure_value);
-                mSunsetValue = (TextView) v.findViewById(R.id.current_content_sunset_value);
-                mExpandCollapseButtonDivider = 
-                        v.findViewById(R.id.weather_card_content_expand_collapse_button_divider);
-                mProviderLink = 
-                        (TextView) v.findViewById(R.id.weather_card_content_provider_link);
-                mExpandCollapseButton = 
-                        (LinearLayout) v.findViewById(R.id.weather_card_content_expand_collapse_button);
-                mExpandCollapseButtonText = 
-                        (TextView) v.findViewById(R.id.weather_card_content_expand_collapse_button_text);
-                mExpandCollapseButtonIcon = 
-                        (ImageView) v.findViewById(R.id.weather_card_content_expand_collapse_button_icon);
+    public static class ForecastContentViewHolder extends CardViewHolder {
+        public TextView mSubtitle;
+        public ImageView mImage;
+        public TextView mTemp;
+        public TextView mCondition;
+        public View mExpandedContent;
+        public TextView mPrecipitationValue;
+        public TextView mWindValue;
+        public TextView mHumidityValue;
+        public TextView mPressureValue;
+        public View mExpandCollapseButtonDivider;
+        public LinearLayout mExpandCollapseButton;
+        public TextView mExpandCollapseButtonText;
+        public ImageView mExpandCollapseButtonIcon;
 
-            }
+        public ForecastContentViewHolder(View v) {
+            super(v);
+            mSubtitle = (TextView) findViewById(R.id.weather_card_content_subtitle);
+            mImage = (ImageView) findViewById(R.id.weather_card_content_condition_image);
+            mTemp = (TextView) findViewById(R.id.weather_card_content_temp);
+            mCondition = (TextView) findViewById(R.id.weather_card_content_condition);
+            mExpandedContent = findViewById(R.id.weather_card_expanded_content_layout);
+            mPrecipitationValue = 
+                    (TextView) findViewById(R.id.weather_card_expanded_content_precipitation_value);
+            mWindValue = (TextView) findViewById(R.id.weather_card_expanded_content_wind_value);
+            mHumidityValue =
+                    (TextView) findViewById(R.id.weather_card_expanded_content_humidity_value);
+            mPressureValue =
+                    (TextView) findViewById(R.id.weather_card_expanded_content_pressure_value);
+            mExpandCollapseButtonDivider = 
+                    findViewById(R.id.weather_card_content_expand_collapse_button_divider);
+            mExpandCollapseButton = 
+                    (LinearLayout) findViewById(R.id.weather_card_content_expand_collapse_button);
+            mExpandCollapseButtonText = 
+                    (TextView) findViewById(R.id.weather_card_content_expand_collapse_button_text);
+            mExpandCollapseButtonIcon = 
+                    (ImageView) findViewById(R.id.weather_card_content_expand_collapse_button_icon);
         }
 
-        public static class ForecastContentViewHolder {
-            public TextView mSubtitle;
-            public ImageView mImage;
-            public TextView mTemp;
-            public TextView mCondition;
-            public View mExpandedContent;
-            public TextView mPrecipitationValue;
-            public TextView mWindValue;
-            public TextView mHumidityValue;
-            public TextView mPressureValue;
-            public View mExpandCollapseButtonDivider;
-            public LinearLayout mExpandCollapseButton;
-            public TextView mExpandCollapseButtonText;
-            public ImageView mExpandCollapseButtonIcon;
+        private View findViewById(int id) {
+            return mForecastContentView.findViewById(id);
+        }
+    }
 
-            public ForecastContentViewHolder(View v) {
-                mSubtitle = (TextView) v.findViewById(R.id.weather_card_content_subtitle);
-                mImage = (ImageView) v.findViewById(R.id.weather_card_content_condition_image);
-                mTemp = (TextView) v.findViewById(R.id.weather_card_content_temp);
-                mCondition = (TextView) v.findViewById(R.id.weather_card_content_condition);
-                mExpandedContent = v.findViewById(R.id.weather_card_expanded_content_layout);
-                mPrecipitationValue = 
-                        (TextView) v.findViewById(R.id.weather_card_expanded_content_precipitation_value);
-                mWindValue = (TextView) v.findViewById(R.id.weather_card_expanded_content_wind_value);
-                mHumidityValue =
-                        (TextView) v.findViewById(R.id.weather_card_expanded_content_humidity_value);
-                mPressureValue =
-                        (TextView) v.findViewById(R.id.weather_card_expanded_content_pressure_value);
-                mExpandCollapseButtonDivider = 
-                        v.findViewById(R.id.weather_card_content_expand_collapse_button_divider);
-                mExpandCollapseButton = 
-                        (LinearLayout) v.findViewById(R.id.weather_card_content_expand_collapse_button);
-                mExpandCollapseButtonText = 
-                        (TextView) v.findViewById(R.id.weather_card_content_expand_collapse_button_text);
-                mExpandCollapseButtonIcon = 
-                        (ImageView) v.findViewById(R.id.weather_card_content_expand_collapse_button_icon);
-            }
+    public static class ForecastDayTempsContentViewHolder extends CardViewHolder {
+        public TextView[] mDayTempsValues;
+        public TextView mMinValue;
+        public TextView mMaxValue;
+        public TextView mProviderLink;
+
+        public ForecastDayTempsContentViewHolder(View v) {
+            super(v);
+            mDayTempsValues = new TextView[] {
+                    (TextView) findViewById(R.id.weather_card_content_day_temps_morning_value),
+                    (TextView) findViewById(R.id.weather_card_content_day_temps_day_value),
+                    (TextView) findViewById(R.id.weather_card_content_day_temps_evening_value),
+                    (TextView) findViewById(R.id.weather_card_content_day_temps_night_value)
+            };
+            mMinValue = (TextView) findViewById(R.id.forecast_day_temps_content_min_value);
+            mMaxValue = (TextView) findViewById(R.id.forecast_day_temps_content_max_value);
+            mProviderLink = (TextView) findViewById(R.id.weather_card_content_provider_link);
         }
 
-        public static class ForecastDayTempsContentViewHolder {
-            public TextView[] mDayTempsValues;
-            public TextView mMinValue;
-            public TextView mMaxValue;
-            public TextView mProviderLink;
-
-            public ForecastDayTempsContentViewHolder(View v) {
-                mDayTempsValues = new TextView[] {
-                        (TextView) v.findViewById(R.id.weather_card_content_day_temps_morning_value),
-                        (TextView) v.findViewById(R.id.weather_card_content_day_temps_day_value),
-                        (TextView) v.findViewById(R.id.weather_card_content_day_temps_evening_value),
-                        (TextView) v.findViewById(R.id.weather_card_content_day_temps_night_value)
-                };
-                mMinValue = (TextView) v.findViewById(R.id.forecast_day_temps_content_min_value);
-                mMaxValue = (TextView) v.findViewById(R.id.forecast_day_temps_content_max_value);
-                mProviderLink = (TextView) v.findViewById(R.id.weather_card_content_provider_link);
-            }
+        private View findViewById(int id) {
+            return mForecastDayTempsContentView.findViewById(id);
         }
-
     }
 }
