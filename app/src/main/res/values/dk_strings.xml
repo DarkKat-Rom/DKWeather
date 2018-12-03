@@ -37,7 +37,7 @@
     <string name="menu_item_update_weather_title">Update Weather</string>
     <string name="weather_updated">Weather data has been updated</string>
     <string name="weather_updated_same_timestamp">Weather data has been updated,\nbut new data and old data are the same</string>
-    <string name="action_bar_no_weather_data_part">, (no weather data)</string>
+    <string name="action_bar_no_weather_data">No weather data</string>
     <string name="action_bar_subtitle_settings_weather">Settings -> \'Setup the weather\'</string>
     <string name="action_bar_subtitle_settings_notification">Settings -> \'Notification\'</string>
     <string name="action_bar_subtitle_settings_widget">Settings -> \"Widget\"</string>

@@ -105,6 +105,7 @@ public class MainActivity extends BaseActivity implements OnClickListener, OnLon
             createOrRestoreState(savedInstanceState);
             mFragment = (WeatherFragment) getFragmentManager().findFragmentByTag(FRAGMENT_TAG);
         }
+        updateActionBar();
         setupBottomNavigation();
     }
 
@@ -269,6 +270,12 @@ public class MainActivity extends BaseActivity implements OnClickListener, OnLon
     }
 
     private void updateActionBar() {
+        if (mWeatherInfo == null) {
+            getSupportActionBar().setSubtitle(getResources().getString(
+                    R.string.action_bar_no_weather_data));
+            return;
+        }
+
         TimeZone myTimezone = TimeZone.getDefault();
         Calendar calendar = new GregorianCalendar(myTimezone);
         mActionBarSubTitles = new String[mNumForecastDays];
@@ -281,9 +288,7 @@ public class MainActivity extends BaseActivity implements OnClickListener, OnLon
                 mActionBarSubTitles[i] = WeatherInfo.getFormattedDate(calendar.getTime(), false);
             }
         }
-        String noWeatherDataPart = mWeatherInfo == null
-                ? getResources().getString(R.string.action_bar_no_weather_data_part) : "";
-        getSupportActionBar().setSubtitle(mActionBarSubTitles[mVisibleDay] + noWeatherDataPart);
+        getSupportActionBar().setSubtitle(mActionBarSubTitles[mVisibleDay]);
     }
 
     private void updateBottomNavigationItemState() {
