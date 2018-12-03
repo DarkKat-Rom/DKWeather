@@ -20,6 +20,7 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -157,6 +158,7 @@ public class WeatherFragment extends Fragment implements
         mItemCount = mWeatherCards.size();
         mCardAdapter.notifyItemRangeInserted(0, mItemCount);
         mContentList.getLayoutManager().scrollToPosition(0);
+        ((AppBarLayout) getActivity().findViewById(R.id.appBarLayout)).setExpanded(true, true);
     }
 
     @Override
