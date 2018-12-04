@@ -190,6 +190,28 @@ public class ThemeUtil {
             resId = R.style.Theme_Overlay_Accent_Yellow;
         } else if (index == 26) {
             resId = R.style.Theme_Overlay_Accent_Green;
+        } else if (index == 27) {
+            resId = R.style.Theme_Overlay_Accent_HoloBlueDark;
+        } else if (index == 28) {
+            resId = R.style.Theme_Overlay_Accent_HoloBlueBright;
+        } else if (index == 29) {
+            resId = R.style.Theme_Overlay_Accent_HoloPurple;
+        } else if (index == 30) {
+            resId = R.style.Theme_Overlay_Accent_HoloOrangeLight;
+        } else if (index == 31) {
+            resId = R.style.Theme_Overlay_Accent_HoloOrangeDark;
+        } else if (index == 32) {
+            resId = R.style.Theme_Overlay_Accent_HoloRedLight;
+        } else if (index == 33) {
+            resId = R.style.Theme_Overlay_Accent_HoloRedDark;
+        } else if (index == 34) {
+            resId = R.style.Theme_Overlay_Accent_HoloGreenLight;
+        } else if (index == 35) {
+            resId = R.style.Theme_Overlay_Accent_HoloGreenDark;
+        } else if (index == 36) {
+            resId = R.style.Theme_Overlay_Accent_DarkKatBlueGrey;
+        } else if (index == 37) {
+            resId = R.style.Theme_Overlay_Accent_DarkKatBlueBlueGrey;
         }
         return resId;
     }
@@ -263,6 +285,28 @@ public class ThemeUtil {
             resId = R.style.Theme_Overlay_TextLight_Yellow;
         } else if (index == 26) {
             resId = R.style.Theme_Overlay_TextLight_Green;
+        } else if (index == 27) {
+            resId = R.style.Theme_Overlay_TextLight_HoloBlueDark;
+        } else if (index == 28) {
+            resId = R.style.Theme_Overlay_TextLight_HoloBlueBright;
+        } else if (index == 29) {
+            resId = R.style.Theme_Overlay_TextLight_HoloPurple;
+        } else if (index == 30) {
+            resId = R.style.Theme_Overlay_TextLight_HoloOrangeLight;
+        } else if (index == 31) {
+            resId = R.style.Theme_Overlay_TextLight_HoloOrangeDark;
+        } else if (index == 32) {
+            resId = R.style.Theme_Overlay_TextLight_HoloRedLight;
+        } else if (index == 33) {
+            resId = R.style.Theme_Overlay_TextLight_HoloRedDark;
+        } else if (index == 34) {
+            resId = R.style.Theme_Overlay_TextLight_HoloGreenLight;
+        } else if (index == 35) {
+            resId = R.style.Theme_Overlay_TextLight_HoloGreenDark;
+        } else if (index == 36) {
+            resId = R.style.Theme_Overlay_TextLight_DarkKatBlueGrey;
+        } else if (index == 37) {
+            resId = R.style.Theme_Overlay_TextLight_DarkKatBlueBlueGrey;
         }
         return resId;
     }
@@ -323,6 +367,28 @@ public class ThemeUtil {
             resId = R.style.Theme_Overlay_TextDark_Yellow;
         } else if (index == 26) {
             resId = R.style.Theme_Overlay_TextDark_Green;
+        } else if (index == 27) {
+            resId = R.style.Theme_Overlay_TextDark_HoloBlueDark;
+        } else if (index == 28) {
+            resId = R.style.Theme_Overlay_TextDark_HoloBlueBright;
+        } else if (index == 29) {
+            resId = R.style.Theme_Overlay_TextDark_HoloPurple;
+        } else if (index == 30) {
+            resId = R.style.Theme_Overlay_TextDark_HoloOrangeLight;
+        } else if (index == 31) {
+            resId = R.style.Theme_Overlay_TextDark_HoloOrangeDark;
+        } else if (index == 32) {
+            resId = R.style.Theme_Overlay_TextDark_HoloRedLight;
+        } else if (index == 33) {
+            resId = R.style.Theme_Overlay_TextDark_HoloRedDark;
+        } else if (index == 34) {
+            resId = R.style.Theme_Overlay_TextDark_HoloGreenLight;
+        } else if (index == 35) {
+            resId = R.style.Theme_Overlay_TextDark_HoloGreenDark;
+        } else if (index == 36) {
+            resId = R.style.Theme_Overlay_TextDark_DarkKatBlueGrey;
+        } else if (index == 37) {
+            resId = R.style.Theme_Overlay_TextDark_DarkKatBlueBlueGrey;
         }
         return resId;
     }
@@ -390,6 +456,28 @@ public class ThemeUtil {
                 resId = R.style.Theme_Overlay_Ripple_Yellow;
             } else if (index == 26) {
                 resId = R.style.Theme_Overlay_Ripple_Green;
+            } else if (index == 27) {
+                resId = R.style.Theme_Overlay_Ripple_HoloBlueDark;
+            } else if (index == 28) {
+                resId = R.style.Theme_Overlay_Ripple_HoloBlueBright;
+            } else if (index == 29) {
+                resId = R.style.Theme_Overlay_Ripple_HoloPurple;
+            } else if (index == 30) {
+                resId = R.style.Theme_Overlay_Ripple_HoloOrangeLight;
+            } else if (index == 31) {
+                resId = R.style.Theme_Overlay_Ripple_HoloOrangeDark;
+            } else if (index == 32) {
+                resId = R.style.Theme_Overlay_Ripple_HoloRedLight;
+            } else if (index == 33) {
+                resId = R.style.Theme_Overlay_Ripple_HoloRedDark;
+            } else if (index == 34) {
+                resId = R.style.Theme_Overlay_Ripple_HoloGreenLight;
+            } else if (index == 35) {
+                resId = R.style.Theme_Overlay_Ripple_HoloGreenDark;
+            } else if (index == 36) {
+                resId = R.style.Theme_Overlay_Ripple_DarkKatBlueGrey;
+            } else if (index == 37) {
+                resId = R.style.Theme_Overlay_Ripple_DarkKatBlueBlueGrey;
             }
         }
         return resId;

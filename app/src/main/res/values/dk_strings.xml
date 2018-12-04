@@ -55,7 +55,8 @@
     <string name="picker_fragment_additional_subtitle_widget_icon">\'Widget\' -> \'Icon\'</string>
     <string name="picker_fragment_additional_subtitle_pick_color_list_dialog_title_background">\'Color picker list\' -> \'Dialog title background\'</string>
 
-    <!-- Weather fragments -->
+    <!-- Weather fragment -->
+    <!-- Weather cards -->
     <string name="current_title">Current</string>
     <string name="forecast_title">Forecast</string>
     <string name="day_temps_title">Day temps</string>
@@ -75,12 +76,13 @@
     <string name="expand_card">Show more</string>
     <string name="collapse_card">Show less</string>
 
-    <!-- No weather data fragment -->
+    <!-- No weather data layout -->
     <string name="no_weather_data_header">Weather data is not available!</string>
     <string name="no_weather_data_title1">This is normal:</string>
     <string name="no_weather_data_title2">Otherwise:</string>
     <string name="no_weather_data_summary1">- On first app start\n- After factory reset\n- After wiping app data\nGo to settings and (re)setup the weather</string>
     <string name="no_weather_data_summary2">- Make sure you are connected to the internet\n- Weather is enabled\n- Location permission was granted,\n  (when custom location is disabled)\n- Location is enabled via system settings,\n  (when custom location is disabled)\n- You set a valid location,\n  (when custom location is enabled)</string>
+    <!-- Weather fragment end -->
 
     <!-- Bottom navigation bar -->
     <string name="action_previous_day_title">Previous day</string>
@@ -173,7 +175,6 @@
     <string name="darkkat_blue_grey">Darkkat Background</string>
     <string name="darkkat_blue_blue_grey">Darkkat Background Floating</string>
     <string name="accent_darkkat">Accent Darkkat</string>
-    <string name="holo_blue_light">Holo Blue Light</string>
     <string name="material_blue_grey_500">Material Blue Grey 500</string>
     <string name="material_blue_500">Material Blue 500</string>
     <string name="material_light_blue_500">Material Light Blue 500</string>
@@ -191,6 +192,7 @@
     <string name="material_green_500">Material Green 500</string>
     <string name="material_light_green_500">Material Light Green 500</string>
     <string name="material_lime_500">Material Lime 500</string>
+    <string name="holo_blue_light">Holo Blue Light</string>
     <string name="holo_blue_dark">Holo Blue Dark</string>
     <string name="holo_blue_bright">Holo Blue Bright</string>
     <string name="holo_purple">Holo Purple</string>

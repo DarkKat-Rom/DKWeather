@@ -21,6 +21,34 @@
     <item name="highlight_alpha_material_dark" format="float" type="dimen">0.20</item>
     <item name="highlight_alpha_material_colored" format="float" type="dimen">0.26</item>
 
+    <!-- DarkKat Blue Grey -->
+    <!-- 87% DarkKat Blue Grey -->
+    <color name="primary_text_default_light_darkkat_blue_grey">#de1b1f23</color>
+    <!-- 54% DarkKat Blue Grey -->
+    <color name="secondary_text_default_light_darkkat_blue_grey">#8a1b1f23</color>
+    <!-- 100% DarkKat Blue Grey -->
+    <color name="primary_text_default_dark_darkkat_blue_grey">#ff1b1f23</color>
+    <!-- 70% DarkKat Blue Grey -->
+    <color name="secondary_text_default_dark_darkkat_blue_grey">#b31b1f23</color>
+    <!-- 20% DarkKat Blue Grey -->
+    <color name="divider_dark_darkkat_blue_grey">#331b1f23</color>
+    <!-- 12% DarkKat Blue Grey -->
+    <color name="divider_light_darkkat_blue_grey">#1f1b1f23</color>
+
+    <!-- DarkKat Blue Blue Grey -->
+    <!-- 87% DarkKat Blue Blue Grey -->
+    <color name="primary_text_default_light_darkkat_blue_blue_grey">#de1f2429</color>
+    <!-- 54% DarkKat Blue Blue Grey -->
+    <color name="secondary_text_default_light_darkkat_blue_blue_grey">#8a1f2429</color>
+    <!-- 100% DarkKat Blue Blue Grey -->
+    <color name="primary_text_default_dark_darkkat_blue_blue_grey">#ff1f2429</color>
+    <!-- 70% DarkKat Blue Blue Grey -->
+    <color name="secondary_text_default_dark_darkkat_blue_blue_grey">#b31f2429</color>
+    <!-- 20% DarkKat Blue Blue Grey -->
+    <color name="divider_dark_darkkat_blue_blue_grey">#331f2429</color>
+    <!-- 12% DarkKat Blue Blue Grey -->
+    <color name="divider_light_darkkat_blue_blue_grey">#1f1f2429</color>
+
     <!-- Accent DarkKat -->
     <!-- 87% Accent DarkKat -->
     <color name="primary_text_default_light_accent_darkkat">#de5a8596</color>
@@ -34,20 +62,6 @@
     <color name="divider_dark_accent_darkkat">#335a8596</color>
     <!-- 12% Accent DarkKat -->
     <color name="divider_light_accent_darkkat">#1f5a8596</color>
-
-    <!-- Holo blue light -->
-    <!-- 87% Holo blue light -->
-    <color name="primary_text_default_light_holo_blue_light">#de33b5e5</color>
-    <!-- 54% Holo blue light -->
-    <color name="secondary_text_default_light_holo_blue_light">#8a33b5e5</color>
-    <!-- 100% Holo blue light -->
-    <color name="primary_text_default_dark_holo_blue_light">#ff33b5e5</color>
-    <!-- 70% Holo blue light -->
-    <color name="secondary_text_default_dark_holo_blue_light">#b333b5e5</color>
-    <!-- 20% Holo blue light -->
-    <color name="divider_dark_holo_blue_light">#3333b5e5</color>
-    <!-- 12% Holo blue light -->
-    <color name="divider_light_holo_blue_light">#1f33b5e5</color>
 
     <!-- Material blue grey 500 -->
     <!-- 87% Material blue grey 500 -->
@@ -286,6 +300,146 @@
     <color name="divider_dark_material_lime">#33cddc39</color>
     <!-- 12% Material lime 500 -->
     <color name="divider_light_material_lime">#1fcddc39</color>
+
+    <!-- Holo blue light -->
+    <!-- 87% Holo blue light -->
+    <color name="primary_text_default_light_holo_blue_light">#de33b5e5</color>
+    <!-- 54% Holo blue light -->
+    <color name="secondary_text_default_light_holo_blue_light">#8a33b5e5</color>
+    <!-- 100% Holo blue light -->
+    <color name="primary_text_default_dark_holo_blue_light">#ff33b5e5</color>
+    <!-- 70% Holo blue light -->
+    <color name="secondary_text_default_dark_holo_blue_light">#b333b5e5</color>
+    <!-- 20% Holo blue light -->
+    <color name="divider_dark_holo_blue_light">#3333b5e5</color>
+    <!-- 12% Holo blue light -->
+    <color name="divider_light_holo_blue_light">#1f33b5e5</color>
+
+    <!-- Holo blue dark -->
+    <!-- 87% Holo blue dark -->
+    <color name="primary_text_default_light_holo_blue_dark">#de0099cc</color>
+    <!-- 54% Holo blue dark -->
+    <color name="secondary_text_default_light_holo_blue_dark">#8a0099cc</color>
+    <!-- 100% Holo blue dark -->
+    <color name="primary_text_default_dark_holo_blue_dark">#ff0099cc</color>
+    <!-- 70% Holo blue dark -->
+    <color name="secondary_text_default_dark_holo_blue_dark">#b30099cc</color>
+    <!-- 20% Holo blue dark -->
+    <color name="divider_dark_holo_blue_dark">#330099cc</color>
+    <!-- 12% Holo blue dark -->
+    <color name="divider_light_holo_blue_dark">#1f0099cc</color>
+
+    <!-- Holo blue bright -->
+    <!-- 87% Holo blue bright -->
+    <color name="primary_text_default_light_holo_blue_bright">#de00ddff</color>
+    <!-- 54% Holo blue bright -->
+    <color name="secondary_text_default_light_holo_blue_bright">#8a00ddff</color>
+    <!-- 100% Holo blue bright -->
+    <color name="primary_text_default_dark_holo_blue_bright">#ff00ddff</color>
+    <!-- 70% Holo blue bright -->
+    <color name="secondary_text_default_dark_holo_blue_bright">#b300ddff</color>
+    <!-- 20% Holo blue bright -->
+    <color name="divider_dark_holo_blue_bright">#3300ddff</color>
+    <!-- 12% Holo blue bright -->
+    <color name="divider_light_holo_blue_bright">#1f00ddff</color>
+
+    <!-- Holo purple -->
+    <!-- 87% Holo purple -->
+    <color name="primary_text_default_light_holo_purple">#deaa66cc</color>
+    <!-- 54% Holo purple -->
+    <color name="secondary_text_default_light_holo_purple">#8aaa66cc</color>
+    <!-- 100% Holo purple -->
+    <color name="primary_text_default_dark_holo_purple">#ffaa66cc</color>
+    <!-- 70% Holo purple -->
+    <color name="secondary_text_default_dark_holo_purple">#b3aa66cc</color>
+    <!-- 20% Holo purple -->
+    <color name="divider_dark_holo_purple">#33aa66cc</color>
+    <!-- 12% Holo purple -->
+    <color name="divider_light_holo_purple">#1faa66cc</color>
+
+    <!-- Holo orange light -->
+    <!-- 87% Holo orange light -->
+    <color name="primary_text_default_light_holo_orange_light">#deffbb33</color>
+    <!-- 54% Holo orange light -->
+    <color name="secondary_text_default_light_holo_orange_light">#8affbb33</color>
+    <!-- 100% Holo orange light -->
+    <color name="primary_text_default_dark_holo_orange_light">#ffffbb33</color>
+    <!-- 70% Holo orange light -->
+    <color name="secondary_text_default_dark_holo_orange_light">#b3ffbb33</color>
+    <!-- 20% Holo orange light -->
+    <color name="divider_dark_holo_orange_light">#33ffbb33</color>
+    <!-- 12% Holo orange light -->
+    <color name="divider_light_holo_orange_light">#1fffbb33</color>
+
+    <!-- Holo orange dark -->
+    <!-- 87% Holo orange dark -->
+    <color name="primary_text_default_light_holo_orange_dark">#deff8800</color>
+    <!-- 54% Holo orange dark -->
+    <color name="secondary_text_default_light_holo_orange_dark">#8aff8800</color>
+    <!-- 100% Holo orange dark -->
+    <color name="primary_text_default_dark_holo_orange_dark">#ffff8800</color>
+    <!-- 70% Holo orange dark -->
+    <color name="secondary_text_default_dark_holo_orange_dark">#b3ff8800</color>
+    <!-- 20% Holo orange dark -->
+    <color name="divider_dark_holo_orange_dark">#33ff8800</color>
+    <!-- 12% Holo orange dark -->
+    <color name="divider_light_holo_orange_dark">#1fff8800</color>
+
+    <!-- Holo red light -->
+    <!-- 87% Holo red light -->
+    <color name="primary_text_default_light_holo_red_light">#deff4444</color>
+    <!-- 54% Holo red light -->
+    <color name="secondary_text_default_light_holo_red_light">#8aff4444</color>
+    <!-- 100% Holo red light -->
+    <color name="primary_text_default_dark_holo_red_light">#ffff4444</color>
+    <!-- 70% Holo red light -->
+    <color name="secondary_text_default_dark_holo_red_light">#b3ff4444</color>
+    <!-- 20% Holo red light -->
+    <color name="divider_dark_holo_red_light">#33ff4444</color>
+    <!-- 12% Holo red light -->
+    <color name="divider_light_holo_red_light">#1fff4444</color>
+
+    <!-- Holo red dark -->
+    <!-- 87% Holo red dark -->
+    <color name="primary_text_default_light_holo_red_dark">#decc0000</color>
+    <!-- 54% Holo red dark -->
+    <color name="secondary_text_default_light_holo_red_dark">#8acc0000</color>
+    <!-- 100% Holo red dark -->
+    <color name="primary_text_default_dark_holo_red_dark">#ffcc0000</color>
+    <!-- 70% Holo red dark -->
+    <color name="secondary_text_default_dark_holo_red_dark">#b3cc0000</color>
+    <!-- 20% Holo red dark -->
+    <color name="divider_dark_holo_red_dark">#33cc0000</color>
+    <!-- 12% Holo red dark -->
+    <color name="divider_light_holo_red_dark">#1fcc0000</color>
+
+    <!-- Holo green light -->
+    <!-- 87% Holo green light -->
+    <color name="primary_text_default_light_holo_green_light">#de99cc00</color>
+    <!-- 54% Holo green light -->
+    <color name="secondary_text_default_light_holo_green_light">#8a99cc00</color>
+    <!-- 100% Holo green light -->
+    <color name="primary_text_default_dark_holo_green_light">#ff99cc00</color>
+    <!-- 70% Holo green light -->
+    <color name="secondary_text_default_dark_holo_green_light">#b399cc00</color>
+    <!-- 20% Holo green light -->
+    <color name="divider_dark_holo_green_light">#3399cc00</color>
+    <!-- 12% Holo green light -->
+    <color name="divider_light_holo_green_light">#1f99cc00</color>
+
+    <!-- Holo green dark -->
+    <!-- 87% Holo green dark -->
+    <color name="primary_text_default_light_holo_green_dark">#de669900</color>
+    <!-- 54% Holo green dark -->
+    <color name="secondary_text_default_light_holo_green_dark">#8a669900</color>
+    <!-- 100% Holo green dark -->
+    <color name="primary_text_default_dark_holo_green_dark">#ff669900</color>
+    <!-- 70% Holo green dark -->
+    <color name="secondary_text_default_dark_holo_green_dark">#b3669900</color>
+    <!-- 20% Holo green dark -->
+    <color name="divider_dark_holo_green_dark">#33669900</color>
+    <!-- 12% Holo green dark -->
+    <color name="divider_light_holo_green_dark">#1f669900</color>
 
     <!-- Black -->
     <!-- 87% Black -->

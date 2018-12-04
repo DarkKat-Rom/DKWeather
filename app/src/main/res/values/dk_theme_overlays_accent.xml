@@ -17,8 +17,12 @@
 <resources>
     <style name="Theme.Overlay.Accent" />
 
-    <style name="Theme.Overlay.Accent.HoloBlueLight">
-        <item name="colorAccent">@color/holo_blue_light</item>
+    <style name="Theme.Overlay.Accent.DarkKatBlueGrey">
+        <item name="colorAccent">@color/darkkat_blue_grey</item>
+    </style>
+
+    <style name="Theme.Overlay.Accent.DarkKatBlueBlueGrey">
+        <item name="colorAccent">@color/darkkat_blue_blue_grey</item>
     </style>
 
     <style name="Theme.Overlay.Accent.MaterialBlueGrey500">
@@ -87,6 +91,46 @@
 
     <style name="Theme.Overlay.Accent.MaterialLime500">
         <item name="colorAccent">@color/material_lime_500</item>
+    </style>
+
+    <style name="Theme.Overlay.Accent.HoloBlueLight">
+        <item name="colorAccent">@color/holo_blue_light</item>
+    </style>
+
+    <style name="Theme.Overlay.Accent.HoloBlueDark">
+        <item name="colorAccent">@color/holo_blue_dark</item>
+    </style>
+
+    <style name="Theme.Overlay.Accent.HoloBlueBright">
+        <item name="colorAccent">@color/holo_blue_bright</item>
+    </style>
+
+    <style name="Theme.Overlay.Accent.HoloPurple">
+        <item name="colorAccent">@color/holo_purple</item>
+    </style>
+
+    <style name="Theme.Overlay.Accent.HoloOrangeLight">
+        <item name="colorAccent">@color/holo_orange_light</item>
+    </style>
+
+    <style name="Theme.Overlay.Accent.HoloOrangeDark">
+        <item name="colorAccent">@color/holo_orange_dark</item>
+    </style>
+
+    <style name="Theme.Overlay.Accent.HoloRedLight">
+        <item name="colorAccent">@color/holo_red_light</item>
+    </style>
+
+    <style name="Theme.Overlay.Accent.HoloRedDark">
+        <item name="colorAccent">@color/holo_red_dark</item>
+    </style>
+
+    <style name="Theme.Overlay.Accent.HoloGreenLight">
+        <item name="colorAccent">@color/holo_green_light</item>
+    </style>
+
+    <style name="Theme.Overlay.Accent.HoloGreenDark">
+        <item name="colorAccent">@color/holo_green_dark</item>
     </style>
 
     <style name="Theme.Overlay.Accent.Black">

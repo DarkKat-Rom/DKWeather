@@ -21,8 +21,12 @@
         <item name="colorControlHighlight">@color/ripple_accent_darkkat</item>
     </style>
 
-    <style name="Theme.Overlay.Ripple.HoloBlueLight">
-        <item name="colorControlHighlight">@color/ripple_holo_blue_light</item>
+    <style name="Theme.Overlay.Ripple.DarkKatBlueGrey">
+        <item name="colorControlHighlight">@color/ripple_darkkat_blue_grey</item>
+    </style>
+
+    <style name="Theme.Overlay.Ripple.DarkKatBlueBlueGrey">
+        <item name="colorControlHighlight">@color/ripple_darkkat_blue_blue_grey</item>
     </style>
 
     <style name="Theme.Overlay.Ripple.MaterialBlueGrey">
@@ -91,6 +95,46 @@
 
     <style name="Theme.Overlay.Ripple.MaterialLime">
         <item name="colorControlHighlight">@color/ripple_material_lime</item>
+    </style>
+
+    <style name="Theme.Overlay.Ripple.HoloBlueLight">
+        <item name="colorControlHighlight">@color/ripple_holo_blue_light</item>
+    </style>
+
+    <style name="Theme.Overlay.Ripple.HoloBlueDark">
+        <item name="colorControlHighlight">@color/ripple_holo_blue_dark</item>
+    </style>
+
+    <style name="Theme.Overlay.Ripple.HoloBlueBright">
+        <item name="colorControlHighlight">@color/ripple_holo_blue_bright</item>
+    </style>
+
+    <style name="Theme.Overlay.Ripple.HoloPurple">
+        <item name="colorControlHighlight">@color/ripple_holo_purple</item>
+    </style>
+
+    <style name="Theme.Overlay.Ripple.HoloOrangeLight">
+        <item name="colorControlHighlight">@color/ripple_holo_orange_light</item>
+    </style>
+
+    <style name="Theme.Overlay.Ripple.HoloOrangeDark">
+        <item name="colorControlHighlight">@color/ripple_holo_orange_dark</item>
+    </style>
+
+    <style name="Theme.Overlay.Ripple.HoloRedLight">
+        <item name="colorControlHighlight">@color/ripple_holo_red_light</item>
+    </style>
+
+    <style name="Theme.Overlay.Ripple.HoloRedDark">
+        <item name="colorControlHighlight">@color/ripple_holo_red_dark</item>
+    </style>
+
+    <style name="Theme.Overlay.Ripple.HoloGreenLight">
+        <item name="colorControlHighlight">@color/ripple_holo_green_light</item>
+    </style>
+
+    <style name="Theme.Overlay.Ripple.HoloGreenDark">
+        <item name="colorControlHighlight">@color/ripple_holo_green_dark</item>
     </style>
 
     <style name="Theme.Overlay.Ripple.Black">

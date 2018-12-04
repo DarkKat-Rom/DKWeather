@@ -30,16 +30,28 @@
         <item name="dividerColor">@color/divider_light_accent_darkkat</item>
     </style>
 
-    <style name="Theme.Overlay.TextDark.HoloBlueLight">
-        <item name="android:textColorPrimary">@color/primary_text_dark_holo_blue_light</item>
-        <item name="android:textColorSecondary">@color/secondary_text_dark_holo_blue_light</item>
-        <item name="dividerColor">@color/divider_dark_holo_blue_light</item>
+    <style name="Theme.Overlay.TextDark.DarkKatBlueGrey">
+        <item name="android:textColorPrimary">@color/primary_text_dark_darkkat_blue_grey</item>
+        <item name="android:textColorSecondary">@color/secondary_text_dark_darkkat_blue_grey</item>
+        <item name="dividerColor">@color/divider_dark_darkkat_blue_grey</item>
     </style>
 
-    <style name="Theme.Overlay.TextLight.HoloBlueLight">
-        <item name="android:textColorPrimary">@color/primary_text_light_holo_blue_light</item>
-        <item name="android:textColorSecondary">@color/secondary_text_light_holo_blue_light</item>
-        <item name="dividerColor">@color/divider_light_holo_blue_light</item>
+    <style name="Theme.Overlay.TextLight.DarkKatBlueGrey">
+        <item name="android:textColorPrimary">@color/primary_text_light_darkkat_blue_grey</item>
+        <item name="android:textColorSecondary">@color/secondary_text_light_darkkat_blue_grey</item>
+        <item name="dividerColor">@color/divider_light_darkkat_blue_grey</item>
+    </style>
+
+    <style name="Theme.Overlay.TextDark.DarkKatBlueBlueGrey">
+        <item name="android:textColorPrimary">@color/primary_text_dark_darkkat_blue_blue_grey</item>
+        <item name="android:textColorSecondary">@color/secondary_text_dark_darkkat_blue_blue_grey</item>
+        <item name="dividerColor">@color/divider_dark_darkkat_blue_blue_grey</item>
+    </style>
+
+    <style name="Theme.Overlay.TextLight.DarkKatBlueBlueGrey">
+        <item name="android:textColorPrimary">@color/primary_text_light_darkkat_blue_blue_grey</item>
+        <item name="android:textColorSecondary">@color/secondary_text_light_darkkat_blue_blue_grey</item>
+        <item name="dividerColor">@color/divider_light_darkkat_blue_blue_grey</item>
     </style>
 
     <style name="Theme.Overlay.TextDark.MaterialBlueGrey500">
@@ -244,6 +256,126 @@
         <item name="android:textColorPrimary">@color/primary_text_light_material_lime</item>
         <item name="android:textColorSecondary">@color/secondary_text_light_material_lime</item>
         <item name="dividerColor">@color/divider_light_material_lime</item>
+    </style>
+
+    <style name="Theme.Overlay.TextDark.HoloBlueLight">
+        <item name="android:textColorPrimary">@color/primary_text_dark_holo_blue_light</item>
+        <item name="android:textColorSecondary">@color/secondary_text_dark_holo_blue_light</item>
+        <item name="dividerColor">@color/divider_dark_holo_blue_light</item>
+    </style>
+
+    <style name="Theme.Overlay.TextLight.HoloBlueLight">
+        <item name="android:textColorPrimary">@color/primary_text_light_holo_blue_light</item>
+        <item name="android:textColorSecondary">@color/secondary_text_light_holo_blue_light</item>
+        <item name="dividerColor">@color/divider_light_holo_blue_light</item>
+    </style>
+
+    <style name="Theme.Overlay.TextDark.HoloBlueDark">
+        <item name="android:textColorPrimary">@color/primary_text_dark_holo_blue_dark</item>
+        <item name="android:textColorSecondary">@color/secondary_text_dark_holo_blue_dark</item>
+        <item name="dividerColor">@color/divider_dark_holo_blue_dark</item>
+    </style>
+
+    <style name="Theme.Overlay.TextLight.HoloBlueDark">
+        <item name="android:textColorPrimary">@color/primary_text_light_holo_blue_dark</item>
+        <item name="android:textColorSecondary">@color/secondary_text_light_holo_blue_dark</item>
+        <item name="dividerColor">@color/divider_light_holo_blue_dark</item>
+    </style>
+
+    <style name="Theme.Overlay.TextDark.HoloBlueBright">
+        <item name="android:textColorPrimary">@color/primary_text_dark_holo_blue_bright</item>
+        <item name="android:textColorSecondary">@color/secondary_text_dark_holo_blue_bright</item>
+        <item name="dividerColor">@color/divider_dark_holo_blue_bright</item>
+    </style>
+
+    <style name="Theme.Overlay.TextLight.HoloBlueBright">
+        <item name="android:textColorPrimary">@color/primary_text_light_holo_blue_bright</item>
+        <item name="android:textColorSecondary">@color/secondary_text_light_holo_blue_bright</item>
+        <item name="dividerColor">@color/divider_light_holo_blue_bright</item>
+    </style>
+
+    <style name="Theme.Overlay.TextDark.HoloPurple">
+        <item name="android:textColorPrimary">@color/primary_text_dark_holo_purple</item>
+        <item name="android:textColorSecondary">@color/secondary_text_dark_holo_purple</item>
+        <item name="dividerColor">@color/divider_dark_holo_purple</item>
+    </style>
+
+    <style name="Theme.Overlay.TextLight.HoloPurple">
+        <item name="android:textColorPrimary">@color/primary_text_light_holo_purple</item>
+        <item name="android:textColorSecondary">@color/secondary_text_light_holo_purple</item>
+        <item name="dividerColor">@color/divider_light_holo_purple</item>
+    </style>
+
+    <style name="Theme.Overlay.TextDark.HoloOrangeLight">
+        <item name="android:textColorPrimary">@color/primary_text_dark_holo_orange_light</item>
+        <item name="android:textColorSecondary">@color/secondary_text_dark_holo_orange_light</item>
+        <item name="dividerColor">@color/divider_dark_holo_orange_light</item>
+    </style>
+
+    <style name="Theme.Overlay.TextLight.HoloOrangeLight">
+        <item name="android:textColorPrimary">@color/primary_text_light_holo_orange_light</item>
+        <item name="android:textColorSecondary">@color/secondary_text_light_holo_orange_light</item>
+        <item name="dividerColor">@color/divider_light_holo_orange_light</item>
+    </style>
+
+    <style name="Theme.Overlay.TextDark.HoloOrangeDark">
+        <item name="android:textColorPrimary">@color/primary_text_dark_holo_orange_dark</item>
+        <item name="android:textColorSecondary">@color/secondary_text_dark_holo_orange_dark</item>
+        <item name="dividerColor">@color/divider_dark_holo_orange_dark</item>
+    </style>
+
+    <style name="Theme.Overlay.TextLight.HoloOrangeDark">
+        <item name="android:textColorPrimary">@color/primary_text_light_holo_orange_dark</item>
+        <item name="android:textColorSecondary">@color/secondary_text_light_holo_orange_dark</item>
+        <item name="dividerColor">@color/divider_light_holo_orange_dark</item>
+    </style>
+
+    <style name="Theme.Overlay.TextDark.HoloRedLight">
+        <item name="android:textColorPrimary">@color/primary_text_dark_holo_red_light</item>
+        <item name="android:textColorSecondary">@color/secondary_text_dark_holo_red_light</item>
+        <item name="dividerColor">@color/divider_dark_holo_red_light</item>
+    </style>
+
+    <style name="Theme.Overlay.TextLight.HoloRedLight">
+        <item name="android:textColorPrimary">@color/primary_text_light_holo_red_light</item>
+        <item name="android:textColorSecondary">@color/secondary_text_light_holo_red_light</item>
+        <item name="dividerColor">@color/divider_light_holo_red_light</item>
+    </style>
+
+    <style name="Theme.Overlay.TextDark.HoloRedDark">
+        <item name="android:textColorPrimary">@color/primary_text_dark_holo_red_dark</item>
+        <item name="android:textColorSecondary">@color/secondary_text_dark_holo_red_dark</item>
+        <item name="dividerColor">@color/divider_dark_holo_red_dark</item>
+    </style>
+
+    <style name="Theme.Overlay.TextLight.HoloRedDark">
+        <item name="android:textColorPrimary">@color/primary_text_light_holo_red_dark</item>
+        <item name="android:textColorSecondary">@color/secondary_text_light_holo_red_dark</item>
+        <item name="dividerColor">@color/divider_light_holo_red_dark</item>
+    </style>
+
+    <style name="Theme.Overlay.TextDark.HoloGreenLight">
+        <item name="android:textColorPrimary">@color/primary_text_dark_holo_green_light</item>
+        <item name="android:textColorSecondary">@color/secondary_text_dark_holo_green_light</item>
+        <item name="dividerColor">@color/divider_dark_holo_green_light</item>
+    </style>
+
+    <style name="Theme.Overlay.TextLight.HoloGreenLight">
+        <item name="android:textColorPrimary">@color/primary_text_light_holo_green_light</item>
+        <item name="android:textColorSecondary">@color/secondary_text_light_holo_green_light</item>
+        <item name="dividerColor">@color/divider_light_holo_green_light</item>
+    </style>
+
+    <style name="Theme.Overlay.TextDark.HoloGreenDark">
+        <item name="android:textColorPrimary">@color/primary_text_dark_holo_green_dark</item>
+        <item name="android:textColorSecondary">@color/secondary_text_dark_holo_green_dark</item>
+        <item name="dividerColor">@color/divider_dark_holo_green_dark</item>
+    </style>
+
+    <style name="Theme.Overlay.TextLight.HoloGreenDark">
+        <item name="android:textColorPrimary">@color/primary_text_light_holo_green_dark</item>
+        <item name="android:textColorSecondary">@color/secondary_text_light_holo_green_dark</item>
+        <item name="dividerColor">@color/divider_light_holo_green_dark</item>
     </style>
 
     <style name="Theme.Overlay.TextDark.Black">

@@ -58,8 +58,9 @@
         <item>2</item>
     </string-array>
     <string-array name="theme_color_list_entries">
+        <item>@string/darkkat_blue_grey</item>
+        <item>@string/darkkat_blue_blue_grey</item>
         <item>@string/accent_darkkat</item>
-        <item>@string/holo_blue_light</item>
         <item>@string/material_blue_grey_500</item>
         <item>@string/material_blue_500</item>
         <item>@string/material_light_blue_500</item>
@@ -72,23 +73,34 @@
         <item>@string/material_orange_500</item>
         <item>@string/material_deep_orange_500</item>
         <item>@string/material_red_500</item>
-        <item>@string/material_yellow_500</item>>
-        <item>@string/material_amber_500</item>>
+        <item>@string/material_yellow_500</item>
+        <item>@string/material_amber_500</item>
         <item>@string/material_green_500</item>
         <item>@string/material_light_green_500</item>
         <item>@string/material_lime_500</item>
+        <item>@string/holo_blue_light</item>
+        <item>@string/holo_blue_dark</item>
+        <item>@string/holo_blue_bright</item>
+        <item>@string/holo_purple</item>
+        <item>@string/holo_orange_light</item>
+        <item>@string/holo_orange_dark</item>
+        <item>@string/holo_red_light</item>
+        <item>@string/holo_red_dark</item>
+        <item>@string/holo_green_light</item>
+        <item>@string/holo_green_dark</item>
         <item>@string/black</item>
         <item>@string/white</item>
         <item>@string/blue</item>
         <item>@string/purple</item>
         <item>@string/orange</item>
         <item>@string/red</item>
-        <item>@string/yellow</item>>
+        <item>@string/yellow</item>
         <item>@string/green</item>
     </string-array>
     <string-array name="theme_color_list_values" translatable="false">
+        <item>36</item>
+        <item>37</item>
         <item>0</item>
-        <item>1</item>
         <item>2</item>
         <item>3</item>
         <item>4</item>
@@ -96,7 +108,7 @@
         <item>6</item>
         <item>7</item>
         <item>8</item>
-        <item>9</item>>
+        <item>9</item>
         <item>10</item>
         <item>11</item>
         <item>12</item>
@@ -104,8 +116,18 @@
         <item>14</item>
         <item>15</item>
         <item>16</item>
-        <item>17</item>>
+        <item>17</item>
         <item>18</item>
+        <item>1</item>
+        <item>27</item>
+        <item>28</item>
+        <item>29</item>
+        <item>30</item>
+        <item>31</item>
+        <item>32</item>
+        <item>33</item>
+        <item>34</item>
+        <item>35</item>
         <item>19</item>
         <item>20</item>
         <item>21</item>
@@ -116,8 +138,9 @@
         <item>26</item>
     </string-array>
     <string-array name="theme_color_list_entry_colors" translatable="false">
+        <item>#ff1b1f23</item>
+        <item>#ff1f2429</item>
         <item>#ff5a8596</item>
-        <item>#ff33b5e5</item>
         <item>#ff607d8b</item>
         <item>#ff2196f3</item>
         <item>#ff03a9f4</item>
@@ -135,6 +158,16 @@
         <item>#ff4caf50</item>
         <item>#ff8bc34a</item>
         <item>#ffcddc39</item>
+        <item>#ff33b5e5</item>
+        <item>#ff0099cc</item>
+        <item>#ff00ddff</item>
+        <item>#ffaa66cc</item>
+        <item>#ffffbb33</item>
+        <item>#ffff8800</item>
+        <item>#ffff4444</item>
+        <item>#ffcc0000</item>
+        <item>#ff99cc00</item>
+        <item>#ff669900</item>
         <item>#ff000000</item>
         <item>#ffffffff</item>
         <item>#ff0000ff</item>
