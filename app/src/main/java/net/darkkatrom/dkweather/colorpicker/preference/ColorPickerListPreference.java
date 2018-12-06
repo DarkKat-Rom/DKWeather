@@ -36,6 +36,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import net.darkkatrom.dkweather.R;
+import net.darkkatrom.dkweather.colorpicker.adapter.ColorPickerListAdapter;
 import net.darkkatrom.dkweather.colorpicker.animator.ColorPickerListAnimator;
 import net.darkkatrom.dkweather.colorpicker.util.ColorPickerHelper;
 import net.darkkatrom.dkweather.utils.ThemeUtil;

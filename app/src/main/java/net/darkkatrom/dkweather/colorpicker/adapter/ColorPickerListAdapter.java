@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.darkkatrom.dkweather.colorpicker.preference;
+package net.darkkatrom.dkweather.colorpicker.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
@@ -27,9 +27,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import net.darkkatrom.dkweather.R;
-import net.darkkatrom.dkweather.utils.ThemeUtil;
-import net.darkkatrom.dkweather.colorpicker.util.ColorPickerHelper;
+import net.darkkatrom.dkweather.colorpicker.model.ColorPickerListItem;
 import net.darkkatrom.dkweather.colorpicker.widget.ColorPreview;
+import net.darkkatrom.dkweather.utils.ThemeUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -164,34 +164,6 @@ public class ColorPickerListAdapter extends RecyclerView.Adapter<ColorPickerList
     public void onDetachedFromRecyclerView(RecyclerView recyclerView) {
         super.onDetachedFromRecyclerView(recyclerView);
         recyclerView.clearOnScrollListeners();
-    }
-
-    public class ColorPickerListItem {
-        private CharSequence mTitle;
-        private CharSequence mColor;
-        private boolean mIsChecked;
-
-        public ColorPickerListItem(CharSequence title, CharSequence color, boolean isChecked) {
-            mTitle = title;
-            mColor = color;
-            mIsChecked = isChecked;
-        }
-
-        public CharSequence getTitle() {
-            return mTitle;
-        }
-
-        public int getColor() {
-            return ColorPickerHelper.convertToColorInt(mColor.toString());
-        }
-
-        public boolean isChecked() {
-            return mIsChecked;
-        }
-
-        public void setChecked(boolean checked) {
-            mIsChecked = checked;
-        }
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
