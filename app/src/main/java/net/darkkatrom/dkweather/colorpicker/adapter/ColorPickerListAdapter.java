@@ -17,6 +17,8 @@
 package net.darkkatrom.dkweather.colorpicker.adapter;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.drawable.RippleDrawable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -27,6 +29,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import net.darkkatrom.dkweather.R;
+import net.darkkatrom.dkweather.colorpicker.model.ColorPickerListColorItem;
+import net.darkkatrom.dkweather.colorpicker.model.ColorPickerListHeaderItem;
 import net.darkkatrom.dkweather.colorpicker.model.ColorPickerListItem;
 import net.darkkatrom.dkweather.colorpicker.widget.ColorPreview;
 import net.darkkatrom.dkweather.utils.ThemeUtil;
@@ -34,11 +38,13 @@ import net.darkkatrom.dkweather.utils.ThemeUtil;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ColorPickerListAdapter extends RecyclerView.Adapter<ColorPickerListAdapter.ViewHolder> {
+public class ColorPickerListAdapter extends RecyclerView.Adapter<ColorPickerListAdapter.ListViewHolder> {
 
     private Context mContext;
     private View mDividerTop;
     private View mDividerBottom;
+    private CharSequence[] mEntries;
+    private CharSequence[] mEntryColors;
     private boolean mDividerTopVisible = true;
     private boolean mDividerBottomVisible = false;
     private int mBorderColor;
@@ -58,54 +64,112 @@ public class ColorPickerListAdapter extends RecyclerView.Adapter<ColorPickerList
         mContext = context;
         mDividerTop = dividerTop;
         mDividerBottom = dividerBottom;
+        mEntries = entries;
+        mEntryColors = entryColors;
         mBorderColor = ThemeUtil.getDefaultHighlightColor(mContext);
         mColorPickerListItems = new ArrayList<ColorPickerListItem>();
         mSelectedItem = selectedItem;
-        for (int i = 0; i < entries.length; i++) {
-            ColorPickerListItem item = new ColorPickerListItem(entries[i], entryColors[i],
-                    i == mSelectedItem);
-            mColorPickerListItems.add(item);
+        ColorPickerListItem headerItem = null;
+        ColorPickerListItem colorItem = null;
+        for (int i = 0; i < mEntries.length; i++) {
+            if (mEntryColors[i].equals("header")) {
+                headerItem = new ColorPickerListHeaderItem(mEntries[i], true, i + 1, 0);
+                mColorPickerListItems.add(headerItem);
+            } else {
+                colorItem = new ColorPickerListColorItem(mEntries[i], mEntryColors[i],
+                        i == mSelectedItem, 1);
+                if (headerItem != null) {
+                    headerItem.increaseColorItemsCount();
+                }
+                mColorPickerListItems.add(colorItem);
+            }
         }
     }
 
     @Override
-    public ColorPickerListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(mContext).inflate(
-                R.layout.color_picker_dialog_list_item, parent, false);
-        ViewHolder vh = new ViewHolder(v);
+    public ColorPickerListAdapter.ListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View v = null;
+        ListViewHolder vh = null;
+        if (viewType == 0) {
+            v = LayoutInflater.from(mContext).inflate(
+                    R.layout.color_picker_dialog_list_header, parent, false);
+            vh = new ListHeaderViewHolder(v);
+        } else {
+            v = LayoutInflater.from(mContext).inflate(
+                    R.layout.color_picker_dialog_list_item, parent, false);
+            vh = new ListItemViewHolder(v);
+        }
         return vh;
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
+    public void onBindViewHolder(ListViewHolder holder, final int position) {
         final ColorPickerListItem item = mColorPickerListItems.get(position);
-        if (position == 0) {
-            int paddingStart = holder.mView.getPaddingStart();
-            int paddingTop = mContext.getResources().getDimensionPixelOffset(
-                    R.dimen.color_picker_dialog_list_first_item_padding_top);
-            int paddingEnd = holder.mView.getPaddingEnd();
-            holder.mView.setPaddingRelative(paddingStart, paddingTop, paddingEnd, 0);
-        }
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mColorPickerListItems.get(mSelectedItem).setChecked(false);
-                mColorPickerListItems.get(position).setChecked(true);
-                mSelectedItem = position;
-                if (mOnItemClickedListener != null) {
-                    mOnItemClickedListener.onItemClicked(mSelectedItem, item.getColor());
-                }
-                notifyDataSetChanged();
+        if (item.getViewType() == 0) {
+            if (position == 0) {
+                holder.mHeaderDivider.setVisibility(View.GONE);
+            } else {
+                int paddingStart = holder.mView.getPaddingStart();
+                int paddingTop = mContext.getResources().getDimensionPixelOffset(
+                        R.dimen.color_picker_dialog_list_header_padding_top);
+                int paddingEnd = holder.mView.getPaddingEnd();
+                holder.mView.setPaddingRelative(paddingStart, paddingTop, paddingEnd, 0);
             }
-        });
-        if (holder.mTitle.isChecked() != item.isChecked()) {
-            holder.mTitle.setChecked(item.isChecked());
+            holder.mHeaderTitle.setText(item.getTitle());
+            ((RippleDrawable) holder.mHeaderButtonFrame.getBackground()).setColor(getMaskedRippleColor());
+            holder.mHeaderButtonFrame.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int fromIndex = position + 1;
+                    int itemCount = item.getColorItemsCount();
+                    if (item.isExpanded()) {
+                        for (int i = 0; i < itemCount; i++) {
+                            mColorPickerListItems.remove(fromIndex);
+                        }
+                        notifyItemRangeRemoved(fromIndex, itemCount);
+                        notifyItemRangeChanged(0, getItemCount());
+                        item.toggleExpanded();
+                        notifyItemChanged(position);
+                    } else {
+                        for (int i = 0; i < itemCount; i++) {
+                            int index = item.getColorItemsStartIndex() + i;
+                            ColorPickerListItem colorItem = new ColorPickerListColorItem(mEntries[index],
+                                    mEntryColors[index], index == mSelectedItem, 1);
+                            mColorPickerListItems.add(fromIndex + i, colorItem);
+                        }
+                        notifyItemRangeInserted(fromIndex, itemCount);
+                        notifyItemRangeChanged(0, getItemCount());
+                        item.toggleExpanded();
+                        notifyItemChanged(position);
+                    }
+                }
+            });
+            holder.mHeaderButton.setRotationX(item.isExpanded() ? 0 : 180);
+        } else {
+            holder.mView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mColorPickerListItems.get(mSelectedItem).setChecked(false);
+                    mColorPickerListItems.get(position).setChecked(true);
+                    mSelectedItem = position;
+                    if (mOnItemClickedListener != null) {
+                        mOnItemClickedListener.onItemClicked(mSelectedItem, item.getColor());
+                    }
+                }
+            });
+            if (holder.mTitle.isChecked() != item.isChecked()) {
+                holder.mTitle.setChecked(item.isChecked());
+            }
+            holder.mTitle.setText(item.getTitle());
+            holder.mPreview.setColor(item.getColor());
+            holder.mPreview.setBorderColor(mBorderColor);
         }
-        holder.mTitle.setText(item.getTitle());
-        holder.mPreview.setColor(item.getColor());
-        holder.mPreview.setBorderColor(mBorderColor);
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        return mColorPickerListItems.get(position).getViewType();
+    }
 
     @Override
     public int getItemCount() {
@@ -160,21 +224,51 @@ public class ColorPickerListAdapter extends RecyclerView.Adapter<ColorPickerList
         });
     }
 
+    private ColorStateList getMaskedRippleColor() {
+        int defaultRippleColor = ThemeUtil.getColorFromThemeAttribute(mContext, R.attr.colorControlHighlight);
+        int maskedRippleColor = (137 << 24) | (defaultRippleColor & 0x00ffffff);
+        return ColorStateList.valueOf(maskedRippleColor);
+    }
+
     @Override
     public void onDetachedFromRecyclerView(RecyclerView recyclerView) {
         super.onDetachedFromRecyclerView(recyclerView);
         recyclerView.clearOnScrollListeners();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ListViewHolder extends RecyclerView.ViewHolder {
         public View mView;
+        public View mHeaderDivider;
+        public TextView mHeaderTitle;
+        public View mHeaderButtonFrame;
+        public ImageView mHeaderButton;
         public CheckedTextView mTitle;
         public ColorPreview mPreview;
 
-        public ViewHolder(View v) {
+        public ListViewHolder(View v) {
             super(v);
 
             mView = v;
+        }
+    }
+
+    public static class ListHeaderViewHolder extends ListViewHolder {
+
+        public ListHeaderViewHolder(View v) {
+            super(v);
+
+            mHeaderDivider = v.findViewById(R.id.color_picker_dialog_list_header_divider);
+            mHeaderTitle = (TextView) v.findViewById(R.id.color_picker_dialog_list_header_title);
+            mHeaderButtonFrame = v.findViewById(R.id.color_picker_dialog_list_header_button_frame);
+            mHeaderButton = (ImageView) v.findViewById(R.id.color_picker_dialog_list_header_button);
+        }
+    }
+
+    public static class ListItemViewHolder extends ListViewHolder {
+
+        public ListItemViewHolder(View v) {
+            super(v);
+
             mTitle = (CheckedTextView) v.findViewById(R.id.color_picker_dialog_list_item_title);
             mPreview = (ColorPreview) v.findViewById(R.id.color_picker_dialog_list_item_preview);
         }

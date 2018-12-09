@@ -68,7 +68,10 @@
     <dimen name="color_picker_dialog_list_item_preview_padding_top_bottom">8dp</dimen>
 
     <!-- Top padding of the first item in the color picker dialog list -->
-    <dimen name="color_picker_dialog_list_first_item_padding_top">8dp</dimen>
+    <dimen name="color_picker_dialog_list_header_padding_top">8dp</dimen>
+
+    <!-- Size of the color picker dialog list header button -->
+    <dimen name="color_picker_dialog_list_header_button_size">48dp</dimen>
 
     <!-- Copy from: frameworks/base/core/res/res/values/dimens_material.xml -->
     <dimen name="select_dialog_padding_start_material">20dp</dimen>

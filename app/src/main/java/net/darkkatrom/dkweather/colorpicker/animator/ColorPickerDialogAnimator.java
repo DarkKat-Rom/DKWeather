@@ -23,7 +23,7 @@ import android.widget.TextView;
 
 import net.darkkatrom.dkweather.colorpicker.util.ColorPickerHelper;
 
-public class ColorPickerListAnimator {
+public class ColorPickerDialogAnimator {
     public static final long COLOR_TRANSITION_DURATION = 300;
 
     public static void animateColorTransition(final int oldBgColor, final int newBgColor,

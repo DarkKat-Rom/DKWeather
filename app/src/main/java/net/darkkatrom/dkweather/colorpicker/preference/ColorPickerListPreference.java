@@ -37,7 +37,8 @@ import android.widget.TextView;
 
 import net.darkkatrom.dkweather.R;
 import net.darkkatrom.dkweather.colorpicker.adapter.ColorPickerListAdapter;
-import net.darkkatrom.dkweather.colorpicker.animator.ColorPickerListAnimator;
+import net.darkkatrom.dkweather.colorpicker.animator.ColorPickerDialogAnimator;
+import net.darkkatrom.dkweather.colorpicker.animator.ColorPickerListItemAnimator;
 import net.darkkatrom.dkweather.colorpicker.util.ColorPickerHelper;
 import net.darkkatrom.dkweather.utils.ThemeUtil;
 
@@ -48,6 +49,7 @@ public class ColorPickerListPreference extends ListPreference implements
     private CharSequence[] mEntryColors;
 
     private RecyclerView mRecyclerView = null;
+    private ColorPickerListAdapter mAdapter = null;
     private int mClickedDialogItem = -1;
 
     private View mCustomTitleLayout = null;
@@ -126,13 +128,14 @@ public class ColorPickerListPreference extends ListPreference implements
         View dividerTop = customContent.findViewById(R.id.color_picker_dialog_list_divider_top);
         View dividerBottom = customContent.findViewById(R.id.color_picker_dialog_list_divider_bottom);
         mRecyclerView = (RecyclerView) customContent.findViewById(R.id.color_picker_dialog_list);
-        ColorPickerListAdapter adapter = new ColorPickerListAdapter(getContext(), dividerTop,
+        mAdapter = new ColorPickerListAdapter(getContext(), dividerTop,
                 dividerBottom, getEntries(), getEntryColors(), mClickedDialogItem);
+        mRecyclerView.setItemAnimator(new ColorPickerListItemAnimator());
 
         mCustomTitleText.setText(getDialogTitle());
-        adapter.setOnItemClickedListener(this);
+        mAdapter.setOnItemClickedListener(this);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mRecyclerView.setAdapter(adapter);
+        mRecyclerView.setAdapter(mAdapter);
         builder.setCustomTitle(mCustomTitleLayout);
         builder.setView(customContent);
     }
@@ -155,9 +158,11 @@ public class ColorPickerListPreference extends ListPreference implements
         mClickedDialogItem = position;
         ((AlertDialog) getDialog()).getButton(
                 AlertDialog.BUTTON_POSITIVE).setEnabled(findIndexOfValue(getValue()) != mClickedDialogItem);
-
         mSelectedColor = color;
         updateDialogTitleColors(true);
+        // As CheckedTextView already animates checked state changes,
+        // call 'notifyDataSetChanged()' to disable the internal animations.
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -209,7 +214,7 @@ public class ColorPickerListPreference extends ListPreference implements
         if (animate) {
             if (mDialogTitleBgColor != newBgColor) {
                 boolean animateTextColor = mDialogTitleTextColor != newTextColor;
-                ColorPickerListAnimator.animateColorTransition(mDialogTitleBgColor, newBgColor,
+                ColorPickerDialogAnimator.animateColorTransition(mDialogTitleBgColor, newBgColor,
                         mDialogTitleTextColor, newTextColor, mCustomTitleLayout,
                         animateTextColor ? mCustomTitleText : null);
                 mDialogTitleBgColor = newBgColor;

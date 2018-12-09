@@ -19,14 +19,27 @@ package net.darkkatrom.dkweather.colorpicker.model;
 import net.darkkatrom.dkweather.colorpicker.util.ColorPickerHelper;
 
     public class ColorPickerListItem {
-        private CharSequence mTitle;
-        private CharSequence mColor;
-        private boolean mIsChecked;
+        protected CharSequence mTitle;
+        protected CharSequence mColor;
+        protected int mColorItemsStartIndex;
+        protected int mColorItemsCount = 0;
+        protected boolean mIsExpanded;
+        protected boolean mIsChecked;
+        protected int mViewType;
 
-        public ColorPickerListItem(CharSequence title, CharSequence color, boolean isChecked) {
+        public ColorPickerListItem(CharSequence title, boolean isExpanded, int colorItemsStartIndex, int viewType) {
+            mTitle = title;
+            mColorItemsStartIndex = colorItemsStartIndex;
+            mIsExpanded = isExpanded;
+            mViewType = viewType;
+        }
+
+        public ColorPickerListItem(CharSequence title, CharSequence color, boolean isChecked,
+                int viewType) {
             mTitle = title;
             mColor = color;
             mIsChecked = isChecked;
+            mViewType = viewType;
         }
 
         public CharSequence getTitle() {
@@ -37,8 +50,31 @@ import net.darkkatrom.dkweather.colorpicker.util.ColorPickerHelper;
             return ColorPickerHelper.convertToColorInt(mColor.toString());
         }
 
+        public int getColorItemsStartIndex() {
+            return mColorItemsStartIndex;
+        }
+
+        public int getColorItemsCount() {
+            return 0;
+        }
+
+        public boolean isExpanded() {
+            return mIsExpanded;
+        }
+
         public boolean isChecked() {
             return mIsChecked;
+        }
+
+        public int getViewType() {
+            return mViewType;
+        }
+
+        public void increaseColorItemsCount() {
+        }
+
+        public void toggleExpanded() {
+            mIsExpanded = !mIsExpanded;
         }
 
         public void setChecked(boolean checked) {

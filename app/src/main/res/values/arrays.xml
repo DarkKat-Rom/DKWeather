@@ -58,9 +58,11 @@
         <item>2</item>
     </string-array>
     <string-array name="theme_color_list_entries">
+        <item>@string/chip_darkkat_title</item>
         <item>@string/darkkat_blue_grey</item>
         <item>@string/darkkat_blue_blue_grey</item>
         <item>@string/accent_darkkat</item>
+        <item>@string/chip_material_title</item>
         <item>@string/material_blue_grey_500</item>
         <item>@string/material_blue_500</item>
         <item>@string/material_light_blue_500</item>
@@ -78,6 +80,7 @@
         <item>@string/material_green_500</item>
         <item>@string/material_light_green_500</item>
         <item>@string/material_lime_500</item>
+        <item>@string/chip_holo_title</item>
         <item>@string/holo_blue_light</item>
         <item>@string/holo_blue_dark</item>
         <item>@string/holo_blue_bright</item>
@@ -88,6 +91,7 @@
         <item>@string/holo_red_dark</item>
         <item>@string/holo_green_light</item>
         <item>@string/holo_green_dark</item>
+        <item>@string/chip_rgb_title</item>
         <item>@string/black</item>
         <item>@string/white</item>
         <item>@string/blue</item>
@@ -98,9 +102,11 @@
         <item>@string/green</item>
     </string-array>
     <string-array name="theme_color_list_values" translatable="false">
+        <item>header</item>
         <item>36</item>
         <item>37</item>
         <item>0</item>
+        <item>header</item>
         <item>2</item>
         <item>3</item>
         <item>4</item>
@@ -118,6 +124,7 @@
         <item>16</item>
         <item>17</item>
         <item>18</item>
+        <item>header</item>
         <item>1</item>
         <item>27</item>
         <item>28</item>
@@ -128,6 +135,7 @@
         <item>33</item>
         <item>34</item>
         <item>35</item>
+        <item>header</item>
         <item>19</item>
         <item>20</item>
         <item>21</item>
@@ -138,9 +146,11 @@
         <item>26</item>
     </string-array>
     <string-array name="theme_color_list_entry_colors" translatable="false">
+        <item>header</item>
         <item>#ff1b1f23</item>
         <item>#ff1f2429</item>
         <item>#ff5a8596</item>
+        <item>header</item>
         <item>#ff607d8b</item>
         <item>#ff2196f3</item>
         <item>#ff03a9f4</item>
@@ -158,6 +168,7 @@
         <item>#ff4caf50</item>
         <item>#ff8bc34a</item>
         <item>#ffcddc39</item>
+        <item>header</item>
         <item>#ff33b5e5</item>
         <item>#ff0099cc</item>
         <item>#ff00ddff</item>
@@ -168,6 +179,7 @@
         <item>#ffcc0000</item>
         <item>#ff99cc00</item>
         <item>#ff669900</item>
+        <item>header</item>
         <item>#ff000000</item>
         <item>#ffffffff</item>
         <item>#ff0000ff</item>
