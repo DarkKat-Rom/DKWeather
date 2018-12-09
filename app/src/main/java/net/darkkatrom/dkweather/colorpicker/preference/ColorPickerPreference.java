@@ -32,11 +32,11 @@ import android.util.Log;
 import android.view.View;
 
 import net.darkkatrom.dkweather.R;
-import net.darkkatrom.dkweather.utils.ThemeUtil;
 import net.darkkatrom.dkweather.colorpicker.drawable.ColorViewCircleDrawable;
 import net.darkkatrom.dkweather.colorpicker.fragment.ColorPickerFragment;
-import net.darkkatrom.dkweather.colorpicker.util.ColorPickerHelper;
 import net.darkkatrom.dkweather.colorpicker.widget.ColorPreview;
+import net.darkkatrom.dkweather.utils.GraphicsUtil;
+import net.darkkatrom.dkweather.utils.ThemeUtil;
 
 /*
  * A preference type that allows a user to choose a color
@@ -280,7 +280,7 @@ public class ColorPickerPreference extends Preference {
      * @author Unknown
      */
     public static String convertToARGB(int color) {
-        return ColorPickerHelper.convertToARGB(color);
+        return GraphicsUtil.convertToARGB(color);
     }
 
     /*
@@ -291,6 +291,6 @@ public class ColorPickerPreference extends Preference {
      * @author Unknown
      */
     public static int convertToColorInt(String argb) {
-        return ColorPickerHelper.convertToColorInt(argb);
+        return GraphicsUtil.convertToColorInt(argb);
     }
 }

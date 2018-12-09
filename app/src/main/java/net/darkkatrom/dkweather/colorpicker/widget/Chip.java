@@ -24,7 +24,7 @@ import android.widget.RadioButton;
 import android.util.AttributeSet;
 
 import net.darkkatrom.dkweather.R;
-import net.darkkatrom.dkweather.utils.ColorUtil;
+import net.darkkatrom.dkweather.utils.GraphicsUtil;
 import net.darkkatrom.dkweather.utils.ThemeUtil;
 
 public class Chip extends RadioButton {
@@ -79,16 +79,16 @@ public class Chip extends RadioButton {
         int rippleColorResId = 0;
         if (checked) {
             if (mBackgroundColorChecked != 0) {
-                textColorResId = ColorUtil.isColorDark(mBackgroundColorChecked)
+                textColorResId = GraphicsUtil.isColorDark(mBackgroundColorChecked)
                         ? R.color.chip_text_color_dark : R.color.chip_text_color_light;
-                rippleColorResId = ColorUtil.isColorDark(mBackgroundColorChecked)
+                rippleColorResId = GraphicsUtil.isColorDark(mBackgroundColorChecked)
                         ? R.color.ripple_white : R.color.ripple_black;
             }
         } else {
             if (mBackgroundColorNormal != 0) {
-                textColorResId = ColorUtil.isColorDark(mBackgroundColorNormal)
+                textColorResId = GraphicsUtil.isColorDark(mBackgroundColorNormal)
                         ? R.color.chip_text_color_dark : R.color.chip_text_color_light;
-                rippleColorResId = ColorUtil.isColorDark(mBackgroundColorNormal)
+                rippleColorResId = GraphicsUtil.isColorDark(mBackgroundColorNormal)
                         ? R.color.ripple_white : R.color.ripple_black;
             }
         }

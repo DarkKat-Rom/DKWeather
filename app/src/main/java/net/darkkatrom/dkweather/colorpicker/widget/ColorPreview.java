@@ -28,7 +28,7 @@ import android.util.AttributeSet;
 
 import net.darkkatrom.dkweather.R;
 import net.darkkatrom.dkweather.colorpicker.drawable.ColorViewCircleDrawable;
-import net.darkkatrom.dkweather.colorpicker.util.ColorPickerHelper;
+import net.darkkatrom.dkweather.utils.GraphicsUtil;
 
 public class ColorPreview extends LinearLayout {
 
@@ -68,7 +68,7 @@ public class ColorPreview extends LinearLayout {
             return;
         }
         mColorPreview.setColor(color);
-        mHexView.setText(ColorPickerHelper.convertToARGB(color));
+        mHexView.setText(GraphicsUtil.convertToARGB(color));
     }
 
     public int getColor() {

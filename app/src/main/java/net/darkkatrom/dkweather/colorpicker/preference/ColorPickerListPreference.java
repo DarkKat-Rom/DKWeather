@@ -39,7 +39,7 @@ import net.darkkatrom.dkweather.R;
 import net.darkkatrom.dkweather.colorpicker.adapter.ColorPickerListAdapter;
 import net.darkkatrom.dkweather.colorpicker.animator.ColorPickerDialogAnimator;
 import net.darkkatrom.dkweather.colorpicker.animator.ColorPickerListItemAnimator;
-import net.darkkatrom.dkweather.colorpicker.util.ColorPickerHelper;
+import net.darkkatrom.dkweather.utils.GraphicsUtil;
 import net.darkkatrom.dkweather.utils.ThemeUtil;
 
 public class ColorPickerListPreference extends ListPreference implements
@@ -241,7 +241,7 @@ public class ColorPickerListPreference extends ListPreference implements
      * @author Unknown
      */
     public static String convertToARGB(int color) {
-        return ColorPickerHelper.convertToARGB(color);
+        return GraphicsUtil.convertToARGB(color);
     }
 
     /**
@@ -252,7 +252,7 @@ public class ColorPickerListPreference extends ListPreference implements
      * @author Unknown
      */
     public static int convertToColorInt(String argb) {
-        return ColorPickerHelper.convertToColorInt(argb);
+        return GraphicsUtil.convertToColorInt(argb);
     }
 
     @Override

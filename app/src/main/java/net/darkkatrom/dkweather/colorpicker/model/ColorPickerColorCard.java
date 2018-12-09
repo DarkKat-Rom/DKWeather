@@ -18,7 +18,7 @@ package net.darkkatrom.dkweather.colorpicker.model;
 
 import android.content.Context;
 
-import net.darkkatrom.dkweather.colorpicker.util.ColorPickerHelper;
+import net.darkkatrom.dkweather.utils.GraphicsUtil;
 
 public class ColorPickerColorCard extends ColorPickerCard {
 
@@ -31,7 +31,7 @@ public class ColorPickerColorCard extends ColorPickerCard {
 
         mColor = mContext.getColor(colorResId);
         mTitle = mResources.getString(titleResId);
-        mSubtitle = ColorPickerHelper.convertToARGB(mColor);
+        mSubtitle = GraphicsUtil.convertToARGB(mColor);
     }
 
     public ColorPickerColorCard(Context context, int color, String title) {
@@ -39,6 +39,6 @@ public class ColorPickerColorCard extends ColorPickerCard {
 
         mColor = color;
         mTitle = title;
-        mSubtitle = ColorPickerHelper.convertToARGB(mColor);
+        mSubtitle = GraphicsUtil.convertToARGB(mColor);
     }
 }

@@ -50,9 +50,6 @@ import android.widget.TextView;
 
 import net.darkkatrom.dkweather.R;
 import net.darkkatrom.dkweather.animator.BaseItemAnimator;
-import net.darkkatrom.dkweather.utils.ColorUtil;
-import net.darkkatrom.dkweather.utils.Config;
-import net.darkkatrom.dkweather.utils.ThemeUtil;
 import net.darkkatrom.dkweather.colorpicker.ColorPickerActivity;
 import net.darkkatrom.dkweather.colorpicker.ColorPickerSettingsActivity;
 import net.darkkatrom.dkweather.colorpicker.adapter.ColorPickerCardAdapter;
@@ -65,8 +62,10 @@ import net.darkkatrom.dkweather.colorpicker.preference.ColorPickerPreference;
 import net.darkkatrom.dkweather.colorpicker.widget.ApplyColorView;
 import net.darkkatrom.dkweather.colorpicker.widget.ColorPickerView;
 import net.darkkatrom.dkweather.colorpicker.widget.RadioGroupsGroup;
-import net.darkkatrom.dkweather.colorpicker.util.ColorPickerHelper;
 import net.darkkatrom.dkweather.colorpicker.util.ConfigColorPicker;
+import net.darkkatrom.dkweather.utils.Config;
+import net.darkkatrom.dkweather.utils.GraphicsUtil;
+import net.darkkatrom.dkweather.utils.ThemeUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -291,7 +290,7 @@ public class ColorPickerFragment extends Fragment implements
         int themeOverlayTextResId = ThemeUtil.getThemeOverlayTextResId(getActivity(), true);
         int themeOverlayRippleResId = ThemeUtil.getThemeOverlayRippleResId(getActivity(), true);
         int accentColor = ThemeUtil.getColorFromThemeAttribute(getActivity(), R.attr.colorAccent);
-        int themeOverlayColoredBackground = ColorUtil.isColorDark(accentColor)
+        int themeOverlayColoredBackground = GraphicsUtil.isColorDark(accentColor)
                 ? R.style.ThemeOverlay_HelpScreen_ColoredBackgroundDark
                 : R.style.ThemeOverlay_HelpScreen_ColoredBackgroundLight;
         int themeOverlayBackground = Config.getThemeUseDarkTheme(getActivity())
@@ -378,11 +377,11 @@ public class ColorPickerFragment extends Fragment implements
         int primaryTextColor = ThemeUtil.getColorFromThemeAttribute(
                 mHelpScreen.getContext(), android.R.attr.textColorPrimary);
         // Convert 'color ints' to 'color strings'
-        String accentColorString = ColorPickerHelper.convertToRGB(accentColor);
+        String accentColorString = GraphicsUtil.convertToRGB(accentColor);
         String primaryTextColorString =
-                ColorPickerHelper.convertToRGBAForWebView(primaryTextColor, "1");
+                GraphicsUtil.convertToRGBAForWebView(primaryTextColor, "1");
         String secondaryTextColorString =
-                ColorPickerHelper.convertToRGBAForWebView(primaryTextColor, "0.7");
+                GraphicsUtil.convertToRGBAForWebView(primaryTextColor, "0.7");
         // Get the colorized web view 'html string' content
         String content = getString(R.string.color_picker_help_main_content, accentColorString,
                 primaryTextColorString, secondaryTextColorString);
@@ -472,7 +471,7 @@ public class ColorPickerFragment extends Fragment implements
         mApplyColorAction.applySetIconAlpha(newColor ? 1f : 0f);
         mApplyColorAction.setOnClickListener(newColor ? this : null);
 
-        mEditHexValue.setText(ColorPickerHelper.convertToARGB(mNewColorValue));
+        mEditHexValue.setText(GraphicsUtil.convertToARGB(mNewColorValue));
         mEditHexValue.setOnFocusChangeListener(this);
         setHexValueButton.setOnClickListener(this);
 
@@ -656,7 +655,7 @@ public class ColorPickerFragment extends Fragment implements
             mColorPicker.setColor(mResetColor2, true);
             return true;
         } else if (item.getItemId() == R.id.edit_hex) {
-            mEditHexValue.setText(ColorPickerHelper.convertToARGB(mNewColorValue));
+            mEditHexValue.setText(GraphicsUtil.convertToARGB(mNewColorValue));
             return true;
         } else if (item.getItemId() == R.id.show_hide_help) {
             showHideHelpScreen();
@@ -681,7 +680,7 @@ public class ColorPickerFragment extends Fragment implements
         } else if (v.getId() == R.id.ab_edit_hex_enter) {
             String text = mEditHexValue.getText().toString();
             mShowEditHexAction.collapseActionView();
-            mColorPicker.setColor(ColorPickerHelper.convertToColorInt(text), true);
+            mColorPicker.setColor(GraphicsUtil.convertToColorInt(text), true);
         } else if (v.getId() == R.id.color_picker_check_show_help_screen) {
             mCheckShowHelpScreen.toggle();
             putShowHelpScreen(!mCheckShowHelpScreen.isChecked());
@@ -714,7 +713,7 @@ public class ColorPickerFragment extends Fragment implements
 
             try {
                 if (mEditHexValue != null) {
-                    mEditHexValue.setText(ColorPickerHelper.convertToARGB(color));
+                    mEditHexValue.setText(GraphicsUtil.convertToARGB(color));
                 }
             } catch (Exception e) {}
         }

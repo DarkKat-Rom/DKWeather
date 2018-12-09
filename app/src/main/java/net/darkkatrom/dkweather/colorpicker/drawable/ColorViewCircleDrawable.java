@@ -37,7 +37,7 @@ import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 
 import net.darkkatrom.dkweather.R;
-import net.darkkatrom.dkweather.colorpicker.util.ColorPickerHelper;
+import net.darkkatrom.dkweather.utils.GraphicsUtil;
 
 public class ColorViewCircleDrawable extends Drawable {
     private static final int sNumRectangles = 6;
@@ -90,7 +90,7 @@ public class ColorViewCircleDrawable extends Drawable {
         mBorderPaint.setStrokeWidth(mBorderWidth);
         mBorderPaint.setStyle(Paint.Style.STROKE);
 
-        mFavoriteBitmap = ColorPickerHelper.drawableToBitmap(
+        mFavoriteBitmap = GraphicsUtil.drawableToBitmap(
                 context.getDrawable(R.drawable.ic_favorite_emty));
         mShowFavoriteIcon = false;
     }

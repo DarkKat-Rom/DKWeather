@@ -21,7 +21,7 @@ import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.widget.TextView;
 
-import net.darkkatrom.dkweather.colorpicker.util.ColorPickerHelper;
+import net.darkkatrom.dkweather.utils.GraphicsUtil;
 
 public class ColorPickerDialogAnimator {
     public static final long COLOR_TRANSITION_DURATION = 300;
@@ -36,10 +36,10 @@ public class ColorPickerDialogAnimator {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 float position = animation.getAnimatedFraction();
-                int blendedBg = ColorPickerHelper.getBlendColor(oldBgColor, newBgColor, position);
+                int blendedBg = GraphicsUtil.getBlendColor(oldBgColor, newBgColor, position);
                 v.setBackgroundColor(blendedBg);
                 if (animateTextColor) {
-                    int blendedText = ColorPickerHelper.getBlendColor(oldTextColor, newTextColor, position);
+                    int blendedText = GraphicsUtil.getBlendColor(oldTextColor, newTextColor, position);
                     tv.setTextColor(blendedText);
                 }
             }

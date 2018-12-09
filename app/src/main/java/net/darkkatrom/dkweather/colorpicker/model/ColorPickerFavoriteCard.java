@@ -20,6 +20,7 @@ import android.content.Context;
 
 import net.darkkatrom.dkweather.R;
 import net.darkkatrom.dkweather.colorpicker.util.ColorPickerHelper;
+import net.darkkatrom.dkweather.utils.GraphicsUtil;
 
 public class ColorPickerFavoriteCard extends ColorPickerCard {
     private int mFavoriteNumber;
@@ -58,7 +59,7 @@ public class ColorPickerFavoriteCard extends ColorPickerCard {
             if (mTitle.isEmpty()) {
                 mTitle = mResources.getString(R.string.favorite_title) + " " + mFavoriteNumber;
             }
-            mSubtitle = ColorPickerHelper.convertToARGB(color);
+            mSubtitle = GraphicsUtil.convertToARGB(color);
         }
     }
 }

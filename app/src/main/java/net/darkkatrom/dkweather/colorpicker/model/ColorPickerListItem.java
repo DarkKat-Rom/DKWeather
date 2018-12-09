@@ -16,7 +16,7 @@
 
 package net.darkkatrom.dkweather.colorpicker.model;
 
-import net.darkkatrom.dkweather.colorpicker.util.ColorPickerHelper;
+import net.darkkatrom.dkweather.utils.GraphicsUtil;
 
     public class ColorPickerListItem {
         protected CharSequence mTitle;
@@ -47,7 +47,7 @@ import net.darkkatrom.dkweather.colorpicker.util.ColorPickerHelper;
         }
 
         public int getColor() {
-            return ColorPickerHelper.convertToColorInt(mColor.toString());
+            return GraphicsUtil.convertToColorInt(mColor.toString());
         }
 
         public int getColorItemsStartIndex() {

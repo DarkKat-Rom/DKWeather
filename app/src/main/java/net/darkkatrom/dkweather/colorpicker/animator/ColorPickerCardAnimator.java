@@ -26,7 +26,7 @@ import android.view.animation.LinearInterpolator;
 
 import net.darkkatrom.dkweather.animator.BaseItemAnimator;
 import net.darkkatrom.dkweather.colorpicker.adapter.ColorPickerCardAdapter.CardViewHolder;
-import net.darkkatrom.dkweather.colorpicker.util.ColorPickerHelper;
+import net.darkkatrom.dkweather.utils.GraphicsUtil;
 
 import java.util.List;
 
@@ -89,7 +89,7 @@ public class ColorPickerCardAnimator extends BaseItemAnimator {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 float position = animation.getAnimatedFraction();
-                int blendedBg = ColorPickerHelper.getBlendColor(preColorInfo.backgroundColor,
+                int blendedBg = GraphicsUtil.getBlendColor(preColorInfo.backgroundColor,
                         postColorInfo.backgroundColor, position);
                 holder.mCardView.setCardBackgroundColor(blendedBg);
                 if (setTitle && position > 0.5f && !mTitleSet) {
@@ -101,7 +101,7 @@ public class ColorPickerCardAnimator extends BaseItemAnimator {
                     mSubtitleSet = true;
                 }
                 if (animatePrimaryTextColor) {
-                    int blendedPrimaryTextColor = ColorPickerHelper.getBlendColor(
+                    int blendedPrimaryTextColor = GraphicsUtil.getBlendColor(
                             preColorInfo.primaryTextColor, postColorInfo.primaryTextColor, position);
                     holder.mTitle.setTextColor(blendedPrimaryTextColor);
                     holder.mIconAddFavorite.setImageTintList(
@@ -110,12 +110,12 @@ public class ColorPickerCardAnimator extends BaseItemAnimator {
                             ColorStateList.valueOf(blendedPrimaryTextColor));
                 }
                 if (animateSecondaryTextColor) {
-                    int blendedSecondaryTextColor = ColorPickerHelper.getBlendColor(
+                    int blendedSecondaryTextColor = GraphicsUtil.getBlendColor(
                             preColorInfo.secondaryTextColor, postColorInfo.secondaryTextColor, position);
                     holder.mSubtitle.setTextColor(blendedSecondaryTextColor);
                 }
                 if (animateActionApplyTextColor) {
-                    int blendedActionApplyTextColor = ColorPickerHelper.getBlendColor(
+                    int blendedActionApplyTextColor = GraphicsUtil.getBlendColor(
                             preColorInfo.actionApplyTextColor, postColorInfo.actionApplyTextColor, position);
                     holder.mActionApply.setTextColor(blendedActionApplyTextColor);
                 }

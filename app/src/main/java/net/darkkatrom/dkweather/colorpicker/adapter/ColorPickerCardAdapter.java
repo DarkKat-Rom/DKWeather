@@ -33,8 +33,8 @@ import net.darkkatrom.dkweather.colorpicker.model.ColorPickerCard;
 import net.darkkatrom.dkweather.colorpicker.model.ColorPickerFavoriteCard;
 import net.darkkatrom.dkweather.colorpicker.util.ColorPickerHelper;
 import net.darkkatrom.dkweather.colorpicker.util.ConfigColorPicker;
-import net.darkkatrom.dkweather.utils.ColorUtil;
 import net.darkkatrom.dkweather.utils.Config;
+import net.darkkatrom.dkweather.utils.GraphicsUtil;
 import net.darkkatrom.dkweather.utils.ThemeUtil;
 
 import java.util.ArrayList;
@@ -94,7 +94,7 @@ public class ColorPickerCardAdapter extends
         final int color = card.getColor();
         int cardBackgroundColor = isFavoriteCard && color == 0
                 ? resolveDefaultCardBackgroundColor() : color;
-        boolean needLightTheme = !ColorUtil.isColorDark(cardBackgroundColor);
+        boolean needLightTheme = !GraphicsUtil.isColorDark(cardBackgroundColor);
         ColorStateList primaryTextColor = mContext.getColorStateList(needLightTheme
                 ? R.color.primary_text_light_black : R.color.primary_text_dark_white);
         ColorStateList secondaryTextColor = mContext.getColorStateList(needLightTheme

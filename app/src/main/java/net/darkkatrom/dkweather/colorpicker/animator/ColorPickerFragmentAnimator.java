@@ -27,8 +27,8 @@ import android.view.animation.LinearInterpolator;
 
 import net.darkkatrom.dkweather.R;
 import net.darkkatrom.dkweather.colorpicker.fragment.ColorPickerFragment;
-import net.darkkatrom.dkweather.colorpicker.util.ColorPickerHelper;
 import net.darkkatrom.dkweather.colorpicker.widget.ApplyColorView;
+import net.darkkatrom.dkweather.utils.GraphicsUtil;
 
 public class ColorPickerFragmentAnimator {
     public static final long ADD_DURATION              = 225;
@@ -140,7 +140,7 @@ public class ColorPickerFragmentAnimator {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 float position = animation.getAnimatedFraction();
-                int blended = ColorPickerHelper.getBlendColor(oldColor, newColor, position);
+                int blended = GraphicsUtil.getBlendColor(oldColor, newColor, position);
                 applyColorAction.setColor(blended);
                 if (animationType != NO_ANIMATION) {
                     final boolean animateShow = animationType == ANIMATE_TO_SHOW;

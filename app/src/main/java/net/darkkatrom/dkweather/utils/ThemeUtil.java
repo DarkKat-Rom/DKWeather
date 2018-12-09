@@ -36,7 +36,7 @@ public class ThemeUtil {
 
     public static boolean needsLightStatusBar(Context context) {
         if (Config.getThemeCustomizeColors(context)) {
-            return !ColorUtil.isColorDark(getStatusBarBackgroundColor(context));
+            return !GraphicsUtil.isColorDark(getStatusBarBackgroundColor(context));
         } else {
             return !Config.getThemeUseDarkTheme(context) && Config.getThemeUseLightStatusBar(context);
         }
@@ -44,7 +44,7 @@ public class ThemeUtil {
 
     public static boolean needsLightActionBar(Context context) {
         if (Config.getThemeCustomizeColors(context)) {
-            return !ColorUtil.isColorDark(getActionBarBackgroundColor(context));
+            return !GraphicsUtil.isColorDark(getActionBarBackgroundColor(context));
         } else {
             return !Config.getThemeUseDarkTheme(context) && Config.getThemeUseLightStatusBar(context);
         }
@@ -52,7 +52,7 @@ public class ThemeUtil {
 
     public static boolean needsLightNavigationBar(Context context) {
         if (Config.getThemeColorizeNavigationBar(context)) {
-            return !ColorUtil.isColorDark(getNavigationBarBackgroundColor(context));
+            return !GraphicsUtil.isColorDark(getNavigationBarBackgroundColor(context));
         } else if (Config.getThemeUseDarkTheme(context)) {
             return false;
         } else {
@@ -65,7 +65,7 @@ public class ThemeUtil {
     }
 
     public static int getStatusBarBackgroundColor(Context context) {
-        return ColorUtil.compositeColors(STATUS_BAR_DARKEN_COLOR, getActionBarBackgroundColor(context));
+        return GraphicsUtil.compositeColors(STATUS_BAR_DARKEN_COLOR, getActionBarBackgroundColor(context));
     }
 
     public static int getNavigationBarBackgroundColor(Context context) {
@@ -503,7 +503,7 @@ public class ThemeUtil {
         if (bg == Config.PICK_COLOR_LIST_DLG_TITLE_BG_NONE) {
             textColor = getColorFromThemeAttribute(context, android.R.attr.textColorPrimary);
         } else {
-            textColor = context.getColor(ColorUtil.isColorDark(bgColor)
+            textColor = context.getColor(GraphicsUtil.isColorDark(bgColor)
                     ? R.color.primary_text_dark_white : R.color.primary_text_light_black);
         }
         return textColor;
