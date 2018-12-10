@@ -30,8 +30,12 @@ import net.darkkatrom.dkweather.utils.GraphicsUtil;
 
 import java.util.List;
 
+/**
+ * Custom RecyclerView item animator which overrides 'BaseItemAnimator':
+ * - Change animation
+ * - Change duration
+ */
 public class ColorPickerCardAnimator extends BaseItemAnimator {
-    public static final long COLOR_TRANSITION_DURATION = 300;
 
     private boolean mTitleSet = false;
     private boolean mSubtitleSet = false;
@@ -83,7 +87,7 @@ public class ColorPickerCardAnimator extends BaseItemAnimator {
                 preColorInfo.iconRemoveFavoriteVisible != postColorInfo.iconRemoveFavoriteVisible;
 
         ValueAnimator animator = ValueAnimator.ofFloat(0f, 1f);
-        animator.setDuration(COLOR_TRANSITION_DURATION);
+        animator.setDuration(getChangeDuration());
         animator.setInterpolator(new LinearInterpolator());
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
@@ -237,5 +241,8 @@ public class ColorPickerCardAnimator extends BaseItemAnimator {
         }
     }
 
-
+    @Override
+    public long getChangeDuration() {
+        return 300;
+    }
 }

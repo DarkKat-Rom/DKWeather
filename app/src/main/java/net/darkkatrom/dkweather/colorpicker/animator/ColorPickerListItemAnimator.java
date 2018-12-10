@@ -24,12 +24,17 @@ import android.view.View;
 import android.view.ViewPropertyAnimator;
 import android.view.animation.LinearInterpolator;
 
+import net.darkkatrom.dkweather.animator.DefaultRecyclerViewItemAnimator;
 import net.darkkatrom.dkweather.colorpicker.adapter.ColorPickerListAdapter.ListHeaderViewHolder;
 import net.darkkatrom.dkweather.colorpicker.adapter.ColorPickerListAdapter.ListViewHolder;
 
 import java.util.List;
 
-public class ColorPickerListItemAnimator extends DefaultColorPickerListItemAnimator {
+/**
+ * Custom RecyclerView item animator which overrides 'DefaultRecyclerViewItemAnimator':
+ * - Change animation
+ */
+public class ColorPickerListItemAnimator extends DefaultRecyclerViewItemAnimator {
 
     @Override
     public boolean canReuseUpdatedViewHolder(RecyclerView.ViewHolder viewHolder) {
@@ -110,10 +115,5 @@ public class ColorPickerListItemAnimator extends DefaultColorPickerListItemAnima
             rotationX = ((ListHeaderViewHolder) holder).mHeaderButton.getRotationX();
             return super.setFrom(holder);
         }
-    }
-
-    @Override
-    public long getChangeDuration() {
-        return 250;
     }
 }

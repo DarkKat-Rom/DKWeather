@@ -1,4 +1,6 @@
 /*
+ * Copyright (C) 2018 DarkKat
+ *
  * Copyright (C) 2014 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.darkkatrom.dkweather.colorpicker.animator;
+package net.darkkatrom.dkweather.animator;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -31,16 +33,30 @@ import java.util.List;
 
 /**
  * This is a copy of: 'android.support.v7.widget.DefaultItemAnimator',
+ * with changes made to access modifiers to be able to override default animations
+ * in subclasses.
+ * Change from '(package) private' to 'protected':
+ * - 'private ArrayList<ViewHolder> mPendingRemovals'
+ * - 'private ArrayList<ViewHolder> mPendingAdditions'
+ * - 'private ArrayList<MoveInfo> mPendingMoves'
+ * - 'private ArrayList<ChangeInfo> mPendingChanges'
+ * - 'private class MoveInfo'
+ * - 'private static class ChangeInfo'
+ * - 'private void animateRemoveImpl(final ViewHolder holder)'
+ * - 'void animateAddImpl(final ViewHolder holder)'
+ * - 'void animateMoveImpl(final ViewHolder holder, int fromX, int fromY, int toX, int toY)'
+ * - 'void animateChangeImpl(final ChangeInfo changeInfo)'
+ * - 'private void resetAnimation(ViewHolder holder)'
  */
-public class DefaultColorPickerListItemAnimator extends SimpleItemAnimator {
+public class DefaultRecyclerViewItemAnimator extends SimpleItemAnimator {
     private static final boolean DEBUG = false;
 
     private static TimeInterpolator sDefaultInterpolator;
 
-    private ArrayList<ViewHolder> mPendingRemovals = new ArrayList<>();
-    private ArrayList<ViewHolder> mPendingAdditions = new ArrayList<>();
-    private ArrayList<MoveInfo> mPendingMoves = new ArrayList<>();
-    private ArrayList<ChangeInfo> mPendingChanges = new ArrayList<>();
+    protected ArrayList<ViewHolder> mPendingRemovals = new ArrayList<>();
+    protected ArrayList<ViewHolder> mPendingAdditions = new ArrayList<>();
+    protected ArrayList<MoveInfo> mPendingMoves = new ArrayList<>();
+    protected ArrayList<ChangeInfo> mPendingChanges = new ArrayList<>();
 
     ArrayList<ArrayList<ViewHolder>> mAdditionsList = new ArrayList<>();
     ArrayList<ArrayList<MoveInfo>> mMovesList = new ArrayList<>();
@@ -51,7 +67,7 @@ public class DefaultColorPickerListItemAnimator extends SimpleItemAnimator {
     ArrayList<ViewHolder> mRemoveAnimations = new ArrayList<>();
     ArrayList<ViewHolder> mChangeAnimations = new ArrayList<>();
 
-    private static class MoveInfo {
+    protected static class MoveInfo {
         public ViewHolder holder;
         public int fromX, fromY, toX, toY;
 
@@ -64,7 +80,7 @@ public class DefaultColorPickerListItemAnimator extends SimpleItemAnimator {
         }
     }
 
-    private static class ChangeInfo {
+    protected static class ChangeInfo {
         public ViewHolder oldHolder, newHolder;
         public int fromX, fromY, toX, toY;
         private ChangeInfo(ViewHolder oldHolder, ViewHolder newHolder) {
@@ -192,7 +208,7 @@ public class DefaultColorPickerListItemAnimator extends SimpleItemAnimator {
         return true;
     }
 
-    private void animateRemoveImpl(final ViewHolder holder) {
+    protected void animateRemoveImpl(final ViewHolder holder) {
         final View view = holder.itemView;
         final ViewPropertyAnimator animation = view.animate();
         mRemoveAnimations.add(holder);
@@ -222,7 +238,7 @@ public class DefaultColorPickerListItemAnimator extends SimpleItemAnimator {
         return true;
     }
 
-    void animateAddImpl(final ViewHolder holder) {
+    protected void animateAddImpl(final ViewHolder holder) {
         final View view = holder.itemView;
         final ViewPropertyAnimator animation = view.animate();
         mAddAnimations.add(holder);
@@ -271,7 +287,7 @@ public class DefaultColorPickerListItemAnimator extends SimpleItemAnimator {
         return true;
     }
 
-    void animateMoveImpl(final ViewHolder holder, int fromX, int fromY, int toX, int toY) {
+    protected void animateMoveImpl(final ViewHolder holder, int fromX, int fromY, int toX, int toY) {
         final View view = holder.itemView;
         final int deltaX = toX - fromX;
         final int deltaY = toY - fromY;
@@ -341,7 +357,7 @@ public class DefaultColorPickerListItemAnimator extends SimpleItemAnimator {
         return true;
     }
 
-    void animateChangeImpl(final ChangeInfo changeInfo) {
+    protected void animateChangeImpl(final ChangeInfo changeInfo) {
         final ViewHolder holder = changeInfo.oldHolder;
         final View view = holder == null ? null : holder.itemView;
         final ViewHolder newHolder = changeInfo.newHolder;
@@ -515,7 +531,7 @@ public class DefaultColorPickerListItemAnimator extends SimpleItemAnimator {
         dispatchFinishedWhenDone();
     }
 
-    private void resetAnimation(ViewHolder holder) {
+    protected void resetAnimation(ViewHolder holder) {
         if (sDefaultInterpolator == null) {
             sDefaultInterpolator = new ValueAnimator().getInterpolator();
         }
