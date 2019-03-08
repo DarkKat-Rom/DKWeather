@@ -167,15 +167,20 @@ public class ColorPickerListPreference extends ListPreference implements
 
         ((ColorPickerListAdapter) mRecyclerView.getAdapter()).setOnItemClickedListener(null);
         if (positiveResult && mClickedDialogItem >= 0 && mListEntryValues != null) {
-            String value = mListEntryValues[mClickedDialogItem].toString();
+            String color = convertToARGB(mSelectedColor);
+            int listIndex = findIndexOfColor(color);
+            String value = mListEntryValues[listIndex].toString();
             if (callChangeListener(value)) {
                 setValue(value);
             }
         }
         if (!positiveResult) {
             mSelectedColor = convertToColorInt((String) getEntryColor());
-            mClickedDialogItem = findIndexOfValue(getValue());
         }
+        // As the header collapsed/expanded states are not saved for now,
+        // possibly the clicked dialog item has the wrong index when opening the
+        // dialog again, so set the index to match the index of the current value
+        mClickedDialogItem = findIndexOfValue(getValue());
     }
 
     @Override
@@ -238,6 +243,17 @@ public class ColorPickerListPreference extends ListPreference implements
         if (value != null && mListEntryValues != null) {
             for (int i = mListEntryValues.length - 1; i >= 0; i--) {
                 if (mListEntryValues[i].equals(value)) {
+                    return i;
+                }
+            }
+        }
+        return -1;
+    }
+
+    public int findIndexOfColor(String color) {
+        if (color != null && mEntryColors != null) {
+            for (int i = mEntryColors.length - 1; i >= 0; i--) {
+                if (mEntryColors[i].equals(color)) {
                     return i;
                 }
             }
