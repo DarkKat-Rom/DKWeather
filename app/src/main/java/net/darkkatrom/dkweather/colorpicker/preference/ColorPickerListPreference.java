@@ -21,7 +21,6 @@ import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.ColorStateList;
-import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Parcel;
@@ -30,6 +29,7 @@ import android.preference.ListPreference;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -45,7 +45,10 @@ import net.darkkatrom.dkweather.utils.ThemeUtil;
 public class ColorPickerListPreference extends ListPreference implements
         ColorPickerListAdapter.OnItemClickedListener {
 
-    boolean mNeedEntryColors;
+    public static final String TAG = "ColorPickerListPreference";
+
+    private CharSequence[] mListEntries;
+    private CharSequence[] mListEntryValues;
     private CharSequence[] mEntryColors;
 
     private RecyclerView mRecyclerView = null;
@@ -75,17 +78,10 @@ public class ColorPickerListPreference extends ListPreference implements
             int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
 
-        if (attrs != null) {
-            TypedArray a = context.obtainStyledAttributes(
-                    attrs, R.styleable.ColorPickerListPreference, defStyleAttr, defStyleRes);
-            mNeedEntryColors = a.getBoolean(R.styleable.ColorPickerListPreference_needEntryColors, true);
-            if (mNeedEntryColors) {
-                mEntryColors = a.getTextArray(R.styleable.ColorPickerListPreference_entryColors);
-            } else {
-                mEntryColors = getEntryValues();
-            }
-            a.recycle();
-        }
+        mListEntries = context.getResources().getStringArray(R.array.theme_color_list_entries);
+        mListEntryValues = context.getResources().getStringArray(R.array.theme_color_list_values);
+        mEntryColors = context.getResources().getStringArray(R.array.theme_color_list_entry_colors);
+
         setPositiveButtonText(R.string.dlg_ok);
         setNegativeButtonText(R.string.dlg_cancel);
         setLayoutResource(R.layout.preference_color_picker);
@@ -110,9 +106,9 @@ public class ColorPickerListPreference extends ListPreference implements
 
     @Override
     protected void onPrepareDialogBuilder(Builder builder) {
-        if (getEntries() == null || getEntryValues() == null) {
+        if (mListEntries == null || mListEntryValues == null || mEntryColors == null) {
             throw new IllegalStateException(
-                    "ListPreference requires an entries array and an entryValues array.");
+                    "ColorPickerListPreference requires an entries array and an entryValues array and an entryColors array.");
         }
 
         if (mClickedDialogItem == -1) {
@@ -129,7 +125,7 @@ public class ColorPickerListPreference extends ListPreference implements
         View dividerBottom = customContent.findViewById(R.id.color_picker_dialog_list_divider_bottom);
         mRecyclerView = (RecyclerView) customContent.findViewById(R.id.color_picker_dialog_list);
         mAdapter = new ColorPickerListAdapter(getContext(), dividerTop,
-                dividerBottom, getEntries(), getEntryColors(), mClickedDialogItem);
+                dividerBottom, mListEntries, mEntryColors, mClickedDialogItem);
         mRecyclerView.setItemAnimator(new ColorPickerListItemAnimator());
 
         mCustomTitleText.setText(getDialogTitle());
@@ -170,8 +166,8 @@ public class ColorPickerListPreference extends ListPreference implements
         super.onDialogClosed(positiveResult);
 
         ((ColorPickerListAdapter) mRecyclerView.getAdapter()).setOnItemClickedListener(null);
-        if (positiveResult && mClickedDialogItem >= 0 && getEntryValues() != null) {
-            String value = getEntryValues()[mClickedDialogItem].toString();
+        if (positiveResult && mClickedDialogItem >= 0 && mListEntryValues != null) {
+            String value = mListEntryValues[mClickedDialogItem].toString();
             if (callChangeListener(value)) {
                 setValue(value);
             }
@@ -182,18 +178,39 @@ public class ColorPickerListPreference extends ListPreference implements
         }
     }
 
-    public void setNeedEntryColors(boolean needEntryColors) {
-        mNeedEntryColors = needEntryColors;
-        notifyChanged();
+    @Override
+    public void setEntries(CharSequence[] entries) {
+        Log.w(TAG, "Custom entries are not supported, ignoring!");
     }
 
-    public void setEntryColors(CharSequence[] entryColors) {
-        mEntryColors = entryColors;
-        notifyChanged();
+    @Override
+    public void setEntries(int entriesResId) {
+        Log.w(TAG, "Custom entries are not supported, ignoring!");
     }
 
-    public void setEntryColors(int entryColorsResId) {
-        setEntryColors(getContext().getResources().getTextArray(entryColorsResId));
+    @Override
+    public CharSequence[] getEntries() {
+        return mListEntries;
+    }
+
+    @Override
+    public void setEntryValues(CharSequence[] entryValues) {
+        Log.w(TAG, "Custom entry values are not supported, ignoring!");
+    }
+
+    @Override
+    public void setEntryValues(int entryValuesResId) {
+        Log.w(TAG, "Custom entry values are not supported, ignoring!");
+    }
+
+    public CharSequence[] getEntryValues() {
+        return mListEntryValues;
+    }
+
+    @Override
+    public CharSequence getEntry() {
+        int index = getListValueIndex();
+        return index >= 0 && mListEntries != null ? mListEntries[index] : null;
     }
 
     public CharSequence[] getEntryColors() {
@@ -203,6 +220,29 @@ public class ColorPickerListPreference extends ListPreference implements
     public CharSequence getEntryColor() {
         int index = findIndexOfValue(getValue());
         return index >= 0 && mEntryColors != null ? mEntryColors[index] : null;
+    }
+
+    @Override
+    public void setValueIndex(int index) {
+        if (mListEntryValues != null) {
+            setValue(mListEntryValues[index].toString());
+        }
+    }
+
+    private int getListValueIndex() {
+        return findIndexOfValue(getValue());
+    }
+
+    @Override
+    public int findIndexOfValue(String value) {
+        if (value != null && mListEntryValues != null) {
+            for (int i = mListEntryValues.length - 1; i >= 0; i--) {
+                if (mListEntryValues[i].equals(value)) {
+                    return i;
+                }
+            }
+        }
+        return -1;
     }
 
     private void updateDialogTitleColors(boolean animate) {
