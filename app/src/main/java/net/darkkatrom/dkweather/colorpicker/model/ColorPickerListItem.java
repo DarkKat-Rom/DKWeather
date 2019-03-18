@@ -19,17 +19,24 @@ package net.darkkatrom.dkweather.colorpicker.model;
 import net.darkkatrom.dkweather.utils.GraphicsUtil;
 
     public class ColorPickerListItem {
+        public static int VIEW_TYPE_HEADER_ITEM = 0;
+        public static int VIEW_TYPE_COLOR_ITEM  = 1;
+
         protected CharSequence mTitle;
         protected CharSequence mColor;
-        protected int mColorItemsStartIndex;
+        protected int mHeaderIndex = -1;
+        protected int mColorItemsStartIndex = -1;
         protected int mColorItemsCount = 0;
-        protected boolean mIsExpanded;
-        protected boolean mIsChecked;
+        protected boolean mIsExpanded = true;
+        protected boolean mIsChecked = false;
         protected int mViewType;
 
-        public ColorPickerListItem(CharSequence title, boolean isExpanded, int colorItemsStartIndex, int viewType) {
+        public ColorPickerListItem(int headerIndex, CharSequence title, boolean isExpanded,
+                int colorItemsStartIndex, int colorItemsCount, int viewType) {
+            mHeaderIndex = headerIndex;
             mTitle = title;
             mColorItemsStartIndex = colorItemsStartIndex;
+            mColorItemsCount = colorItemsCount;
             mIsExpanded = isExpanded;
             mViewType = viewType;
         }
@@ -42,8 +49,16 @@ import net.darkkatrom.dkweather.utils.GraphicsUtil;
             mViewType = viewType;
         }
 
+        public int getHeaderIndex() {
+            return mHeaderIndex;
+        }
+
         public CharSequence getTitle() {
             return mTitle;
+        }
+
+        public String getColorString() {
+            return mColor.toString();
         }
 
         public int getColor() {
@@ -55,7 +70,7 @@ import net.darkkatrom.dkweather.utils.GraphicsUtil;
         }
 
         public int getColorItemsCount() {
-            return 0;
+            return mColorItemsCount;
         }
 
         public boolean isExpanded() {
@@ -68,9 +83,6 @@ import net.darkkatrom.dkweather.utils.GraphicsUtil;
 
         public int getViewType() {
             return mViewType;
-        }
-
-        public void increaseColorItemsCount() {
         }
 
         public void toggleExpanded() {

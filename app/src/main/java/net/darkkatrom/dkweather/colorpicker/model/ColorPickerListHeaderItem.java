@@ -20,17 +20,8 @@ import java.util.List;
 
     public class ColorPickerListHeaderItem extends ColorPickerListItem {
 
-        public ColorPickerListHeaderItem(CharSequence title, boolean isExpanded, int colorItemsStartIndex, int viewType) {
-            super(title, isExpanded, colorItemsStartIndex, viewType);
-        }
-
-        @Override
-        public int getColorItemsCount() {
-            return mColorItemsCount;
-        }
-
-        @Override
-        public void increaseColorItemsCount() {
-            mColorItemsCount += 1;
+        public ColorPickerListHeaderItem(int headerIndex, CharSequence title, boolean isExpanded,
+                int colorItemsStartIndex, int colorItemsCount, int viewType) {
+            super(headerIndex, title, isExpanded, colorItemsStartIndex, colorItemsCount, viewType);
         }
     }

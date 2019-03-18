@@ -39,13 +39,44 @@ import net.darkkatrom.dkweather.R;
 import net.darkkatrom.dkweather.colorpicker.adapter.ColorPickerListAdapter;
 import net.darkkatrom.dkweather.colorpicker.animator.ColorPickerDialogAnimator;
 import net.darkkatrom.dkweather.colorpicker.animator.ColorPickerListItemAnimator;
+import net.darkkatrom.dkweather.colorpicker.model.ColorPickerListColorItem;
+import net.darkkatrom.dkweather.colorpicker.model.ColorPickerListHeaderItem;
+import net.darkkatrom.dkweather.colorpicker.model.ColorPickerListItem;
 import net.darkkatrom.dkweather.utils.GraphicsUtil;
 import net.darkkatrom.dkweather.utils.ThemeUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ColorPickerListPreference extends ListPreference implements
         ColorPickerListAdapter.OnItemClickedListener {
 
     public static final String TAG = "ColorPickerListPreference";
+
+    public static int HEADER_INDEX_DARKKAT  = 0;
+    public static int HEADER_INDEX_MATERIAL = 1;
+    public static int HEADER_INDEX_HOLO     = 2;
+    public static int HEADER_INDEX_RGB      = 3;
+
+    public static int CHECKED_COLOR_ITEM_POSITION_UNKNOWN      = -2;
+    public static int CHECKED_COLOR_ITEM_POSITION_NOT_IN_LIST  = -1;
+
+    private CharSequence[] mHeaderTitles;
+
+    private CharSequence[] mDarkkatEntries;
+    private CharSequence[] mMaterialEntries;
+    private CharSequence[] mHoloEntries;
+    private CharSequence[] mRGBEntries;
+
+    private CharSequence[] mDarkkatValues;
+    private CharSequence[] mMaterialValues;
+    private CharSequence[] mHoloValues;
+    private CharSequence[] mRGBValues;
+
+    private CharSequence[] mDarkkatColors;
+    private CharSequence[] mMaterialColors;
+    private CharSequence[] mHoloColors;
+    private CharSequence[] mRGBColors;
 
     private CharSequence[] mListEntries;
     private CharSequence[] mListEntryValues;
@@ -53,12 +84,15 @@ public class ColorPickerListPreference extends ListPreference implements
 
     private RecyclerView mRecyclerView = null;
     private ColorPickerListAdapter mAdapter = null;
-    private int mClickedDialogItem = -1;
+
+    private List<ColorPickerListItem> mColorPickerListItems;
 
     private View mCustomTitleLayout = null;
     private TextView mCustomTitleText = null;
 
-    private int mSelectedColor = 0;
+    private int mCheckedColorItemPosition = CHECKED_COLOR_ITEM_POSITION_UNKNOWN;
+    private int mCheckedColor = 0;
+
     private int mDialogTitleBgColor = 0;
     private int mDialogTitleTextColor = 0;
 
@@ -77,6 +111,23 @@ public class ColorPickerListPreference extends ListPreference implements
     public ColorPickerListPreference(Context context, AttributeSet attrs, int defStyleAttr,
             int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
+
+        mHeaderTitles = context.getResources().getStringArray(R.array.theme_color_list_header_titles);
+
+        mDarkkatEntries = context.getResources().getStringArray(R.array.theme_color_list_darkkat_entries);
+        mMaterialEntries = context.getResources().getStringArray(R.array.theme_color_list_material_entries);
+        mHoloEntries = context.getResources().getStringArray(R.array.theme_color_list_holo_entries);
+        mRGBEntries = context.getResources().getStringArray(R.array.theme_color_list_rgb_entries);
+
+        mDarkkatValues = context.getResources().getStringArray(R.array.theme_color_list_darkkat_values);
+        mMaterialValues = context.getResources().getStringArray(R.array.theme_color_list_material_values);
+        mHoloValues = context.getResources().getStringArray(R.array.theme_color_list_holo_values);
+        mRGBValues = context.getResources().getStringArray(R.array.theme_color_list_rgb_values);
+
+        mDarkkatColors = context.getResources().getStringArray(R.array.theme_color_list_darkkat_colors);
+        mMaterialColors = context.getResources().getStringArray(R.array.theme_color_list_material_colors);
+        mHoloColors = context.getResources().getStringArray(R.array.theme_color_list_holo_colors);
+        mRGBColors = context.getResources().getStringArray(R.array.theme_color_list_rgb_colors);
 
         mListEntries = context.getResources().getStringArray(R.array.theme_color_list_entries);
         mListEntryValues = context.getResources().getStringArray(R.array.theme_color_list_values);
@@ -111,9 +162,18 @@ public class ColorPickerListPreference extends ListPreference implements
                     "ColorPickerListPreference requires an entries array and an entryValues array and an entryColors array.");
         }
 
-        if (mClickedDialogItem == -1) {
-            mSelectedColor = convertToColorInt((String) getEntryColor());
-            mClickedDialogItem = findIndexOfValue(getValue());
+        if (mCheckedColorItemPosition == CHECKED_COLOR_ITEM_POSITION_UNKNOWN) {
+            mCheckedColor = convertToColorInt((String) getEntryColor());
+        }
+
+        if (mColorPickerListItems == null) {
+            buildListItems();
+        }
+
+        if (mCheckedColorItemPosition == CHECKED_COLOR_ITEM_POSITION_UNKNOWN) {
+            if (isCheckedColorInList()) {
+                mCheckedColorItemPosition = getCheckedColorPositionInList();
+            }
         }
 
         mCustomTitleLayout = LayoutInflater.from(builder.getContext()).inflate(
@@ -125,9 +185,9 @@ public class ColorPickerListPreference extends ListPreference implements
         View dividerBottom = customContent.findViewById(R.id.color_picker_dialog_list_divider_bottom);
         mRecyclerView = (RecyclerView) customContent.findViewById(R.id.color_picker_dialog_list);
         mAdapter = new ColorPickerListAdapter(getContext(), dividerTop,
-                dividerBottom, mListEntries, mEntryColors, mClickedDialogItem);
-        mRecyclerView.setItemAnimator(new ColorPickerListItemAnimator());
+                dividerBottom, mColorPickerListItems);
 
+        mRecyclerView.setItemAnimator(new ColorPickerListItemAnimator());
         mCustomTitleText.setText(getDialogTitle());
         mAdapter.setOnItemClickedListener(this);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -139,26 +199,52 @@ public class ColorPickerListPreference extends ListPreference implements
     @Override
     protected void showDialog(Bundle state) {
         super.showDialog(state);
+        int intValue = convertToColorInt((String) getEntryColor());
+        boolean buttonPositiveEnabled = mCheckedColor != intValue;
         ((AlertDialog) getDialog()).getButton(
-                AlertDialog.BUTTON_POSITIVE).setEnabled(findIndexOfValue(getValue()) != mClickedDialogItem);
-        mRecyclerView.getLayoutManager().scrollToPosition(mClickedDialogItem);
+                AlertDialog.BUTTON_POSITIVE).setEnabled(buttonPositiveEnabled);
+        if (isCheckedColorInList()) {
+            mRecyclerView.getLayoutManager().scrollToPosition(mCheckedColorItemPosition);
+        }
         mDialogTitleBgColor = ThemeUtil.getPickColorListDlgTitleBgColor(getContext(),
-                mSelectedColor);
+                mCheckedColor);
         mDialogTitleTextColor = ThemeUtil.getPickColorListDlgTitleTextColor(getContext(),
-                mSelectedColor);
+                mCheckedColor);
         updateDialogTitleColors(false);
     }
 
     @Override
-    public void onItemClicked(int position, int color) {
-        mClickedDialogItem = position;
-        ((AlertDialog) getDialog()).getButton(
-                AlertDialog.BUTTON_POSITIVE).setEnabled(findIndexOfValue(getValue()) != mClickedDialogItem);
-        mSelectedColor = color;
-        updateDialogTitleColors(true);
-        // As CheckedTextView already animates checked state changes,
-        // call 'notifyDataSetChanged()' to disable the internal animations.
-        mAdapter.notifyDataSetChanged();
+    public void onItemClicked(ColorPickerListItem item, int position) {
+        if (item.getViewType() == ColorPickerListItem.VIEW_TYPE_HEADER_ITEM) {
+            int fromIndex = position + 1;
+            int itemCount = item.getColorItemsCount();
+            if (item.isExpanded()) {
+                removeColorItems(fromIndex, itemCount);
+            } else {
+                CharSequence[] entries = getEntriesForHeader(item.getHeaderIndex());
+                CharSequence[] colors = getColorsForHeader(item.getHeaderIndex());
+                addColorItems(fromIndex, entries, colors);
+            }
+            item.toggleExpanded();
+            mAdapter.notifyItemChanged(position);
+            mCheckedColorItemPosition = getCheckedColorPositionInList();
+        } else {
+            if (isCheckedColorInList() && getCheckedColorPositionInList()
+                    != CHECKED_COLOR_ITEM_POSITION_NOT_IN_LIST) {
+                mColorPickerListItems.get(getCheckedColorPositionInList()).setChecked(false);
+            }
+            mColorPickerListItems.get(position).setChecked(true);
+            mCheckedColor = item.getColor();
+            int intValue = convertToColorInt((String) getEntryColor());
+            boolean buttonPositiveEnabled = mCheckedColor != intValue;
+            ((AlertDialog) getDialog()).getButton(
+                    AlertDialog.BUTTON_POSITIVE).setEnabled(buttonPositiveEnabled);
+            updateDialogTitleColors(true);
+            // As CheckedTextView already animates checked state changes,
+            // call 'notifyDataSetChanged()' to disable the internal animations.
+            mCheckedColorItemPosition = position;
+            mAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override
@@ -166,8 +252,8 @@ public class ColorPickerListPreference extends ListPreference implements
         super.onDialogClosed(positiveResult);
 
         ((ColorPickerListAdapter) mRecyclerView.getAdapter()).setOnItemClickedListener(null);
-        if (positiveResult && mClickedDialogItem >= 0 && mListEntryValues != null) {
-            String color = convertToARGB(mSelectedColor);
+        if (positiveResult && mCheckedColorItemPosition >= 0 && mListEntryValues != null) {
+            String color = convertToARGB(mCheckedColor);
             int listIndex = findIndexOfColor(color);
             String value = mListEntryValues[listIndex].toString();
             if (callChangeListener(value)) {
@@ -175,12 +261,16 @@ public class ColorPickerListPreference extends ListPreference implements
             }
         }
         if (!positiveResult) {
-            mSelectedColor = convertToColorInt((String) getEntryColor());
+            // Reset the color item checked states
+            if (mCheckedColorItemPosition != CHECKED_COLOR_ITEM_POSITION_NOT_IN_LIST) {
+                mColorPickerListItems.get(mCheckedColorItemPosition).setChecked(false);
+            }
+            mCheckedColor = convertToColorInt((String) getEntryColor());
+            mCheckedColorItemPosition = getCheckedColorPositionInList();
+            if (mCheckedColorItemPosition != CHECKED_COLOR_ITEM_POSITION_NOT_IN_LIST) {
+                mColorPickerListItems.get(mCheckedColorItemPosition).setChecked(true);
+            }
         }
-        // As the header collapsed/expanded states are not saved for now,
-        // possibly the clicked dialog item has the wrong index when opening the
-        // dialog again, so set the index to match the index of the current value
-        mClickedDialogItem = findIndexOfValue(getValue());
     }
 
     @Override
@@ -261,11 +351,118 @@ public class ColorPickerListPreference extends ListPreference implements
         return -1;
     }
 
+    private void buildListItems() {
+        mColorPickerListItems = new ArrayList<ColorPickerListItem>();
+
+        for (int i = 0; i < mHeaderTitles.length; i++) {
+            addHeaderItem(i, getEntriesForHeader(i));
+            addColorItems(-1, getEntriesForHeader(i), getColorsForHeader(i));
+        }
+    }
+
+    private void addHeaderItem(int headerIndex, CharSequence[] entries) {
+        ColorPickerListItem headerItem = new ColorPickerListHeaderItem(headerIndex,
+                mHeaderTitles[headerIndex], true, mColorPickerListItems.size(), entries.length,
+                        ColorPickerListItem.VIEW_TYPE_HEADER_ITEM);
+        mColorPickerListItems.add(headerItem);
+    }
+
+    private void addColorItems(int startIndex, CharSequence[] entries, CharSequence[] colors) {
+        ColorPickerListItem colorItem = null;
+        String CheckedColor = convertToARGB(mCheckedColor);
+        int fromIndex = startIndex;
+        int itemCount = entries.length;
+        for (int i = 0; i < entries.length; i++) {
+            colorItem = new ColorPickerListColorItem(entries[i], colors[i],
+                    CheckedColor.equals(colors[i]), ColorPickerListItem.VIEW_TYPE_COLOR_ITEM);
+            if (startIndex != -1 && mAdapter != null) {
+                mColorPickerListItems.add(fromIndex + i, colorItem);
+            } else {
+                mColorPickerListItems.add(colorItem);
+            }
+        }
+        if (startIndex != -1 && mAdapter != null) {
+            mAdapter.notifyItemRangeInserted(fromIndex, itemCount);
+            mAdapter.notifyItemRangeChanged(0, mColorPickerListItems.size());
+        }
+    }
+
+    private void removeColorItems(int startIndex, int itemCount) {
+        int fromIndex = startIndex;
+        for (int i = 0; i < itemCount; i++) {
+            mColorPickerListItems.remove(fromIndex);
+        }
+        mAdapter.notifyItemRangeRemoved(fromIndex, itemCount);
+        mAdapter.notifyItemRangeChanged(0, mColorPickerListItems.size());
+    }
+
+    private CharSequence[] getEntriesForHeader(int headerIndex) {
+        CharSequence[] entries = null;
+        if (headerIndex == HEADER_INDEX_DARKKAT) {
+            entries = mDarkkatEntries;
+        } else if (headerIndex == HEADER_INDEX_MATERIAL) {
+            entries = mMaterialEntries;
+        } else if (headerIndex == HEADER_INDEX_HOLO) {
+            entries = mHoloEntries;
+        } else {
+            entries = mRGBEntries;
+        }
+        return entries;
+    }
+
+    private CharSequence[] getColorsForHeader(int headerIndex) {
+        CharSequence[] entries = null;
+        CharSequence[] colors = null;
+        if (headerIndex == HEADER_INDEX_DARKKAT) {
+            colors = mDarkkatColors;
+        } else if (headerIndex == HEADER_INDEX_MATERIAL) {
+            colors = mMaterialColors;
+        } else if (headerIndex == HEADER_INDEX_HOLO) {
+            colors = mHoloColors;
+        } else {
+            colors = mRGBColors;
+        }
+        return colors;
+    }
+
+    private boolean isCheckedColorInList() {
+        boolean isInList = false;
+        for (int i = 0; i < mColorPickerListItems.size(); i++) {
+            if (mColorPickerListItems.get(i).getViewType()
+                    == ColorPickerListItem.VIEW_TYPE_COLOR_ITEM) {
+                if (mColorPickerListItems.get(i).getColor() == mCheckedColor) {
+                    isInList = true;
+                }
+            }
+        }
+        return isInList;
+    }
+
+    /**
+     * Temporary helper methode to obtain the position of the item holding the checked color
+     * in the current adapter list
+     * 
+     * returns the position in list if an item was found holding the checked color,
+     * otherwise CHECKED_COLOR_ITEM_POSITION_NOT_IN_LIST (-1)
+     */
+    private int getCheckedColorPositionInList() {
+        int position = CHECKED_COLOR_ITEM_POSITION_NOT_IN_LIST;
+        for (int i = 0; i < mColorPickerListItems.size(); i++) {
+            if (mColorPickerListItems.get(i).getViewType()
+                    == ColorPickerListItem.VIEW_TYPE_COLOR_ITEM) {
+                if (mColorPickerListItems.get(i).getColor() == mCheckedColor) {
+                    position = i;
+                }
+            }
+        }
+        return position;
+    }
+
     private void updateDialogTitleColors(boolean animate) {
         int newBgColor = ThemeUtil.getPickColorListDlgTitleBgColor(getContext(),
-                mSelectedColor);
+                mCheckedColor);
         int newTextColor = ThemeUtil.getPickColorListDlgTitleTextColor(getContext(),
-                mSelectedColor);
+                mCheckedColor);
 
         if (animate) {
             if (mDialogTitleBgColor != newBgColor) {
@@ -315,8 +512,8 @@ public class ColorPickerListPreference extends ListPreference implements
     protected Parcelable onSaveInstanceState() {
         final Parcelable superState = super.onSaveInstanceState();
         final SavedState myState = new SavedState(superState);
-        myState.clickedDialogItem = mClickedDialogItem;
-        myState.selectedColor = mSelectedColor;
+        myState.checkedColorItemPosition = mCheckedColorItemPosition;
+        myState.checkedColor = mCheckedColor;
         return myState;
     }
 
@@ -328,26 +525,26 @@ public class ColorPickerListPreference extends ListPreference implements
         }
          
         SavedState myState = (SavedState) state;
-        mClickedDialogItem = myState.clickedDialogItem;
-        mSelectedColor = myState.selectedColor;
+        mCheckedColorItemPosition = myState.checkedColorItemPosition;
+        mCheckedColor = myState.checkedColor;
         super.onRestoreInstanceState(myState.getSuperState());
     }
     
     private static class SavedState extends BaseSavedState {
-        int clickedDialogItem;
-        int selectedColor;
+        int checkedColorItemPosition;
+        int checkedColor;
 
         public SavedState(Parcel source) {
             super(source);
-            clickedDialogItem = source.readInt();
-            selectedColor = source.readInt();
+            checkedColorItemPosition = source.readInt();
+            checkedColor = source.readInt();
         }
 
         @Override
         public void writeToParcel(Parcel dest, int flags) {
             super.writeToParcel(dest, flags);
-            dest.writeInt(clickedDialogItem);
-            dest.writeInt(selectedColor);
+            dest.writeInt(checkedColorItemPosition);
+            dest.writeInt(checkedColor);
         }
 
         public SavedState(Parcelable superState) {

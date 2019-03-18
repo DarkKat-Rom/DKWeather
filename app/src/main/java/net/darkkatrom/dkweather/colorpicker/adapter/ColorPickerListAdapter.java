@@ -29,8 +29,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import net.darkkatrom.dkweather.R;
-import net.darkkatrom.dkweather.colorpicker.model.ColorPickerListColorItem;
-import net.darkkatrom.dkweather.colorpicker.model.ColorPickerListHeaderItem;
 import net.darkkatrom.dkweather.colorpicker.model.ColorPickerListItem;
 import net.darkkatrom.dkweather.colorpicker.widget.ColorPreview;
 import net.darkkatrom.dkweather.utils.ThemeUtil;
@@ -43,46 +41,29 @@ public class ColorPickerListAdapter extends RecyclerView.Adapter<ColorPickerList
     private Context mContext;
     private View mDividerTop;
     private View mDividerBottom;
-    private CharSequence[] mEntries;
-    private CharSequence[] mEntryColors;
     private boolean mDividerTopVisible = true;
     private boolean mDividerBottomVisible = false;
     private int mBorderColor;
     private List<ColorPickerListItem> mColorPickerListItems;
-    private int mSelectedItem;
 
     private OnItemClickedListener mOnItemClickedListener;
 
     public interface OnItemClickedListener {
-        public void onItemClicked(int position, int color);
+        public void onItemClicked(ColorPickerListItem item, int position);
     }
 
     public ColorPickerListAdapter(Context context, View dividerTop, View dividerBottom,
-            CharSequence[] entries, CharSequence[] entryColors, int selectedItem) {
+            List<ColorPickerListItem> items) {
         super();
 
         mContext = context;
         mDividerTop = dividerTop;
         mDividerBottom = dividerBottom;
-        mEntries = entries;
-        mEntryColors = entryColors;
         mBorderColor = ThemeUtil.getDefaultHighlightColor(mContext);
-        mColorPickerListItems = new ArrayList<ColorPickerListItem>();
-        mSelectedItem = selectedItem;
-        ColorPickerListItem headerItem = null;
-        ColorPickerListItem colorItem = null;
-        for (int i = 0; i < mEntries.length; i++) {
-            if (mEntryColors[i].equals("header")) {
-                headerItem = new ColorPickerListHeaderItem(mEntries[i], true, i + 1, 0);
-                mColorPickerListItems.add(headerItem);
-            } else {
-                colorItem = new ColorPickerListColorItem(mEntries[i], mEntryColors[i],
-                        i == mSelectedItem, 1);
-                if (headerItem != null) {
-                    headerItem.increaseColorItemsCount();
-                }
-                mColorPickerListItems.add(colorItem);
-            }
+        if (items == null) {
+            mColorPickerListItems = new ArrayList<ColorPickerListItem>();
+        } else {
+            mColorPickerListItems = items;
         }
     }
 
@@ -90,7 +71,7 @@ public class ColorPickerListAdapter extends RecyclerView.Adapter<ColorPickerList
     public ColorPickerListAdapter.ListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = null;
         ListViewHolder vh = null;
-        if (viewType == 0) {
+        if (viewType == ColorPickerListItem.VIEW_TYPE_HEADER_ITEM) {
             v = LayoutInflater.from(mContext).inflate(
                     R.layout.color_picker_dialog_list_header, parent, false);
             vh = new ListHeaderViewHolder(v);
@@ -105,7 +86,7 @@ public class ColorPickerListAdapter extends RecyclerView.Adapter<ColorPickerList
     @Override
     public void onBindViewHolder(ListViewHolder holder, final int position) {
         final ColorPickerListItem item = mColorPickerListItems.get(position);
-        if (item.getViewType() == 0) {
+        if (item.getViewType() == ColorPickerListItem.VIEW_TYPE_HEADER_ITEM) {
             if (position == 0) {
                 holder.mHeaderDivider.setVisibility(View.GONE);
             } else {
@@ -120,27 +101,8 @@ public class ColorPickerListAdapter extends RecyclerView.Adapter<ColorPickerList
             holder.mHeaderButtonFrame.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    int fromIndex = position + 1;
-                    int itemCount = item.getColorItemsCount();
-                    if (item.isExpanded()) {
-                        for (int i = 0; i < itemCount; i++) {
-                            mColorPickerListItems.remove(fromIndex);
-                        }
-                        notifyItemRangeRemoved(fromIndex, itemCount);
-                        notifyItemRangeChanged(0, getItemCount());
-                        item.toggleExpanded();
-                        notifyItemChanged(position);
-                    } else {
-                        for (int i = 0; i < itemCount; i++) {
-                            int index = item.getColorItemsStartIndex() + i;
-                            ColorPickerListItem colorItem = new ColorPickerListColorItem(mEntries[index],
-                                    mEntryColors[index], index == mSelectedItem, 1);
-                            mColorPickerListItems.add(fromIndex + i, colorItem);
-                        }
-                        notifyItemRangeInserted(fromIndex, itemCount);
-                        notifyItemRangeChanged(0, getItemCount());
-                        item.toggleExpanded();
-                        notifyItemChanged(position);
+                    if (mOnItemClickedListener != null) {
+                        mOnItemClickedListener.onItemClicked(item, position);
                     }
                 }
             });
@@ -149,11 +111,8 @@ public class ColorPickerListAdapter extends RecyclerView.Adapter<ColorPickerList
             holder.mView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mColorPickerListItems.get(mSelectedItem).setChecked(false);
-                    mColorPickerListItems.get(position).setChecked(true);
-                    mSelectedItem = position;
                     if (mOnItemClickedListener != null) {
-                        mOnItemClickedListener.onItemClicked(mSelectedItem, item.getColor());
+                        mOnItemClickedListener.onItemClicked(item, position);
                     }
                 }
             });
